@@ -15,11 +15,14 @@
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -46,7 +49,31 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">
           <i clas="fas fa-fw fa-tachometer-alt"></i>
-          <span>로그인 관련 화면</span></a>
+          <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+          <span>사용자명</span></a>
+      </li>
+      
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Alert
+      </div>
+      
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-bell fa-fw"></i>
+          <span><span class="badge badge-danger badge-counter">3+</span>Alert</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Alert Center</h6>            
+            <a class="collapse-item" href="resources/buttons.html">Buttons</a>
+            <a class="collapse-item" href="resources/cards.html">Cards</a>
+          </div>
+        </div>
       </li>
 
       <!-- Divider -->
