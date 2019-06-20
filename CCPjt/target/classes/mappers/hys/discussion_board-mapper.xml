@@ -6,6 +6,6 @@
 <mapper namespace="Discussion_Boared">
 	<select id="getDiscussionList" resultType="com.kh.hys.domain.Discussion_BoardVo">
 		select *
-		from discussion_board;
+		from discussion_board
 	</select>
 </mapper>

@@ -22,6 +22,7 @@ public class Discussion_BoardDaoImpl implements IDiscussion_BoardDao {
 	public List<Discussion_BoardVo> getDiscussionList() throws Exception {
 		List<Discussion_BoardVo> discussionList = sqlSession.selectList(NAMESPACE+"getDiscussionList");
 		
+//		System.out.println("Discussion_BoardDaoImpl, getDiscussionList, discussionList : " + discussionList);
 		return discussionList;
 	}
 

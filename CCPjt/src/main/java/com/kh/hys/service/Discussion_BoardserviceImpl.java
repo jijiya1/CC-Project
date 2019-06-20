@@ -10,7 +10,7 @@ import com.kh.hys.domain.Discussion_BoardVo;
 import com.kh.hys.persistence.IDiscussion_BoardDao;
 
 @Service
-public class Discussion_serviceImpl implements IDiscussion_BoardService {
+public class Discussion_BoardserviceImpl implements IDiscussion_BoardService {
 	
 	@Inject
 	IDiscussion_BoardDao discussionBoardDao;
@@ -18,6 +18,8 @@ public class Discussion_serviceImpl implements IDiscussion_BoardService {
 	@Override
 	public List<Discussion_BoardVo> getDiscussionList() throws Exception {
 		List<Discussion_BoardVo> discussionList = discussionBoardDao.getDiscussionList();
+		
+//		System.out.println("Discussion_serviceImpl, getDiscussionList, discussionList : " + discussionList);
 		
 		return discussionList;
 	}
