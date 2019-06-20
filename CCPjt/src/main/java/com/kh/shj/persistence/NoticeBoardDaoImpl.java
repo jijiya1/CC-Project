@@ -19,14 +19,17 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public List<NoticeBoardVo> noticeBoardList() throws Exception {
-		List<NoticeBoardVo> list = sqlSession.selectOne(NAMESPACE + "noticeBoardList");
+//		System.out.println("NoticeBoardDaoImpl / noticeBoardList 실행됨");
+		List<NoticeBoardVo> list = sqlSession.selectList(NAMESPACE + "noticeBoardList");
+//		System.out.println("list : " + list);
 		return list;
 	}
 
 	@Override
 	public NoticeBoardVo noticeBoardRead(int b_no) throws Exception {
-		
-		return null;
+//		System.out.println("dao / b_no : " + b_no);
+		NoticeBoardVo noticeBoardVo = sqlSession.selectOne(NAMESPACE + "noticeBoardRead", b_no);
+		return noticeBoardVo;
 	}
 
 	@Override

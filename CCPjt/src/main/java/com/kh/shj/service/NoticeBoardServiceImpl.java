@@ -7,24 +7,26 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.shj.domain.NoticeBoardVo;
+import com.kh.shj.persistence.INoticeBoardDao;
 import com.kh.shj.persistence.NoticeBoardDaoImpl;
 
 @Service
 public class NoticeBoardServiceImpl implements INoticeBoardService {
 	
 	@Inject
-	NoticeBoardDaoImpl noticeBoardDao;
+	INoticeBoardDao noticeBoardDao;
 
 	@Override
 	public List<NoticeBoardVo> noticeBoardList() throws Exception {
-		
-		return null;
+		List<NoticeBoardVo> list = noticeBoardDao.noticeBoardList();
+		return list;
 	}
 
 	@Override
 	public NoticeBoardVo noticeBoardRead(int b_no) throws Exception {
-		
-		return null;
+//		System.out.println("service / b_no : " + b_no);
+		NoticeBoardVo noticeBoardVo = noticeBoardDao.noticeBoardRead(b_no);
+		return noticeBoardVo;
 	}
 
 	@Override

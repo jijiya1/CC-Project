@@ -64,7 +64,7 @@
 	<!-- Nav Item - 공지사항 -->
       <li class="nav-item active">
         <a class="nav-link" href="/notice_board/notice_list">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-list-alt"></i>
           <span>공지사항</span></a>
       </li>
 

@@ -7,6 +7,17 @@
 
 	<select id="noticeBoardList" resultType="noticeBoardVo">
 		select * from notice_board
+		order by b_no desc
+	</select>
+	
+	<select id="noticeBoardRead" resultType="noticeBoardVo">
+		select * from notice_board
+		where b_no = #{b_no}
 	</select>
 
+	<insert id="noticeBoardInsert">
+		insert into notice_board(b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, u_id, b_content)
+		values (#{b_serialno}, seq_notice.nextval, #{b_no}, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{u_id}, #{b_content})
+	</insert>
+	
 </mapper>
