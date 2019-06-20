@@ -33,7 +33,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "discussion_board/Discussion_main_board";
+//		return "index";
 		
 //		home 원본 링크
 //		return "Test";
