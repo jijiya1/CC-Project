@@ -5,7 +5,9 @@
 
 <script>
 $(document).ready(function() {
-	
+	$("#btnNoticeWrite").click(function() {
+		location.href = "notice_write";
+	});
  });
 </script>
 
@@ -51,6 +53,10 @@ $(document).ready(function() {
                 </table>
               </div>
             </div>
+          </div>
+          
+          <div>
+          <button class="btn btn-primary" id="btnNoticeWrite">공지사항 작성</button>
           </div>
 
         </div>
