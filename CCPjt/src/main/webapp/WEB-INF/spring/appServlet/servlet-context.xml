@@ -22,7 +22,13 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.kh.controller" />
-	<context:component-scan base-package="com.heejun.controller" />
+	
+	<context:component-scan base-package="com.kh.jhj.controller" />
+	<context:component-scan base-package="com.kh.shj.controller" />
+	<context:component-scan base-package="com.kh.hys.controller" />
+	<context:component-scan base-package="com.kh.psh.controller" />
+	<context:component-scan base-package="com.kh.sbj.controller" />
+	
 	<context:component-scan base-package="com.kh.persistence" />
 	<context:component-scan base-package="com.kh.service" />
 	

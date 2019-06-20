@@ -1,4 +1,4 @@
-package com.heejun.controller;
+package com.kh.shj.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
