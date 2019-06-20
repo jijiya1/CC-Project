@@ -58,23 +58,8 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Alert
+        notice
       </div>
-      
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-bell fa-fw"></i>
-          <span><span class="badge badge-danger badge-counter">3+</span>Alert</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">새로운 알람</h6>            
-            <a class="collapse-item" href="resources/buttons.html">Buttons</a>
-            <a class="collapse-item" href="resources/cards.html">Cards</a>
-          </div>
-        </div>
-      </li>
 
 	<!-- Nav Item - 공지사항 -->
       <li class="nav-item active">

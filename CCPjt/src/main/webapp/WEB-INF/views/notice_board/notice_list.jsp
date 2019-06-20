@@ -32,8 +32,8 @@ $(document).ready(function() {
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>번  호</th>
-                      <th>제  목</th>
+                      <th>번&nbsp;&nbsp;호</th>
+                      <th>제&nbsp;&nbsp;목</th>
                       <th>작성자</th>
                       <th>조회수</th>
                       <th>작성날짜</th>
