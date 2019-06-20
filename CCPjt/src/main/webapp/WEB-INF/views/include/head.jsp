@@ -69,11 +69,18 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Alert Center</h6>            
+            <h6 class="collapse-header">새로운 알람</h6>            
             <a class="collapse-item" href="resources/buttons.html">Buttons</a>
             <a class="collapse-item" href="resources/cards.html">Cards</a>
           </div>
         </div>
+      </li>
+
+	<!-- Nav Item - 공지사항 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/notice_board/notice_list">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>공지사항</span></a>
       </li>
 
       <!-- Divider -->

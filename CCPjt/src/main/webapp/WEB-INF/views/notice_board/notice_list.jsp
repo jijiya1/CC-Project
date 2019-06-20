@@ -3,38 +3,57 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 
-<div class="container-fluid">
+<script>
+$(document).ready(function() {
+	
+ });
+</script>
 
-	<div class="row">
-		<div class="col-md-12">
-			<h3>공지사항</h3><br>
-		</div>
-	</div>
+<style>
 
-	<div class="row">
-		<div class="col-md-12">
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>번  호</th>
-						<th>제  목</th>
-						<th>작성자</th>
-						<th>조회수</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td><a href="#">공지사항</a></td>
-						<td><div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">관리자</div></td>
-						<td>10</td>
-						<td>2019. 06. 19</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
+</style>
+
+        <!-- 공지사항 시작 -->
+        <div class="container-fluid">
+        
+        <p class="mb-4"><a href="/">홈</a> > 공지사항</p>
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">공지사항</h1>
+          <p class="mb-4">항상 공지사항을 확인하세요.</p>
+
+          <!-- 공지사항 리스트 -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>번  호</th>
+                      <th>제  목</th>
+                      <th>작성자</th>
+                      <th>조회수</th>
+                      <th>작성날짜</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>공지사항</td>
+                      <td>관리자</td>
+                      <td>10</td>
+                      <td>2019. 06. 20</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- 공지사항 끝 -->
 
 <%@include file="../include/footer.jsp" %>
