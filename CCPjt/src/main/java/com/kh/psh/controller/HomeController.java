@@ -1,4 +1,4 @@
-package com.kh.controller;
+package com.kh.psh.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "/suggest_board/suggest_write";
 		
 //		home 원본 링크
 //		return "Test";
