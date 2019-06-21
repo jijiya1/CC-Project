@@ -12,5 +12,6 @@
 		<typeAlias type="com.kh.hys.domain.Discussion_BoardVo" alias="Discussion_BoardVo"/>
 		<typeAlias type="com.kh.hys.domain.Discussion_ReplyVo" alias="Discussion_ReplyVo"/>
 		<typeAlias type="com.kh.hys.domain.SelectDiscussion_BoardVo" alias="SelectDiscussion_BoardVo"/>
+		<typeAlias type="com.kh.jhj.domain.DonationVo" alias="DonationVo"/>
 	</typeAliases>
 </configuration>

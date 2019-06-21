@@ -28,9 +28,9 @@
 <script >
 $(document).ready(function(){
 	$("#memberDiv").on("click", ".text-name", function(){
-		$("#modal-614588").trigger("click");
-		var u_id = $(this).attr("data-u_id");
-		
+// 		$("#modal-614588").trigger("click");
+// 		var u_id = $(this).attr("data-u_id");
+		location.href = "/person_board/person_minipage";
 	});
 });
 

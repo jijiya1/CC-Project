@@ -20,7 +20,6 @@ public class PersonController {
 	@Inject
 	private IPersonService personService;
 	
-	// 공지사항 리스트
 	@RequestMapping(value = "/person_list", method = RequestMethod.GET)
 	public String personBoardList(Model model) throws Exception {
 		List<PersonVo> personList = personService.selectAll();
@@ -28,4 +27,9 @@ public class PersonController {
 		return "/person_board/person_list";
 	}
 	
+	@RequestMapping(value = "/person_minipage", method = RequestMethod.GET)
+	public String personBoardList() throws Exception {
+		
+		return "/person_board/person_minipage";
+	}
 }
