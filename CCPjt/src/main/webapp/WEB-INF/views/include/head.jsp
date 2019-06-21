@@ -20,9 +20,12 @@
 
   <!-- Custom styles for this template-->
   <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<<<<<<< HEAD
+=======
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+>>>>>>> branch 'master' of https://github.com/jijiya1/CC-Project.git
 
 </head>
 
