@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="donation_board">
+	<select id="list" resultType="DonationVo">
+		select * from donation_board
+		where b_checkeddel =0
+	</select>
+	
+	<select id="read" resultType="DonationVo">
+		select * from donation_board where b_serialno= {b_serialno};
+	</select>
+	
+	<insert id="insert">
+		insert into donation_board (b_serialno, b_no, b_addinfo, b_detailinfo,
+                            b_title, b_subtitle,b_writer, u_id,b_content)
+		values( 'do_' || donation_seq.nextval , donation_seq.nextval, {b_addinfo}, {b_detailinfo},
+                            {b_title}, {b_subtitle},{b_writer}, {u_id,b_content})
+	</insert>
+	<update id="delete">
+		update donation_board set b_checkeddel=1
+		where b_serialno = {b_serialno}
+	</update>
+	<update id="update">
+		update donation_board set b_title ={b_title}, b_subtitle={b_subtitle}, b_content={b_content}
+		where b_serialno = {b_serialno}
+	</update>
+</mapper>  	
