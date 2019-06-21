@@ -32,11 +32,11 @@ public class Discussion_MainController {
 		
 		List<Discussion_BoardVo> discussionList =  discussion_BoardService.getDiscussionList();
 		int discussionListSize = discussionList.size();
-		int firstDiscussion_b_bno =  discussionList.get(0).getB_no();
+		String firstDiscussion_b_serialno =  discussionList.get(0).getB_serialno();
 		
 		model.addAttribute("discussionList", discussionList);
 		model.addAttribute("discussionListSize", discussionListSize);
-		model.addAttribute("firstDiscussion_b_bno", firstDiscussion_b_bno);
+		model.addAttribute("firstDiscussion_b_serialno", firstDiscussion_b_serialno);
 	}
 	
 }

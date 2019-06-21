@@ -105,10 +105,10 @@
 	</div>
 	
 	<c:forEach items="${discussionList }" var="discussion_boardVo" >
-		<div class="mySlides" data-b_no ="${discussion_boardVo.b_no}">
-			<q style="font-size: 50px">${discussion_boardVo.b_title } / ${discussion_boardVo.b_no}</q>
-			<p> 토론에 대해서 <button class="btnYorN" data-YorN = "Y">찬성</button></p>
-			<p> 토론에 대해서 <button class="btnYorN" data-YorN = "N">반대</button></p>
+		<div class="mySlides" data-b_serialno ="${discussion_boardVo.b_serialno}">
+			<q style="font-size: 50px">${discussion_boardVo.b_title } / ${discussion_boardVo.b_serialno}</q>
+			<p> 토론에 대해서 <input type="radio" name = "radioSelect${discussion_boardVo.b_no }" class="radioYorN" data-YorN = "Y"></p>
+			<p> 토론에 대해서 <input type="radio" name = "radioSelect${discussion_boardVo.b_no }" class="radioYorN" data-YorN = "N"></p>
 		</div>
 	</c:forEach>
 	
@@ -123,48 +123,42 @@
 </div>
 
 <!-- 댓글 보기 버튼 -->
-<input type="button" value="댓글 보기" id="btnReplyList">
+<input type="button" value="댓글 보기" id="btnReplyList"   >
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table">
-				<thead>
-					<tr>	
-						<th>댓글 번호</th>
-						<th>댓글 내용</th>
-						<th>작성자</th>
-						<th>찬반 여부</th>
-						<th>좋아요 / 싫어요</th>
-					</tr>
-				</thead>
-				<tbody id = "discussion_ReplyList">
-
-				</tbody>
-			</table>
+			<div id = "discussion_ReplyList">
+			</div>
 		</div>
 	</div>
 </div>
 
+
+
 <script>
 	var slideIndex = 1;
 	
-	// 현재 보고 있는 게시글 번호
-	var nowDiscussion_b_bno = ${firstDiscussion_b_bno}; 
+	// 현재 보고 있는 토론게시 시리얼 번호
+	var nowDiscussion_b_serialno = "${firstDiscussion_b_serialno}"; 
+	// 현재 보고 있는 리플 페이지 번호
+	var nowReplyPage = 1; 
 	
 	showSlides(slideIndex);
 	
 	function plusSlides(n) {
 	  showSlides(slideIndex += n);
-	  nowDiscussion_b_bno = $(".mySlides").eq(slideIndex - 1).attr("data-b_no");
+	  nowDiscussion_b_serialno = $(".mySlides").eq(slideIndex - 1).attr("data-b_serialno");
 // 	  console.log("n:" + n);
 // 	  console.log("nowDiscussion_b_bno :"+nowDiscussion_b_bno);
+	  $("#discussion_ReplyList").html("");
 	}
 	
 	function currentSlide(n) {
 	  var number = showSlides(slideIndex = n);
-	  nowDiscussion_b_bno = $(".mySlides").eq(slideIndex - 1).attr("data-b_no");
+	  nowDiscussion_b_serialno = $(".mySlides").eq(slideIndex - 1).attr("data-b_serialno");
 // 	  console.log("nowDiscussion_b_bno :"+nowDiscussion_b_bno);
+	  $("#discussion_ReplyList").html("");
 	}
 	
 	function showSlides(n) {
@@ -194,33 +188,70 @@
 		location.href = "/discussion_board/discussion_res_board";
 	})
 	
-	// 토론 찬성 또는 반대(radio 버튼)에 따른 기능구분	
-	$(".btnYorN").click(function () {
+	// 토론 찬성 또는 반대(radio 버튼)에 따른 기능구분
+	$(".radioYorN").click(function () {
 		var YorN = $(this).attr("data-YorN");
-		
-		console.log("nowDiscussion_b_bno : "+ nowDiscussion_b_bno);
-		console.log("YorN : "+ YorN);
+		console.log(YorN+"체크함");
 	});
 	
+	// 댓글보기 버튼
 	$("#btnReplyList").click(function () {
-		var url = "/discussion_reply/list/"+nowDiscussion_b_bno;
+		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno;
 		$.getJSON(url, function (receivedData) {
 			console.log("getDiscussionRepiyList, receivedData : " + receivedData);
 			
 			var strHtml = "";
+			var borderColor = "";
+			var YorN = "";
+			var YorNColor = "";
 			$(receivedData).each(function (i) {
-				strHtml += "<tr>"
-						+		"<td>"+this.r_no+"</td>"
-						+		"<td>"+this.r_content+"</td>"
-						+		"<td>"+this.r_writer+"</td>"
-						+		"<td>"+this.r_yesOrNo+"</td>"
-						+		"<td>"+this.r_up+" / "+ this.r_down+"</td>"
-						+ "</tr>";
+
+				if (this.r_yesOrNo == "0") {
+					borderColor = "primary"
+					YorN = "찬성";
+					YorNColor = "blue";
+				} else if (this.r_yesOrNo == "1") {
+					borderColor = "danger";
+					YorN = "반대";
+					YorNColor = "red";
+				}//if
+
+				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
+				 		+ 		"<div class='card-body'>"
+						+			"<p>"+this.r_no+". "+this.r_writer+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+						+			"<p>"+this.r_content+"</p>"
+						+			"<p style='text-align: right;'>"+this.r_up+" / "+ this.r_down+"</p>"
+						+ 		"</div>"
+						+  "</div>";
 			});
 			
+			if(strHtml != ""){
+				strHtml += 	"<div class='container-fluid'>"
+							+	"<div class='row'>"
+								+	"<div class='col-md-4'></div>"
+								+	"<div class='col-md-4'>"
+									+	"<ul class='pagination'>"
+					 				+ 		"<li class='paginate_button page-item previous disabled' id='reply_previous'><a class='page-link href='#'>Previous</a></li>"
+					 				+		"<li class='paginate_button page-item'><a class='page-link' data-reply_page = '1' href='#'>1</a></li>"
+					 				+		"<li class='paginate_button page-item'><a class='page-link' data-reply_page = '2' href='#'>2</a></li>"
+					 				+		"<li class='paginate_button page-item'><a class='page-link' data-reply_page = '3' href='#'>3</a></li>"
+									+		"<li class='paginate_button page-item' id='reply_next'><a class='page-link href='#'>Next</a></li>"
+				 				+		"</ul>";
+				 				+	"</div>"
+				 				+	"<div class='col-md-4'></div>"
+		 				+	"</div>";
+			}//if		
 			$("#discussion_ReplyList").html(strHtml);
-		});
-	});
+		});//$.getJSON(url, function (receivedData)
+	});// $("#btnReplyList").click
+	
+	$("#discussion_ReplyList").on("click",".page-link", function (e) {
+		e.preventDefault();
+		var reply_page =  $(this).attr("data-reply_page");
+		console.log(reply_page+" 페이지 버튼")
+	})
+	
+
 </script>
 
 <%@include file="../include/footer.jsp" %>

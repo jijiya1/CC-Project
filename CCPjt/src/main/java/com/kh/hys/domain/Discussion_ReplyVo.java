@@ -10,7 +10,7 @@ public class Discussion_ReplyVo {
 	String r_content; // 토론 리플 내용
 	Timestamp r_createdDate; // 토론 리플 작성일
 	Timestamp r_modifiedDate; // 토론 리플 수정일
-	int r_yesOrNo; // 토론 리플 찬반여부
+	int r_yesOrNo; // 토론 리플 찬반여부 0 = Yes(찬성), 1 = NO(반대)
 	int r_up; // 토론 리플 좋아요
 	int r_down; // 토론 리플 싫어요
 	int r_step;

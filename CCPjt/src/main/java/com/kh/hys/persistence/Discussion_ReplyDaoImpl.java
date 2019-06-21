@@ -19,8 +19,8 @@ public class Discussion_ReplyDaoImpl implements IDiscussion_ReplyDao {
 	SqlSession sqlSession;
 
 	@Override
-	public List<Discussion_ReplyVo> getDiscussionReply() throws Exception {
-		 List<Discussion_ReplyVo> discussionReplyList = sqlSession.selectList(NAMESPACE+"getDiscussionReplyList");
+	public List<Discussion_ReplyVo> getDiscussionReply(String b_serialno) throws Exception {
+		 List<Discussion_ReplyVo> discussionReplyList = sqlSession.selectList(NAMESPACE+"getDiscussionReplyList", b_serialno);
 		return discussionReplyList;
 	}
 

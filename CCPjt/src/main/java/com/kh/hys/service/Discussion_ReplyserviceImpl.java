@@ -16,8 +16,8 @@ public class Discussion_ReplyserviceImpl implements IDiscussion_ReplyService {
 	IDiscussion_ReplyDao discussion_replyDao;
 
 	@Override
-	public List<Discussion_ReplyVo> getDiscussionReply() throws Exception {
-		List<Discussion_ReplyVo> discussionReplyList = discussion_replyDao.getDiscussionReply();
+	public List<Discussion_ReplyVo> getDiscussionReply(String b_serialno) throws Exception {
+		List<Discussion_ReplyVo> discussionReplyList = discussion_replyDao.getDiscussionReply(b_serialno);
 		return discussionReplyList;
 	}
 
