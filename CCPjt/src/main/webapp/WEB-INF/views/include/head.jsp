@@ -20,12 +20,9 @@
 
   <!-- Custom styles for this template-->
   <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
-<<<<<<< HEAD
-=======
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
->>>>>>> branch 'master' of https://github.com/jijiya1/CC-Project.git
 
 </head>
 
@@ -67,7 +64,7 @@
 	<!-- Nav Item - 공지사항 -->
       <li class="nav-item active">
         <a class="nav-link" href="/notice_board/notice_list">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-list-alt"></i>
           <span>공지사항</span></a>
       </li>
 

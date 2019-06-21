@@ -4,10 +4,8 @@
   	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <typeAliases>
-<!-- 		패키지단위 -->
-<!-- 		<package name="com.kh.domain"/> -->
-		
-		<!-- 클래스 단위 -->
+
+		<typeAlias type="com.kh.shj.domain.NoticeBoardVo" alias="noticeBoardVo"/>
 		<typeAlias type="com.kh.jhj.domain.DonationVo" alias="DonationVo"/>
 		<typeAlias type="com.kh.jhj.domain.PageDto" alias="Donation_pageDto"/>
 		<typeAlias type="com.kh.jhj.domain.SearchDto" alias="Donation_searchDto"/>
@@ -15,5 +13,7 @@
 		<typeAlias type="com.kh.hys.domain.Discussion_BoardVo" alias="Discussion_BoardVo"/>
 		<typeAlias type="com.kh.hys.domain.Discussion_ReplyVo" alias="Discussion_ReplyVo"/>
 		<typeAlias type="com.kh.hys.domain.SelectDiscussion_BoardVo" alias="SelectDiscussion_BoardVo"/>
+
+
 	</typeAliases>
 </configuration>

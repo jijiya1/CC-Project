@@ -14,6 +14,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/summernote/**" location="/resources/summernote/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,17 +23,23 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.kh.controller" />
-
-	<context:component-scan base-package="com.kh.hys.persistence" />
-	<context:component-scan base-package="com.kh.hys.service" />
 	<context:component-scan base-package="com.kh.jhj.controller" />
 	<context:component-scan base-package="com.kh.shj.controller" />
 	<context:component-scan base-package="com.kh.hys.controller" />
 	<context:component-scan base-package="com.kh.psh.controller" />
 	<context:component-scan base-package="com.kh.sbj.controller" />
+	
 	<context:component-scan base-package="com.kh.sbj.persistence" />
 	<context:component-scan base-package="com.kh.sbj.service" />
+	<context:component-scan base-package="com.kh.jhj.persistence" />
+	<context:component-scan base-package="com.kh.jhj.service" />
 	
+	<context:component-scan base-package="com.kh.hys.persistence" />
+	<context:component-scan base-package="com.kh.hys.service" />
+
+	<context:component-scan base-package="com.kh.shj.persistence" />
+	<context:component-scan base-package="com.kh.shj.service" />
+
 	<context:component-scan base-package="com.kh.jhj.persistence" />
 	<context:component-scan base-package="com.kh.jhj.service" />
 	
