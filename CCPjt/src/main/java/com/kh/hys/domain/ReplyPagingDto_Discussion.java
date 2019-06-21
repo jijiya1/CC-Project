@@ -1,11 +1,20 @@
 package com.kh.hys.domain;
 
-public class Discussion_ReplyPagingDto {
+public class ReplyPagingDto_Discussion {
 
+	private String b_serialno = "";
 	private int nowReplyPage = 1;
 	private int perPage = 5;
-	private int startRow;
+	private int startRow = nowReplyPage;
 	private int endRow = startRow + perPage - 1;
+
+	public String getB_serialno() {
+		return b_serialno;
+	}
+
+	public void setB_serialno(String b_serialno) {
+		this.b_serialno = b_serialno;
+	}
 
 	public int getNowReplyPage() {
 		return nowReplyPage;
@@ -13,6 +22,13 @@ public class Discussion_ReplyPagingDto {
 
 	public void setNowReplyPage(int nowReplyPage) {
 		this.nowReplyPage = nowReplyPage;
+		
+		// nowReplyPage startRow endRow
+		//    1            1       5
+		//    2            6       10
+		
+		startRow = perPage*(nowReplyPage-1) + 1;
+		endRow = startRow + perPage - 1;
 	}
 
 	public int getPerPage() {
@@ -41,8 +57,8 @@ public class Discussion_ReplyPagingDto {
 
 	@Override
 	public String toString() {
-		return "Discussion_ReplyPagingDto [nowReplyPage=" + nowReplyPage + ", perPage=" + perPage + ", startRow="
-				+ startRow + ", endRow=" + endRow + "]";
+		return "Discussion_ReplyPagingDto [b_serialno=" + b_serialno + ", nowReplyPage=" + nowReplyPage + ", perPage="
+				+ perPage + ", startRow=" + startRow + ", endRow=" + endRow + "]";
 	}
 
 }

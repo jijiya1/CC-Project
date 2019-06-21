@@ -1,6 +1,6 @@
 package com.kh.hys.domain;
 
-public class Discussion_ReplyPaginnationDto {
+public class ReplyPaginnationDto_Discussion {
 
 	private int replyTotalCount; // 리플 총 갯수
 	private int startPage = 1;
@@ -10,7 +10,7 @@ public class Discussion_ReplyPaginnationDto {
 	private int paginationCount = 5;
 	private int nowReplyPage = 1; // 현재 보고 있는 페이지
 
-	private Discussion_ReplyPagingDto replyPagingDto;
+	private ReplyPagingDto_Discussion replyPagingDto;
 
 	public int getReplyTotalCount() {
 		return replyTotalCount;
@@ -18,6 +18,12 @@ public class Discussion_ReplyPaginnationDto {
 
 	public void setReplyTotalCount(int replyTotalCount) {
 		this.replyTotalCount = replyTotalCount;
+		
+		// if 17개
+		endPage = replyTotalCount/paginationCount;
+		if(replyTotalCount%paginationCount > 0) {
+			endPage += 1;
+		}
 	}
 
 	public int getStartPage() {
@@ -68,11 +74,11 @@ public class Discussion_ReplyPaginnationDto {
 		this.nowReplyPage = nowReplyPage;
 	}
 
-	public Discussion_ReplyPagingDto getReplyPagingDto() {
+	public ReplyPagingDto_Discussion getReplyPagingDto() {
 		return replyPagingDto;
 	}
 
-	public void setReplyPagingDto(Discussion_ReplyPagingDto replyPagingDto) {
+	public void setReplyPagingDto(ReplyPagingDto_Discussion replyPagingDto) {
 		this.replyPagingDto = replyPagingDto;
 	}
 
