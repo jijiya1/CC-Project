@@ -1,4 +1,4 @@
-package com.kh.controller;
+package com.kh.sbj.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+		System.out.println("HOME Controller!!SBJ");
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
@@ -33,7 +33,11 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "main/main";
+//		return "/person_board/person_list";
+		return "index";
 		
+//		home �썝蹂� 留곹겕
+//		return "Test";
 	}
+	
 }
