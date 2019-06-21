@@ -4,17 +4,37 @@
 <%@include file="../include/head.jsp" %>
 
 <!-- summernote 필수!! - SHJ4359 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 <script src="/summernote/dist/lang/summernote-ko-KR.js"></script>
 
 <script>
 $(document).ready(function() {
+	
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
 		location.href = "/notice_board/notice_list";
 	});
+	
+	$("#test").click(function() {
+		var b_title = $("input[name=b_title]").val();
+		console.log(b_title);
+		var b_write = $("input[name=b_write]").val();
+		console.log(b_write);
+		var u_id = $("input[name=u_id]").val();
+		console.log(u_id);
+		var b_addinfo = $("select[name=b_addinfo]").val();
+		console.log(b_addinfo);
+		var b_detailinfo = $("select[name=b_detailinfo]").val();
+		console.log(b_detailinfo);
+		var name_b_content = $("textarea[name=b_content]").val();
+		console.log(name_b_content);
+		var b_content = $("#summernote").val();
+		console.log(b_content);
+		
+	});
+	
 });
 </script>
 
@@ -29,30 +49,57 @@ $(document).ready(function() {
 		<form role="form" method="post">
 		
 			<div class="form-group">
-				<label for="title">공지사항 제목</label>
-				<input type="text" class="form-control" name="title" />
+				<label>공지사항 제목</label>
+				<input type="text" class="form-control" name="b_title" />
 			</div>
 			
 			<div class="form-group">
-				<label for="writer">작성자</label>
-				<input type="text" class="form-control" name="writer" />
+				<label>작성자</label>
+				<input type="text" class="form-control" name="b_writer" />
 			</div>
 			
 			<div class="form-group">
-				<label for="writer">공지사항 내용</label>
-				<div id="summernote" name="notice_contents"></div>
-			    <script>
-				      $('#summernote').summernote({
-				  		lang: 'ko-KR',
-				        height: 350,
-				        minHeight: null,
-				        maxHeight: null,
-				        focus: true  
-					});
-				</script>
+				<label>ID</label>
+				<input type="text" class="form-control" name="u_id" />
+			</div>
+			
+			<div class="form-group">
+				<label>시/도</label>
+				<select class="form-control" name="b_addinfo" id="b_addinfo">
+					<option value="notice">공지사항</option>
+					<option value="seoul">서울</option>
+					<option value="inchen">인천</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+			<label>구</label>
+				<select class="form-control" name="b_detailinfo" id="b_detailinfo">
+					<option value="notice">공지사항</option>
+					<option value="seoul">서울</option>
+					<option value="inchen">인천</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label>공지사항 내용</label><br>
+				  <textarea id="summernote" name="b_content"></textarea>
+				  <script>
+				        $('#summernote').summernote({
+							lang: 'ko-KR',
+				            height: 350,
+				            minHeight: null,
+				            maxHeight: null,
+				            focus: true  
+				        });
+				        var postForm = function() {
+				        	var content = $('textarea[name="b_content"]').html($('#summernote').code());
+				        }
+				  </script>
 			</div>
 
 			<button type="submit" class="btn btn-primary">글쓰기</button>
+			<button type="button" class="btn btn-primary" id="test">테스트</button>
 			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록으로</button>
 		</form>
 

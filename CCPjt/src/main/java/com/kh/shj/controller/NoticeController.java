@@ -27,6 +27,9 @@ public class NoticeController {
 //		System.out.println("notice_list get 실행함.");
 		List<NoticeBoardVo> list = noticeBoardService.noticeBoardList();
 		model.addAttribute("list", list);
+		
+		int count = noticeBoardService.noticeBoardCount();
+		model.addAttribute("count", count);
 	}
 	
 	// 공지사항 해당 글 읽기
@@ -45,7 +48,10 @@ public class NoticeController {
 	
 	// 공지사항 작성 실행
 	@RequestMapping(value="/notice_write", method=RequestMethod.POST)
-	public String noticeBoardWriteAction(NoticeBoardVo noticeBoardVo) throws Exception {
-		return "notice_board/notice_list";
+	public String noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception {
+		System.out.println("notice_write post 실행함.");
+		System.out.println("noticeBoardVo : " + noticeBoardVo);
+		noticeBoardService.noticeBoardWrite(noticeBoardVo);
+		return "redirect:/notice_board/notice_list";
 	}
 }

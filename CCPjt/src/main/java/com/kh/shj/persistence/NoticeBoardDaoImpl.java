@@ -34,7 +34,7 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public void noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception {
-		
+		sqlSession.selectOne(NAMESPACE + "noticeBoardWrite", noticeBoardVo);
 
 	}
 
@@ -48,6 +48,12 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	public void noticeBoardDelete(int b_no) throws Exception {
 		
 
+	}
+
+	@Override
+	public int noticeBoardCount() throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "noticeBoardCount");
+		return count;
 	}
 
 }

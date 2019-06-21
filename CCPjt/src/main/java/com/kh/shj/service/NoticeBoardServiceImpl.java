@@ -31,7 +31,7 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 
 	@Override
 	public void noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception {
-		
+		noticeBoardDao.noticeBoardWrite(noticeBoardVo);
 
 	}
 
@@ -45,6 +45,12 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	public void noticeBoardDelete(int b_no) throws Exception {
 		
 
+	}
+
+	@Override
+	public int noticeBoardCount() throws Exception {
+		int count = noticeBoardDao.noticeBoardCount();
+		return count;
 	}
 
 }

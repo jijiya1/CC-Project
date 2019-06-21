@@ -12,6 +12,9 @@ public interface INoticeBoardDao {
 	// 해당 글 읽기
 	public NoticeBoardVo noticeBoardRead(int b_no) throws Exception;
 	
+	// 글 갯수
+	public int noticeBoardCount() throws Exception;
+	
 	// 글 작성
 	public void noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception;
 	

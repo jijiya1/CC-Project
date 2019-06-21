@@ -5,42 +5,42 @@ import java.sql.Timestamp;
 public class NoticeBoardVo {
 	private String b_serialno; // 게시글 시리얼넘버
 	private int b_no; // 공지게시글 번호
-	private String b_addInfo; // 공지게시글 정보(지역) 서울
-	private String b_detailInfo; // 공지게시글 정보(세부정보) 송파구 
+	private String b_addinfo; // 공지게시글 정보(지역) 서울
+	private String b_detailinfo; // 공지게시글 정보(세부정보) 송파구 
 	private String b_title; // 공지게시글 제목
 	private String b_writer; // 공지게시글 작성자
-	private String u_id; // 게시글 작성자 ID
+	private String u_id; // 게시글 작성자 id
 	private String b_content; // 공지게시글 내용 
-	private int b_readCount; // 공지게시글 조회수
-	private Timestamp b_createdDate; // 공지게시글 작성일
-	private Timestamp b_modifiedDate; // 공지게시글 수정일
+	private int b_readcount; // 공지게시글 조회수
+	private Timestamp b_createddate; // 공지게시글 작성일
+	private Timestamp b_modifieddate; // 공지게시글 수정일
 	private int b_up; // 공지게시글 글 좋아요
 	private int b_down; // 공지게시글 글 싫어요
-	private int b_checkedDel; // 게시글 삭제 여부
+	private int b_checkeddel; // 게시글 삭제 여부
 	
 	public NoticeBoardVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoticeBoardVo(String b_serialno, int b_no, String b_addInfo, String b_detailInfo, String b_title,
-			String b_writer, String u_id, String b_content, int b_readCount, Timestamp b_createdDate,
-			Timestamp b_modifiedDate, int b_up, int b_down, int b_checkedDel) {
+	public NoticeBoardVo(String b_serialno, int b_no, String b_addinfo, String b_detailinfo, String b_title,
+			String b_writer, String u_id, String b_content, int b_readcount, Timestamp b_createddate,
+			Timestamp b_modifieddate, int b_up, int b_down, int b_checkeddel) {
 		super();
 		this.b_serialno = b_serialno;
 		this.b_no = b_no;
-		this.b_addInfo = b_addInfo;
-		this.b_detailInfo = b_detailInfo;
+		this.b_addinfo = b_addinfo;
+		this.b_detailinfo = b_detailinfo;
 		this.b_title = b_title;
 		this.b_writer = b_writer;
 		this.u_id = u_id;
 		this.b_content = b_content;
-		this.b_readCount = b_readCount;
-		this.b_createdDate = b_createdDate;
-		this.b_modifiedDate = b_modifiedDate;
+		this.b_readcount = b_readcount;
+		this.b_createddate = b_createddate;
+		this.b_modifieddate = b_modifieddate;
 		this.b_up = b_up;
 		this.b_down = b_down;
-		this.b_checkedDel = b_checkedDel;
+		this.b_checkeddel = b_checkeddel;
 	}
 
 	public String getB_serialno() {
@@ -59,20 +59,20 @@ public class NoticeBoardVo {
 		this.b_no = b_no;
 	}
 
-	public String getB_addInfo() {
-		return b_addInfo;
+	public String getB_addinfo() {
+		return b_addinfo;
 	}
 
-	public void setB_addInfo(String b_addInfo) {
-		this.b_addInfo = b_addInfo;
+	public void setB_addinfo(String b_addinfo) {
+		this.b_addinfo = b_addinfo;
 	}
 
-	public String getB_detailInfo() {
-		return b_detailInfo;
+	public String getB_detailinfo() {
+		return b_detailinfo;
 	}
 
-	public void setB_detailInfo(String b_detailInfo) {
-		this.b_detailInfo = b_detailInfo;
+	public void setB_detailinfo(String b_detailinfo) {
+		this.b_detailinfo = b_detailinfo;
 	}
 
 	public String getB_title() {
@@ -107,28 +107,28 @@ public class NoticeBoardVo {
 		this.b_content = b_content;
 	}
 
-	public int getB_readCount() {
-		return b_readCount;
+	public int getB_readcount() {
+		return b_readcount;
 	}
 
-	public void setB_readCount(int b_readCount) {
-		this.b_readCount = b_readCount;
+	public void setB_readcount(int b_readcount) {
+		this.b_readcount = b_readcount;
 	}
 
-	public Timestamp getB_createdDate() {
-		return b_createdDate;
+	public Timestamp getB_createddate() {
+		return b_createddate;
 	}
 
-	public void setB_createdDate(Timestamp b_createdDate) {
-		this.b_createdDate = b_createdDate;
+	public void setB_createddate(Timestamp b_createddate) {
+		this.b_createddate = b_createddate;
 	}
 
-	public Timestamp getB_modifiedDate() {
-		return b_modifiedDate;
+	public Timestamp getB_modifieddate() {
+		return b_modifieddate;
 	}
 
-	public void setB_modifiedDate(Timestamp b_modifiedDate) {
-		this.b_modifiedDate = b_modifiedDate;
+	public void setB_modifieddate(Timestamp b_modifieddate) {
+		this.b_modifieddate = b_modifieddate;
 	}
 
 	public int getB_up() {
@@ -147,21 +147,21 @@ public class NoticeBoardVo {
 		this.b_down = b_down;
 	}
 
-	public int getB_checkedDel() {
-		return b_checkedDel;
+	public int getB_checkeddel() {
+		return b_checkeddel;
 	}
 
-	public void setB_checkedDel(int b_checkedDel) {
-		this.b_checkedDel = b_checkedDel;
+	public void setB_checkeddel(int b_checkeddel) {
+		this.b_checkeddel = b_checkeddel;
 	}
 
 	@Override
 	public String toString() {
-		return "NoticeBoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addInfo=" + b_addInfo
-				+ ", b_detailInfo=" + b_detailInfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
-				+ u_id + ", b_content=" + b_content + ", b_readCount=" + b_readCount + ", b_createdDate="
-				+ b_createdDate + ", b_modifiedDate=" + b_modifiedDate + ", b_up=" + b_up + ", b_down=" + b_down
-				+ ", b_checkedDel=" + b_checkedDel + "]";
+		return "NoticeBoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addinfo=" + b_addinfo
+				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
+				+ u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount + ", b_createddate="
+				+ b_createddate + ", b_modifieddate=" + b_modifieddate + ", b_up=" + b_up + ", b_down=" + b_down
+				+ ", b_checkeddel=" + b_checkeddel + "]";
 	}
-
+	
 }
