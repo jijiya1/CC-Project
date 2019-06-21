@@ -24,20 +24,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "discussion_board/Discussion_main_board";
-//		return "index";
-		
-//		home 원본 링크
-//		return "Test";
+		System.out.println("홈컨트롤러실행");
+		return "redirect:/donation/list"; // /WEB-INF/views/home.jsp
 	}
 	
 }
