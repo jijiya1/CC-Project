@@ -5,6 +5,14 @@
 
 <div class="container">
 <div class="row">
+
+<a href="/donation/list">정혜지</a>
+<a href="/notice_board/notice_list">손희준</a>
+<a href="/person_board/person_list">손병진</a>
+<a href="/discussion_board/discussion_main_board">황용석</a>
+<a href="#">박석환</a>
+
+<br>
 <div class="col-lg-5 col-xl-5">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
