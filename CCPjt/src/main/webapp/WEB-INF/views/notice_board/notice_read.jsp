@@ -1,14 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
 <script>
 $(document).ready(function() {
+	
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
 		location.href = "/notice_board/notice_list";
 	});
+	
+	// 글 수정
+	$("#btnUpdate").click(function() {
+		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}";
+	});
+	
+	// 글 삭제
+	$("#btnDelete").click(function() {
+		location.href = "/notice_board/notice_delete";
+	});
+	
 });
 </script>
 
@@ -30,15 +43,15 @@ $(document).ready(function() {
 							<th scope="row" >작성자</th>
 							<td>${ noticeBoardVo.b_writer }</td>
 							<th scope="row">작성일</th>
-							<td >${ noticeBoardVo.b_createddate }</td>
+							<td><fmt:formatDate value="${ noticeBoardVo.b_createddate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						
 						<tr style="text-align: center;">
 							<th scope="row">조회수</th>
-							<td >${ noticeBoardVo.b_readcount }</td>
+							<td>${ noticeBoardVo.b_readcount }</td>
 							<!-- 공개여부 -->
 							<th scope="row">공개여부</th>
-							<td >공개</td>
+							<td>공개</td>
 						</tr>
 			
 						<!-- 첨부파일 -->
@@ -60,6 +73,8 @@ $(document).ready(function() {
 	</div>
 
 	<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록으로</button>
+	<button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
+	<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
 
 </div>
 <br>

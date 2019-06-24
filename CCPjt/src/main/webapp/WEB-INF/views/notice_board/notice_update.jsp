@@ -38,29 +38,31 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- 공지사항 작성 시작 -->
+<!-- 공지사항 수정 시작 -->
 	<div class="container-fluid">
+	
+	${ noticeBoardVo }
 	        
-		<p class="mb-4"><a href="/">홈</a> > <a href="notice_list">공지사항</a> > 공지사항 작성</p>
+		<p class="mb-4"><a href="/">홈</a> > <a href="notice_list">공지사항</a> > 공지사항 수정</p>
 		
 		<!-- 페이지 헤더 -->
-		<h1 class="h3 mb-2 text-gray-800">공지사항 작성</h1><br>
+		<h1 class="h3 mb-2 text-gray-800">공지사항 수정</h1><br>
 		
 		<form role="form" method="post">
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
-				<input type="text" class="form-control" name="b_title" value=/>
+				<input type="text" class="form-control" name="b_title" value="${ noticeBoardVo.b_title }"/>
 			</div>
 			
 			<div class="form-group">
 				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" />
+				<input type="text" class="form-control" name="b_writer" value="${ noticeBoardVo.b_writer }" />
 			</div>
 			
 			<div class="form-group">
 				<label>ID</label>
-				<input type="text" class="form-control" name="u_id" />
+				<input type="text" class="form-control" name="u_id" value="${ noticeBoardVo.u_id }"/>
 			</div>
 			
 			<div class="form-group">
@@ -98,7 +100,7 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary">글쓰기</button>
+			<button type="submit" class="btn btn-primary">글 수정</button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
 			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록으로</button>
 		</form>

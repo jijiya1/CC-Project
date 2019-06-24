@@ -37,7 +37,7 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 
 	@Override
 	public void noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception {
-		
+		noticeBoardDao.noticeBoardUpdate(noticeBoardVo);
 
 	}
 

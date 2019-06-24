@@ -54,4 +54,25 @@ public class NoticeController {
 		noticeBoardService.noticeBoardWrite(noticeBoardVo);
 		return "redirect:/notice_board/notice_list";
 	}
+	
+	// 공지사항 글 수정 폼 이동
+	@RequestMapping(value="/notice_update", method=RequestMethod.GET)
+	public void noticeBoardUpdate(@RequestParam("b_no")int b_no, Model model) throws Exception {
+		NoticeBoardVo noticeBoardVo = noticeBoardService.noticeBoardRead(b_no);
+		model.addAttribute("noticeBoardVo", noticeBoardVo);
+	}
+	
+	// 공지사항 글 수정 실행
+	
+	
+	// 공지사항 글 삭제 폼 이동
+	@RequestMapping(value="/notice_delete", method=RequestMethod.GET)
+	public void noticeBoardDelete()	throws Exception {
+		
+	}
+	
+	// 공지사항 글 삭제 실행
+	
+	
+	
 }

@@ -28,4 +28,15 @@
 		select count(*) from notice_board
 	</select>
 	
+	<!-- 글 수정 -->
+	<update id="noticeBoardUpdate">
+		update notice_board set
+			b_addinfo = #{b_addinfo},
+			b_detailinfo = #{b_detailinfo},
+			b_title = #{b_title},
+			b_content = #{b_content},
+			b_modifieddate = #{b_modifieddate}
+		where b_no = #{b_no}
+	</update>
+	
 </mapper>

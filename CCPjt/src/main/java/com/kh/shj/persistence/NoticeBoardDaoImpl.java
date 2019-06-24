@@ -40,7 +40,7 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public void noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception {
-		
+		sqlSession.selectOne(NAMESPACE + "noticeBoardUpdate", noticeBoardVo);
 
 	}
 
