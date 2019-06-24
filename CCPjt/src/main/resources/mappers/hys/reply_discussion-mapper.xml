@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Reply_Discussion">
+
+	<select id="getDiscussionReplyList" resultType="ReplyVo_Discussion">
+		select * 
+	    from(select rownum rnum, a.*
+	        from ( select * 
+	        	   from discussion_reply
+	        	   where b_serialno = #{b_serialno}
+	               order by r_no desc) a)
+	    where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
+	</select>
+	
+	<select id="getReplyCount" resultType="int">
+		select count(*) from discussion_reply
+		where b_serialno = #{b_serialno}
+	</select>
+
+</mapper>

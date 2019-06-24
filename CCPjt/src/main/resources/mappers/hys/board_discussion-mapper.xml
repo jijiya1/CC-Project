@@ -3,8 +3,8 @@
   	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="Discussion_Boared">
-	<select id="getDiscussionList" resultType="Discussion_BoardVo">
+<mapper namespace="Board_Discussion">
+	<select id="getDiscussionList" resultType="BoardVo_Discussion">
 		select *
 		from discussion_board
 	</select>
