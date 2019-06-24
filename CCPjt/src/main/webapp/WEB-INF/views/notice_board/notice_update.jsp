@@ -40,10 +40,8 @@ $(document).ready(function() {
 
 <!-- 공지사항 수정 시작 -->
 	<div class="container-fluid">
-	
-	${ noticeBoardVo }
 	        
-		<p class="mb-4"><a href="/">홈</a> > <a href="notice_list">공지사항</a> > 공지사항 수정</p>
+		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ <a href="notice_read?b_no=${ noticeBoardVo.b_no }">${ noticeBoardVo.b_title }</a> ＞ 공지사항 수정</p>
 		
 		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">공지사항 수정</h1><br>
@@ -85,7 +83,7 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>공지사항 내용</label><br>
-				  <textarea id="summernote" name="b_content"></textarea>
+				  <textarea id="summernote" name="b_content">${ noticeBoardVo.b_content }</textarea>
 				  <script>
 				        $('#summernote').summernote({
 							lang: 'ko-KR',
@@ -100,9 +98,9 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary">글 수정</button>
+			<button type="submit" class="btn btn-primary">수정</button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록으로</button>
+			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 		</form>
 
 	</div>
