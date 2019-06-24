@@ -133,17 +133,14 @@
 	</div>
 </div>
 
-
-
 <script>
-	var slideIndex = 1;
-	
 	// 현재 보고 있는 토론게시판 시리얼 번호
 	var nowDiscussion_b_serialno = "${firstDiscussion_b_serialno}"; 
 	// 현재 보고 있는 댓글 페이지 번호
 	var nowReplyPage = 1; 
-	// 현재 보고 있는 토론게시글 댓글수
-		
+	
+	
+	var slideIndex = 1;
 	showSlides(slideIndex);
 	
 	function plusSlides(n) {
@@ -162,7 +159,6 @@
 	}
 	
 	function showSlides(n) {
-		
 	  var i; 
 	  var slides = document.getElementsByClassName("mySlides");
 	  var dots = document.getElementsByClassName("dot");
@@ -204,6 +200,8 @@
 			var borderColor = "";
 			var YorN = "";
 			var YorNColor = "";
+			// 현재 보고 있는 토론게시글 댓글수
+			var replyCount = 1;
 			
 			$(receivedData).each(function (i) {
 				if (this.r_yesOrNo == "0") {
@@ -215,6 +213,8 @@
 					YorN = "반대";
 					YorNColor = "red";
 				}//if
+				
+				replyCount = i;
 
 				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 				 		+ 		"<div class='card-body'>"

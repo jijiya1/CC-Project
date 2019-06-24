@@ -35,8 +35,8 @@ public class ReplyController_Discussion {
 		replyPagingDto.setNowReplyPage(nowReplyPage);
 		
 		// 댓글 총 갯수 정보 담기
-		int replyCount = discussion_ReplyService.getReplyCount(replyPagingDto);
-		System.out.println("getDiscussionReplyList, replyCount:" + replyCount);
+//		int replyCount = discussion_ReplyService.getReplyCount(replyPagingDto);
+//		System.out.println("getDiscussionReplyList, replyCount:" + replyCount);
 		
 		System.out.println("ReplyController_Discussion, getDiscussionReplyList replyPagingDto : " + replyPagingDto);
 		
