@@ -12,7 +12,6 @@
 	
 	#dataTable_paginate {
 		width:300px; left:0; right:0; margin-left:auto; margin-right:auto;
-	
 	}
 
 </style>
@@ -104,6 +103,7 @@ $(document).ready(function() {
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
+	      <!-- 페이징 시작 -->
 	      <div class="dataTables_length" id="dataTable_length" style="float:left;">
 	      	<select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
 		      	<option value="10">10</option>
@@ -112,11 +112,15 @@ $(document).ready(function() {
 		      	<option value="100">100</option>
 	      	</select>
 	      	</div>
+	      	<!-- 페이징 끝 -->
 	      	
+	      	<!-- 검색바 시작 -->
 	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right;">
 	      		<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
 	      	</div>
+	      	<!-- 검색바 끝 -->
 
+			<!-- 테이블 시작 -->
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 	          <thead>
 	            <tr>
@@ -146,7 +150,9 @@ $(document).ready(function() {
 	      </div>
 	    </div>
 	  </div>
+	  <!-- 테이블 끝 -->
 	  
+	  <!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
 		<a href="/notice_board/notice_list"><button type="button" class="btn btn-success" style="float: left;"><span class="fas fa-list"></span></button></a>
 		<button class="btn btn-danger" id="btnNoticeWrite" style="float: right;">공지사항 작성</button>
@@ -180,6 +186,7 @@ $(document).ready(function() {
 		<!-- 페이지네이션 끝 -->
 
 	</div>
+	<!-- 각종 버튼 및 유틸 끝 -->
 	
 	</div>
 	<br>
