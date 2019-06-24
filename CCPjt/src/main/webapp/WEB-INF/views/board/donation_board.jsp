@@ -16,8 +16,10 @@
 <!--[if lte IE 7]><script src="lte-ie7.js"></script><![endif]-->
 <script>
 $(document).ready(function(){
-	
+	$("#btnWrite").click(function(){
+				
 	});
+});
 	
 </script>	
 
@@ -344,22 +346,29 @@ h1 {
 </style>
 <div>
 <div class="donation_main_btn">
-	<form class="form-inline mr-auto w-100 navbar-search">
-     <div class="input-group">
-     	<select>
-     		<option></option>
-     	</select>
-       <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-       <div class="input-group-append">
-         <button class="btn btn-primary" type="button">
-           <i class="fas fa-search fa-sm"></i>
-         </button>
-         
-         <input type="button" value="글 작성" id="btnWrite" class="btn btn-primary">
-       </div>
-     </div>
-   </form>
-
+	<div class="col-md-4">
+		<form class="form-inline mr-auto w-100 navbar-search">
+	     <div class="input-group">
+	     	<select>
+	     		<option>소속당</option>
+	     		<option>이름</option>
+	     		<option>내용</option>
+	     	</select>
+	       <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+	       <div class="input-group-append">
+	         <button class="btn btn-primary" type="button">
+	           <i class="fas fa-search fa-sm"></i>
+	         </button>
+	         
+	         <input type="button" value="글 작성" id="btnWrite" class="btn btn-primary">
+	       </div>
+	     </div>
+	   </form>
+	</div>
+	<div class="col-md-2">
+	<select>
+		<option>
+	</select></div>
 </div>
  <div class="row">
  <c:forEach items="${doList}" var="doVo">
@@ -423,6 +432,34 @@ h1 {
  
 	</div>
 	
-
+<div class="col-md-4"></div>
+<div class="col-md-4">
+	<nav>
+		<ul class="pagination">
+			<li class="page-item">
+				<a class="page-link" href="#">Previous</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">1</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">2</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">3</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">4</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">5</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">Next</a>
+			</li>
+		</ul>
+	</nav>
+</div>
+<div class="col-md-4"></div>
 
 <%@include file="../include/footer.jsp" %>

@@ -1,4 +1,3 @@
-
 package com.kh.controller;
 
 import java.text.DateFormat;
@@ -33,12 +32,8 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+
+		return "main/main";
 		
-//		return "discussion_board/Discussion_main_board";
-		return "index";
-		
-//		home 원본 링크
-//		return "Test";
 	}
-	
 }
