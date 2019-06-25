@@ -7,5 +7,10 @@
 	<select id="selectAll" resultType="PersonVo">
 		select * from person_data
 	</select>
+	
+	<select id="selectPerson" resultType="PersonVo">
+		select * from person_data
+		where u_id = #{u_id}
+	</select>
 
 </mapper>  	

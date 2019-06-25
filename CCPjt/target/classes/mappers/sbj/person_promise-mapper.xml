@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="person_promise">
+	<select id="selectAllPromise" resultType="PersonPromiseVo">
+		select * from person_promise
+	</select>
+	
+	<insert id="insertPromise">
+		insert into person_promise(u_id, p_no, p_name, p_progress, p_filePath)
+		values(#{u_id}, seq_person_promise.nextval, #{p_name}, #{p_progress}, #{p_filePath})
+	</insert>
+
+</mapper>  	
