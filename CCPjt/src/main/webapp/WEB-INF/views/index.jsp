@@ -1,4 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% response.sendRedirect("/person_board/person_list"); %>
-
+    
+<% response.sendRedirect("/suggest_board/suggest_list"); %>

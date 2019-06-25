@@ -4,16 +4,30 @@
   	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <typeAliases>
+<!-- 		패키지단위 -->
 
-		<typeAlias type="com.kh.shj.domain.NoticeBoardVo" alias="noticeBoardVo"/>
-		<typeAlias type="com.kh.jhj.domain.DonationVo" alias="DonationVo"/>
-		<typeAlias type="com.kh.jhj.domain.DoPageDto" alias="Donation_pageDto"/>
-		<typeAlias type="com.kh.jhj.domain.DoSearchDto" alias="Donation_searchDto"/>
-		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="PersonVo"/>
-		<typeAlias type="com.kh.hys.domain.Discussion_BoardVo" alias="Discussion_BoardVo"/>
-		<typeAlias type="com.kh.hys.domain.Discussion_ReplyVo" alias="Discussion_ReplyVo"/>
+<!-- 		패키지단위 -->
+<!-- 		<package name="com.kh.domain"/> -->
+		
+		<!-- 클래스 단위 -->
+		<typeAlias type="com.kh.domain.AreaData" alias="areaData"/>
+		
+		<typeAlias type="com.kh.hys.domain.BoardVo_Discussion" alias="BoardVo_Discussion"/>
+		<typeAlias type="com.kh.hys.domain.ReplyVo_Discussion" alias="ReplyVo_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.SelectDiscussion_BoardVo" alias="SelectDiscussion_BoardVo"/>
-
+		
+		<typeAlias type="com.kh.shj.domain.NoticeBoardVo" alias="noticeBoardVo"/>
+		<typeAlias type="com.kh.shj.domain.NoSearchDto" alias="noSearchDto"/>
+		<typeAlias type="com.kh.shj.domain.NoPagingDto" alias="noPagingDto"/>
+		
+		<typeAlias type="com.kh.jhj.domain.DonationVo" alias="DonationVo"/>
+		<typeAlias type="com.kh.jhj.domain.PageDto" alias="Donation_pageDto"/>
+		<typeAlias type="com.kh.jhj.domain.SearchDto" alias="Donation_searchDto"/>
+		
+		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="PersonVo"/>
+		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="PersonPromiseVo"/>
+		
+		<typeAlias type="com.kh.psh.domain.Complaint_BoardVo" alias="Complaint_BoardVo"/>
 
 	</typeAliases>
 </configuration>
