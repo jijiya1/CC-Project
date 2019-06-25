@@ -5,11 +5,25 @@
   	
 <mapper namespace ="notice_board">
 
+	<!-- 지역 정보 불러오기 -->
+	<select id="getAreaData" resultType="areaData">
+		select * from area_data
+	</select>
+	
+	<!-- 글 갯수 -->
+	<select id="noticeBoardCount" resultType="int">
+		select count(*) from notice_board
+		where b_checkeddel = 0
+		<include refid="search"></include>
+	</select>
+
 	<!-- 글 목록 불러오기 -->
 	<select id="noticeBoardList" resultType="noticeBoardVo">
-		select * from notice_board
+		select * from (select rownum rnum, a.* from (select * from notice_board, area_data
+		where b_addinfo = a_no
 		<include refid="search"></include>
-		order by b_no desc
+		order by b_no desc) a)
+		where rnum &gt;= #{noPagingDto.startRow} and rnum &lt;= #{noPagingDto.endRow}
 	</select>
 	
 	<!-- 해당 게시글 읽기 -->
@@ -31,12 +45,6 @@
 		values ('no_' || seq_notice_serialno.nextval, seq_notice.nextval, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{u_id}, #{b_content})
 	</insert>
 	
-	<!-- 글 갯수 -->
-	<select id="noticeBoardCount" resultType="int">
-		select count(*) from notice_board
-		<include refid="search"></include>
-	</select>
-	
 	<!-- 글 수정 -->
 	<update id="noticeBoardUpdate">
 		update notice_board set
@@ -50,11 +58,18 @@
 		where b_no = #{b_no}
 	</update>
 	
+	<!-- 글 삭제 -->
+	<update id="noticeBoardDelete">
+		update notice_board set
+			b_checkeddel = b_checkeddel + 1
+		where b_no = #{b_no}
+	</update>
+	
 	<!-- 검색 -->
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'b_title'">
-				where b_title like '%' || #{keyword} || '%' 
+				and b_title like '%' || #{keyword} || '%' 
 			</if>
 		</if>
 	</sql>

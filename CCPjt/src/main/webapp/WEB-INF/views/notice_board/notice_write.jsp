@@ -40,12 +40,13 @@ $(document).ready(function() {
 
 <!-- 공지사항 작성 시작 -->
 	<div class="container-fluid">
-	        
+	       
 		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ 공지사항 작성</p>
 		
 		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">공지사항 작성</h1><br>
 		
+		<!-- 공지사항 작성 부분 시작 - form -->
 		<form role="form" method="post">
 		
 			<div class="form-group">
@@ -66,9 +67,9 @@ $(document).ready(function() {
 			<div class="form-group">
 				<label>시/도</label>
 				<select class="form-control" name="b_addinfo" id="b_addinfo">
-					<option value="notice">공지사항</option>
-					<option value="seoul">서울</option>
-					<option value="inchen">인천</option>
+					<c:forEach items="${ areaData }" var="areaData">
+						<option value="${ areaData.a_no }">${ areaData.a_name }</option>
+					</c:forEach>
 				</select>
 			</div>
 			
@@ -102,7 +103,9 @@ $(document).ready(function() {
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
 			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 		</form>
+		<!-- 공지사항 작성 부분 끝 - form -->
 
 	</div>
+	<!-- 공지사항 작성 끝 -->
 
 <%@include file="../include/footer.jsp" %>

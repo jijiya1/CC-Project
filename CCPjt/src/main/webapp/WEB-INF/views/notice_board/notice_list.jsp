@@ -19,6 +19,14 @@
 <script>
 $(document).ready(function() {
 	
+	// 알람창
+	var message = "${message}";
+	if (message == "success_write") {
+		alert("글을 작성하였습니다.")
+	} else if (message == "success_delete") {
+		alert("글을 삭제하였습니다.")
+	}
+	
 	// 공지사항 작성
 	$("#btnNoticeWrite").click(function() {
 		location.href = "/notice_board/notice_write";
@@ -27,34 +35,66 @@ $(document).ready(function() {
 	 // 해당 글 읽기
 	 $(".title").click(function(e) {
 		e.preventDefault();
+		setPage();
+		setSearch();
+		
 		var b_no = $(this).attr("data-b_no");
 // 		console.log(b_no);
 		$("input[name=b_no]").val(b_no);
+		var a_no = $(this).attr("data-a_no");
+		$("input[name=a_no]").val(a_no);
 		var href = $(this).attr("href");
 // 		console.log(href);
 		$("#hiddenData").attr("action", href).submit();
+		
 	 });
 	 
 	 // 검색바
-	 $("#btnSearch").click(function() {
-		 var searchType = $("#searchType").val();
-		 var keyword = $("#keyword").val();
+// 	 $("#btnSearch").click(function() {
+// 		 var searchType = $("#searchType").val();
+// 		 var keyword = $("#keyword").val();
 // 		 console.log(searchType);
 // 		 console.log(keyword);
-		$("input[name=searchType]").val(searchType);
-		$("input[name=keyword]").val(keyword);
-		$("#hiddenData").submit();
-	 });
+// 		$("input[name=searchType]").val(searchType);
+// 		$("input[name=keyword]").val(keyword);
+// 		$("#hiddenData").submit();
+// 	 });
 	 
-	 $("#keyword").keyup(function(e){
-		 if(e.keyCode == 13) {
-			$("input[name=searchType]").val("b_title");
-			var keyword = $("#keyword").val();
-			$("input[name=keyword]").val(keyword);
-			$("#hiddenData").submit();
+	 // 페이징 기능
+	 function setPage() {
+		 var nowPage = "${ noPagingDto.nowPage }";
+		 if (nowPage == "") {
+			 nowPage =1;
 		 }
-	 });
+		 var perPage = $("select[name=dataTable_length]").val();
+		 $("input[name=nowPage]").val(nowPage);
+		 $("input[name=perPage]").val(perPage);
+	 }
 	 
+	 // 검색 기능
+	 function setSearch() {
+		 $("#keyword").keyup(function(e){
+			 setPage();
+			 if(e.keyCode == 13) {
+				$("input[name=searchType]").val("b_title");
+				var keyword = $("#keyword").val();
+				$("input[name=keyword]").val(keyword);
+				$("#hiddenData").submit();
+			 }
+		 });
+	 }
+	 
+	 // 검색
+	 setSearch();
+
+	 // n줄씩 보기
+	 $("select[name=dataTable_length]").change(function() {
+		 setPage();
+		 setSearch();
+		 $("#hiddenData").submit();
+	 });
+
+
  });
 </script>
 
@@ -98,6 +138,9 @@ $(document).ready(function() {
 		<!-- 히든 데이터 값 시작 -->
 		<form id="hiddenData" action="/notice_board/notice_list">
 			<input type="hidden" name="b_no">
+			<input type="hidden" name="a_no">
+			<input type="hidden" name="nowPage">
+			<input type="hidden" name="perPage">
 			<input type="hidden" name="searchType">
 			<input type="hidden" name="keyword">
 		</form>
@@ -106,10 +149,9 @@ $(document).ready(function() {
 	      <!-- 페이징 시작 -->
 	      <div class="dataTables_length" id="dataTable_length" style="float:left;">
 	      	<select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-		      	<option value="10">10</option>
-		      	<option value="25">25</option>
-		      	<option value="50">50</option>
-		      	<option value="100">100</option>
+	      		<c:forEach var="i" begin="10" end="30" step="5">
+			      	<option value="${ i }" <c:if test="${ i == noPagingDto.perPage }">selected</c:if>>${ i }</option>
+		      	</c:forEach>
 	      	</select>
 	      	</div>
 	      	<!-- 페이징 끝 -->
@@ -134,16 +176,18 @@ $(document).ready(function() {
 	          </thead>
 	          <tbody>
 	          <c:forEach items="${ list }" var="noticeBoardVo">
+	          <c:if test="${ noticeBoardVo.b_checkeddel == 0 }">
 	            <tr>
 	              <td>${ noticeBoardVo.b_no }</td>
 	              <td>
-	              	<a href="/notice_board/notice_read" class="title" data-b_no="${ noticeBoardVo.b_no }">${ noticeBoardVo.b_title }</a>
+	              	<a href="/notice_board/notice_read" class="title" style="float: left;" data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }</a>
            		  </td>
            		  <td>N</td>
 	              <td>${ noticeBoardVo.b_writer }</td>
 	              <td>${ noticeBoardVo.b_readcount }</td>
 	              <td><fmt:formatDate value="${ noticeBoardVo.b_createddate }" pattern="yyyy-MM-dd"/></td>
 	            </tr>
+			  </c:if>
            	  </c:forEach>
 	          </tbody>
 	        </table>

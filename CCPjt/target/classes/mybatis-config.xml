@@ -9,11 +9,14 @@
 <!-- 		<package name="com.kh.domain"/> -->
 		
 		<!-- 클래스 단위 -->
+		<typeAlias type="com.kh.domain.AreaData" alias="areaData"/>
+		
 		<typeAlias type="com.kh.hys.domain.BoardVo_Discussion" alias="BoardVo_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.ReplyVo_Discussion" alias="ReplyVo_Discussion"/>
 		
 		<typeAlias type="com.kh.shj.domain.NoticeBoardVo" alias="noticeBoardVo"/>
 		<typeAlias type="com.kh.shj.domain.NoSearchDto" alias="noSearchDto"/>
+		<typeAlias type="com.kh.shj.domain.NoPagingDto" alias="noPagingDto"/>
 		
 		<typeAlias type="com.kh.jhj.domain.DonationVo" alias="DonationVo"/>
 		<typeAlias type="com.kh.jhj.domain.PageDto" alias="Donation_pageDto"/>

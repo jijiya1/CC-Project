@@ -46,6 +46,7 @@ $(document).ready(function() {
 		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">공지사항 수정</h1><br>
 		
+		<!-- 공지사항 수정 부분 시작 - form -->
 		<form role="form" method="post">
 		
 			<div class="form-group">
@@ -102,7 +103,8 @@ $(document).ready(function() {
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
 			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 		</form>
-
+		<!-- 공지사항 수정 부분 끝 - form -->
 	</div>
+	<!-- 공지사항 수정 끝 -->
 
 <%@include file="../include/footer.jsp" %>

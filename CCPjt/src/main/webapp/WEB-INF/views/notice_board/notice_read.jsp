@@ -43,6 +43,9 @@ $(document).ready(function() {
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">${ noticeBoardVo.b_title }</h1><br>
 	
+	${ areaData }
+	
+	<!-- 공지사항 읽기 부분 시작 -->
 	<div class="card shadow mb-4">
     	<div class="card-body">
     		<div class="table-responsive">
@@ -60,8 +63,12 @@ $(document).ready(function() {
 							<th scope="row">조회수</th>
 							<td>${ noticeBoardVo.b_readcount }</td>
 							<!-- 공개여부 -->
-							<th scope="row">공개여부</th>
-							<td>공개</td>
+							<th scope="row">카테고리</th>
+							<td>
+								<c:choose>
+									<c:when test="${ noticeBoardVo.b_addinfo == 10 }">${ areaData.a_name }</c:when>
+								</c:choose>
+							</td>
 						</tr>
 			
 						<!-- 첨부파일 -->
@@ -81,10 +88,13 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
+	<!-- 공지사항 읽기 부분 끝 -->
+	
+	<!-- 하단 버튼 모음 시작 -->
 	<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 	<button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
 	<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+	<!-- 하단 버튼 모음 끝 -->
 
 </div>
 <br>
