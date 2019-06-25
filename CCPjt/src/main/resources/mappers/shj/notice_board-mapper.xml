@@ -8,6 +8,7 @@
 	<!-- 글 목록 불러오기 -->
 	<select id="noticeBoardList" resultType="noticeBoardVo">
 		select * from notice_board
+		<include refid="search"></include>
 		order by b_no desc
 	</select>
 	
@@ -16,6 +17,13 @@
 		select * from notice_board
 		where b_no = #{b_no}
 	</select>
+	
+	<!-- 해당 게시글 클릭시 조회수 +1 업데이트 -->
+	<update id="noticeBoardReadCountUpdate">
+		update notice_board set
+			b_readcount = b_readcount + 1
+		where b_no = #{b_no}
+	</update>
 
 	<!-- 글 작성 -->
 	<insert id="noticeBoardWrite">
@@ -26,6 +34,29 @@
 	<!-- 글 갯수 -->
 	<select id="noticeBoardCount" resultType="int">
 		select count(*) from notice_board
+		<include refid="search"></include>
 	</select>
+	
+	<!-- 글 수정 -->
+	<update id="noticeBoardUpdate">
+		update notice_board set
+			b_addinfo = #{b_addinfo},
+			b_detailinfo = #{b_detailinfo},
+			b_title = #{b_title},
+			b_writer = #{b_writer},
+			u_id = #{u_id},
+			b_content = #{b_content},
+			b_modifieddate = sysdate
+		where b_no = #{b_no}
+	</update>
+	
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 'b_title'">
+				where b_title like '%' || #{keyword} || '%' 
+			</if>
+		</if>
+	</sql>
 	
 </mapper>

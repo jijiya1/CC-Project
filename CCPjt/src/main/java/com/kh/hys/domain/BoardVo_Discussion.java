@@ -2,7 +2,7 @@ package com.kh.hys.domain;
 
 import java.sql.Timestamp;
 
-public class Discussion_BoardVo {
+public class BoardVo_Discussion {
 	String b_serialno; // 게시글 시리얼 넘버
 	int b_no; // 토론 게시글 번호
 	String b_addinfo; // 토론 게시글 정보 (지역) 서울

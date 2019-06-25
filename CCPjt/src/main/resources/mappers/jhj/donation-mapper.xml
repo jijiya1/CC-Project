@@ -5,8 +5,11 @@
   	
 <mapper namespace ="donation_board">
 	<select id="list" resultType="DonationVo">
-		select * from donation_board
-		where b_checkeddel =0
+	
+	select * from (select * from donation_board
+                where u_id in(select u_id from person_data where m_party='아니당'))
+        where b_checkeddel =0
+        order by b_no desc;
 	</select>
 	
 	<select id="read" resultType="DonationVo">
@@ -27,4 +30,9 @@
 		update donation_board set b_title ={b_title}, b_subtitle={b_subtitle}, b_content={b_content}
 		where b_serialno = {b_serialno}
 	</update>
+	
+	
+	<select id="totalCount">
+	
+	</select>
 </mapper>  	

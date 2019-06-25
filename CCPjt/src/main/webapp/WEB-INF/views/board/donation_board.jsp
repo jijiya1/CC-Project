@@ -16,8 +16,10 @@
 <!--[if lte IE 7]><script src="lte-ie7.js"></script><![endif]-->
 <script>
 $(document).ready(function(){
-	
+	$("#btnWrite").click(function(){
+				
 	});
+});
 	
 </script>	
 
@@ -344,7 +346,7 @@ h1 {
 </style>
 <div>
 <div class="donation_main_btn">
-	<div class="col-md-2">
+	<div class="col-md-4">
 		<form class="form-inline mr-auto w-100 navbar-search">
 	     <div class="input-group">
 	     	<select>

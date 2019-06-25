@@ -91,8 +91,7 @@
 	}
 </style>
 
-
-<p>데이터 확인 : ${discussionList }</p>
+<p>데이터 확인 :  ${replyPaginnationDto}</p>
 
 <div class="slideshow-container">
 	<div>
@@ -134,16 +133,14 @@
 	</div>
 </div>
 
-
-
 <script>
-	var slideIndex = 1;
-	
-	// 현재 보고 있는 토론게시 시리얼 번호
+	// 현재 보고 있는 토론게시판 시리얼 번호
 	var nowDiscussion_b_serialno = "${firstDiscussion_b_serialno}"; 
-	// 현재 보고 있는 리플 페이지 번호
+	// 현재 보고 있는 댓글 페이지 번호
 	var nowReplyPage = 1; 
 	
+	
+	var slideIndex = 1;
 	showSlides(slideIndex);
 	
 	function plusSlides(n) {
@@ -162,7 +159,6 @@
 	}
 	
 	function showSlides(n) {
-		
 	  var i; 
 	  var slides = document.getElementsByClassName("mySlides");
 	  var dots = document.getElementsByClassName("dot");
@@ -196,7 +192,7 @@
 	
 	// 댓글보기 버튼
 	$("#btnReplyList").click(function () {
-		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno;
+		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage;
 		$.getJSON(url, function (receivedData) {
 			console.log("getDiscussionRepiyList, receivedData : " + receivedData);
 			
@@ -204,8 +200,10 @@
 			var borderColor = "";
 			var YorN = "";
 			var YorNColor = "";
+			// 현재 보고 있는 토론게시글 댓글수
+			var replyCount = 1;
+			
 			$(receivedData).each(function (i) {
-
 				if (this.r_yesOrNo == "0") {
 					borderColor = "primary"
 					YorN = "찬성";
@@ -215,6 +213,8 @@
 					YorN = "반대";
 					YorNColor = "red";
 				}//if
+				
+				replyCount = i;
 
 				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 				 		+ 		"<div class='card-body'>"
@@ -245,13 +245,14 @@
 		});//$.getJSON(url, function (receivedData)
 	});// $("#btnReplyList").click
 	
+	// 댓글 페이징 버튼
 	$("#discussion_ReplyList").on("click",".page-link", function (e) {
 		e.preventDefault();
 		var reply_page =  $(this).attr("data-reply_page");
+		nowReplyPage = reply_page;
+		$("#btnReplyList").trigger("click");
 		console.log(reply_page+" 페이지 버튼")
 	})
-	
-
 </script>
 
 <%@include file="../include/footer.jsp" %>
