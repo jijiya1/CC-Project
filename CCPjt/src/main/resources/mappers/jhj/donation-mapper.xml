@@ -9,11 +9,11 @@
 	select * from (select * from donation_board
                 where u_id in(select u_id from person_data where m_party='아니당'))
         where b_checkeddel =0
-        order by b_no desc;
+        order by b_no desc
 	</select>
 	
 	<select id="read" resultType="DonationVo">
-		select * from donation_board where b_serialno= {b_serialno};
+		select * from donation_board where b_serialno= {b_serialno}
 	</select>
 	
 	<insert id="insert">
