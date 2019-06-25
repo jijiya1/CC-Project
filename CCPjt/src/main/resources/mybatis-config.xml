@@ -4,10 +4,12 @@
   	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <typeAliases>
-
+		
+		
 		<typeAlias type="com.kh.shj.domain.NoticeBoardVo" alias="noticeBoardVo"/>
 		<typeAlias type="com.kh.jhj.domain.DonationVo" alias="DonationVo"/>
 		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="PersonVo"/>
+		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="PersonPromiseVo"/>
 		<typeAlias type="com.kh.hys.domain.Discussion_BoardVo" alias="Discussion_BoardVo"/>
 		<typeAlias type="com.kh.hys.domain.Discussion_ReplyVo" alias="Discussion_ReplyVo"/>
 		<typeAlias type="com.kh.hys.domain.SelectDiscussion_BoardVo" alias="SelectDiscussion_BoardVo"/>

@@ -21,4 +21,10 @@ public class PersonServiceImpl implements IPersonService {
 		return list;
 	}
 
+	@Override
+	public PersonVo selectPerson(String u_id) throws Exception {
+		PersonVo personVo = personDao.selectPerson(u_id);
+		return personVo;
+	}
+
 }

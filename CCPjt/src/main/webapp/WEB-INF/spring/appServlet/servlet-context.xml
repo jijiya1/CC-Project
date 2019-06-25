@@ -31,6 +31,7 @@
 	
 	<context:component-scan base-package="com.kh.sbj.persistence" />
 	<context:component-scan base-package="com.kh.sbj.service" />
+	
 	<context:component-scan base-package="com.kh.jhj.persistence" />
 	<context:component-scan base-package="com.kh.jhj.service" />
 	

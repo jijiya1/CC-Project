@@ -23,4 +23,10 @@ public class PersonDaoImpl implements IPersonDao {
 		return list;
 	}
 
+	@Override
+	public PersonVo selectPerson(String u_id) throws Exception {
+		PersonVo personVo = sqlSession.selectOne("person.selectPerson", u_id);
+		return personVo;
+	}
+
 }
