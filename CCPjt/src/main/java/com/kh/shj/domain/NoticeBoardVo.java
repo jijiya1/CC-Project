@@ -17,31 +17,6 @@ public class NoticeBoardVo {
 	private int b_up; // 공지게시글 글 좋아요
 	private int b_down; // 공지게시글 글 싫어요
 	private int b_checkeddel; // 게시글 삭제 여부
-	
-	public NoticeBoardVo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public NoticeBoardVo(String b_serialno, int b_no, String b_addinfo, String b_detailinfo, String b_title,
-			String b_writer, String u_id, String b_content, int b_readcount, Timestamp b_createddate,
-			Timestamp b_modifieddate, int b_up, int b_down, int b_checkeddel) {
-		super();
-		this.b_serialno = b_serialno;
-		this.b_no = b_no;
-		this.b_addinfo = b_addinfo;
-		this.b_detailinfo = b_detailinfo;
-		this.b_title = b_title;
-		this.b_writer = b_writer;
-		this.u_id = u_id;
-		this.b_content = b_content;
-		this.b_readcount = b_readcount;
-		this.b_createddate = b_createddate;
-		this.b_modifieddate = b_modifieddate;
-		this.b_up = b_up;
-		this.b_down = b_down;
-		this.b_checkeddel = b_checkeddel;
-	}
 
 	public String getB_serialno() {
 		return b_serialno;

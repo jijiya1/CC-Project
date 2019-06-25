@@ -2,7 +2,7 @@ package com.kh.hys.domain;
 
 import java.sql.Timestamp;
 
-public class Discussion_ReplyVo {
+public class ReplyVo_Discussion {
 
 	String b_serialno; // 게시글 시리얼넘버
 	int r_no; // 토론 리플번호
@@ -16,6 +16,7 @@ public class Discussion_ReplyVo {
 	int r_step;
 	int r_level;
 	int r_checkedDel; // 리플삭제여부
+	int replyCount;
 
 	public String getB_serialno() {
 		return b_serialno;
@@ -112,13 +113,24 @@ public class Discussion_ReplyVo {
 	public void setR_checkedDel(int r_checkedDel) {
 		this.r_checkedDel = r_checkedDel;
 	}
+	
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 
 	@Override
 	public String toString() {
-		return "Discussion_replyVo [b_serialno=" + b_serialno + ", r_no=" + r_no + ", r_writer=" + r_writer
+		return "ReplyVo_Discussion [b_serialno=" + b_serialno + ", r_no=" + r_no + ", r_writer=" + r_writer
 				+ ", r_content=" + r_content + ", r_createdDate=" + r_createdDate + ", r_modifiedDate=" + r_modifiedDate
 				+ ", r_yesOrNo=" + r_yesOrNo + ", r_up=" + r_up + ", r_down=" + r_down + ", r_step=" + r_step
-				+ ", r_level=" + r_level + ", r_checkedDel=" + r_checkedDel + "]";
+				+ ", r_level=" + r_level + ", r_checkedDel=" + r_checkedDel + ", replyCount=" + replyCount + "]";
 	}
+
+
 
 }

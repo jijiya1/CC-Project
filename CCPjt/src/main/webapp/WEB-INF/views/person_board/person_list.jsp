@@ -29,12 +29,22 @@
 $(document).ready(function(){
 	$("#memberDiv").on("click", ".text-name", function(){
 // 		$("#modal-614588").trigger("click");
-// 		var u_id = $(this).attr("data-u_id");
-		location.href = "/person_board/person_minipage";
+		var u_id = $(this).attr("data-u_id");
+		console.log("u_id"+u_id);
+		$("input[name=u_id]").val(u_id);
+		var temp=$("input[name=u_id]").val();
+		console.log("temp = "+temp);
+		$("#personForm").submit();
 	});
 });
 
 </script>
+
+<form id="personForm" action="/person_board/person_minipage">
+	<input type="hidden" name="u_id" >
+</form>
+
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -79,7 +89,7 @@ $(document).ready(function(){
 		<div class="card" >
 	  	<img src="/resources/img/test1.jpg"  alt="Avatar" style="width:100%"/>
 	 		<div class="container" >
-	   			<a class="text-name" id="memberName" data-u_id="${personVo.u_id }">${personVo.u_name } (${personVo.m_party })</a>
+	   			<a class="text-name" id="memberName" data-u_id="${personVo.u_id}">${personVo.u_name } (${personVo.m_party })</a>
 	  			<span>${personVo.m_position } / ${personVo.m_area }</span> 
 	  		</div>
 		</div>	

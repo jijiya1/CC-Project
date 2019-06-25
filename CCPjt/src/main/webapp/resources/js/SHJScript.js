@@ -3,12 +3,15 @@
 $(document).ready(function() {
 		
 	// 서머노트
-	$('#summernote').summernote({
+    $('#summernote').summernote({
 		lang: 'ko-KR',
         height: 350,
         minHeight: null,
         maxHeight: null,
         focus: true  
-	});
+    });
+    var postForm = function() {
+    	var content = $('textarea[name="b_content"]').html($('#summernote').code());
+    }
 		
 });
