@@ -11,12 +11,12 @@ public class ReplyVo_Discussion {
 	Timestamp r_createdDate; // 토론 리플 작성일
 	Timestamp r_modifiedDate; // 토론 리플 수정일
 	int r_yesOrNo; // 토론 리플 찬반여부 0 = Yes(찬성), 1 = NO(반대)
-	int r_up; // 토론 리플 좋아요
-	int r_down; // 토론 리플 싫어요
+	int r_upcount; // 토론 리플 좋아요
+	int r_downcount; // 토론 리플 싫어요
 	int r_step;
 	int r_level;
 	int r_checkedDel; // 리플삭제여부
-	int replyCount;
+	int totalreplycount; // 해당 토론게시글에 달린 댓글수
 
 	public String getB_serialno() {
 		return b_serialno;
@@ -74,20 +74,20 @@ public class ReplyVo_Discussion {
 		this.r_yesOrNo = r_yesOrNo;
 	}
 
-	public int getR_up() {
-		return r_up;
+	public int getR_upcount() {
+		return r_upcount;
 	}
 
-	public void setR_up(int r_up) {
-		this.r_up = r_up;
+	public void setR_upcount(int r_upcount) {
+		this.r_upcount = r_upcount;
 	}
 
-	public int getR_down() {
-		return r_down;
+	public int getR_downcount() {
+		return r_downcount;
 	}
 
-	public void setR_down(int r_down) {
-		this.r_down = r_down;
+	public void setR_downcount(int r_downcount) {
+		this.r_downcount = r_downcount;
 	}
 
 	public int getR_step() {
@@ -113,24 +113,22 @@ public class ReplyVo_Discussion {
 	public void setR_checkedDel(int r_checkedDel) {
 		this.r_checkedDel = r_checkedDel;
 	}
-	
 
-	public int getReplyCount() {
-		return replyCount;
+	public int getTotalreplycount() {
+		return totalreplycount;
 	}
 
-	public void setReplyCount(int replyCount) {
-		this.replyCount = replyCount;
+	public void setTotalreplycount(int totalreplycount) {
+		this.totalreplycount = totalreplycount;
 	}
 
 	@Override
 	public String toString() {
 		return "ReplyVo_Discussion [b_serialno=" + b_serialno + ", r_no=" + r_no + ", r_writer=" + r_writer
 				+ ", r_content=" + r_content + ", r_createdDate=" + r_createdDate + ", r_modifiedDate=" + r_modifiedDate
-				+ ", r_yesOrNo=" + r_yesOrNo + ", r_up=" + r_up + ", r_down=" + r_down + ", r_step=" + r_step
-				+ ", r_level=" + r_level + ", r_checkedDel=" + r_checkedDel + ", replyCount=" + replyCount + "]";
+				+ ", r_yesOrNo=" + r_yesOrNo + ", r_upcount=" + r_upcount + ", r_downcount=" + r_downcount + ", r_step="
+				+ r_step + ", r_level=" + r_level + ", r_checkedDel=" + r_checkedDel + ", totalreplycount="
+				+ totalreplycount + "]";
 	}
-
-
 
 }

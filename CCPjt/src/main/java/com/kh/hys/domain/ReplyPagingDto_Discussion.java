@@ -7,7 +7,7 @@ public class ReplyPagingDto_Discussion {
 	private int perPage = 5;
 	private int startRow = nowReplyPage;
 	private int endRow = startRow + perPage - 1;
-
+	
 	public String getB_serialno() {
 		return b_serialno;
 	}
@@ -57,7 +57,7 @@ public class ReplyPagingDto_Discussion {
 
 	@Override
 	public String toString() {
-		return "Discussion_ReplyPagingDto [b_serialno=" + b_serialno + ", nowReplyPage=" + nowReplyPage + ", perPage="
+		return "ReplyPagingDto_Discussion [b_serialno=" + b_serialno + ", nowReplyPage=" + nowReplyPage + ", perPage="
 				+ perPage + ", startRow=" + startRow + ", endRow=" + endRow + "]";
 	}
 
