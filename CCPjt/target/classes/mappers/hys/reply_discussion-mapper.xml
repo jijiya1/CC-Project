@@ -30,17 +30,17 @@
 	
 	<!-- 댓글에 대해 좋아요 또는 싫어요값 추가 -->
 	<insert id="replylikeInfoAdd">
-		insert into discussion_reply_likeInfo (u_id, r_no, r_up , r_down)
-		values (#{u_id},#{r_no},#{r_up},#{r_down})
+		insert into discussion_reply_likeInfo (u_id, r_no, r_likenum)
+		values (#{u_id},#{r_no},#{r_likenum})
 	</insert>
 	
 	<!-- 댓글에 대해 좋아요 또는 싫어요 총 값 갱신-->
 	<update id="replyLikeCountModify">
 		update discussion_reply 
 		set r_upcount = (select count(*) from discussion_reply_likeinfo
-        				where r_no =#{r_no} and r_up =1),
+        				where r_no =#{r_no} and r_likenum =1),
         	r_downcount = (select count(*) from discussion_reply_likeinfo
-        				where r_no =#{r_no} and r_down =1)
+        				where r_no =#{r_no} and r_likenum =2)
        where r_no = #{r_no} 			
 	</update>
 	
@@ -54,15 +54,8 @@
 	<!-- 이미 좋아요 또는 싫어요를 눌렀다면 새로 업데이트 -->
 	<update id="replyLikeInfoModify">
 		update discussion_reply_likeinfo
-		set r_up = r_up + #{r_up},
-			r_down =  r_down + #{r_down}
+		set r_likenum =  #{r_likenum}
 		where r_no = #{r_no} and u_id = #{u_id}
-	</update>
-	
-	<!-- 좋아요 싫어요  버튼 취소 기능 -->
-	<update id="replyLikeInfoCancel">
-        update (select r_up, r_down, r_up+r_down from discussion_reply_likeinfo where  r_up+r_down >= 2)
-        set r_up = 0 , r_down = 0
 	</update>
 	
 	<!-- 특정유저가 좋아요or싫어요 표시한 정보 가져오기 -->

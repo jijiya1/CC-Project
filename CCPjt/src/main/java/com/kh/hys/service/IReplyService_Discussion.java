@@ -33,8 +33,6 @@ public interface IReplyService_Discussion {
 	
 	// 이미 유저가 해당 댓글에 좋아요 또는 싫어요를 클릭했다면 변경
 	public void replyLikeInfoModify(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception;
-	
-	// 댓글에 좋아요 또는 싫어요 버튼 취소 기능
-	public void replyLikeInfoCancel() throws Exception;
+
 	
 }

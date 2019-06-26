@@ -109,4 +109,22 @@ public class ReplyController_Discussion {
 		
 		return entity;
 	}
+	
+	// 토론 게시판 댓글에 답글 달기
+	@RequestMapping(value="/replyComentWrite", method=RequestMethod.POST)
+	public ResponseEntity<String> replyComentWrite(@RequestBody ReplyVo_Discussion replyVo_Discussion) {
+		ResponseEntity<String> entity = null;
+		
+		System.out.println("ReplyController_Discussion, replyComentWrite, replyVo_Discussion : " + replyVo_Discussion);
+		
+		try {
+			
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 }

@@ -73,10 +73,5 @@ public class ReplyDaoImpl_Discussion implements IReplyDao_Discussion {
 		sqlSession.update(NAMESPACE+"replyLikeInfoModify", replyLikeInfoDto_Discussion);
 	}
 	
-	// 댓글에 좋아요 또는 싫어요 버튼 취소 기능
-	@Override
-	public void replyLikeInfoCancel() throws Exception {
-		sqlSession.update(NAMESPACE+"replyLikeInfoCancel");
-	}
 
 }
