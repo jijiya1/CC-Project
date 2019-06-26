@@ -4,8 +4,7 @@
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	
 <mapper namespace ="donation_board">
-	<select id="list" resultType="DonationVo">
-	
+	<select id="list" resultType="DonationVo">	
 	select * from (select * from donation_board
                 where u_id in(select u_id from person_data where m_party='아니당'))
         where b_checkeddel =0

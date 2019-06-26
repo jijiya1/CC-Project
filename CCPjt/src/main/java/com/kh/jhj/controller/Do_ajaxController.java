@@ -1,23 +1,18 @@
 package com.kh.jhj.controller;
 
-import java.io.File;
-
 import javax.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.jhj.util.Do_UploadUtil;
-
 @RestController
-@RequestMapping("/doationUplaod/*")
-public class DonationFileUploadController {
+@RequestMapping("/do_ajax/*")
+public class Do_ajaxController {
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;

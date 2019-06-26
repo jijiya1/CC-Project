@@ -11,7 +11,7 @@ $(document).ready(function(){
 		var formData = new FormData();
 			formData.append("file", $("input[name=file]")[0].files[0]);
 			console.log("formData :" +formData);
-		var url="/doationUplaod/uploadList";
+		var url="/do_ajax/uploadList";
 		$.ajax({
 			"type" : "post",
 			"url" : url,
@@ -22,9 +22,11 @@ $(document).ready(function(){
 				$("#txtFile").append(fileName +" <br/> ");
 				
 			}
+	
 		});
 
-	});
+	}); //file. change
+	
 	
 });
 	
@@ -34,44 +36,47 @@ $(document).ready(function(){
 <title>후원게시판-글쓰기</title>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-6">
+	 <form name="writeUpload" method="post" enctype="multipart/form-data" action="/donation/writeUpload">
+
+		<div class="col-md-8">
 			
 			 <h1>후원게시판 글 작성</h1>
+			
 				<div class="form-group">
 					<label>제목</label>
-					<input type="text" class="form-control" id="b_title" />
+					<input type="text" class="form-control" id="b_title" name="b_title" />
 				</div>
 				<div class="form-group">
 					<label>부제목</label>
-					<input type="text" class="form-control" id="b_subtitle" />
+					<input type="text" class="form-control" name="b_subtitle" />
 				</div>
 				<div class="form-group">
 					<label>작성자</label>
-					<input type="text" class="form-control" id="b_writer" />
+					<input type="text" class="form-control" name="b_writer" />
 				</div>
-				<form name="writeUpload" method="post" enctype="multipart/form-data">
+				
 				<div class="form-group">
 					 
 					<label>파일 업로드</label>
 					<input multiple="multiple" type="file" class="form-control-file" 
-					id="file" name="file"/>
+					id="file" name="file" />
 <!-- 					<input type="button" id="btnFile"> -->
 <!-- 					<textarea readonly id="txtFile"></textarea> -->
 					<div id="txtFile"></div>
 				</div>
-				</form>
+				
 				<div class="form-group">
 					<label>내용</label>
 					<div>
-					<textarea rows="10" cols="80" id=content>
+					<textarea rows="10" cols="80" name="b_content">
 					</textarea>
 					</div>
 				</div>
 				<input type="submit" class="btn btn-primary" value="작성완료"
-					id="btnWriete">
-			
+					id="btnWriete">	
 		</div>
-		<div></div>
+		</form>
+	
 	</div>
 </div>
 

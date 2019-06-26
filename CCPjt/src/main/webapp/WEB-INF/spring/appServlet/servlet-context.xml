@@ -47,7 +47,7 @@
 	
 <!-- 	업로드 경로 -->
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="\\192.168.0.127\upload_team3"> </beans:constructor-arg>
+		<beans:constructor-arg value="\\192.168.0.127\shared\upload_team3"> </beans:constructor-arg>
 	</beans:bean>
 	
 	<beans:bean id="multipartResolver" 
