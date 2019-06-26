@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -55,17 +56,29 @@
 <!--       Divider -->
 <!--       <hr class="sidebar-divider"> -->
 
+
+
+
+
 	<!-- 좌측 메뉴바 시작 -->
       <!-- Heading -->
       <div class="sidebar-heading">
         notice
       </div>
-
-	<!-- Nav Item - 공지사항 -->
+      
+      	<!-- Nav Item - 공지사항 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/notice_board/notice_list">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>공지사항</span></a>
+          <span>공지사항</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">분류 :</h6>
+            <a class="collapse-item" href="/notice_board/notice_list">전체</a>
+            <a class="collapse-item" href="/notice_board/notice_location">지역별</a>
+          </div>
+        </div>
       </li>
 
       <!-- Divider -->

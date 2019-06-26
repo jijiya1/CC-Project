@@ -5,12 +5,6 @@
 
 <div class="container">
 
-<a href="/donation/list">정혜지</a><br>
-<a href="/notice_board/notice_list">손희준</a><br>
-<a href="/person_board/person_list">손병진</a><br>
-<a href="/discussion_board/discussion_main_board">황용석</a><br>
-<a href="/suggest_board/suggest_list">박석환</a><br>
-
 <div class="row">
 <div class="col-lg-5 col-xl-5">
   <!-- Nav tabs -->

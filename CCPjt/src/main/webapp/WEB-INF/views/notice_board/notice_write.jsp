@@ -11,10 +11,22 @@
 
 <script>
 $(document).ready(function() {
-	
+
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
 		location.href = "/notice_board/notice_list";
+	});
+	
+	$("#b_addinfo").change(function() {
+		var b_addinfo = $("select[name=b_addinfo]").val();
+		console.log(b_addinfo);
+		
+		var test = "${areaData}";
+		console.log(test);
+		
+		if (b_addinfo == 10) {
+			
+		}
 	});
 	
 	// 테스트

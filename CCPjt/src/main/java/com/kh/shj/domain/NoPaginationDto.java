@@ -64,7 +64,7 @@ public class NoPaginationDto {
 		}
 		
 //		System.out.println("endPage : " + endPage);
-		System.out.println("paginationCount : " + paginationCount);
+//		System.out.println("paginationCount : " + paginationCount);
 //		System.out.println("paginationButtonCount : " + paginationButtonCount);
 		
 	}

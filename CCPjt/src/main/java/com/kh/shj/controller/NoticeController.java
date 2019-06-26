@@ -105,5 +105,10 @@ public class NoticeController {
 		return "redirect:/notice_board/notice_list";
 	}
 	
+	// 공지사항 지역별 폼 이동
+	@RequestMapping(value="/notice_location", method=RequestMethod.GET)
+	public void noticeBoardLocation() throws Exception {
+		
+	}
 	
 }

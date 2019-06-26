@@ -32,6 +32,9 @@
 			<if test="noSearchDto.searchType == 'b_title'">
 				and b_title like '%' || #{noSearchDto.keyword} || '%' 
 			</if>
+			<if test="noSearchDto.searchType == 'b_addinfo'">
+				and b_addinfo like '%' || #{noSearchDto.keyword} || '%' 
+			</if>
 		</if>
 		order by b_no desc) a)
 		where rnum &gt;= #{noPagingDto.startRow} and rnum &lt;= #{noPagingDto.endRow}
