@@ -44,17 +44,18 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <i clas="fas fa-fw fa-tachometer-alt"></i>
-          <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-          <span>사용자명</span></a>
-      </li>
+<!--       Nav Item - Dashboard -->
+<!--       <li class="nav-item active"> -->
+<!--         <a class="nav-link" href="/"> -->
+<!--           <i clas="fas fa-fw fa-tachometer-alt"></i> -->
+<!--           <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
+<!--           <span>사용자명</span></a> -->
+<!--       </li> -->
       
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+<!--       Divider -->
+<!--       <hr class="sidebar-divider"> -->
 
+	<!-- 좌측 메뉴바 시작 -->
       <!-- Heading -->
       <div class="sidebar-heading">
         notice
@@ -69,6 +70,45 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        정해주삼
+      </div>
+
+	<!-- Nav Item - 정혜지 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/donation/list">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>후원게시판(정혜지)</span></a>
+      </li>
+      
+	<!-- Nav Item - 손병진 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/person_board/person_list">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>의원정보게시판(손병진)</span></a>
+      </li>
+      
+	<!-- Nav Item - 황용석 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/discussion_board/discussion_main_board">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>토론게시판(황용석)</span></a>
+      </li>
+      
+	<!-- Nav Item - 박석환 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/suggest_board/suggest_list">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>자유게시판(박석환)</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      
+      
+      
+	<!-- 좌측 메뉴바 끝 -->
 
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

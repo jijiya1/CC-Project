@@ -6,11 +6,6 @@ public class NoPagingDto {
 	private int startRow = 1;
 	private int endRow = startRow + perPage - 1;
 	
-	private void setRow() {
-		startRow = nowPage * perPage - perPage + 1;
-		endRow = startRow + perPage - 1;
-	}
-	
 	public int getNowPage() {
 		return nowPage;
 	}
@@ -18,6 +13,12 @@ public class NoPagingDto {
 		this.nowPage = nowPage;
 		setRow();
 	}
+	
+	private void setRow() {
+		startRow = nowPage * perPage - perPage + 1;
+		endRow = startRow + perPage - 1;
+	}
+	
 	public int getPerPage() {
 		return perPage;
 	}

@@ -28,6 +28,9 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("noSearchDto", noSearchDto);
 		data.put("noPagingDto", noPagingDto);
+//		System.out.println("noSearchDto" + noSearchDto);
+//		data.put("dto", dto);
+//		System.out.println("data : " + data);
 		
 		List<NoticeBoardVo> list = sqlSession.selectList(NAMESPACE + "noticeBoardList", data);
 //		System.out.println("Dao list : " + list);
@@ -66,6 +69,11 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public int noticeBoardCount(NoSearchDto noSearchDto) throws Exception {
+		
+//		HashMap<String, Object> data = new HashMap<>();
+//		data.put("noSearchDto", noSearchDto);
+//		data.put("noPagingDto", noPagingDto);
+		
 		int count = sqlSession.selectOne(NAMESPACE + "noticeBoardCount", noSearchDto);
 		return count;
 	}
@@ -79,6 +87,17 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	public List<AreaData> getAreaData() throws Exception {
 		List<AreaData> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaData");
 		return areaDataList;
+	}
+
+	@Override
+	public int noticeBoardContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("noSearchDto", noSearchDto);
+		data.put("noPagingDto", noPagingDto);
+		
+		int contentCount = sqlSession.selectOne(NAMESPACE + "noticeBoardContentCount", data);
+		return contentCount;
 	}
 
 }

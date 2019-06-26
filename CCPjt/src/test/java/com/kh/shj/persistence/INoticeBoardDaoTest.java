@@ -27,4 +27,12 @@ public class INoticeBoardDaoTest {
 		noPagingDto.setEndRow(10);
 		boardDao.noticeBoardList(noSearchDto, noPagingDto);
 	}
+	
+	@Test
+	public void testCount() throws Exception {
+		NoSearchDto noSearchDto = new NoSearchDto();
+		noSearchDto.setSearchType("b_title");
+		noSearchDto.setKeyword("수정");
+		boardDao.noticeBoardCount(noSearchDto);
+	}
 }

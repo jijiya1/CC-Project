@@ -9,10 +9,6 @@
 	div {
 		position:relative;
 	}
-	
-	#dataTable_paginate {
-		width:300px; left:0; right:0; margin-left:auto; margin-right:auto;
-	}
 
 </style>
 
@@ -64,7 +60,7 @@ $(document).ready(function() {
 	 function setPage() {
 		 var nowPage = "${ noPagingDto.nowPage }";
 		 if (nowPage == "") {
-			 nowPage =1;
+			 nowPage = 1;
 		 }
 		 var perPage = $("select[name=dataTable_length]").val();
 		 $("input[name=nowPage]").val(nowPage);
@@ -74,8 +70,8 @@ $(document).ready(function() {
 	 // 검색 기능
 	 function setSearch() {
 		 $("#keyword").keyup(function(e){
-			 setPage();
 			 if(e.keyCode == 13) {
+				setPage();
 				$("input[name=searchType]").val("b_title");
 				var keyword = $("#keyword").val();
 				$("input[name=keyword]").val(keyword);
@@ -93,7 +89,19 @@ $(document).ready(function() {
 		 setSearch();
 		 $("#hiddenData").submit();
 	 });
-
+	 
+	 // 페이지네이션
+	 $(".page-link").click(function(e) {
+		 e.preventDefault();
+		 
+		 var nowPage = $(this).attr("data-page");
+		 $("input[name=nowPage]").val(nowPage);
+		 
+		 var perPage = $("select[name=dataTable_length]").val();
+		 $("input[name=perPage]").val(perPage);
+		 
+		 $("#hiddenData").submit();
+	 });
 
  });
 </script>
@@ -126,12 +134,13 @@ $(document).ready(function() {
 	<p class="mb-4">
 		<span>전체 ${ count }건의 게시물이 있습니다.</span>
 	</p>
-	
+
 	<!-- 공지사항 리스트 -->
 	  <div class="card shadow mb-4">
 	    <div class="card-header py-3">
 	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>	
 	    </div>
+	    
 	    <div class="card-body">
 	      <div class="table-responsive">
 	   
@@ -158,7 +167,7 @@ $(document).ready(function() {
 	      	
 	      	<!-- 검색바 시작 -->
 	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right;">
-	      		<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+	      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
 	      	</div>
 	      	<!-- 검색바 끝 -->
 
@@ -176,6 +185,7 @@ $(document).ready(function() {
 	          </thead>
 	          <tbody>
 	          <c:forEach items="${ list }" var="noticeBoardVo">
+	          
 	          <c:if test="${ noticeBoardVo.b_checkeddel == 0 }">
 	            <tr>
 	              <td>${ noticeBoardVo.b_no }</td>
@@ -199,32 +209,42 @@ $(document).ready(function() {
 	  <!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
 		<a href="/notice_board/notice_list"><button type="button" class="btn btn-success" style="float: left;"><span class="fas fa-list"></span></button></a>
-		<button class="btn btn-danger" id="btnNoticeWrite" style="float: right;">공지사항 작성</button>
+		<button class="btn btn-danger" id="btnNoticeWrite">공지사항 작성</button>
 		
 	  	<!-- 페이지네이션 시작 -->
-		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate">
+		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
-				<li class="paginate_button page-item previous disabled" id="dataTable_previous">
-					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">prev</a>
+			
+			<c:if test="${ noPaginationDto.prevTen != true }">
+				<li class="paginate_button page-item previous" id="dataTable_previous">
+					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage - 10 }">≪</a>
 				</li>
-				<li class="paginate_button page-item active">
-					<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+			</c:if>
+			
+			<c:if test="${ noPaginationDto.prev != true }">
+				<li class="paginate_button page-item previous" id="dataTable_previous">
+					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage - 1 }">＜</a>
 				</li>
-				<li class="paginate_button page-item ">
-					<a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${ noPaginationDto.startPage }" end="${ noPaginationDto.endPage }">
+				<li class="paginate_button page-item <c:if test="${ noPaginationDto.noPagingDto.nowPage == i }">active</c:if>">
+					<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" data-page="${ i }">${ i }</a>
 				</li>
-				<li class="paginate_button page-item ">
-					<a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-				</li>
-				<li class="paginate_button page-item ">
-					<a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-				</li>
-				<li class="paginate_button page-item ">
-					<a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-				</li>
+			</c:forEach>
+			
+			<c:if test="${ noPaginationDto.next != true }">
 				<li class="paginate_button page-item next" id="dataTable_next">
-					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">next</a>
+					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage + 1 }">＞</a>
 				</li>
+			</c:if>
+			
+			<c:if test="${ noPaginationDto.nextTen != true }">
+				<li class="paginate_button page-item next" id="dataTable_next">
+					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage + 10 }">≫</a>
+				</li>
+			</c:if>
+				
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->

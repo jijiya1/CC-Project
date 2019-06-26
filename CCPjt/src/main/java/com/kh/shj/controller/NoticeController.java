@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.shj.domain.NoticeBoardVo;
 import com.kh.domain.AreaData;
+import com.kh.shj.domain.NoPaginationDto;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.service.INoticeBoardService;
@@ -36,6 +37,15 @@ public class NoticeController {
 		
 		int count = noticeBoardService.noticeBoardCount(noSearchDto);
 		model.addAttribute("count", count);
+		
+		NoPaginationDto noPaginationDto = new NoPaginationDto();
+		noPaginationDto.setNoSearchDto(noSearchDto);
+		noPaginationDto.setNoPagingDto(noPagingDto);
+		
+		int contentCount = noticeBoardService.noticeBoardContentCount(noSearchDto, noPagingDto);
+		noPaginationDto.setContentCount(contentCount);
+		
+		model.addAttribute("noPaginationDto", noPaginationDto);
 	}
 	
 	// 공지사항 해당 글 읽기
