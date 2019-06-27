@@ -27,15 +27,14 @@ public class ReplyController_Discussion {
 	IReplyService_Discussion replyService_Discussion;
 	
 	// 토론 메인 게시판 댓글 리스트 가져오기
-	@RequestMapping(value="/list/{nowDiscussion_b_serialno}/{nowReplyPage}", method = RequestMethod.GET)
+	@RequestMapping(value="/list/{nowDiscussion_b_serialno}/{nowReplyPage}/{u_id}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getDiscussionReplyList(@PathVariable("nowDiscussion_b_serialno") String nowDiscussion_b_serialno,
 															@PathVariable("nowReplyPage") int nowReplyPage,
+															@PathVariable("u_id") String u_id,
 															ReplyPagingDto_Discussion replyPagingDto) throws Exception {
-		System.out.println("getDiscussionReplyList 실행");
+//		System.out.println("getDiscussionReplyList 실행");
 		
 		ResponseEntity<Map<String, Object>> entity = null;
-		
-		String u_id = "user1";
 		
 		try {
 			// 현재 불러오려는 글의 시리얼 넘버 담기
@@ -52,6 +51,8 @@ public class ReplyController_Discussion {
 			
 			map.put("discussionReplyList", discussionReplyList);
 			map.put("replyLikeInfoList", replyLikeInfoList);
+			
+//			System.out.println("replyLikeInfoList" + replyLikeInfoList);
 			
 //			System.out.println("ReplyController_Discussion, map : " + map);
 //			System.out.println("ReplyController_Discussion, getDiscussionReplyList discussionReplyList : " + discussionReplyList);
@@ -115,14 +116,32 @@ public class ReplyController_Discussion {
 	public ResponseEntity<String> replyComentWrite(@RequestBody ReplyVo_Discussion replyVo_Discussion) {
 		ResponseEntity<String> entity = null;
 		
-		System.out.println("ReplyController_Discussion, replyComentWrite, replyVo_Discussion : " + replyVo_Discussion);
+//		System.out.println("ReplyController_Discussion, replyComentWrite, replyVo_Discussion : " + replyVo_Discussion);
 		
 		try {
-			
+			replyService_Discussion.replyComentWrite(replyVo_Discussion);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	// 토론 게신판 댓글에 달린 답글 리스트 가져오기
+	@RequestMapping(value="/replyComentList/{r_no}", method = RequestMethod.GET)
+	public ResponseEntity<List<ReplyVo_Discussion>> replyComentList(@PathVariable("r_no") int r_no) {
+		
+		ResponseEntity<List<ReplyVo_Discussion>> entity = null;
+		
+		try {
+			List<ReplyVo_Discussion> comentList = replyService_Discussion.replyComentList(r_no);
+//			System.out.println("ReplyController_Discussion, replyComentList, comentList :" + comentList);
+			entity = new ResponseEntity<>(comentList, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

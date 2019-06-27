@@ -73,5 +73,24 @@ public class ReplyDaoImpl_Discussion implements IReplyDao_Discussion {
 		sqlSession.update(NAMESPACE+"replyLikeInfoModify", replyLikeInfoDto_Discussion);
 	}
 	
+	// 댓글에 답글 달기 
+	@Override
+	public void replyComentWrite(ReplyVo_Discussion replyVo_Discussion) throws Exception {
+		sqlSession.insert(NAMESPACE+"replyComentWrite",replyVo_Discussion);
+	}
+	
+	// 댓글에 달린 답글 리스트 가져오기
+	@Override
+	public List<ReplyVo_Discussion> replyComentList(int r_no) throws Exception {
+		List<ReplyVo_Discussion> comentList =  sqlSession.selectList(NAMESPACE+"replyComentList", r_no);
+		return comentList;
+	}
+	
+	// 댓글에 달린 답글 카운트 업데이트
+	@Override
+	public void replyComentCountModify(int r_no) throws Exception {
+		sqlSession.update(NAMESPACE+"replyComentCountModify", r_no);
+	}
+	
 
 }

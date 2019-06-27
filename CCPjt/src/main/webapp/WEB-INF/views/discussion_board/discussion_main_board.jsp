@@ -87,6 +87,8 @@
 		font-size: 20px;
 	}
 	
+	
+	
 </style>
 
 <p>데이터 확인 :</p>
@@ -95,11 +97,10 @@
 	<div>
 		<input type="button" id="btn_Discussion_rec" value="토론주제 추천 게시판" style="float: right;" >
 	</div>
-	
 	<c:forEach items="${discussionList }" var="boardVo_discussion" >
-		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
+		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="" >
 			<q style="font-size: 50px">${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}</q>
-			<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y"></p>
+			<p> 토론에 대해서 찬성 <input type="radio"  name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y"></p>
 			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N"></p>
 		</div>
 	</c:forEach>
@@ -151,7 +152,8 @@
 	var nowReplyPage = 1;
 	
 	//임시 로그인 중인 사용자 -------------------------------------------
-	var r_writer = "홍길동(user1)";
+	var r_writer = "시민(user2)";
+	var u_id = "user2";
 	// --------------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
@@ -336,15 +338,15 @@
 	// getJSON 댓글 리스트 가져오기 기능
 	function getReplyList() {
 // 		console.log("버튼 클릭");
-		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage;
+		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage+"/"+u_id;
 		
 		$.getJSON(url, function (receivedData) {
 // 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			
 			var discussionReplyList = receivedData.discussionReplyList;
 			var replyLikeInfoList = receivedData.replyLikeInfoList;
-			console.log("discussionReplyList : " ,  discussionReplyList);
-			console.log("replyLikeInfoList : " ,replyLikeInfoList);
+// 			console.log("discussionReplyList : " ,  discussionReplyList);
+// 			console.log("replyLikeInfoList : " ,replyLikeInfoList);
 			var strHtml = "";
 			var borderColor = "";
 			var YorN = "";
@@ -352,6 +354,7 @@
 			var totalReplyCount = 1;
 			
 			$(discussionReplyList).each(function (i) {
+				
 				if (this.r_yesOrNo == "0") {
 					borderColor = "primary"
 					YorN = "찬성";
@@ -373,11 +376,11 @@
 				 		+ 		"<div class='card-body'>"
 						+			"<p>"+this.r_no+". "+this.r_writer+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
 						+			"<p>"+this.r_content+"</p>"
-						+			"<p style='text-align: right;'>"
+						+			"<p style='text-align: right;' class='likeSelectArea'>"
 										// 좋아요 버튼
 						+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
 											$(replyLikeInfoList).each(function (i) {
-												if(this.r_no == listR_no && this.r_likenum == 1) {
+												if(this.r_no == listR_no && this.r_likenum == 1 && this.u_id == u_id) {
 													strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
 												}//if
 											})
@@ -385,19 +388,28 @@
 						+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
 										// 싫어요 버튼
 						+				"<a href='#' class='btn btn-danger btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
-										$(replyLikeInfoList).each(function (i) {
-											if(this.r_no == listR_no && this.r_likenum == 2) {
-												strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
-											}//if
-										})
+											$(replyLikeInfoList).each(function (i) {
+												if(this.r_no == listR_no && this.r_likenum == 2 && this.u_id == u_id) {
+													strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+												}//if
+											})
 				strHtml +=				">"
-						+				"<span class='fas fa-thumbs-down'>&nbsp;"+this.r_downcount+"</span></a></p> "
-										// 댓글에 답글 달기 버튼
-						+				"<div class='replyComentTextarea"+this.r_no+"'>"
-						+					"<p><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' >↓답글 보기</a>"
-						+						"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' >답글 달기</a></span>"
-						+					"</p>"
-						+				"</div>"
+						+				"<span class='fas fa-thumbs-down'>&nbsp;"+this.r_downcount+"</span></a>"
+						+			"</p> "
+						+			"<div class='replyComentTextarea"+this.r_no+"'>"
+						+			"</div>"
+						+			"<div class='replyComentButtonArea"+this.r_no+"' data-nowComentShow='false'>"
+						+				"<p>";
+											// 댓글에 ↓ 답글 더보기 버튼
+											if (this.r_coment_count >= 1) {
+												strHtml +=	"<span class='replyContentShowArea"+this.r_no+"'><a href='#'  class='btnReplyComentList' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >↓답글 보기</a></span>";
+											}
+											// 댓글에 답글 달기 버튼
+				strHtml +=					"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >답글 달기</a></span>"
+						+				"</p>"
+						+			"</div>"
+						+			"<div class='replyComentList"+this.r_no+"'>"
+						+			"</div>"
 						+ 		"</div>"	
 						+  "</div>";
 			});//$(receivedData).each
@@ -464,14 +476,12 @@
 			}//if		
 			$("#discussion_ReplyList").html(strHtml);
 		});//$.getJSON(url, function (receivedData)
-			
 	}//getReplyList()
 	
 	// 댓글 좋아요 또는 싫어요 버튼
 	$("#discussion_ReplyList").on("click",".btnLikeSelect", function (e) {
 		e.preventDefault();
 // 		console.log(r_no +" 좋아요 버튼");
-        var u_id = "user1";
 		var r_no = $(this).attr("data-r_no");
 		var r_likenum = $(this).attr("data-r_likenum");
 		
@@ -518,63 +528,148 @@
 	$("#discussion_ReplyList").on("click",".replyComent", function (e) {
 		e.preventDefault();
 		var r_no = $(this).attr("data-r_no");
-// 		console.log(r_no + "답글 버튼")
+		var r_coment_count = $(this).attr("data-r_coment_count");
+// 		console.log(r_no + "답글 버튼");
+// 		console.log(r_coment_count + " / "+ r_no + "답글 버튼");
+		var comentTextAreaHtml = "<textarea class='form-control  replyComent_content' style = padding: 10px;'></textarea>";
+		$(".replyComentTextarea"+r_no).html(comentTextAreaHtml);
+		
+		var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
 		
 		var strHtml = "";
-		strHtml += "<textarea class='form-control  replyComent_content' style = padding: 10px;'></textarea>"
-				+		"<a href='#'  class='replyComent' data-r_no='"+r_no+"' >↓답글 보기</a>"
-				+ 	"<p style='float: right;  margin-top: 10px;'>"
-				+  		"<a href='#' class='btn btn-success btn-circle btn-sm btnReplyComentWrite' data-r_no='"+r_no+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
-				+  		"<a href='#' class='btn btn-danger btn-circle btn-sm btnReplyComentCancel' data-r_no='"+r_no+"'>"
+		
+	 	if (r_coment_count >= 1) {
+			if(nowComentShow == "false") {
+				strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기</a></span>";
+			} else {
+				strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>";
+			}
+		}
+	 	
+		strHtml += 	"<p style='float: right;  margin-top: 10px;'>"
+						// 답글 등록버튼(체크 모양)
+				+  		"<a href='#' class='btn btn-success btn-circle btn-sm btnReplyComentWrite' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
+						// 답글 취소 버튼(휴지통)
+				+  		"<a href='#' class='btn btn-danger btn-circle btn-sm btnReplyComentCancel' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>"
 				+		"<i class='fas fa-trash'></i></a>"
 				+ 	"</p>";
-		$(".replyComentTextarea"+r_no).html(strHtml);
+		$(".replyComentButtonArea"+r_no).html(strHtml);
 	});
+	
 	// 답글 달기 등록 버튼 (체크모양)
 	$("#discussion_ReplyList").on("click",".btnReplyComentWrite", function (e) {
 		e.preventDefault();
-		var r_no = $(this).attr("data-r_no");
 		var coment = $(".replyComent_content").val();
-// 		console.log(r_no + "등록 버튼")
-		console.log("coment" + coment );
+		var r_coment_count = $(this).attr("data-r_coment_count");
+		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "true");
 		
-		var url = "/discussion_reply/replyComentWrite";
-		var sendData = {
-				"b_serialno" : nowDiscussion_b_serialno,
-				"r_no" : r_no,
-				"r_writer" : r_writer,
-				"r_content" : coment,
-				"r_level" : 1,
-		}
-		
-		$.ajax({
-        	"type" : "post",
-        	"url" : url,
-        	"headers" : {
-        		"Content-Type" : "application/json",
-        		"X-HTTP-Method_Override" : "post"
-        	},
-        	"dataType" : "text",
-        	"data" : JSON.stringify(sendData),
-        	"success" : function (receivedData) {
-        		
+		if(coment == "") {
+			alert("답글 내용을 입력해주세요");
+		} else{
+			var r_no = $(this).attr("data-r_no");
+	// 		console.log(r_no + "등록 버튼")
+			
+			var url = "/discussion_reply/replyComentWrite";
+			var sendData = {
+					"b_serialno" : nowDiscussion_b_serialno,
+					"r_no" : r_no,
+					"r_writer" : r_writer,
+					"r_content" : coment
 			}
-		});
-	});
+			
+			$.ajax({
+	        	"type" : "post",
+	        	"url" : url,
+	        	"headers" : {
+	        		"Content-Type" : "application/json",
+	        		"X-HTTP-Method_Override" : "post"
+	        	},
+	        	"dataType" : "text",
+	        	"data" : JSON.stringify(sendData),
+	        	"success" : function () {
+	        		$(".replyComentTextarea"+r_no).html("");
+	        		
+	        		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "true");
+	        		
+					var strHtml = "";
+					strHtml += "<p><span class='replyContentShowArea"+r_no+"'><a href='#'  class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>"
+							+		"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >답글 달기</a></span>"
+							+	"</p>"
+					
+					$(".replyComentButtonArea"+r_no).html(strHtml);
+					
+					var url2 = "/discussion_reply/replyComentList/"+r_no;
+					var strHtml2 = "";
+					$.getJSON(url2, function (receivedData) {
+						$(receivedData).each(function (i) {
+							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px'>"+this.r_writer+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+						})
+						$(".replyComentList"+r_no).html(strHtml2);
+					})
+				}
+			});// $.ajax
+		}// if
+	});// $("#discussion_ReplyList").on("click",".btnReplyComentWrite"
 	
 	// 답글 달기 취소 버튼(휴지통모양)
 	$("#discussion_ReplyList").on("click",".btnReplyComentCancel", function (e) {
 		e.preventDefault();
 		var r_no = $(this).attr("data-r_no");
+		var r_coment_count = $(this).attr("data-r_coment_count");
 // 		console.log(r_no + "취소 버튼")
+
+		$(".replyComentTextarea"+r_no).html("");
+		
+		var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
 		
 		var strHtml = "";
-		strHtml += "<p><a href='#'  class='replyComent' data-r_no='"+r_no+"' >↓답글 보기</a>"
-				+		"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+r_no+"' >답글 달기</a></span>"
-				+	"</p>"
+		strHtml += "<p>";
+						if (r_coment_count >= 1) {
+							if(nowComentShow == "false") {
+								strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기</a></span>";
+							} else {
+								strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#'  class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>"
+							}
+						}
+		strHtml +=		"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >답글 달기</a></span>"
+				+	"</p>";
 		
-		$(".replyComentTextarea"+r_no).html(strHtml);
+		$(".replyComentButtonArea"+r_no).html(strHtml);
 	});
+	
+	// ↓답글 보기 버튼 클릭
+	$("#discussion_ReplyList").on("click",".btnReplyComentList", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		var r_coment_count = $(this).attr("data-r_coment_count");
+// 		console.log(r_no + " 답글 보기 버튼");
+		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "true");
+
+		var url = "/discussion_reply/replyComentList/"+r_no;
+		var strHtml = "";
+		$.getJSON(url, function (receivedData) {
+			$(receivedData).each(function (i) {
+				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px'>"+this.r_writer+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+			})
+			$(".replyComentList"+r_no).html(strHtml);
+		})
+		
+		var strHtml2 =	"<a href='#'  class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a>";
+		$(".replyContentShowArea"+r_no).html(strHtml2);
+	});// $("#discussion_ReplyList").on("click",".btnReplyComentList"
+	
+	// ↑답글 숨기기 버튼 클릭
+	$("#discussion_ReplyList").on("click",".btnReplyComentDismiss", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		var r_coment_count = $(this).attr("data-r_coment_count");
+		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "false");
+		$(".replyComentList"+r_no).html("");
+		
+		var strHtml = "<a href='#'  class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↓답글 보기</a>";
+		$(".replyContentShowArea"+r_no).html(strHtml);
+	})
+	
 </script>
 
 <%@include file="../include/footer.jsp" %>

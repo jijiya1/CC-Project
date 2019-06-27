@@ -32,7 +32,12 @@ public interface IReplyDao_Discussion {
 	// 이미 유저가 해당 댓글에 좋아요 또는 싫어요를 클릭했다면 변경
 	public void replyLikeInfoModify(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception;
 
+	// 댓글에 답글 달기 
+	public void replyComentWrite(ReplyVo_Discussion replyVo_Discussion) throws Exception;
 	
+	// 댓글에 달린 답글 리스트 가져오기
+	public List<ReplyVo_Discussion> replyComentList(int r_no) throws Exception;
 	
-	
+	// 댓글에 달린 답글 카운트 업데이트
+	public void replyComentCountModify(int r_no) throws Exception;
 }

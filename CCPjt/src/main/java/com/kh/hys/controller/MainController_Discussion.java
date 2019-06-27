@@ -28,7 +28,7 @@ public class MainController_Discussion {
 	// 토론 메인 게시판으로 가기
 	@RequestMapping(value = "/discussion_main_board", method=RequestMethod.GET)
 	public void discussion_main_board(Model model) throws Exception {
-		System.out.println("discussion_main_board get 실행");
+//		System.out.println("discussion_main_board get 실행");
 		
 		List<BoardVo_Discussion> discussionList =  discussion_BoardService.getDiscussionList();
 		int discussionListSize = discussionList.size();
