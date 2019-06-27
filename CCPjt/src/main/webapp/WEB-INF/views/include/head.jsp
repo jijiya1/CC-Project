@@ -91,9 +91,9 @@
 
 	<!-- Nav Item - 정혜지 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/donation/list">
+        <a class="nav-link" href="/petition_board/petitionList">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>후원게시판(정혜지)</span></a>
+          <span>청원게시판(정혜지)</span></a>
       </li>
       
 	<!-- Nav Item - 손병진 -->

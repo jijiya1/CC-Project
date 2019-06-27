@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="petition_board">
+
+	<!-- 전체 목록 보기 -->
+	<select id="listAll" resultType="PetitionVo">
+		select aName.*, d_data.d_name, pBoard.* from
+		        (select rownum rnum, pe.*
+		                from (select * from petition_board 
+		                where b_agree &gt; 5 order by b_no) pe) pBoard, 
+		        detail_data d_data , 
+		        (select a_name from area_data where a_no=52) aName
+		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
+		order by rnum desc;
+	</select>
+	
+	<select id="count">
+		select count(*)
+		from (select rownum rnum, pe.*
+		                from (select * from petition_board 
+		                where b_agree &gt; 5 order by b_no) pe) pBoard, 
+		        detail_data d_data , 
+		        (select a_name from area_data where a_no=52) aName
+		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
+	</select>
+
+
+</mapper>
