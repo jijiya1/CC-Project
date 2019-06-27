@@ -68,8 +68,7 @@ $(document).ready(function(){
 				<div class="form-group">
 					<label>내용</label>
 					<div>
-					<textarea rows="10" cols="80" name="b_content">
-					</textarea>
+					<textarea rows="10" cols="80" name="b_content"></textarea>
 					</div>
 				</div>
 				<input type="submit" class="btn btn-primary" value="작성완료"
