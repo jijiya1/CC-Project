@@ -83,6 +83,9 @@ public class NoticeController {
 	public void noticeBoardUpdate(@RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no, Model model) throws Exception {
 		NoticeBoardVo noticeBoardVo = noticeBoardService.noticeBoardRead(b_no, a_no);
 		model.addAttribute("noticeBoardVo", noticeBoardVo);
+		
+		List<AreaData> areaData = noticeBoardService.getAreaData();
+		model.addAttribute("areaData", areaData);
 	}
 	
 	// 공지사항 글 수정 실행
@@ -90,7 +93,7 @@ public class NoticeController {
 	public String noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception {
 //		System.out.println("noticeBoardVo : " + noticeBoardVo);
 		noticeBoardService.noticeBoardUpdate(noticeBoardVo);
-		return "redirect:/notice_board/notice_read?b_no=" + noticeBoardVo.getB_no();
+		return "redirect:/notice_board/notice_read?b_no=" + noticeBoardVo.getB_no() + "&a_no=" + noticeBoardVo.getA_no();
 	}
 	
 	// 공지사항 글 삭제 폼 이동

@@ -3,39 +3,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 
-<div class="container">
+<div class="container-fluid">
 
-<div class="row">
-<div class="col-lg-5 col-xl-5">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#notice">공지사항</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu1">Menu 1</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
-    </li>
-  </ul>
+<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a></p>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="notice" class="container tab-pane active"><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div id="menu1" class="container tab-pane fade"><br>
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="container tab-pane fade"><br>
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-  </div>
-  </div>
-  </div>
+	<div class="row">
+	
+		<div class="col-md-5">
+			<div class="carousel slide" id="carousel-119470">
+				<ol class="carousel-indicators">
+					<li data-slide-to="0" data-target="#carousel-119470" class="active">
+					</li>
+					<li data-slide-to="1" data-target="#carousel-119470">
+					</li>
+					<li data-slide-to="2" data-target="#carousel-119470">
+					</li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+					<a href="/notice_board/notice_list">
+						<img class="d-block w-100" alt="Carousel Bootstrap First" src="/resources/img/addTest1.jpg" />
+<!-- 						<div class="carousel-caption"> -->
+<!-- 							<h4> -->
+<!-- 								First Thumbnail label -->
+<!-- 							</h4> -->
+<!-- 							<p> -->
+<!-- 								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. -->
+<!-- 							</p> -->
+<!-- 						</div> -->
+					</a>
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" alt="Carousel Bootstrap Second" src="/resources/img/addTest2.jpg" />
+						<div class="carousel-caption">
+<!-- 							<h4> -->
+<!-- 								Second Thumbnail label -->
+<!-- 							</h4> -->
+<!-- 							<p> -->
+<!-- 								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. -->
+<!-- 							</p> -->
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" alt="Carousel Bootstrap Third" src="/resources/img/addTest3.jpg" />
+						<div class="carousel-caption">
+<!-- 							<h4> -->
+<!-- 								Third Thumbnail label -->
+<!-- 							</h4> -->
+<!-- 							<p> -->
+<!-- 								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. -->
+<!-- 							</p> -->
+						</div>
+					</div>
+				</div> <a class="carousel-control-prev" href="#carousel-119470" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-119470" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+			</div>
+		</div>
+		
+	</div>
+	
 </div>
 
 <%@include file="../include/footer.jsp" %>
