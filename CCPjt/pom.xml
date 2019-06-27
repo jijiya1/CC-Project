@@ -97,6 +97,15 @@
     <version>2.5</version>
 </dependency>
 
+<!-- 자바로 메일 보내기 -->
+<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>mail</artifactId>
+    <version>1.4.7</version>
+</dependency>
+
+
 
 
 <!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->

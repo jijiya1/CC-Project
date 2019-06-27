@@ -11,10 +11,22 @@
 
 <script>
 $(document).ready(function() {
-	
+
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
 		location.href = "/notice_board/notice_list";
+	});
+	
+	$("#b_addinfo").change(function() {
+		var b_addinfo = $("select[name=b_addinfo]").val();
+		console.log(b_addinfo);
+		
+		var test = "${areaData}";
+		console.log(test);
+		
+		if (b_addinfo == 10) {
+			
+		}
 	});
 	
 	// 테스트
@@ -51,22 +63,22 @@ $(document).ready(function() {
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
-				<input type="text" class="form-control" name="b_title"/>
+				<input type="text" class="form-control" name="b_title" required="required"/>
 			</div>
 			
 			<div class="form-group">
 				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" />
+				<input type="text" class="form-control" name="b_writer" required="required" />
 			</div>
 			
 			<div class="form-group">
 				<label>ID</label>
-				<input type="text" class="form-control" name="u_id" />
+				<input type="text" class="form-control" name="u_id" required="required" />
 			</div>
 			
 			<div class="form-group">
 				<label>시/도</label>
-				<select class="form-control" name="b_addinfo" id="b_addinfo">
+				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
 					<c:forEach items="${ areaData }" var="areaData">
 						<option value="${ areaData.a_no }">${ areaData.a_name }</option>
 					</c:forEach>
@@ -75,7 +87,7 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 			<label>구</label>
-				<select class="form-control" name="b_detailinfo" id="b_detailinfo">
+				<select class="form-control" name="b_detailinfo" id="b_detailinfo" required="required">
 					<option value="notice">공지사항</option>
 					<option value="seoul">서울</option>
 					<option value="inchen">인천</option>
@@ -84,7 +96,7 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>공지사항 내용</label><br>
-				  <textarea id="summernote" name="b_content"></textarea>
+				  <textarea id="summernote" name="b_content" required="required"></textarea>
 				  <script>
 				        $('#summernote').summernote({
 							lang: 'ko-KR',

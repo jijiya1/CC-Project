@@ -18,6 +18,9 @@ public interface INoticeBoardService {
 	// 글 갯수
 	public int noticeBoardCount(NoSearchDto noSearchDto) throws Exception;
 	
+	// 페이지네이션에 필요한 글 갯수
+	public int noticeBoardContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception;
+	
 	// 글 작성
 	public void noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception;
 	

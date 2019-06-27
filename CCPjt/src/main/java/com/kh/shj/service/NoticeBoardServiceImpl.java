@@ -66,4 +66,10 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return areaDataList;
 	}
 
+	@Override
+	public int noticeBoardContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		int contentCount = noticeBoardDao.noticeBoardContentCount(noSearchDto, noPagingDto);
+		return contentCount;
+	}
+
 }
