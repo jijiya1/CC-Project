@@ -26,6 +26,10 @@
 		<typeAlias type="com.kh.jhj.domain.DoSearchDto" alias="Donation_searchDto"/>
 		<typeAlias type="com.kh.jhj.domain.DoFileDto" alias="Donation_fileDto"/>
 		
+		
+		<typeAlias type="com.kh.jhj.domain.PetitionVo" alias="PetitionVo"/>
+		
+		
 		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="PersonVo"/>
 		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="PersonPromiseVo"/>
 		
