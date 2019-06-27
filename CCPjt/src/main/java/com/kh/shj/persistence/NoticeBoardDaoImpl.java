@@ -1,5 +1,6 @@
 package com.kh.shj.persistence;
 
+import java.awt.geom.Area;
 import java.util.HashMap;
 import java.util.List;
 
@@ -98,6 +99,12 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 		
 		int contentCount = sqlSession.selectOne(NAMESPACE + "noticeBoardContentCount", data);
 		return contentCount;
+	}
+
+	@Override
+	public List<AreaData> getAOrder() throws Exception {
+		List<AreaData> aOrderList = sqlSession.selectList(NAMESPACE + "getAOrder");
+		return aOrderList;
 	}
 
 }

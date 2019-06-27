@@ -19,6 +19,14 @@ public class NoticeBoardVo {
 	private int b_checkeddel; // 게시글 삭제 여부
 	private int a_no;
 	private String a_name;
+	private int a_order;
+	
+	public int getA_order() {
+		return a_order;
+	}
+	public void setA_order(int a_order) {
+		this.a_order = a_order;
+	}
 	public String getB_serialno() {
 		return b_serialno;
 	}
@@ -121,7 +129,8 @@ public class NoticeBoardVo {
 				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
 				+ u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount + ", b_createddate="
 				+ b_createddate + ", b_modifieddate=" + b_modifieddate + ", b_up=" + b_up + ", b_down=" + b_down
-				+ ", b_checkeddel=" + b_checkeddel + ", a_no=" + a_no + ", a_name=" + a_name + "]";
+				+ ", b_checkeddel=" + b_checkeddel + ", a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order
+				+ "]";
 	}
-	
+
 }

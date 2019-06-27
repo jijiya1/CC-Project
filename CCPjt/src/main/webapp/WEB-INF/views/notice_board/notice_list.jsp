@@ -255,5 +255,8 @@ $(document).ready(function() {
 	</div>
 	<br>
 	<!-- 공지사항 끝 -->
+	
+	<!-- css 테스트 -->
+	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div>
 
 <%@include file="../include/footer.jsp" %>

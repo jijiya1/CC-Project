@@ -17,35 +17,76 @@ $(document).ready(function() {
 		location.href = "/notice_board/notice_list";
 	});
 	
-	$("#b_addinfo").change(function() {
+	$("#b_addinfo").change(function(e) {
+// 		console.log(e);
+
+// 		var test = e.originalEvent.currentTarget[0];
+// 		console.log(test);
+
 		var b_addinfo = $("select[name=b_addinfo]").val();
-		console.log(b_addinfo);
 		
-		var test = "${areaData}";
-		console.log(test);
+// 		var test = e.originalEvent.currentTarget[0].index;
+// 		console.log(test);
 		
+		var strHtml = "";
 		if (b_addinfo == 10) {
-			
+			strHtml += "<div class='form-group' style='display: none;'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='공지'>공지사항</option>"
+					+  "</select>"
+					+  "</div>";
+		} 
+		
+		else if (b_addinfo == 52) {
+			strHtml += "<div class='form-group'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='10'>중구</option>"
+					+  "<option value='11'>남구갑</option>"
+					+  "<option value='12'>남구을</option>"
+					+  "<option value='13'>동구</option>"
+					+  "<option value='14'>북구</option>"
+					+  "<option value='15'>울주군</option>"
+					+  "</select>"
+					+  "</div>";
 		}
+
+		else {
+			strHtml += "<div class='form-group' style='display: none;'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='공지'>공지사항</option>"
+					+  "</select>"
+					+  "</div>";
+		}
+		$(".test").html(strHtml);
+			
+		
+		$("#b_detailinfo").change(function() {
+			var b_detailinfo = $("select[name=b_detailinfo]").val();
+			console.log(b_detailinfo);
+		});
+
 	});
 	
 	// 테스트
-	$("#test").click(function() {
-		var b_title = $("input[name=b_title]").val();
-		console.log(b_title);
-		var b_write = $("input[name=b_write]").val();
-		console.log(b_write);
-		var u_id = $("input[name=u_id]").val();
-		console.log(u_id);
-		var b_addinfo = $("select[name=b_addinfo]").val();
-		console.log(b_addinfo);
-		var b_detailinfo = $("select[name=b_detailinfo]").val();
-		console.log(b_detailinfo);
-		var name_b_content = $("textarea[name=b_content]").val();
-		console.log(name_b_content);
-		var b_content = $("#summernote").val();
-		console.log(b_content);
-	});
+// 	$("#test").click(function() {
+// 		var b_title = $("input[name=b_title]").val();
+// 		console.log(b_title);
+// 		var b_write = $("input[name=b_write]").val();
+// 		console.log(b_write);
+// 		var u_id = $("input[name=u_id]").val();
+// 		console.log(u_id);
+// 		var b_addinfo = $("select[name=b_addinfo]").val();
+// 		console.log(b_addinfo);
+// 		var b_detailinfo = $("select[name=b_detailinfo]").val();
+// 		console.log(b_detailinfo);
+// 		var name_b_content = $("textarea[name=b_content]").val();
+// 		console.log(name_b_content);
+// 		var b_content = $("#summernote").val();
+// 		console.log(b_content);
+// 	});
 	
 });
 </script>
@@ -85,13 +126,13 @@ $(document).ready(function() {
 				</select>
 			</div>
 			
-			<div class="form-group">
+			<div class="test">
+			<div class="form-group" style="display: none;">
 			<label>구</label>
-				<select class="form-control" name="b_detailinfo" id="b_detailinfo" required="required">
-					<option value="notice">공지사항</option>
-					<option value="seoul">서울</option>
-					<option value="inchen">인천</option>
+				<select class="form-control " name="b_detailinfo" id="b_detailinfo" required="required">
+					<option value="공지">공지사항</option>
 				</select>
+			</div>
 			</div>
 			
 			<div class="form-group">

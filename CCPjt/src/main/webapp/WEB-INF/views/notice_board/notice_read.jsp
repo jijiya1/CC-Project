@@ -65,9 +65,9 @@ $(document).ready(function() {
 							<!-- 공개여부 -->
 							<th scope="row">카테고리</th>
 							<td>
-								<c:choose>
-									<c:when test="${ noticeBoardVo.b_addinfo == 10 }">${ areaData.a_name }</c:when>
-								</c:choose>
+								<c:forEach var="i" begin="1" end="18">
+									<c:if test="${ noticeBoardVo.a_order == i }">${ noticeBoardVo.a_name }</c:if>
+								</c:forEach>
 							</td>
 						</tr>
 			
