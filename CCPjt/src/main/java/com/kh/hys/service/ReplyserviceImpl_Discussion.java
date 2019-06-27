@@ -49,7 +49,6 @@ public class ReplyserviceImpl_Discussion implements IReplyService_Discussion {
 		
 		if(likeExist >= 1) {
 			replyDao_Discussion.replyLikeInfoModify(replyLikeInfoDto_Discussion);
-			replyDao_Discussion.replyLikeInfoCancel();
 		} else {
 			replyDao_Discussion.replylikeInfoAdd(replyLikeInfoDto_Discussion);
 		}//if
@@ -82,12 +81,5 @@ public class ReplyserviceImpl_Discussion implements IReplyService_Discussion {
 	public void replyLikeInfoModify(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception {
 		replyDao_Discussion.replyLikeInfoModify(replyLikeInfoDto_Discussion);
 	}
-	// 댓글에 좋아요 또는 싫어요 버튼 취소 기능
-	@Override
-	public void replyLikeInfoCancel() throws Exception {
-		replyDao_Discussion.replyLikeInfoCancel();
-		
-	}
-	
 
 }

@@ -29,7 +29,7 @@
 	  padding: 16px;
 	  color: #888;
 	  font-weight: bold;
-	  font-size: 20px;
+ 	  font-size: 20px; 
 	  border-radius: 0 3px 3px 0;
 	  user-select: none;
 	}
@@ -89,7 +89,7 @@
 	
 </style>
 
-<p>데이터 확인 : </p>
+<p>데이터 확인 :</p>
 
 <div class="slideshow-container">
 	<div>
@@ -343,8 +343,8 @@
 			
 			var discussionReplyList = receivedData.discussionReplyList;
 			var replyLikeInfoList = receivedData.replyLikeInfoList;
-// 			console.log("discussionReplyList : " ,  discussionReplyList);
-// 			console.log("replyLikeInfoList : " ,replyLikeInfoList);
+			console.log("discussionReplyList : " ,  discussionReplyList);
+			console.log("replyLikeInfoList : " ,replyLikeInfoList);
 			var strHtml = "";
 			var borderColor = "";
 			var YorN = "";
@@ -363,9 +363,11 @@
 				}//if
 				
 				totalReplyCount = this.totalreplycount;
-				var listR_no = parseInt(this.r_no);
+				var listR_no = this.r_no;
 				
-// 				console.log("r_no" + listR_no)
+// 				console.log("r_no " + listR_no);
+// 				console.log("this " , this);
+// 				console.log("this.r_no " + this.r_no);
 				
 				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 				 		+ 		"<div class='card-body'>"
@@ -373,31 +375,30 @@
 						+			"<p>"+this.r_content+"</p>"
 						+			"<p style='text-align: right;'>"
 										// 좋아요 버튼
-
-						+				"<a href='#' class='btn btn-primary btn-sm btnLike' data-r_no='"+this.r_no+"'";
-						
+						+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
 											$(replyLikeInfoList).each(function (i) {
-												if(this.r_no == listR_no && this.r_up == 1) {
-													strHtml +=	"style = 'border: solid 3px; border-color: #F28705;'";
-												} else {
-													
-												}
+												if(this.r_no == listR_no && this.r_likenum == 1) {
+													strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+												}//if
 											})
-											
 				strHtml +=				">"
 						+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
 										// 싫어요 버튼
-						+				"<a href='#' class='btn btn-danger btn-sm btnDisLike' data-r_no='"+this.r_no+"'";
+						+				"<a href='#' class='btn btn-danger btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
 										$(replyLikeInfoList).each(function (i) {
-											if(this.r_no == listR_no && this.r_down == 1) {
-												strHtml +=	"style = 'border: solid 3px; border-color: #F28705;'";
-											} else {
-												
-											}
+											if(this.r_no == listR_no && this.r_likenum == 2) {
+												strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+											}//if
 										})
 				strHtml +=				">"
 						+				"<span class='fas fa-thumbs-down'>&nbsp;"+this.r_downcount+"</span></a></p> "
-						+ 		"</div>"
+										// 댓글에 답글 달기 버튼
+						+				"<div class='replyComentTextarea"+this.r_no+"'>"
+						+					"<p><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' >↓답글 보기</a>"
+						+						"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' >답글 달기</a></span>"
+						+					"</p>"
+						+				"</div>"
+						+ 		"</div>"	
 						+  "</div>";
 			});//$(receivedData).each
 			
@@ -466,52 +467,25 @@
 			
 	}//getReplyList()
 	
-	// 댓글 좋아요 버튼
-	$("#discussion_ReplyList").on("click",".btnLike", function (e) {
+	// 댓글 좋아요 또는 싫어요 버튼
+	$("#discussion_ReplyList").on("click",".btnLikeSelect", function (e) {
 		e.preventDefault();
-		
-		var r_no = $(this).attr("data-r_no");
 // 		console.log(r_no +" 좋아요 버튼");
         var u_id = "user1";
-        var r_up = 1;
-        var r_Down = 0;
-        var url = "/discussion_reply/likeOrDislikeSelect";
-        var sendData = {
-        	"u_id" : u_id,
-        	"r_no" : r_no,
-        	"r_up" : r_up,
-        	"r_Down" : r_Down
-        };
-        
-        $.ajax ({
-        	"type" : "post",
-        	"url" : url,
-        	"headers" : {
-        		"Content-Type" : "application/json",
-        		"X-HTTP-Method_Override" : "post"
-        	},
-        	"dataType" : "text",
-        	"data" : JSON.stringify(sendData),
-        	"success" : function (receivedData) {
-        		getReplyList()
-			}
-        });//$.ajax
-	});//$("#discussion_ReplyList").on("click",".btnLike"
-	
-	// 댓글 싫어요 버튼
-	$("#discussion_ReplyList").on("click",".btnDisLike", function (e) {
-		e.preventDefault();
 		var r_no = $(this).attr("data-r_no");
-// 		console.log( r_no +" 싫어요 버튼");
-        var u_id = "user1";
-        var r_up = 0;
-        var r_down = 1;
+		var r_likenum = $(this).attr("data-r_likenum");
+		
+		var selected = $(this).attr("data-selected");
+		console.log("selected : " + selected);
+		if(selected == "Yes") {
+			r_likenum = 0;
+		}
+
         var url = "/discussion_reply/likeOrDislikeSelect";
         var sendData = {
         	"u_id" : u_id,
         	"r_no" : r_no,
-        	"r_up" : r_up,
-        	"r_down" : r_down
+        	"r_likenum" : r_likenum
         };
         
         $.ajax ({
@@ -527,8 +501,7 @@
         		getReplyList()
 			}
         });//$.ajax
-		
-	});// $("#discussion_ReplyList").on("click",".btnDisLike"
+	});//$("#discussion_ReplyList").on("click",".btnLikeSelect"
 			
 	
 	// 댓글 페이징 버튼
@@ -540,6 +513,68 @@
 		getReplyList();
 		console.log(reply_page+" 페이지 버튼")
 	})
+	
+	// 댓글에 답글 달기 버튼
+	$("#discussion_ReplyList").on("click",".replyComent", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+// 		console.log(r_no + "답글 버튼")
+		
+		var strHtml = "";
+		strHtml += "<textarea class='form-control  replyComent_content' style = padding: 10px;'></textarea>"
+				+		"<a href='#'  class='replyComent' data-r_no='"+r_no+"' >↓답글 보기</a>"
+				+ 	"<p style='float: right;  margin-top: 10px;'>"
+				+  		"<a href='#' class='btn btn-success btn-circle btn-sm btnReplyComentWrite' data-r_no='"+r_no+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
+				+  		"<a href='#' class='btn btn-danger btn-circle btn-sm btnReplyComentCancel' data-r_no='"+r_no+"'>"
+				+		"<i class='fas fa-trash'></i></a>"
+				+ 	"</p>";
+		$(".replyComentTextarea"+r_no).html(strHtml);
+	});
+	// 답글 달기 등록 버튼 (체크모양)
+	$("#discussion_ReplyList").on("click",".btnReplyComentWrite", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		var coment = $(".replyComent_content").val();
+// 		console.log(r_no + "등록 버튼")
+		console.log("coment" + coment );
+		
+		var url = "/discussion_reply/replyComentWrite";
+		var sendData = {
+				"b_serialno" : nowDiscussion_b_serialno,
+				"r_no" : r_no,
+				"r_writer" : r_writer,
+				"r_content" : coment,
+				"r_level" : 1,
+		}
+		
+		$.ajax({
+        	"type" : "post",
+        	"url" : url,
+        	"headers" : {
+        		"Content-Type" : "application/json",
+        		"X-HTTP-Method_Override" : "post"
+        	},
+        	"dataType" : "text",
+        	"data" : JSON.stringify(sendData),
+        	"success" : function (receivedData) {
+        		
+			}
+		});
+	});
+	
+	// 답글 달기 취소 버튼(휴지통모양)
+	$("#discussion_ReplyList").on("click",".btnReplyComentCancel", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+// 		console.log(r_no + "취소 버튼")
+		
+		var strHtml = "";
+		strHtml += "<p><a href='#'  class='replyComent' data-r_no='"+r_no+"' >↓답글 보기</a>"
+				+		"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+r_no+"' >답글 달기</a></span>"
+				+	"</p>"
+		
+		$(".replyComentTextarea"+r_no).html(strHtml);
+	});
 </script>
 
 <%@include file="../include/footer.jsp" %>
