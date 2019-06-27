@@ -8,6 +8,7 @@ import com.kh.jhj.domain.DonationVo;
 public interface IDonationBoardService {
 	public List<DonationVo> list() throws Exception;
 	public DonationVo read(int serialNo) throws Exception;
-	public void insert(DonationVo doVo, DoFileDto doFileDto) throws Exception;
+	public void insert(DonationVo doVo) throws Exception;
+	public void insertFile(DoFileDto doFileDto) throws Exception;
 
 }

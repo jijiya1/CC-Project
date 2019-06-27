@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,22 +44,26 @@ public class DonationController {
 		return "/board/donation_write";
 	}
 	
+	@Transactional
 	@RequestMapping(value="/writeUpload", method=RequestMethod.POST)
 	public String writeUpload(DonationVo doVo, RedirectAttributes rttr, 
 								MultipartHttpServletRequest multi,
 								@RequestParam("file") MultipartFile[] file) throws Exception{
+		
 		for(int i=0; i<file.length; i++) {
 			String fileName = file[i].getOriginalFilename();
 			byte[] fileData = file[i].getBytes();
-			DoFileDto doFileDto = doFileDto = Do_UploadUtil.do_Upload(uploadPath, fileName, fileData);
-				
+			DoFileDto doFileDto = Do_UploadUtil.do_Upload(uploadPath, fileName, fileData);
+			System.out.println(doFileDto);
 		}
 		
-		
+		doVo.setB_addinfo("52");
+		doVo.setB_detailinfo("11");
+		doService.insert(doVo);
 		
 		System.out.println(doVo);
 		
-	return  "/board/donation_board";
+	return  "redirect:/donation/list";
 	}
 /*	
 	@RequestMapping(value="/writeUpload")

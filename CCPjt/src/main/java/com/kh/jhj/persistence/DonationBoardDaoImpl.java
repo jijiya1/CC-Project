@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.jhj.domain.DoFileDto;
 import com.kh.jhj.domain.DonationVo;
 
 @Repository
@@ -28,6 +29,18 @@ public class DonationBoardDaoImpl implements IDonationBoardDao{
 	public DonationVo read(int serialNo) throws Exception {
 		DonationVo doVo = sqlSession.selectOne(NAMESPACE+ "read", serialNo);
 		return doVo;
+	}
+
+
+	@Override
+	public void insert(DonationVo doVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insert", doVo);
+	}
+
+	@Override
+	public void insertFile(DoFileDto doFileDto) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertFile", doFileDto);
+		
 	}
 	
 
