@@ -14,7 +14,7 @@
 		        detail_data d_data , 
 		        (select a_name from area_data where a_no=52) aName
 		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
-		order by rnum desc;
+		order by rnum desc
 	</select>
 	
 	<select id="count">
