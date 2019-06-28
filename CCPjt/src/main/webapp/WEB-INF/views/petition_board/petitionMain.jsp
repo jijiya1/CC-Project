@@ -3,6 +3,11 @@
 <%@include file="../include/head.jsp" %>
 
 <title>국민 청원</title>
+<script>
+$(document).ready(function(){
+	
+});
+</script>
 
 <div class="container-fluid">
 	<div class="row">
@@ -11,18 +16,16 @@
 			<div class="tabbable" id="tabs-989343">
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/petitionMain">청원메인</a>
+						<a class="nav-link active show" href="/petition_board/petitionMain">청원메인</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionList">게시판전체보기</a>
+						<a class="nav-link" href="/petition_board/petitionList">게시판전체보기</a>
 					</li>
 				</ul>
 				<div class="tab-content">
-					
-				<div class="tab-pane active" id="tab2">
-					<h2>청원 전체 내용</h2>
+					<div class="tab-pane active">
 						<table class="table">
-						<thead><tr>
+							<thead><tr>
 									<th>번호</th>
 									<th>상세지역</th>
 									<th>제목</th>
@@ -30,20 +33,14 @@
 									<th>참여인원</th>
 									<th>조회수</th>
 								</tr></thead>
-							<tbody>
-							<c:forEach items="${pList}" var="peVo">
-								<tr>
-									<td>${peVo.rnum}</td>
-									<td>${peVo.a_name} </td>
-									<td>${peVo.b_title}</td>
-									<td>${peVo.b_enddate}</td>
-									<td>${peVo.b_agree}</td>
-									<td>${peVo.b_readcount}</td>
-								</tr>
-							</c:forEach>
-							</tbody>
+							<tbody><tr>
+									<td>1</td>
+									<td>2 </td>
+									<td> </td>
+									<td> </td>
+								</tr></tbody>
 						</table>
-						
+				</div>					
 							<ul class="pagination">
 					<li class="page-item">
 						<a class="page-link" href="#">Previous</a>

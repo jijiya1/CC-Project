@@ -91,7 +91,7 @@
 
 	<!-- Nav Item - 정혜지 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/petition_board/petitionList">
+        <a class="nav-link" href="/petition_board/petitionMain">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>청원게시판(정혜지)</span></a>
       </li>
