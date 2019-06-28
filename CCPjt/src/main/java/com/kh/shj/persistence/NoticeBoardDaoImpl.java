@@ -1,5 +1,7 @@
 package com.kh.shj.persistence;
 
+import java.awt.geom.Area;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,6 +9,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.domain.AreaData;
+import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 
@@ -19,17 +23,30 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	SqlSession sqlSession;
 
 	@Override
-	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto) throws Exception {
+	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
 //		System.out.println("NoticeBoardDaoImpl / noticeBoardList 실행됨");
-		List<NoticeBoardVo> list = sqlSession.selectList(NAMESPACE + "noticeBoardList", noSearchDto);
-//		System.out.println("list : " + list);
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("noSearchDto", noSearchDto);
+		data.put("noPagingDto", noPagingDto);
+//		System.out.println("noSearchDto" + noSearchDto);
+//		data.put("dto", dto);
+//		System.out.println("data : " + data);
+		
+		List<NoticeBoardVo> list = sqlSession.selectList(NAMESPACE + "noticeBoardList", data);
+//		System.out.println("Dao list : " + list);
 		return list;
 	}
 
 	@Override
-	public NoticeBoardVo noticeBoardRead(int b_no) throws Exception {
+	public NoticeBoardVo noticeBoardRead(int b_no, int a_no) throws Exception {
 //		System.out.println("dao / b_no : " + b_no);
-		NoticeBoardVo noticeBoardVo = sqlSession.selectOne(NAMESPACE + "noticeBoardRead", b_no);
+		
+		HashMap<Object, Object> data = new HashMap<>();
+		data.put("b_no", b_no);
+		data.put("a_no", a_no);		
+		
+		NoticeBoardVo noticeBoardVo = sqlSession.selectOne(NAMESPACE + "noticeBoardRead", data);
 		return noticeBoardVo;
 	}
 
@@ -47,12 +64,17 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 
 	@Override
 	public void noticeBoardDelete(int b_no) throws Exception {
-		
+		sqlSession.selectOne(NAMESPACE + "noticeBoardDelete", b_no);
 
 	}
 
 	@Override
 	public int noticeBoardCount(NoSearchDto noSearchDto) throws Exception {
+		
+//		HashMap<String, Object> data = new HashMap<>();
+//		data.put("noSearchDto", noSearchDto);
+//		data.put("noPagingDto", noPagingDto);
+		
 		int count = sqlSession.selectOne(NAMESPACE + "noticeBoardCount", noSearchDto);
 		return count;
 	}
@@ -60,6 +82,29 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	@Override
 	public void noticeBoardReadCountUpdate(int b_no) throws Exception {
 		sqlSession.selectOne(NAMESPACE + "noticeBoardReadCountUpdate", b_no);
+	}
+
+	@Override
+	public List<AreaData> getAreaData() throws Exception {
+		List<AreaData> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaData");
+		return areaDataList;
+	}
+
+	@Override
+	public int noticeBoardContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("noSearchDto", noSearchDto);
+		data.put("noPagingDto", noPagingDto);
+		
+		int contentCount = sqlSession.selectOne(NAMESPACE + "noticeBoardContentCount", data);
+		return contentCount;
+	}
+
+	@Override
+	public List<AreaData> getAOrder() throws Exception {
+		List<AreaData> aOrderList = sqlSession.selectList(NAMESPACE + "getAOrder");
+		return aOrderList;
 	}
 
 }
