@@ -13,24 +13,79 @@ $(document).ready(function() {
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action", href).submit();
 	});
-
+	
 	$("#btnWrite").click(function() {
 		location.href="suggest_write";
 	});
 	
+	function setPage() {
+		var page = "${pagingDto.page}";
+		if (page == "") {
+			page = 1;
+		}
+		var perPage = $("select[name=perPage]").val(); // ?
+
+		$("input[name=page]").val(page);
+		$("input[name=perPage]").val(10);
+	}
+	
+	function setSearch() {
+		var searchType = $("#searchType").val();
+		var keyword = $("#keyword").val();
+		$("input[name=searchType]").val(searchType);
+		$("input[name=keyword]").val(keyword);
+	}
+	
+	$(".a_pagination").click(function(e) {
+		e.preventDefault();		
+		var page = $(this).attr("data-page");
+		$("input[name=page]").val(page);
+		$("#pageForm").submit();
+	});	
+	
+	//검색
+	$("#btnSearch").click(function() {
+		setPage();
+		setSearch();
+		$("input[name=page]").val(1);
+		$("#pageForm").submit();
+	});
 });
 </script>
 <form id="pageForm" action="/suggest_board/suggest_list">
 	<input type="hidden" name="b_no" 
 		value="${param.b_no}">
+	<input type="hidden" name="page"
+		value="${paginationDto.pagingDto.page}">
+	<input type="hidden" name="perPage"
+		value="${paginationDto.pagingDto.perPage}">
+	<input type="hidden" name="searchType"
+		value="${paginationDto.pagingDto.searchType}">
+	<input type="hidden" name="keyword"
+		value="${paginationDto.pagingDto.keyword}">				
 </form>
 
 
 <h1>게시판</h1>
-		<div class="container-fluid">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">			 
 			<button type="button" class="btn btn-success"id="btnWrite">글쓰기</button>
+			<div class="row">
+		<div class="col-md-12">
+			<select id="searchType">
+				<option value="b_title"<c:if test="${paginationDto.pagingDto.searchType == 'b_title'}">selected</c:if>>
+				제목</option>
+				<option value="b_writer"<c:if test="${paginationDto.pagingDto.searchType == 'b_writer'}">selected</c:if>>
+				작성자</option>
+				<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_addinfo'}">selected</c:if>>
+				지역</option>
+			</select>
+			<input type="text" id="keyword"placeholder="검색어를 입력하세요"
+				value="${pagingDto.keyword}"/>
+			<input type="button" value="검색" id="btnSearch" class="btn btn-primary"/>
+		</div>
+	</div>
 			<table class="table">
 				<thead>
 					<tr>
@@ -56,30 +111,37 @@ $(document).ready(function() {
 				</c:forEach>	
 				</tbody>
 			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
 			<nav>
 				<ul class="pagination">
-				<c:if test="${paginationDto.prev == true}">
+					<c:if test="${paginationDto.prev == true}">	
 					<li class="page-item">
 						<a class="page-link a_pagination" href="#"
 							data-page="${paginationDto.startPage - 1}">이전</a>
 					</li>
-				</c:if>	
+				</c:if>
 				
-				<c:forEach var="i" begin="${paginationDto.startPage}"
-								   	end="${paginationDto.endPage}">
+					<c:forEach var="i" begin="${paginationDto.startPage}" 
+										end="${paginationDto.endPage}">	
 					<li class="page-item
-						<c:if test="${paginationDto.pagingDto.page == i}">active</c:if>">
-							<a class="page-link a_pagination" href="#"
-								data-page="${i}">${i}</a>
+					<c:if test="${paginationDto.pagingDto.page == i}">
+						active
+					</c:if>
+					">
+						<a class="page-link a_pagination" href="#"
+							data-page="${i}">${i}</a>
 					</li>
 				</c:forEach>
 					
-				<c:if test="${paginationDto.next == true}" >	
+					<c:if test="${paginationDto.next == true}">	
 					<li class="page-item">
 						<a class="page-link a_pagination" href="#"
 							data-page="${paginationDto.endPage + 1}">다음</a>
 					</li>
-				</c:if>	
+				</c:if>
 				</ul>
 			</nav>
 		</div>

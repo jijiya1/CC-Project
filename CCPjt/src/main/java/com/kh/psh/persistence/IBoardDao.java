@@ -17,5 +17,7 @@ public interface IBoardDao {
 	public void suggest_update(Complaint_BoardVo vo) throws Exception;
 	//글삭제
 	public void suggest_delete(int b_no) throws Exception;
+	//글갯수
+	public int listCount(Complaint_PagingDto pagingDto)throws Exception;
 
 }
