@@ -28,9 +28,16 @@ public class DonationBoardServiceImpl implements IDonationBoardService {
 		return null;
 	}
 
+
 	@Override
-	public void insert(DonationVo doVo, DoFileDto doFileDto) throws Exception {
-		// TODO Auto-generated method stub
+	public void insert(DonationVo doVo) throws Exception {
+		doDao.insert(doVo);
+		
+	}
+
+	@Override
+	public void insertFile(DoFileDto doFileDto) throws Exception {
+		doDao.insertFile(doFileDto);
 		
 	}
 

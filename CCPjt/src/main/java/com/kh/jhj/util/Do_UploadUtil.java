@@ -19,7 +19,7 @@ public class Do_UploadUtil {
 
 	public static DoFileDto do_Upload(String uploadPath,  String fileName, byte[] fileData)
 							throws Exception{
-		System.out.println("uploadPath : 얍! " + uploadPath);
+//		System.out.println("uploadPath : 얍! " + uploadPath);
 		UUID uuid = UUID.randomUUID();
 		String newName = uuid +"_" + fileName;	
 		String dirPath = calPath(uploadPath);

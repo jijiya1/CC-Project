@@ -72,4 +72,10 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 		return contentCount;
 	}
 
+	@Override
+	public List<AreaData> getAOrder() throws Exception {
+		List<AreaData> aOrderList = noticeBoardDao.getAOrder();
+		return aOrderList;
+	}
+
 }

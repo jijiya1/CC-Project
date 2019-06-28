@@ -14,12 +14,12 @@ $(document).ready(function() {
 	
 	// 글 수정
 	$("#btnUpdate").click(function() {
-		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}";
+		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}&a_no=${noticeBoardVo.a_no}";
 	});
 	
 	// 글 삭제
 	$("#btnDelete").click(function() {
-		location.href = "/notice_board/notice_delete?b_no=${noticeBoardVo.b_no}";
+		location.href = "/notice_board/notice_delete?b_no=${noticeBoardVo.b_no}&a_no=${noticeBoardVo.a_no}";
 
 // 		var test = confirm("테스트");
 // 		if (test) {
@@ -65,9 +65,9 @@ $(document).ready(function() {
 							<!-- 공개여부 -->
 							<th scope="row">카테고리</th>
 							<td>
-								<c:choose>
-									<c:when test="${ noticeBoardVo.b_addinfo == 10 }">${ areaData.a_name }</c:when>
-								</c:choose>
+								<c:forEach var="i" begin="1" end="18">
+									<c:if test="${ noticeBoardVo.a_order == i }">${ noticeBoardVo.a_name }</c:if>
+								</c:forEach>
 							</td>
 						</tr>
 			

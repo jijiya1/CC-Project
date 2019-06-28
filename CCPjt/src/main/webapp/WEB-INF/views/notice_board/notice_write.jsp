@@ -17,35 +17,76 @@ $(document).ready(function() {
 		location.href = "/notice_board/notice_list";
 	});
 	
-	$("#b_addinfo").change(function() {
+	$("#b_addinfo").change(function(e) {
+// 		console.log(e);
+
+// 		var test = e.originalEvent.currentTarget[0];
+// 		console.log(test);
+
 		var b_addinfo = $("select[name=b_addinfo]").val();
-		console.log(b_addinfo);
 		
-		var test = "${areaData}";
-		console.log(test);
+// 		var test = e.originalEvent.currentTarget[0].index;
+// 		console.log(test);
 		
+		var strHtml = "";
 		if (b_addinfo == 10) {
-			
+			strHtml += "<div class='form-group' style='display: none;'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='공지'>공지사항</option>"
+					+  "</select>"
+					+  "</div>";
+		} 
+		
+		else if (b_addinfo == 52) {
+			strHtml += "<div class='form-group'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='10'>중구</option>"
+					+  "<option value='11'>남구갑</option>"
+					+  "<option value='12'>남구을</option>"
+					+  "<option value='13'>동구</option>"
+					+  "<option value='14'>북구</option>"
+					+  "<option value='15'>울주군</option>"
+					+  "</select>"
+					+  "</div>";
 		}
+
+		else {
+			strHtml += "<div class='form-group' style='display: none;'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='공지'>공지사항</option>"
+					+  "</select>"
+					+  "</div>";
+		}
+		$(".test").html(strHtml);
+			
+		
+		$("#b_detailinfo").change(function() {
+			var b_detailinfo = $("select[name=b_detailinfo]").val();
+			console.log(b_detailinfo);
+		});
+
 	});
 	
 	// 테스트
-	$("#test").click(function() {
-		var b_title = $("input[name=b_title]").val();
-		console.log(b_title);
-		var b_write = $("input[name=b_write]").val();
-		console.log(b_write);
-		var u_id = $("input[name=u_id]").val();
-		console.log(u_id);
-		var b_addinfo = $("select[name=b_addinfo]").val();
-		console.log(b_addinfo);
-		var b_detailinfo = $("select[name=b_detailinfo]").val();
-		console.log(b_detailinfo);
-		var name_b_content = $("textarea[name=b_content]").val();
-		console.log(name_b_content);
-		var b_content = $("#summernote").val();
-		console.log(b_content);
-	});
+// 	$("#test").click(function() {
+// 		var b_title = $("input[name=b_title]").val();
+// 		console.log(b_title);
+// 		var b_write = $("input[name=b_write]").val();
+// 		console.log(b_write);
+// 		var u_id = $("input[name=u_id]").val();
+// 		console.log(u_id);
+// 		var b_addinfo = $("select[name=b_addinfo]").val();
+// 		console.log(b_addinfo);
+// 		var b_detailinfo = $("select[name=b_detailinfo]").val();
+// 		console.log(b_detailinfo);
+// 		var name_b_content = $("textarea[name=b_content]").val();
+// 		console.log(name_b_content);
+// 		var b_content = $("#summernote").val();
+// 		console.log(b_content);
+// 	});
 	
 });
 </script>
@@ -85,13 +126,13 @@ $(document).ready(function() {
 				</select>
 			</div>
 			
-			<div class="form-group">
+			<div class="test">
+			<div class="form-group" style="display: none;">
 			<label>구</label>
-				<select class="form-control" name="b_detailinfo" id="b_detailinfo" required="required">
-					<option value="notice">공지사항</option>
-					<option value="seoul">서울</option>
-					<option value="inchen">인천</option>
+				<select class="form-control " name="b_detailinfo" id="b_detailinfo" required="required">
+					<option value="공지">공지사항</option>
 				</select>
+			</div>
 			</div>
 			
 			<div class="form-group">
@@ -103,11 +144,37 @@ $(document).ready(function() {
 				            height: 350,
 				            minHeight: null,
 				            maxHeight: null,
-				            focus: true  
+				            focus: true,
+				            onImageUpload : function(files, editor, welEditable) {
+				                sendFile(files[0], editor, welEditable);
+				            }
 				        });
 				        var postForm = function() {
 				        	var content = $('textarea[name="b_content"]').html($('#summernote').code());
 				        }
+				        
+				        function uploadImage(image) {
+				            var data = new FormData();
+				            data.append("image", image);
+				            $.ajax({
+				                type: "post",
+				                cache: false,
+				                contentType:false,
+				                processData: false,
+				                dataType :'jsonp',
+				                url: '/cop/bbs/insertSummberNoteFile.do',
+				                data: data,
+				                success: function(data) {
+				   				//이미지 경로를 작성하면 됩니다 ^  ^
+				                    var image = $('<img>').attr('src', '/cmm/fms/getImage.do?atchFileId='+data[0].atchFileId+'&fileSn=0');
+				                    $('#nttCn').summernote("insertNode", image[0]);
+				                },
+				                error: function(data) {
+				                    alert('error : ' +data);
+				                }
+				            });
+				        }
+
 				  </script>
 			</div>
 

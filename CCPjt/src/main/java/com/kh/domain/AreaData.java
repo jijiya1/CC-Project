@@ -3,7 +3,16 @@ package com.kh.domain;
 public class AreaData {
 	private int a_no;
 	private String a_name;
+	private int a_order;
 	
+	public int getA_order() {
+		return a_order;
+	}
+
+	public void setA_order(int a_order) {
+		this.a_order = a_order;
+	}
+
 	public int getA_no() {
 		return a_no;
 	}
@@ -22,6 +31,7 @@ public class AreaData {
 
 	@Override
 	public String toString() {
-		return "AreaData [a_no=" + a_no + ", a_name=" + a_name + "]";
+		return "AreaData [a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order + "]";
 	}
+
 }

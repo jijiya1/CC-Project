@@ -10,11 +10,17 @@
 		select * from area_data
 	</select>
 	
+	<!-- areaData.a_order 불러오기 -->
+	<select id="getAOrder" resultType="areaData">
+		select a_order from area_data
+	</select>
+	
 	<!-- 글 갯수 -->
 	<select id="noticeBoardCount" resultType="int">
 		select count(*) from notice_board
 		where b_checkeddel = 0
 		<include refid="search"></include>
+		<include refid="searchAddinfo"></include>
 	</select>
 	
 	<!-- 페이지네이션에 필요한 글 갯수 -->
@@ -22,6 +28,7 @@
 		select count(*) from notice_board
 		where b_checkeddel = 0
 		<include refid="search"></include>
+		<include refid="searchAddinfo"></include>
 	</select>
 
 	<!-- 글 목록 불러오기 -->
@@ -42,8 +49,9 @@
 	
 	<!-- 해당 게시글 읽기 -->
 	<select id="noticeBoardRead" resultType="noticeBoardVo">
-		select * from notice_board
+		select * from notice_board, area_data
 		where b_no = #{b_no}
+		and b_addinfo = a_no
 	</select>
 	
 	<!-- 해당 게시글 클릭시 조회수 +1 업데이트 -->
@@ -88,4 +96,12 @@
 		</if>
 	</sql>
 	
+	<sql id="searchAddinfo">
+		<if test="searchType != null">
+			<if test="searchType == 'b_addinfo'">
+				and b_addinfo like '%' || #{keyword} || '%'
+			</if>
+		</if>
+	</sql>
+
 </mapper>

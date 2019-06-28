@@ -18,17 +18,23 @@
 	<insert id="insert">
 		insert into donation_board (b_serialno, b_no, b_addinfo, b_detailinfo,
                             b_title, b_subtitle,b_writer, u_id,b_content)
-		values( 'do_' || donation_seq.nextval , donation_seq.nextval, {b_addinfo}, {b_detailinfo},
-                            {b_title}, {b_subtitle},{b_writer}, {u_id,b_content})
+		values( 'do_' || donation_seq.nextval , donation_seq.nextval, #{b_addinfo}, #{b_detailinfo},
+                            #{b_title}, #{b_subtitle},#{b_writer}, #{u_id},#{b_content})
 	</insert>
+	
 	<update id="delete">
 		update donation_board set b_checkeddel=1
-		where b_serialno = {b_serialno}
+		where b_serialno = #{b_serialno}
 	</update>
 	<update id="update">
-		update donation_board set b_title ={b_title}, b_subtitle={b_subtitle}, b_content={b_content}
-		where b_serialno = {b_serialno}
+		update donation_board set b_title =#{b_title}, b_subtitle=#{b_subtitle}, b_content=#{b_content}
+		where b_serialno = #{b_serialno}
 	</update>
+	
+	<insert id="fileInsert">
+		insert into donation_board
+		values('do_'|| donation_seq.currval, #{f_name},#{f_path})
+	</insert>
 	
 	
 	<select id="totalCount">

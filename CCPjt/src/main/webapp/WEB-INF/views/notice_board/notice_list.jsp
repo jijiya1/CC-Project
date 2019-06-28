@@ -137,9 +137,9 @@ $(document).ready(function() {
 
 	<!-- 공지사항 리스트 -->
 	  <div class="card shadow mb-4">
-	    <div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>	
-	    </div>
+<!-- 	    <div class="card-header py-3"> -->
+<!-- 	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>	 -->
+<!-- 	    </div> -->
 	    
 	    <div class="card-body">
 	      <div class="table-responsive">
@@ -190,7 +190,11 @@ $(document).ready(function() {
 	            <tr>
 	              <td>${ noticeBoardVo.b_no }</td>
 	              <td>
-	              	<a href="/notice_board/notice_read" class="title" style="float: left;" data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }</a>
+	              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
+	              	data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">
+	              	[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }&nbsp;
+	              	<c:if test="${ noticeBoardVo.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+	              	</a>
            		  </td>
            		  <td>N</td>
 	              <td>${ noticeBoardVo.b_writer }</td>
@@ -255,5 +259,8 @@ $(document).ready(function() {
 	</div>
 	<br>
 	<!-- 공지사항 끝 -->
+	
+	<!-- css 테스트 -->
+	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div>
 
 <%@include file="../include/footer.jsp" %>
