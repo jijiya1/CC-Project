@@ -98,8 +98,8 @@
 		<!-- 메인 상단 배너 공지 끝 -->
 		
 		<!-- 메인 상단 이달의 우수 의원 시작 -->
-		<div class="best" style="border: solid 1px;">
-			<p style="font-size: 20px; margin-bottom: -5px;"><span class="fas fa-thumbs-up">이달의 우수 의원</span></p>
+		<div class="best col-md-4" style="border: solid 1px;">
+			<p style="font-size: 20px;"><span class="fas fa-thumbs-up">이달의 우수 의원</span></p>
 			<img src="/resources/img/test1.jpg" alt="Avatar" class="image" style="width: 100%; height: auto;">
 			<div class="overlay">My Name is John</div>
 		</div>
@@ -114,16 +114,46 @@
 	</div>
 	
 	<!-- 메인 두번째 줄 시작 -->
+	
+	<!-- 공지사항 시작 -->
 	<div class="row">
 	
 		<div class="col-md-1"></div>
 		
-		<div class="col-md-9">
-			<p class="mb-4" style="font: strong; font-size: 30px;">공지사항</p><hr>
+		<div class="col-md-5">
+			
+	  <div class="card shadow mb-4">
+  	    <div class="card-header py-3">
+	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>	
+	    </div>
+	    
+	    <div class="card-body">
+	      <div class="table-responsive">
+	      
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
-				
+		      <tbody>
+	          <c:forEach items="${ noticeList }" var="noticeList">
+	          
+	          <c:if test="${ noticeList.b_checkeddel == 0 }">
+	            <tr>
+	              <td>
+	              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
+	              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
+	              	[${ noticeList.a_name }] ${ noticeList.b_title }&nbsp;
+	              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+	              	</a>
+           		  </td>
+	              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
+	            </tr>
+			  </c:if>
+           	  </c:forEach>
+	          </tbody>
 			</table>
 		</div>
+		</div>
+	   </div>
+	  </div>
+		<!-- 공지사항 끝 -->
 		
 	</div>
 	<!-- 메인 두번째 줄 끝 -->
