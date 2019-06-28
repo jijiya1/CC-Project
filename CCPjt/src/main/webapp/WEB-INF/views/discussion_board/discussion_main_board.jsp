@@ -91,7 +91,10 @@
 	
 </style>
 
-<p>데이터 확인 :</p>
+<div class="container-fluid">
+	<p>데이터 확인 :</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
+</div>
 
 <div class="slideshow-container">
 	<div>
@@ -100,6 +103,7 @@
 	<c:forEach items="${discussionList }" var="boardVo_discussion" >
 		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="" >
 			<q style="font-size: 50px">${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}</q>
+			<p></p>
 			<p> 토론에 대해서 찬성 <input type="radio"  name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y"></p>
 			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N"></p>
 		</div>
@@ -291,7 +295,7 @@
 		console.log("작성 완료 버튼");
 		var r_content = $(".r_content").val(); // 댓글 내용 가져 오기
 		var YorNSelect = $(".mySlides").eq(slideIndex - 1).attr("data-YorNSelect"); // 찬성 || 반대 정보 가져오기
-// 		console.log("r_content : " + YorNSelect+ " / "+ r_content);
+		console.log("r_content : " + YorNSelect+ " / "+ r_content);
 		
 		// 공란일때 알림
 		if(r_content == "") {
@@ -375,7 +379,7 @@
 				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 				 		+ 		"<div class='card-body'>"
 						+			"<p>"+this.r_no+". "+this.r_writer+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
-						+			"<p>"+this.r_content+"</p>"
+						+			"<p>&nbsp;"+this.r_content+"</p>"
 						+			"<p style='text-align: right;' class='likeSelectArea'>"
 										// 좋아요 버튼
 						+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
@@ -402,7 +406,7 @@
 						+				"<p>";
 											// 댓글에 ↓ 답글 더보기 버튼
 											if (this.r_coment_count >= 1) {
-												strHtml +=	"<span class='replyContentShowArea"+this.r_no+"'><a href='#'  class='btnReplyComentList' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >↓답글 보기</a></span>";
+												strHtml +=	"<span class='replyContentShowArea"+this.r_no+"'><a href='#'  class='btnReplyComentList' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >↓답글 보기["+this.r_coment_count+"]</a></span>";
 											}
 											// 댓글에 답글 달기 버튼
 				strHtml +=					"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >답글 달기</a></span>"
@@ -531,16 +535,17 @@
 		var r_coment_count = $(this).attr("data-r_coment_count");
 // 		console.log(r_no + "답글 버튼");
 // 		console.log(r_coment_count + " / "+ r_no + "답글 버튼");
-		var comentTextAreaHtml = "<textarea class='form-control  replyComent_content' style = padding: 10px;'></textarea>";
+		var comentTextAreaHtml = "<textarea class='form-control replyComent_content' style = padding: 10px;'></textarea>";
 		$(".replyComentTextarea"+r_no).html(comentTextAreaHtml);
 		
 		var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
-		
+// 		console.log(nowComentShow + " / "+ r_no + "보이는지 상태");
+// 		console.log(r_coment_count + " 개");
 		var strHtml = "";
 		
 	 	if (r_coment_count >= 1) {
 			if(nowComentShow == "false") {
-				strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기</a></span>";
+				strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기["+r_coment_count+"]</a></span>";
 			} else {
 				strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>";
 			}
@@ -561,7 +566,8 @@
 		e.preventDefault();
 		var coment = $(".replyComent_content").val();
 		var r_coment_count = $(this).attr("data-r_coment_count");
-		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "true");
+		
+// 		console.log("r_coment_count : " + r_coment_count)
 		
 		if(coment == "") {
 			alert("답글 내용을 입력해주세요");
@@ -591,19 +597,25 @@
 	        		
 	        		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "true");
 	        		
+					var url2 = "/discussion_reply/replyComentList/"+r_no;
+					var r_coment_count_update = parseInt(r_coment_count) + 1;
+					
+// 					console.log("r_coment_count_update" + r_coment_count_update);
+					
 					var strHtml = "";
-					strHtml += "<p><span class='replyContentShowArea"+r_no+"'><a href='#'  class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>"
-							+		"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >답글 달기</a></span>"
-							+	"</p>"
+					strHtml += "<p>"
+							+		"<span class='replyContentShowArea"+r_no+"'><a href='#'  class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count_update+"' >↑답글 숨기기</a></span>"
+							+		"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count_update+"' >답글 달기</a></span>"
+							+  "</p>"
 					
 					$(".replyComentButtonArea"+r_no).html(strHtml);
-					
-					var url2 = "/discussion_reply/replyComentList/"+r_no;
+							
 					var strHtml2 = "";
 					$.getJSON(url2, function (receivedData) {
 						$(receivedData).each(function (i) {
 							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px'>"+this.r_writer+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 						})
+
 						$(".replyComentList"+r_no).html(strHtml2);
 					})
 				}
@@ -626,7 +638,7 @@
 		strHtml += "<p>";
 						if (r_coment_count >= 1) {
 							if(nowComentShow == "false") {
-								strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기</a></span>";
+								strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기["+r_coment_count+"]</a></span>";
 							} else {
 								strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#'  class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>"
 							}
@@ -666,7 +678,7 @@
 		$(".replyComentButtonArea"+r_no).attr("data-nowComentShow", "false");
 		$(".replyComentList"+r_no).html("");
 		
-		var strHtml = "<a href='#'  class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↓답글 보기</a>";
+		var strHtml = "<a href='#'  class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↓답글 보기["+r_coment_count+"]</a>";
 		$(".replyContentShowArea"+r_no).html(strHtml);
 	})
 	
