@@ -3,13 +3,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 
+<style>
+* {box-sizing: border-box;}
+
+.best {
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.best:hover .overlay {
+  opacity: 1;
+}
+</style>
+
 <div class="container-fluid">
 
 <p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a></p>
 
+	<!-- 메인 첫번째 줄 시작 -->
 	<div class="row">
-	
-		<div class="col-md-5">
+		<div class="col-md-1"></div>
+	<!-- 메인 상단 배너 공지 시작 -->
+		<div class="col-md-7">
 			<div class="carousel slide" id="carousel-119470">
 				<ol class="carousel-indicators">
 					<li data-slide-to="0" data-target="#carousel-119470" class="active">
@@ -58,8 +95,38 @@
 				</div> <a class="carousel-control-prev" href="#carousel-119470" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-119470" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
 			</div>
 		</div>
+		<!-- 메인 상단 배너 공지 끝 -->
+		
+		<!-- 메인 상단 이달의 우수 의원 시작 -->
+		<div class="best" style="border: solid 1px;">
+			<p style="font-size: 20px; margin-bottom: -5px;"><span class="fas fa-thumbs-up">이달의 우수 의원</span></p>
+			<img src="/resources/img/test1.jpg" alt="Avatar" class="image" style="width: 100%; height: auto;">
+			<div class="overlay">My Name is John</div>
+		</div>
+		<!-- 메인 상단 이달의 우수 의원 끝 -->
+
+	</div>
+	
+	<!-- 메인 첫번째 줄 끝 -->
+	
+	<div class="row">
+		<div class="col-md-12"><br></div>
+	</div>
+	
+	<!-- 메인 두번째 줄 시작 -->
+	<div class="row">
+	
+		<div class="col-md-1"></div>
+		
+		<div class="col-md-9">
+			<p class="mb-4" style="font: strong; font-size: 30px;">공지사항</p><hr>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+				
+			</table>
+		</div>
 		
 	</div>
+	<!-- 메인 두번째 줄 끝 -->
 	
 </div>
 
