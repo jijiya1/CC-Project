@@ -30,4 +30,10 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 		return count;
 	}
 
+	@Override
+	public List<PetitionVo> listMain() throws Exception {
+		List<PetitionVo> pMain = sqlSession.selectList(NAMESPACE+"listMain");
+		return pMain;
+	}
+
 }

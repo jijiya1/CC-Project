@@ -3,39 +3,131 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 
-<div class="container">
+<style>
+* {box-sizing: border-box;}
 
-<div class="row">
-<div class="col-lg-5 col-xl-5">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#notice">공지사항</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu1">Menu 1</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
-    </li>
-  </ul>
+.best {
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="notice" class="container tab-pane active"><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div id="menu1" class="container tab-pane fade"><br>
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="container tab-pane fade"><br>
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-  </div>
-  </div>
-  </div>
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.best:hover .overlay {
+  opacity: 1;
+}
+</style>
+
+<div class="container-fluid">
+
+<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a></p>
+
+	<!-- 메인 첫번째 줄 시작 -->
+	<div class="row">
+		<div class="col-md-1"></div>
+	<!-- 메인 상단 배너 공지 시작 -->
+		<div class="col-md-7">
+			<div class="carousel slide" id="carousel-119470">
+				<ol class="carousel-indicators">
+					<li data-slide-to="0" data-target="#carousel-119470" class="active">
+					</li>
+					<li data-slide-to="1" data-target="#carousel-119470">
+					</li>
+					<li data-slide-to="2" data-target="#carousel-119470">
+					</li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+					<a href="/notice_board/notice_list">
+						<img class="d-block w-100" alt="Carousel Bootstrap First" src="/resources/img/addTest1.jpg" />
+<!-- 						<div class="carousel-caption"> -->
+<!-- 							<h4> -->
+<!-- 								First Thumbnail label -->
+<!-- 							</h4> -->
+<!-- 							<p> -->
+<!-- 								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. -->
+<!-- 							</p> -->
+<!-- 						</div> -->
+					</a>
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" alt="Carousel Bootstrap Second" src="/resources/img/addTest2.jpg" />
+						<div class="carousel-caption">
+<!-- 							<h4> -->
+<!-- 								Second Thumbnail label -->
+<!-- 							</h4> -->
+<!-- 							<p> -->
+<!-- 								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. -->
+<!-- 							</p> -->
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" alt="Carousel Bootstrap Third" src="/resources/img/addTest3.jpg" />
+						<div class="carousel-caption">
+<!-- 							<h4> -->
+<!-- 								Third Thumbnail label -->
+<!-- 							</h4> -->
+<!-- 							<p> -->
+<!-- 								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. -->
+<!-- 							</p> -->
+						</div>
+					</div>
+				</div> <a class="carousel-control-prev" href="#carousel-119470" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a class="carousel-control-next" href="#carousel-119470" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+			</div>
+		</div>
+		<!-- 메인 상단 배너 공지 끝 -->
+		
+		<!-- 메인 상단 이달의 우수 의원 시작 -->
+		<div class="best" style="border: solid 1px;">
+			<p style="font-size: 20px; margin-bottom: -5px;"><span class="fas fa-thumbs-up">이달의 우수 의원</span></p>
+			<img src="/resources/img/test1.jpg" alt="Avatar" class="image" style="width: 100%; height: auto;">
+			<div class="overlay">My Name is John</div>
+		</div>
+		<!-- 메인 상단 이달의 우수 의원 끝 -->
+
+	</div>
+	
+	<!-- 메인 첫번째 줄 끝 -->
+	
+	<div class="row">
+		<div class="col-md-12"><br></div>
+	</div>
+	
+	<!-- 메인 두번째 줄 시작 -->
+	<div class="row">
+	
+		<div class="col-md-1"></div>
+		
+		<div class="col-md-9">
+			<p class="mb-4" style="font: strong; font-size: 30px;">공지사항</p><hr>
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+				
+			</table>
+		</div>
+		
+	</div>
+	<!-- 메인 두번째 줄 끝 -->
+	
 </div>
 
 <%@include file="../include/footer.jsp" %>

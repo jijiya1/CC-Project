@@ -33,12 +33,19 @@ $(document).ready(function(){
 									<th>참여인원</th>
 									<th>조회수</th>
 								</tr></thead>
-							<tbody><tr>
-									<td>1</td>
-									<td>2 </td>
-									<td> </td>
-									<td> </td>
-								</tr></tbody>
+							<tbody>
+							<c:forEach items="${pMain}" var="peVo">
+								<tr>
+									<td>${peVo.rnum}</td>
+									<td>${peVo.a_name}/${peVo.d_name} </td>
+									<td>${peVo.b_title}</td>
+									<td><fmt:formatDate value="${peVo.b_enddate}"
+													pattern="yy/MM/dd HH:mm"/> </td>
+									<td>${peVo.b_agree}</td>
+									<td>${peVo.b_readcount}</td>
+								</tr>
+							</c:forEach>
+							</tbody>
 						</table>
 				</div>					
 							<ul class="pagination">

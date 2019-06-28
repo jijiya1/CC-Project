@@ -46,7 +46,8 @@ public class PetitionController {
 	
 	@RequestMapping(value="petitionMain", method=RequestMethod.GET)
 	public void petitionMain(Model model) throws Exception{
-		
+		List<PetitionVo> pMain = peService.listMain();
+		model.addAttribute("pMain", pMain);
 	}
 	
 

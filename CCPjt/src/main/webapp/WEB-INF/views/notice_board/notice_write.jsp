@@ -144,11 +144,37 @@ $(document).ready(function() {
 				            height: 350,
 				            minHeight: null,
 				            maxHeight: null,
-				            focus: true  
+				            focus: true,
+				            onImageUpload : function(files, editor, welEditable) {
+				                sendFile(files[0], editor, welEditable);
+				            }
 				        });
 				        var postForm = function() {
 				        	var content = $('textarea[name="b_content"]').html($('#summernote').code());
 				        }
+				        
+				        function uploadImage(image) {
+				            var data = new FormData();
+				            data.append("image", image);
+				            $.ajax({
+				                type: "post",
+				                cache: false,
+				                contentType:false,
+				                processData: false,
+				                dataType :'jsonp',
+				                url: '/cop/bbs/insertSummberNoteFile.do',
+				                data: data,
+				                success: function(data) {
+				   				//이미지 경로를 작성하면 됩니다 ^  ^
+				                    var image = $('<img>').attr('src', '/cmm/fms/getImage.do?atchFileId='+data[0].atchFileId+'&fileSn=0');
+				                    $('#nttCn').summernote("insertNode", image[0]);
+				                },
+				                error: function(data) {
+				                    alert('error : ' +data);
+				                }
+				            });
+				        }
+
 				  </script>
 			</div>
 

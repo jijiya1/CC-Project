@@ -29,4 +29,10 @@ public class PeBoardService implements IPeBoardService {
 		return count;
 	}
 
+	@Override
+	public List<PetitionVo> listMain() throws Exception {
+		List<PetitionVo> pMain = peBoardDao.listMain();
+		return pMain;
+	}
+
 }

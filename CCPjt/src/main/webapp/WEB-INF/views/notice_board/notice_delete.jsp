@@ -16,7 +16,7 @@ $(document).ready(function() {
 	
 	// 취소 버튼
 	$("#btnCancel").click(function() {
-		location.href = "/notice_board/notice_read?b_no=${ noticeBoardVo.b_no }";
+		location.href = "/notice_board/notice_read?b_no=${ noticeBoardVo.b_no }&a_no=${ noticeBoardVo.a_no }";
 	});
 	
 });
@@ -28,7 +28,7 @@ $(document).ready(function() {
 		<form id="hiddenData" action="/notice_board/notice_delete_action" method="post">
 		<input type="hidden" name="b_no">
 		
-			<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ <a href="/notice_board/notice_read?b_no=${ noticeBoardVo.b_no }">${ noticeBoardVo.b_title }</a> ＞ 삭제</p> 
+			<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ <a href="/notice_board/notice_read?b_no=${ noticeBoardVo.b_no }&a_no=${ noticeBoardVo.a_no }">${ noticeBoardVo.b_title }</a> ＞ 삭제</p> 
 			
 			<!-- 페이지 헤더 -->
 			<h1 class="h3 mb-2 text-gray-800">${ noticeBoardVo.b_title } 삭제</h1><br>

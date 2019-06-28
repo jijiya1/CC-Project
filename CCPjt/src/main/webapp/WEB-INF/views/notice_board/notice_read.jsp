@@ -14,12 +14,12 @@ $(document).ready(function() {
 	
 	// 글 수정
 	$("#btnUpdate").click(function() {
-		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}";
+		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}&a_no=${noticeBoardVo.a_no}";
 	});
 	
 	// 글 삭제
 	$("#btnDelete").click(function() {
-		location.href = "/notice_board/notice_delete?b_no=${noticeBoardVo.b_no}";
+		location.href = "/notice_board/notice_delete?b_no=${noticeBoardVo.b_no}&a_no=${noticeBoardVo.a_no}";
 
 // 		var test = confirm("테스트");
 // 		if (test) {

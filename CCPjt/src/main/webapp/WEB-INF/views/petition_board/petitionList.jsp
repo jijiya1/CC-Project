@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
 <title>국민 청원</title>
@@ -20,7 +21,6 @@
 				<div class="tab-content">
 					
 				<div class="tab-pane active" id="tab2">
-					<h2>청원 전체 내용</h2>
 						<table class="table">
 						<thead><tr>
 									<th>번호</th>
@@ -34,9 +34,10 @@
 							<c:forEach items="${pList}" var="peVo">
 								<tr>
 									<td>${peVo.rnum}</td>
-									<td>${peVo.a_name} </td>
+									<td>${peVo.a_name}/${peVo.d_name} </td>
 									<td>${peVo.b_title}</td>
-									<td>${peVo.b_enddate}</td>
+									<td><fmt:formatDate value="${peVo.b_enddate}"
+													pattern="yy/MM/dd HH:mm"/> </td>
 									<td>${peVo.b_agree}</td>
 									<td>${peVo.b_readcount}</td>
 								</tr>
