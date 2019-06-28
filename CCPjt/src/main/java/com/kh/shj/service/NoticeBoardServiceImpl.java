@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.domain.AreaData;
+import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 import com.kh.shj.persistence.INoticeBoardDao;
@@ -19,17 +21,18 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	INoticeBoardDao noticeBoardDao;
 
 	@Override
-	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto) throws Exception {
-		List<NoticeBoardVo> list = noticeBoardDao.noticeBoardList(noSearchDto);
+	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		List<NoticeBoardVo> list = noticeBoardDao.noticeBoardList(noSearchDto, noPagingDto);
+//		System.out.println("Service list : " + list);
 		return list;
 	}
 
 	@Transactional
 	@Override
-	public NoticeBoardVo noticeBoardRead(int b_no) throws Exception {
+	public NoticeBoardVo noticeBoardRead(int b_no, int a_no) throws Exception {
 //		System.out.println("service / b_no : " + b_no);
 		noticeBoardDao.noticeBoardReadCountUpdate(b_no);
-		NoticeBoardVo noticeBoardVo = noticeBoardDao.noticeBoardRead(b_no);
+		NoticeBoardVo noticeBoardVo = noticeBoardDao.noticeBoardRead(b_no, a_no);
 		return noticeBoardVo;
 	}
 
@@ -47,7 +50,7 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 
 	@Override
 	public void noticeBoardDelete(int b_no) throws Exception {
-		
+		noticeBoardDao.noticeBoardDelete(b_no);
 
 	}
 
@@ -55,6 +58,24 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	public int noticeBoardCount(NoSearchDto noSearchDto) throws Exception {
 		int count = noticeBoardDao.noticeBoardCount(noSearchDto);
 		return count;
+	}
+
+	@Override
+	public List<AreaData> getAreaData() throws Exception {
+		List<AreaData> areaDataList = noticeBoardDao.getAreaData();
+		return areaDataList;
+	}
+
+	@Override
+	public int noticeBoardContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		int contentCount = noticeBoardDao.noticeBoardContentCount(noSearchDto, noPagingDto);
+		return contentCount;
+	}
+
+	@Override
+	public List<AreaData> getAOrder() throws Exception {
+		List<AreaData> aOrderList = noticeBoardDao.getAOrder();
+		return aOrderList;
 	}
 
 }

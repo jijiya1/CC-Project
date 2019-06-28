@@ -12,12 +12,12 @@
 
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-<title>정책 후원 모금</title>
+<title>CC-후원게시판</title>
 <!--[if lte IE 7]><script src="lte-ie7.js"></script><![endif]-->
 <script>
 $(document).ready(function(){
 	$("#btnWrite").click(function(){
-				
+				location.href ="/donation/write";
 	});
 });
 	
@@ -341,34 +341,60 @@ h1 {
 
 }
 
+.row{
+	disply: flex;
+	flex-wrap: wrap;
+	
+}
+
+
+
 
 
 </style>
 <div>
 <div class="donation_main_btn">
-	<div class="col-md-4">
-		<form class="form-inline mr-auto w-100 navbar-search">
-	     <div class="input-group">
-	     	<select>
-	     		<option>소속당</option>
-	     		<option>이름</option>
-	     		<option>내용</option>
-	     	</select>
-	       <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-	       <div class="input-group-append">
-	         <button class="btn btn-primary" type="button">
-	           <i class="fas fa-search fa-sm"></i>
-	         </button>
-	         
-	         <input type="button" value="글 작성" id="btnWrite" class="btn btn-primary">
-	       </div>
-	     </div>
-	   </form>
+<div class="row">
+	<div class="col-sm-12 col-md-6">	
+	
+		
+			<div id="txtSearch" style="float: right;">
+				<select>
+					<option>이름</option>
+					<option>정당</option>
+					<option>내용</option>
+				</select>
+				<label>Search: <input type="search" 
+					 placeholder="" aria-controls="dataTable">
+				</label>
+			
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+
+			</div>
+		
+			<div class="dataTables_length" id="dataTable_length">
+				<label>정렬 
+					<select name="dataAlign" aria-controls="dataTable"
+					   class="custom-select custom-select-sm ">
+						<option value="reg_date">등록순</option>
+						<option value="partyUp">정당 오름차순</option>
+						<option value="partyDown">정당 내림차순</option>
+						<option value="nameUp">이름 오름차순</option>
+						<option value="nameDown">이름 내림차순</option>
+					</select> 
+				</label>
+			</div>
 	</div>
-	<div class="col-md-2">
-	<select>
-		<option>
-	</select></div>
+	<div class="col-md-6">
+	<input type="button" class="btn btn-primary" value="글 작성하기"
+		id="btnWrite">
+	</div>
+
+	
+</div>
+
 </div>
  <div class="row">
  <c:forEach items="${doList}" var="doVo">
@@ -463,3 +489,9 @@ h1 {
 <div class="col-md-4"></div>
 
 <%@include file="../include/footer.jsp" %>
+
+
+
+
+
+

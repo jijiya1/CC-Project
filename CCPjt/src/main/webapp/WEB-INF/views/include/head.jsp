@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,7 +13,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,31 +45,84 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <i clas="fas fa-fw fa-tachometer-alt"></i>
-          <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-          <span>사용자명</span></a>
-      </li>
-      
-      <!-- Divider -->
-      <hr class="sidebar-divider">
 
+<!--       Nav Item - Dashboard -->
+<!--       <li class="nav-item active"> -->
+<!--         <a class="nav-link" href="/"> -->
+<!--           <i clas="fas fa-fw fa-tachometer-alt"></i> -->
+<!--           <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
+<!--           <span>사용자명</span></a> -->
+<!--       </li> -->
+      
+<!--       Divider -->
+<!--       <hr class="sidebar-divider"> -->
+
+
+
+
+
+	<!-- 좌측 메뉴바 시작 -->
       <!-- Heading -->
       <div class="sidebar-heading">
         notice
       </div>
-
-	<!-- Nav Item - 공지사항 -->
+      
+      	<!-- Nav Item - 공지사항 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/notice_board/notice_list">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>공지사항</span></a>
+          <span>공지사항</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">분류 :</h6>
+            <a class="collapse-item" href="/notice_board/notice_list">전체</a>
+            <a class="collapse-item" href="/notice_board/notice_location">지역별</a>
+          </div>
+        </div>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        정해주삼
+      </div>
+
+	<!-- Nav Item - 정혜지 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/petition_board/petitionList">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>청원게시판(정혜지)</span></a>
+      </li>
+      
+	<!-- Nav Item - 손병진 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/person_board/person_list">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>의원정보게시판(손병진)</span></a>
+      </li>
+      
+	<!-- Nav Item - 황용석 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/discussion_board/discussion_main_board">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>토론게시판(황용석)</span></a>
+      </li>
+      
+	<!-- Nav Item - 박석환 -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/suggest_board/suggest_list">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>자유게시판(박석환)</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      
+      
+      
+	<!-- 좌측 메뉴바 끝 -->
 
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -238,7 +291,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

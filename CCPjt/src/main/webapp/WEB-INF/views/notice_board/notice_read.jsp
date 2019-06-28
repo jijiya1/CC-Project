@@ -14,12 +14,12 @@ $(document).ready(function() {
 	
 	// 글 수정
 	$("#btnUpdate").click(function() {
-		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}";
+		location.href = "/notice_board/notice_update?b_no=${noticeBoardVo.b_no}&a_no=${noticeBoardVo.a_no}";
 	});
 	
 	// 글 삭제
 	$("#btnDelete").click(function() {
-		location.href = "/notice_board/notice_delete?b_no=${noticeBoardVo.b_no}";
+		location.href = "/notice_board/notice_delete?b_no=${noticeBoardVo.b_no}&a_no=${noticeBoardVo.a_no}";
 
 // 		var test = confirm("테스트");
 // 		if (test) {
@@ -43,6 +43,9 @@ $(document).ready(function() {
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">${ noticeBoardVo.b_title }</h1><br>
 	
+	${ areaData }
+	
+	<!-- 공지사항 읽기 부분 시작 -->
 	<div class="card shadow mb-4">
     	<div class="card-body">
     		<div class="table-responsive">
@@ -60,8 +63,12 @@ $(document).ready(function() {
 							<th scope="row">조회수</th>
 							<td>${ noticeBoardVo.b_readcount }</td>
 							<!-- 공개여부 -->
-							<th scope="row">공개여부</th>
-							<td>공개</td>
+							<th scope="row">카테고리</th>
+							<td>
+								<c:forEach var="i" begin="1" end="18">
+									<c:if test="${ noticeBoardVo.a_order == i }">${ noticeBoardVo.a_name }</c:if>
+								</c:forEach>
+							</td>
 						</tr>
 			
 						<!-- 첨부파일 -->
@@ -81,10 +88,13 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
+	<!-- 공지사항 읽기 부분 끝 -->
+	
+	<!-- 하단 버튼 모음 시작 -->
 	<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 	<button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
 	<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+	<!-- 하단 버튼 모음 끝 -->
 
 </div>
 <br>

@@ -35,17 +35,70 @@ $(document).ready(function() {
 		console.log(b_content);
 	});
 	
+	$("#b_addinfo").change(function(e) {
+// 		console.log(e);
+
+// 		var test = e.originalEvent.currentTarget[0];
+// 		console.log(test);
+
+		var b_addinfo = $("select[name=b_addinfo]").val();
+		
+// 		var test = e.originalEvent.currentTarget[0].index;
+// 		console.log(test);
+		
+		var strHtml = "";
+		if (b_addinfo == 10) {
+			strHtml += "<div class='form-group' style='display: none;'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='공지'>공지사항</option>"
+					+  "</select>"
+					+  "</div>";
+		} 
+		
+		else if (b_addinfo == 52) {
+			strHtml += "<div class='form-group'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='10'>중구</option>"
+					+  "<option value='11'>남구갑</option>"
+					+  "<option value='12'>남구을</option>"
+					+  "<option value='13'>동구</option>"
+					+  "<option value='14'>북구</option>"
+					+  "<option value='15'>울주군</option>"
+					+  "</select>"
+					+  "</div>";
+		}
+
+		else {
+			strHtml += "<div class='form-group' style='display: none;'>"
+					+  "<label>구</label>"
+					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+					+  "<option value='공지'>공지사항</option>"
+					+  "</select>"
+					+  "</div>";
+		}
+		$(".test").html(strHtml);
+			
+		
+		$("#b_detailinfo").change(function() {
+			var b_detailinfo = $("select[name=b_detailinfo]").val();
+			console.log(b_detailinfo);
+		});
+	});
+	
 });
 </script>
 
 <!-- 공지사항 수정 시작 -->
 	<div class="container-fluid">
 	        
-		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ <a href="notice_read?b_no=${ noticeBoardVo.b_no }">${ noticeBoardVo.b_title }</a> ＞ 공지사항 수정</p>
+		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ <a href="notice_read?b_no=${ noticeBoardVo.b_no }&a_no=${ noticeBoardVo.a_no }">${ noticeBoardVo.b_title }</a> ＞ 공지사항 수정</p>
 		
 		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">공지사항 수정</h1><br>
 		
+		<!-- 공지사항 수정 부분 시작 - form -->
 		<form role="form" method="post">
 		
 			<div class="form-group">
@@ -65,20 +118,20 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>시/도</label>
-				<select class="form-control" name="b_addinfo" id="b_addinfo">
-					<option value="notice">공지사항</option>
-					<option value="seoul">서울</option>
-					<option value="inchen">인천</option>
+				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
+					<c:forEach items="${ areaData }" var="areaData">
+						<option value="${ areaData.a_no }">${ areaData.a_name }</option>
+					</c:forEach>
 				</select>
 			</div>
 			
-			<div class="form-group">
+			<div class="test">
+			<div class="form-group" style="display: none;">
 			<label>구</label>
-				<select class="form-control" name="b_detailinfo" id="b_detailinfo">
-					<option value="notice">공지사항</option>
-					<option value="seoul">서울</option>
-					<option value="inchen">인천</option>
+				<select class="form-control " name="b_detailinfo" id="b_detailinfo" required="required">
+					<option value="공지">공지사항</option>
 				</select>
+			</div>
 			</div>
 			
 			<div class="form-group">
@@ -102,7 +155,8 @@ $(document).ready(function() {
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
 			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 		</form>
-
+		<!-- 공지사항 수정 부분 끝 - form -->
 	</div>
+	<!-- 공지사항 수정 끝 -->
 
 <%@include file="../include/footer.jsp" %>

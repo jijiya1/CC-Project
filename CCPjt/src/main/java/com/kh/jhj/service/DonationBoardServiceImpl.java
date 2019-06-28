@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.jhj.domain.DoFileDto;
 import com.kh.jhj.domain.DonationVo;
 import com.kh.jhj.persistence.IDonationBoardDao;
 
@@ -25,6 +26,19 @@ public class DonationBoardServiceImpl implements IDonationBoardService {
 	public DonationVo read(int serialNo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void insert(DonationVo doVo) throws Exception {
+		doDao.insert(doVo);
+		
+	}
+
+	@Override
+	public void insertFile(DoFileDto doFileDto) throws Exception {
+		doDao.insertFile(doFileDto);
+		
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.kh.jhj.domain;
 
-public class PageDto {
+public class DoPageDto {
 		private int totalData;
 		
 		private int startRow;

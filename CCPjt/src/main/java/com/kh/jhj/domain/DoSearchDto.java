@@ -1,5 +1,5 @@
 package com.kh.jhj.domain;
 
-public class SearchDto {
+public class DoSearchDto {
 
 }
