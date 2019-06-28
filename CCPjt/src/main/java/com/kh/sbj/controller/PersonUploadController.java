@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.sbj.domain.PersonVo;
 import com.kh.sbj.service.IPersonService;
@@ -30,6 +31,7 @@ public class PersonUploadController {
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;
+
 	
 	@RequestMapping(value = "/person_promiseUpload", method = RequestMethod.POST, produces="text/plain; charset=utf-8")
 	@ResponseBody

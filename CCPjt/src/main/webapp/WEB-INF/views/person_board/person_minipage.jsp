@@ -35,7 +35,6 @@ $(document).ready(function(){
 		var url = "/person_mini/promise_list/${personVo.u_id}";
 		$.getJSON(url, function(receivedData) {
 			var strHtml = "";
-			console.log("receivedData = " +receivedData)
 			$(receivedData).each(function(i) {
 				// 여기 세션 사용자 아이디로 바까야함 personVo -> 해당 의원정보 session -> 로그인(사용자정보)
 				// 여기 세션 사용자 아이디로 바까야함 personVo -> 해당 의원정보 session -> 로그인(사용자정보)
@@ -53,7 +52,9 @@ $(document).ready(function(){
 						+		"</div>"
 						+	 "</div>"
 						+	"</td>"
-						+	"<td>" + this.p_filePath + "</td>"
+						+	"<td>"
+						+	"<a href='/person_mini/displayFile?fileName="+this.p_filePath+"'><img src='/resources/img/file_image.png' width='30'></a><br>"
+						+	"</td>"
 						+	"<td>"
 						+		"<input type='button' class='btn-xs btn-warning' id='btnPromiseModify' value='수정'"
 						+		"data-p_no='"+this.p_no+"'"
@@ -119,26 +120,21 @@ $(document).ready(function(){
 		var u_id = "${personVo.u_id}"; 
 		var p_name = $("#add_name").val();
 		var p_progress = $("[name=add_progress]:checked").val();
-		var p_filePath = $("#addFilePath").val();
-		var data = {
-			"u_id" : u_id,
-			"p_name" : p_name,
-			"p_progress" : p_progress,
-			"p_filePath" : p_filePath
-		};
-		var url = "/person_mini/promise_insert";
+		var filePath = $("input[name=addFilePath]")[0].files[0];
+		console.log("filePath :" +filePath);
+		var formData = new FormData();
+		formData.append("u_id", u_id);
+		formData.append("p_name", p_name);
+		formData.append("p_progress", p_progress);
+		formData.append("file", filePath);
+		var url ="/person_mini/promise_insert";
 		$.ajax({
-			"type" : "put",
-			"url" : url,
-			"headers" : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method_Override" : "put"
-			},
-			"dataType" : "text",
-			"data" : JSON.stringify(data),
-			"success" : function(receivedData){
-				$("#fileForm").submit();
-				
+			url: url,
+			processData: false,
+            contentType: false,		
+            data: formData,
+            type: "post",
+			success : function(receivedData){
 				$("#btnModalAdd").next().trigger("click");
 		 		getPromiseList();			
 			}
@@ -220,40 +216,40 @@ $(document).ready(function(){
 						</div>
 						<div class="modal-body">
 							<div class="col-md-12">
-								<div class="form-group">
-									<label for="content">공약명</label>
-									<input type="text" class="form-control" id="add_name"/>
-								</div>
-								<div class="form-group">
-									<label for="writer">진행사항</label><br>
-									<div class="btn-group btn-group-toggle" data-toggle="buttons">
-										<label class="btn btn-danger">
-											<input type="radio" name="add_progress" value="0" id="jb-radio-1"> 파기
-										</label>
+								<form action="" id="fileForm" method="post" enctype="multipart/form-data">
+									<div class="form-group">
+										<label for="content">공약명</label>
+										<input type="text" class="form-control" id="add_name"/>
 									</div>
-									<div class="btn-group btn-group-toggle" data-toggle="buttons">
-										<label class="btn btn-primary">
-											<input type="radio" name="add_progress"  value="25" id="jb-radio-2" checked="checked"> 계획
-										</label>
-										<label class="btn btn-primary">
-											<input type="radio" name="add_progress" value="50" id="jb-radio-3"> 추진
-										</label>
-										<label class="btn btn-primary">
-											<input type="radio" name="add_progress" value="75" id="jb-radio-4"> 진행
-										</label>
-										<label class="btn btn-primary">
-											<input type="radio" name="add_progress" value="100" id="jb-radio-5"> 완료
-										</label>
+									<div class="form-group">
+										<label for="writer">진행사항</label><br>
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn btn-danger">
+												<input type="radio" name="add_progress" value="0" id="jb-radio-1"> 파기
+											</label>
+										</div>
+										<div class="btn-group btn-group-toggle" data-toggle="buttons">
+											<label class="btn btn-primary">
+												<input type="radio" name="add_progress"  value="25" id="jb-radio-2" checked="checked"> 계획
+											</label>
+											<label class="btn btn-primary">
+												<input type="radio" name="add_progress" value="50" id="jb-radio-3"> 추진
+											</label>
+											<label class="btn btn-primary">
+												<input type="radio" name="add_progress" value="75" id="jb-radio-4"> 진행
+											</label>
+											<label class="btn btn-primary">
+												<input type="radio" name="add_progress" value="100" id="jb-radio-5"> 완료
+											</label>
+										</div>
 									</div>
-								</div>
-								<div class="form-grup">
-									<label for="file">상세파일</label><br>
-									<form action="/person_upload/person_promiseUpload" method="post" id="fileForm">
+									<div class="form-grup">
+										<label for="file">상세파일</label><br>
 										<input style="display:none;" type="file" class="form-control" id="addFilePath" name="addFilePath"/>
 										<input type="button" class="btn btn-success" id="btnAddFile" value="파일찾기">
 										<span id="txtFile"></span>
-									</form>
-								</div>
+									</div>
+								</form>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -325,8 +321,10 @@ $(document).ready(function(){
 								</div>
 								<div class="form-grup">
 									<label for="file">상세파일</label><br>
-									<input style="display:none;" type="file" class="form-control" id="modalFilePath" />
-									<input type="button" class="btn btn-success" id="btnModalFile" value="파일찾기">
+									<form id="FileForm" method="post" enctype="multipart/form-data">
+										<input style="display:none;" type="file" class="form-control" id="modalFilePath" />
+										<input type="button" class="btn btn-success" id="btnModalFile" value="파일찾기">
+									</form>
 									<span id="txtModalFile"></span>
 								</div>
 							</div>
@@ -387,10 +385,10 @@ $(document).ready(function(){
 	              			</li>
 	            		</ul>
  <!-- TAB 내용 -->
- <!-- TAB 내용 -->  	
+ <!-- TAB 내용  	 -->
   	
 	           		 <div class="tab-content">
-	           		 <!-- TAB 내용1 -->
+<!-- 	           		 TAB 내용1 -->
 	           		 	<div class="tab-pane fade " id="tabs_main">
 	                		<div class="row">
 								<div class="col-md-12">
@@ -426,7 +424,7 @@ $(document).ready(function(){
 								</div>
 							</div>
 	              		</div>
-	           			<!-- TAB 내용2 -->
+<!-- 	           			TAB 내용2 -->
 	              		<div class="tab-pane fade show active" id="tabs_promise">
 	               			 <div class="row">
 								<div class="col-md-12">
@@ -452,10 +450,10 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</div>
-	           		 	<!-- TAB 내용3 -->
+<!-- 	           		 	TAB 내용3 -->
 	              		
 	             		
-	           		 	<!-- TAB 내용4 -->
+<!-- 	           		 	TAB 내용4 -->
 	              		<div class="tab-pane fade" id="tabs_donation">
 	              			<div class="col-md-12">
 	              				<div class="page-header">
