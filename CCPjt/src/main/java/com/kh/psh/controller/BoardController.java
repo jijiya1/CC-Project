@@ -38,6 +38,8 @@ public class BoardController {
 		model.addAttribute("list", list);
 		Complaint_PaginationDto paginationDto = new Complaint_PaginationDto();
 		paginationDto.setPagingDto(pagingDto);
+		int count = boardService.listCount(pagingDto);
+		paginationDto.setTotalCount(count);
 		model.addAttribute("paginationDto", paginationDto);
 		
 	}

@@ -4,19 +4,20 @@ import java.sql.Timestamp;
 
 public class ReplyVo_Discussion {
 
-	String b_serialno; // 게시글 시리얼넘버
-	int r_no; // 토론 리플번호
-	String r_writer; // 토론 리플 작성자
-	String r_content; // 토론 리플 내용
-	Timestamp r_createdDate; // 토론 리플 작성일
-	Timestamp r_modifiedDate; // 토론 리플 수정일
-	int r_yesOrNo; // 토론 리플 찬반여부 0 = Yes(찬성), 1 = NO(반대)
-	int r_upcount; // 토론 리플 좋아요
-	int r_downcount; // 토론 리플 싫어요
-	int r_step;
-	int r_level;
-	int r_checkedDel; // 리플삭제여부
-	int totalreplycount; // 해당 토론게시글에 달린 댓글수
+	String b_serialno; 			// 게시글 시리얼넘버
+	int r_no; 					// 토론 리플번호
+	String r_writer; 			// 토론 리플 작성자
+	String r_content; 			// 토론 리플 내용
+	Timestamp r_createdDate; 	// 토론 리플 작성일
+	Timestamp r_modifiedDate; 	// 토론 리플 수정일
+	int r_yesOrNo; 				// 토론 리플 찬반여부 0 = Yes(찬성), 1 = NO(반대)
+	int r_upcount; 				// 토론 리플 좋아요 카운트
+	int r_downcount; 			// 토론 리플 싫어요 카운트
+	int r_coment_no; 			// 토론 리플에 달리는 답글 번호
+	int r_level; 				// 토론 리플 = 0 , 리플에 다는 답글 = 1
+	int r_checkedDel; 			// 리플삭제여부
+	int totalreplycount; 		// 해당 토론게시글에 달린 댓글수
+	int r_coment_count; 		// 해당 댓글에 달린 답글 갯수
 
 	public String getB_serialno() {
 		return b_serialno;
@@ -90,12 +91,12 @@ public class ReplyVo_Discussion {
 		this.r_downcount = r_downcount;
 	}
 
-	public int getR_step() {
-		return r_step;
+	public int getR_coment_no() {
+		return r_coment_no;
 	}
 
-	public void setR_step(int r_step) {
-		this.r_step = r_step;
+	public void setR_coment_no(int r_coment_no) {
+		this.r_coment_no = r_coment_no;
 	}
 
 	public int getR_level() {
@@ -122,13 +123,21 @@ public class ReplyVo_Discussion {
 		this.totalreplycount = totalreplycount;
 	}
 
+	public int getR_coment_count() {
+		return r_coment_count;
+	}
+
+	public void setR_coment_count(int r_coment_count) {
+		this.r_coment_count = r_coment_count;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyVo_Discussion [b_serialno=" + b_serialno + ", r_no=" + r_no + ", r_writer=" + r_writer
 				+ ", r_content=" + r_content + ", r_createdDate=" + r_createdDate + ", r_modifiedDate=" + r_modifiedDate
-				+ ", r_yesOrNo=" + r_yesOrNo + ", r_upcount=" + r_upcount + ", r_downcount=" + r_downcount + ", r_step="
-				+ r_step + ", r_level=" + r_level + ", r_checkedDel=" + r_checkedDel + ", totalreplycount="
-				+ totalreplycount + "]";
+				+ ", r_yesOrNo=" + r_yesOrNo + ", r_upcount=" + r_upcount + ", r_downcount=" + r_downcount
+				+ ", r_coment_no=" + r_coment_no + ", r_level=" + r_level + ", r_checkedDel=" + r_checkedDel
+				+ ", totalreplycount=" + totalreplycount + ", r_coment_count=" + r_coment_count + "]";
 	}
 
 }

@@ -42,4 +42,9 @@ public class BoardServiceImpl implements IBoardService {
 		boardDao.suggest_delete(b_no);
 		
 	}
+	@Override
+	public int listCount(Complaint_PagingDto pagingDto) throws Exception {
+		int count = boardDao.listCount(pagingDto);
+		return count;
+	}
 }

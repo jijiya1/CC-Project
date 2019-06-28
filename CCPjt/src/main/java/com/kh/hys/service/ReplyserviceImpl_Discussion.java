@@ -81,5 +81,26 @@ public class ReplyserviceImpl_Discussion implements IReplyService_Discussion {
 	public void replyLikeInfoModify(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception {
 		replyDao_Discussion.replyLikeInfoModify(replyLikeInfoDto_Discussion);
 	}
+	
+	// 댓글에 답글 달기 
+	@Transactional
+	@Override
+	public void replyComentWrite(ReplyVo_Discussion replyVo_Discussion) throws Exception {
+		replyDao_Discussion.replyComentWrite(replyVo_Discussion);
+		replyDao_Discussion.replyComentCountModify(replyVo_Discussion.getR_no());
+	}
+	
+	// 댓글에 달린 답글 리스트 가져오기
+	@Override
+	public List<ReplyVo_Discussion> replyComentList(int r_no) throws Exception {
+		List<ReplyVo_Discussion> comentList = replyDao_Discussion.replyComentList(r_no);
+		return comentList;
+	}
+	
+	// 댓글에 달린 답글 카운트 업데이트
+	@Override
+	public void replyComentCountModify(int r_no) throws Exception {
+		replyDao_Discussion.replyComentCountModify(r_no);
+	}
 
 }

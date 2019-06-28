@@ -42,6 +42,11 @@ $(document).ready(function() {
 					<label for="content">글내용</label>
 					<textarea rows="10" cols="80" id="b_content" name="b_content"></textarea>															
 				</div>	
+				
+				<div class="form-group">					 
+					<label for="writer">첨부파일</label>
+					<input type="text" class="form-control" id="b_writer" name="b_writer" />
+				</div>
 											
 				<input type="button" id="btnWrite"
 					class="btn btn-primary" value="작성완료">

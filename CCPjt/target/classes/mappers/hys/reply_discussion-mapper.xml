@@ -12,7 +12,7 @@
 	    from(select rownum rnum, a.*, (select count(*) from discussion_reply where b_serialno = #{b_serialno}) totalReplyCount
 	        from ( select * 
 	        	   from discussion_reply
-	        	   where b_serialno = #{b_serialno}
+	        	   where b_serialno = #{b_serialno} and r_level= 0
 	               order by r_no desc) a)
 	    where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
 	</select>
@@ -63,5 +63,23 @@
 	    select * from discussion_reply_likeinfo
         where u_id = #{u_id}
 	</select>
-
+	
+	<!-- 댓글에 답글 달기 -->
+	<insert id="replyComentWrite">
+		insert into discussion_reply(b_serialno, r_no, r_writer , r_content, r_level, r_coment_no)
+		values (#{b_serialno},#{r_no},#{r_writer},#{r_content}, 1, seq_discussion_coment.nextval) 
+	</insert>
+	<!-- 댓글달린 답글 카운트 업데이트 -->
+	<update id="replyComentCountModify">
+		update discussion_reply
+		set r_coment_count = (select count(*) from discussion_reply where r_no = #{r_no} and r_level =1)
+		where r_no = #{r_no}
+	</update>
+	
+	<!-- 댓글달린 답글 리스트 가져오기 -->
+	<select id="replyComentList" resultType="ReplyVo_Discussion">
+		select * from discussion_reply
+        where r_no = #{r_no} and r_level = 1
+        order by r_coment_no
+	</select>
 </mapper>
