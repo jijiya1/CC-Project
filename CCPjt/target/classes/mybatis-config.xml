@@ -11,6 +11,8 @@
 		
 		<!-- 클래스 단위 -->
 		<typeAlias type="com.kh.domain.AreaData" alias="areaData"/>
+		<typeAlias type="com.kh.domain.PagingDto" alias="pagingDto"/>
+		
 		
 		<typeAlias type="com.kh.hys.domain.BoardVo_Discussion" alias="BoardVo_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.ReplyVo_Discussion" alias="ReplyVo_Discussion"/>
