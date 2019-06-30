@@ -29,6 +29,15 @@ public class PetitionVo {
 	private char b_delno;
 	private String a_name;
 	private String d_name;
+	private int rnum;
+	private int ranking;
+	
+	public int getRanking() {
+		return ranking;
+	}
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
 	public String getD_name() {
 		return d_name;
 	}
@@ -36,7 +45,7 @@ public class PetitionVo {
 		this.d_name = d_name;
 	}
 
-	private int rnum;
+	
 	
 	public int getRnum() {
 		return rnum;

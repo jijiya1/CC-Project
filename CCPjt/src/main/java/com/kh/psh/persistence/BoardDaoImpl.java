@@ -42,9 +42,17 @@ public class BoardDaoImpl implements IBoardDao {
 		sqlSession.update(NAMESPACE + ".suggest_update", vo);
 		
 	}
+	//글삭제
 	@Override
 	public void suggest_delete(int b_no) throws Exception {
 		sqlSession.delete(NAMESPACE + ".suggest_delete", b_no);
+		
+	}
+	//글갯수
+	@Override
+	public int listCount(Complaint_PagingDto pagingDto) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + ".listCount", pagingDto);
+		return count;
 		
 	}
 	

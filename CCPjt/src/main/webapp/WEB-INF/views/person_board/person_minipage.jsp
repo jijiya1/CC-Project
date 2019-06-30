@@ -55,8 +55,16 @@ $(document).ready(function(){
 						+	"</td>"
 						+	"<td>" + this.p_filePath + "</td>"
 						+	"<td>"
-						+		"<input type='button' class='btn-xs btn-warning' id='btnPromiseModify' value='수정'>"
-						+		"<input type='button' class='btn-xs btn-danger' id='btnPromiseDelete' value='삭제'>"
+						+		"<input type='button' class='btn-xs btn-warning' id='btnPromiseModify' value='수정'"
+						+		"data-p_no='"+this.p_no+"'"
+						+		"data-p_name='"+this.p_name+"' "
+						+		"data-p_progress='"+this.p_progress+"' "
+						+		"data_p_filePath='"+this.p_filePath+"' "
+						+		"data-index='"+i+"'>"
+						+		"<input type='button' class='btn-xs btn-danger' id='btnPromiseDelete' value='삭제'"
+						+		"data-p_no='"+this.p_no+"'"
+						+		"data-u_id='"+this.u_id+"'"
+						+		">"
 						+	"</td>"
 						+ "</tr>"
 			});
@@ -72,13 +80,21 @@ $(document).ready(function(){
 	
 	$("#promiseList").on("click", ".btn-warning", function(){
 		$("#modal-218300").trigger("click");
-		var reply_text = $(this).attr("data-reply_text");
-		var replyer = $(this).attr("data-replyer");
-		var rno = $(this).attr("data-rno");
+		var p_no = $(this).attr("data-p_no");
+		var p_name = $(this).attr("data-p_name");
+		var p_progress = $(this).attr("data-p_progress");
+		var p_filePath = $(this).attr("data-p_filePath");
 		var index = $(this).attr("data-index");
-		$("#modal_reply_text").val(reply_text);
-		$("#modal_replyer").val(replyer);
-		$("#modal_rno").val(rno);
+		$("#modal_p_no").val(p_no);
+		$("#modal_p_name").val(p_name);
+		var test = $("[name=modal_p_progress]:checked").val();
+		console.log("test 첫번쨰 = " + test);
+		$('input:radio[name=modal_p_progress]').attr("checked", false);
+		$('input:radio[name=modal_p_progress]:input[value=' + p_progress + ']').attr("checked", true);
+// 		$("[name=modal_p_progress][value="+p_progress+"]").attr('checked', true);
+		test = $("[name=modal_p_progress]:checked").val();
+		console.log("test = " + test);
+		$("#modal_p_filePath").val(p_filePath);
 		$("#modal_index").val(index);
 	});
 	
@@ -94,14 +110,16 @@ $(document).ready(function(){
 		var filename = this.files[0].name;
 		$("#txtFile").text(filename);
 	});
+	$("#modalFilePath").change(function() {
+		var filename = this.files[0].name;
+		$("#txtModalFile").text(filename);
+	});
+	
 	$("#btnModalAdd").click(function(){
 		var u_id = "${personVo.u_id}"; 
 		var p_name = $("#add_name").val();
 		var p_progress = $("[name=add_progress]:checked").val();
 		var p_filePath = $("#addFilePath").val();
-		console.log(p_name);
-		console.log(p_progress);
-		console.log(p_filePath);
 		var data = {
 			"u_id" : u_id,
 			"p_name" : p_name,
@@ -119,15 +137,69 @@ $(document).ready(function(){
 			"dataType" : "text",
 			"data" : JSON.stringify(data),
 			"success" : function(receivedData){
+				$("#fileForm").submit();
+				
 				$("#btnModalAdd").next().trigger("click");
+		 		getPromiseList();			
+			}
+		});
+	});
+	
+
+	$("#promiseList").on("click", ".btn-danger", function(){
+		var u_id = $(this).attr("data-u_id");
+		var p_no = $(this).attr("data-p_no");
+		var url = "/person_mini/promise_delete/" + u_id + "/" + p_no;
+		$.ajax({
+			"type" : 'delete',
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Overried" : "delete"
+			},
+			"success" : function(receivedData) {
+				console.log(receivedData);
+				if (receivedData == "success") {
+	 				getPromiseList();
+
+// 					$("#replyList > tr").eq(index).fadeOut("1000");
+				}
+			}
+		});
+	});
+	
+	$("#btnModalModify").click(function(){
+		var u_id = "${personVo.u_id}"; 
+		var p_name = $("#modal_name").val();
+		var p_progress = $("[name=modal_progress]:checked").val();
+		var p_filePath = $("#modalFilePath").val();
+		var data = {
+			"u_id" : u_id,
+			"p_name" : p_name,
+			"p_progress" : p_progress,
+			"p_filePath" : p_filePath
+		};
+		var url = "/person_mini/promise_update";
+		$.ajax({
+			"type" : "put",
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method_Override" : "put"
+			},
+			"dataType" : "text",
+			"data" : JSON.stringify(data),
+			"success" : function(receivedData){
+				$("#btnModalModify").next().trigger("click");
 				getPromiseList();
 			}
 		});
 	});
 });
 
-
 </script>
+
+
 
 <!--  입력 다이얼로그 -->
 <div class="container-fluid">
@@ -176,9 +248,11 @@ $(document).ready(function(){
 								</div>
 								<div class="form-grup">
 									<label for="file">상세파일</label><br>
-									<input style="display:none;" type="file" class="form-control" id="addFilePath" />
-									<input type="button" class="btn btn-success" id="btnAddFile" value="파일찾기">
-									<span id="txtFile"></span>
+									<form action="/person_upload/person_promiseUpload" method="post" id="fileForm">
+										<input style="display:none;" type="file" class="form-control" id="addFilePath" name="addFilePath"/>
+										<input type="button" class="btn btn-success" id="btnAddFile" value="파일찾기">
+										<span id="txtFile"></span>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -220,23 +294,44 @@ $(document).ready(function(){
 							</button>
 						</div>
 						<div class="modal-body">
-							<input type="hidden" id="modal_pno">
 							<input type="hidden" id="modal_index">
+							<input type="hidden" id="modal_p_no">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="content">공약명</label>
-									<input type="text" class="form-control" id="modal_reply_text"/>
+									<input type="text" class="form-control" id="modal_p_name"/>
 								</div>
 								<div class="form-group">
-									<label for="writer">진행사항</label>
-									
-									<input type="number" min="0" max="100" class="form-control" id="modal_replyer" />
+									<label for="writer">진행사항</label><br>
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-danger">
+											<input type="radio" name="modal_p_progress" value="0" id="jb-radio-1"> 파기
+										</label>
+									</div>
+									<div class="btn-group btn-group-toggle" data-toggle="buttons">
+										<label class="btn btn-primary">
+											<input type="radio" name="modal_p_progress"  value="25" id="jb-radio-2" checked="checked"> 계획
+										</label>
+										<label class="btn btn-primary">
+											<input type="radio" name="modal_p_progress" value="50" id="jb-radio-3"> 추진
+										</label>
+										<label class="btn btn-primary">
+											<input type="radio" name="modal_p_progress" value="75" id="jb-radio-4"> 진행
+										</label>
+										<label class="btn btn-primary">
+											<input type="radio" name="modal_p_progress" value="100" id="jb-radio-5"> 완료
+										</label>
+									</div>
 								</div>
-								
+								<div class="form-grup">
+									<label for="file">상세파일</label><br>
+									<input style="display:none;" type="file" class="form-control" id="modalFilePath" />
+									<input type="button" class="btn btn-success" id="btnModalFile" value="파일찾기">
+									<span id="txtModalFile"></span>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							 
 							<button type="button" class="btn btn-primary" id="btnModalModify" data-dismiss="modal">
 								수정하기
 							</button> 
@@ -286,9 +381,6 @@ $(document).ready(function(){
 	              			</li>
 	              			<li class="nav-item">
 	                			<a class="nav-link active" data-toggle="tab" href="#tabs_promise" id="menu_promise">공약</a>
-	              			</li>
-	              			<li class="nav-item">
-	                			<a class="nav-link" data-toggle="tab" href="#tabs_grade" id="menu_grade">등급</a>
 	              			</li>
 	              			<li class="nav-item">
 	                			<a class="nav-link" data-toggle="tab" href="#tabs_donation" id="menu_domination">후원</a>
@@ -361,9 +453,7 @@ $(document).ready(function(){
 							</div>
 						</div>
 	           		 	<!-- TAB 내용3 -->
-	              		<div class="tab-pane fade" id="tabs_grade">
-	               			 <p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut mattis leo, vel fermentum tellus. Sed sagittis rhoncus venenatis. Quisque commodo consectetur faucibus. Aenean eget ultricies justo.</p>
-	             		</div>
+	              		
 	             		
 	           		 	<!-- TAB 내용4 -->
 	              		<div class="tab-pane fade" id="tabs_donation">

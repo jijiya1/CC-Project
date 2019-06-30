@@ -16,5 +16,7 @@ public interface IBoardService {
 	public void suggest_update(Complaint_BoardVo vo) throws Exception;
 	//글 삭제
 	public void suggest_delete(int b_no) throws Exception;
+	//글 갯수
+	public int listCount(Complaint_PagingDto pagingDto)throws Exception;
 
 }

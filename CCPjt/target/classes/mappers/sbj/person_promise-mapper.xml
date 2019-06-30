@@ -6,11 +6,22 @@
 <mapper namespace ="person_promise">
 	<select id="selectAllPromise" resultType="PersonPromiseVo">
 		select * from person_promise
+		where u_id = #{u_id}
 	</select>
 	
 	<insert id="insertPromise">
 		insert into person_promise(u_id, p_no, p_name, p_progress, p_filePath)
 		values(#{u_id}, seq_person_promise.nextval, #{p_name}, #{p_progress}, #{p_filePath})
 	</insert>
+	
+	<update id="updatePromise">
+		update person_promise
+		set p_name = #{p_name}, p_progress = #{p_progress}, p_filepath = #{p_filepath}
+		where u_id = #{u_id} and p_no = #{p_no}
+	</update>
 
+	<delete id="deletePromise">
+		delete person_promise
+		where u_id = #{u_id} and p_no = #{p_no}
+	</delete>
 </mapper>  	

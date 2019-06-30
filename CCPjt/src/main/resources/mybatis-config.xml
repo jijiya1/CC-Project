@@ -5,8 +5,6 @@
 <configuration>
 <typeAliases>
 <!-- 		패키지단위 -->
-
-<!-- 		패키지단위 -->
 <!-- 		<package name="com.kh.domain"/> -->
 		
 		<!-- 클래스 단위 -->
@@ -33,6 +31,9 @@
 		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="PersonPromiseVo"/>
 		
 		<typeAlias type="com.kh.psh.domain.Complaint_BoardVo" alias="Complaint_BoardVo"/>
+		<typeAlias type="com.kh.psh.domain.Complaint_PaginationDto" alias="Complaint_PaginationDto"/>
+		<typeAlias type="com.kh.psh.domain.Complaint_PagingDto" alias="Complaint_PagingDto"/>
+		<typeAlias type="com.kh.psh.domain.Complaint_ReplyVo" alias="Complaint_ReplyVo"/>
 
 	</typeAliases>
 </configuration>

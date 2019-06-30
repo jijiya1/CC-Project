@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
 <title>국민 청원</title>
+<script>
+$(document).ready(function(){
+	
+});
+</script>
 
 <div class="container-fluid">
 	<div class="row">
@@ -12,17 +16,16 @@
 			<div class="tabbable" id="tabs-989343">
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/petitionMain">청원메인</a>
+						<a class="nav-link active show" href="/petition_board/petitionMain">청원메인</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionList">게시판전체보기</a>
+						<a class="nav-link" href="/petition_board/petitionList">게시판전체보기</a>
 					</li>
 				</ul>
 				<div class="tab-content">
-					
-				<div class="tab-pane active" id="tab2">
+					<div class="tab-pane active">
 						<table class="table">
-						<thead><tr>
+							<thead><tr>
 									<th>번호</th>
 									<th>상세지역</th>
 									<th>제목</th>
@@ -31,7 +34,7 @@
 									<th>조회수</th>
 								</tr></thead>
 							<tbody>
-							<c:forEach items="${pList}" var="peVo">
+							<c:forEach items="${pMain}" var="peVo">
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td>${peVo.a_name}/${peVo.d_name} </td>
@@ -44,7 +47,7 @@
 							</c:forEach>
 							</tbody>
 						</table>
-						
+				</div>					
 							<ul class="pagination">
 					<li class="page-item">
 						<a class="page-link" href="#">Previous</a>

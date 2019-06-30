@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="reply">
+<!-- 댓글쓰기 -->
+<insert id="insert">
+	insert into complaint_reply(b_serialno, r_no, r_writer, r_content)
+	values (seq_suggest_serialno.nextval, seq_suggest.nextval, #{r_writer}, #{r_content})
+</insert>
+<!-- 댓글 목록 -->
+<select id="list" resultType="Complaint_ReplyVo">
+		select * 
+		from compalint_reply
+		where b_no = #{b_no}
+		order by r_no desc
+	</select>
+
+</mapper>  	

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.sbj.domain.PersonPromiseDeleteDto;
 import com.kh.sbj.domain.PersonPromiseVo;
 import com.kh.sbj.persistence.IPersonMinipageDao;
 
@@ -18,13 +19,24 @@ public class PersonMinipageServiceImpl implements IPersonMinipageService {
 	@Override
 	public List<PersonPromiseVo> selectAllPromise(String u_id) throws Exception {
 		List<PersonPromiseVo> list = personMinipageDao.selectAllPromise(u_id);
-		System.out.println("SERVICE LIST = " + list);
 		return list;
 	}
 
 	@Override
 	public void insertPromise(PersonPromiseVo personPromiseVo) throws Exception {
 		personMinipageDao.insertPromise(personPromiseVo);
+	}
+
+	@Override
+	public void updatePromise(PersonPromiseVo personPromiseVo) throws Exception {
+		personMinipageDao.updatePromise(personPromiseVo);
+		
+	}
+
+	@Override
+	public void deletePromise(PersonPromiseDeleteDto deleteDto) throws Exception {
+		personMinipageDao.deletePromise(deleteDto);
+		
 	}
 
 }
