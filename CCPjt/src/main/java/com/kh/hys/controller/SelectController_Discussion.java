@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.domain.LocalDto;
 import com.kh.domain.PagingDto;
-import com.kh.hys.domain.LocalDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.hys.service.ISelectService_Discussion;
 
 @Controller
 @RequestMapping("/selectDiscussion/*")
-public class ResController_Discussion {
+public class SelectController_Discussion {
 	
 	@Inject
 	ISelectService_Discussion selectService;
@@ -29,11 +29,12 @@ public class ResController_Discussion {
 		LocalDto localDto = new LocalDto();
 		localDto.setB_addInfo(b_addInfo);
 		localDto.setB_detailInfo(b_detailInfo);
-
+		
 		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(localDto);
 		
-		
 		PagingDto pagingDto = new PagingDto();
+		int totalBoardCount = selectService.totalSelectBoardCount(localDto);
+		pagingDto.setTotalData(totalBoardCount);
 		
 		model.addAttribute("selectBoardList", selectBoardList);
 		model.addAttribute("pagingDto", pagingDto);

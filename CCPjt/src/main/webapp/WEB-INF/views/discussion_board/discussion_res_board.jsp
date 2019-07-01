@@ -79,7 +79,7 @@
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
-			
+				
 				<li class="paginate_button page-item previous" id="dataTable_previous">
 					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">≪</a>
 				</li>
@@ -87,13 +87,12 @@
 				<li class="paginate_button page-item previous" id="dataTable_previous">
 					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" >＜</a>
 				</li>
-			
-				<li class="paginate_button page-item active">
-					<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" >1</a>
-				</li>
-				<li class="paginate_button page-item">
-					<a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link" >2</a>
-				</li>
+				
+				<c:forEach var ="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+					<li class="paginate_button page-item">
+						<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" data-nowPage="${i }" class="page-link" >${i }</a>
+					</li>
+				</c:forEach>
 			
 				<li class="paginate_button page-item next" id="dataTable_next">
 					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">＞</a>
