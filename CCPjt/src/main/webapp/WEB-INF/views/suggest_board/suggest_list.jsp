@@ -65,14 +65,13 @@ $(document).ready(function() {
 		value="${paginationDto.pagingDto.keyword}">				
 </form>
 
-
-<h1>게시판</h1>
 <div class="container-fluid">
+	<p class="mb-4"><span class="row">&nbsp;</span><a href="/">홈</a> ＞ 자유게시판</p>
+		<h1 class="h3 mb-2 text-gray-800">자유게시판</h1>
 	<div class="row">
-		<div class="col-md-12">			 
-			<button type="button" class="btn btn-success"id="btnWrite">글쓰기</button>
+		<div class="col-md-12">			 			
 			<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12" >
 			<select id="searchType">
 				<option value="b_title"<c:if test="${paginationDto.pagingDto.searchType == 'b_title'}">selected</c:if>>
 				제목</option>
@@ -86,14 +85,14 @@ $(document).ready(function() {
 			<input type="button" value="검색" id="btnSearch" class="btn btn-primary"/>
 		</div>
 	</div>
-			<table class="table">
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 				<thead>
 					<tr>
 						<th>글번호</th>
-						<th>글제목</th>
-						<th>작성자</th>
 						<th>지역</th>
-						<th>구</th>					
+						<th>구</th>
+						<th>글제목</th>
+						<th>작성자</th>					
 						<th>조회수</th>
 					</tr>
 				</thead>
@@ -101,11 +100,11 @@ $(document).ready(function() {
 				<c:forEach items="${list}" var="complaint_boardVo">
 					<tr>
 						<td>${complaint_boardVo.b_no}</td>
+						<td>${complaint_boardVo.b_addinfo}</td>
+						<td>${complaint_boardVo.b_detailinfo}</td>
 						<td><a href="/suggest_board/suggest_read" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.b_writer}</td>
-						<td>${complaint_boardVo.b_addinfo}</td>
-						<td>${complaint_boardVo.b_detailinfo}</td>												
+						<td>${complaint_boardVo.b_writer}</td>																								
 						<td>${complaint_boardVo.b_readcount}</td>
 					</tr>
 				</c:forEach>	
@@ -115,6 +114,7 @@ $(document).ready(function() {
 	</div>
 	<div class="row">
 		<div class="col-md-12">
+		<button type="button" class="btn btn-success"id="btnWrite" style="float: right;">글쓰기</button>
 			<nav>
 				<ul class="pagination">
 					<c:if test="${paginationDto.prev == true}">	
@@ -143,7 +143,7 @@ $(document).ready(function() {
 					</li>
 				</c:if>
 				</ul>
-			</nav>
+			</nav>			
 		</div>
 	</div>
 </div>

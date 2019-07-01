@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/head.jsp" %>
+<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="suggest_list">자유게시판</a> ＞ ${vo.b_title}</p>
 <h1>글수정</h1>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+		
 			<form role="form" method="post" action="suggest_update-run">
 				<input type="hidden" name="b_no" value="${vo.b_no}"/>
 				<div class="form-group">
@@ -24,7 +26,7 @@
 				</div>				
 				<div class="row">
 					<div class="col-md-12">
-						<input type="submit" class="btn btn-primary" value="수정완료"/>
+						<input type="submit" class="btn btn-primary" value="수정완료" style="float: right;"/>
 					</div>
 				</div>
 			</form>
