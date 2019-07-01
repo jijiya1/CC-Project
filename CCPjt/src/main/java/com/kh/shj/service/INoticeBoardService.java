@@ -34,6 +34,9 @@ public interface INoticeBoardService {
 	public void noticeBoardDelete(int b_no) throws Exception;
 	
 	// 지역 카테고리 불러오기
-	public List<AreaData> getAreaData() throws Exception;
+	public AreaData getAreaData(int a_no) throws Exception;
+	
+	// 글 작성시 지역 카테고리 불러오기
+	public List<AreaData> getAreaDataList() throws Exception;
 	
 }

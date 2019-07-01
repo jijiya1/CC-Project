@@ -6,8 +6,14 @@
 <mapper namespace ="notice_board">
 
 	<!-- 지역 정보 불러오기 -->
+	<select id="getAreaDataList" resultType="areaData">
+		select * from area_data
+	</select>
+
+	<!-- 공지사항 지역 정보 불러오기 -->
 	<select id="getAreaData" resultType="areaData">
 		select * from area_data
+		where a_no = #{a_no}
 	</select>
 	
 	<!-- areaData.a_no 불러오기 -->

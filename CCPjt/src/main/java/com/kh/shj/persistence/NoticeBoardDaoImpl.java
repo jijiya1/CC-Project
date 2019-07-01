@@ -84,9 +84,9 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<AreaData> getAreaData() throws Exception {
-		List<AreaData> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaData");
-		return areaDataList;
+	public AreaData getAreaData(int a_no) throws Exception {
+		AreaData areaDataVo = sqlSession.selectOne(NAMESPACE + "getAreaData", a_no);
+		return areaDataVo;
 	}
 
 	@Override
@@ -104,6 +104,12 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	public AreaData getANo() throws Exception {
 		AreaData aOrderList = sqlSession.selectOne(NAMESPACE + "getANo");
 		return aOrderList;
+	}
+
+	@Override
+	public List<AreaData> getAreaDataList() throws Exception {
+		List<AreaData> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaDataList");
+		return areaDataList;
 	}
 
 }

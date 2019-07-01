@@ -61,9 +61,9 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 	@Override
-	public List<AreaData> getAreaData() throws Exception {
-		List<AreaData> areaDataList = noticeBoardDao.getAreaData();
-		return areaDataList;
+	public AreaData getAreaData(int a_no) throws Exception {
+		AreaData areaDataVo = noticeBoardDao.getAreaData(a_no);
+		return areaDataVo;
 	}
 
 	@Override
@@ -76,6 +76,12 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	public AreaData getANo() throws Exception {
 		AreaData aOrderList = noticeBoardDao.getANo();
 		return aOrderList;
+	}
+
+	@Override
+	public List<AreaData> getAreaDataList() throws Exception {
+		List<AreaData> areaDataList = noticeBoardDao.getAreaDataList();
+		return areaDataList;
 	}
 
 }

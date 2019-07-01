@@ -35,6 +35,8 @@ public class NoticeController {
 		model.addAttribute("list", list);
 //		System.out.println("list : " + list);
 //		System.out.println("a_no : " + a_no);
+		AreaData areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 		int count = noticeBoardService.noticeBoardCount(noSearchDto);
 		model.addAttribute("count", count);
@@ -64,7 +66,7 @@ public class NoticeController {
 	@RequestMapping(value="/notice_write", method=RequestMethod.GET)
 	public void noticeBoardWrite(Model model) throws Exception {
 //		System.out.println("notice_write get 실행함.");
-		List<AreaData> areaData = noticeBoardService.getAreaData();
+		List<AreaData> areaData = noticeBoardService.getAreaDataList();
 		model.addAttribute("areaData", areaData);
 		
 	}
@@ -85,7 +87,7 @@ public class NoticeController {
 		NoticeBoardVo noticeBoardVo = noticeBoardService.noticeBoardRead(b_no, a_no);
 		model.addAttribute("noticeBoardVo", noticeBoardVo);
 		
-		List<AreaData> areaData = noticeBoardService.getAreaData();
+		List<AreaData> areaData = noticeBoardService.getAreaDataList();
 		model.addAttribute("areaData", areaData);
 	}
 	
