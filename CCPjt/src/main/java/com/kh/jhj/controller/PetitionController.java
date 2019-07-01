@@ -25,12 +25,30 @@ public class PetitionController {
 	@RequestMapping(value="petitionList", method = RequestMethod.GET)
 	public void petitionList(Model model, DoPageDto pageDto, DoSearchDto searchDto) throws Exception{
 		int b_agree = 0;
-		HashMap<DoPageDto, DoSearchDto> hashDto = new HashMap<>();
-		hashDto.put(pageDto, searchDto);
+		
+		int listCount = peService.listCount(searchDto);
+		pageDto.setTotalData(listCount);
+		System.out.println("listCount :" + listCount);
+		HashMap<String, String> hashDto = new HashMap<>();
+		String startRow = Integer.toString(pageDto.getStartRow());
+		String endRow = Integer.toString(pageDto.getEndRow());
+		String serchType = searchDto.getSearchType();
+		String searchVal = searchDto.getSearchVal();
+		
+		hashDto.put("startRow", startRow);
+		hashDto.put("endRow", endRow);
+		hashDto.put("serchType", serchType);
+		hashDto.put("searchVal", searchVal);
+		
 		List<PetitionVo> pList = peService.listAll(b_agree);
 		model.addAttribute("pList", pList);
 	}
 	
+	@RequestMapping(value="petitionMain", method=RequestMethod.GET)
+	public void petitionMain(Model model) throws Exception{
+		List<PetitionVo> pMain = peService.listMain();
+		model.addAttribute("pMain", pMain);
+	}
 	
 
 }

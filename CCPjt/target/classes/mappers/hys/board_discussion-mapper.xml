@@ -7,5 +7,6 @@
 	<select id="getDiscussionList" resultType="BoardVo_Discussion">
 		select *
 		from discussion_board
+		where b_checkeddel = 0
 	</select>
 </mapper>

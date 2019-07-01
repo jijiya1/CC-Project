@@ -17,15 +17,27 @@
 		order by rnum desc
 	</select>
 	
-	<select id="count">
+	<select id="listCount" resultType="int">
 		select count(*)
 		from (select rownum rnum, pe.*
 		                from (select * from petition_board 
-		                where b_agree &gt; 5 order by b_no) pe) pBoard, 
+		                where b_agree &gt;= 5 order by b_no) pe) pBoard, 
 		        detail_data d_data , 
 		        (select a_name from area_data where a_no=52) aName
 		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
 	</select>
-
+	
+	<!-- 메인페이지 보이기	 -->
+	<select id="listMain" resultType="PetitionVo">
+		select  aName.*, d_data.d_name, pBoard.* 
+			from (select rank() over(order by b_agree desc) as ranking, rownum rnum, pe.*
+		                from (select * from petition_board 
+		                where b_agree &gt;= 5  and ranking &lt;= 3
+		                order by b_no) pe) pBoard, 
+		        detail_data d_data , 
+		        (select a_name from area_data where a_no=52) aName
+		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
+				and b_enddate &gt;= sysdate
+	</select>
 
 </mapper>
