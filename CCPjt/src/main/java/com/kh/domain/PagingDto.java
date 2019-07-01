@@ -16,6 +16,8 @@ public class PagingDto {
 	private boolean prev;
 	private boolean next;
 	
+	LocalDto localDto; // 지역 정보 담기
+	
 	private void calcPage() {
 		int totalPage = totalData/countRow;
 		if(totalData%countRow >0) {
@@ -99,12 +101,19 @@ public class PagingDto {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
+	
+	public LocalDto getLocalDto() {
+		return localDto;
+	}
+	public void setLocalDto(LocalDto localDto) {
+		this.localDto = localDto;
+	}
 
 	@Override
 	public String toString() {
-		return "PageDto [totalData=" + totalData + ", startRow=" + startRow + ", endRow=" + endRow + ", countRow="
+		return "PagingDto [totalData=" + totalData + ", startRow=" + startRow + ", endRow=" + endRow + ", countRow="
 				+ countRow + ", nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", countPage=" + countPage + ", prev=" + prev + ", next=" + next + "]";
+				+ ", countPage=" + countPage + ", prev=" + prev + ", next=" + next + ", localDto=" + localDto + "]";
 	}
 	
 }

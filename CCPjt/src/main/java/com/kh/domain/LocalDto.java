@@ -1,4 +1,4 @@
-package com.kh.hys.domain;
+package com.kh.domain;
 
 public class LocalDto {
 	
