@@ -93,7 +93,6 @@
 
 <div class="container-fluid">
 	<p style="font: strong;">데이터 확인 :</p>
-	<p ><span class='12345678a'>데이터 확인 :</span></p>
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
 </div>
 
@@ -397,6 +396,9 @@
 			
 			$(discussionReplyList).each(function (i) {
 				
+				var frontId = this.u_id.substring(0,3);
+				renameId = frontId + "***";
+				
 				if (this.r_yesOrNo == "0") {
 					borderColor = "primary"
 					YorN = "찬성";
@@ -417,7 +419,7 @@
 				
 				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 				 		+ 		"<div class='card-body'>"
-						+			"<p>"+this.r_no+". "+this.r_writer+"("+this.u_id+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+						+			"<p>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
 						+			"<p>&nbsp;"+this.r_content+"</p>"
 						+			"<p style='text-align: right;' class='likeSelectArea'>"
 										// 좋아요 버튼
@@ -654,7 +656,11 @@
 					var strHtml2 = "";
 					$.getJSON(url2, function (receivedData) {
 						$(receivedData).each(function (i) {
-							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"+this.r_writer+"("+this.u_id+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+							var frontId = this.u_id.substring(0,3);
+							renameId = frontId + "***";
+							
+							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
+									 +  this.r_writer+"("+renameId+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 							
 						})
 
@@ -703,8 +709,12 @@
 		var strHtml = "";
 		$.getJSON(url, function (receivedData) {
 			$(receivedData).each(function (i) {
+				
+				var frontId = this.u_id.substring(0,3);
+				renameId = frontId + "***";
+				
 				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
-						+this.r_writer+"("+this.u_id+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+						+this.r_writer+"("+renameId+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 			})
 
 			$(".replyComentList"+r_no).html(strHtml);
@@ -733,13 +743,17 @@
 		var u_id = $(this).attr("data-u_id");
 		var r_writer = $(this).attr("data-r_writer");
 		
-		var rname = "@"+ r_writer+"("+u_id+")"+"&nbsp;";
+		var frontId = u_id.substring(0,3);
+		renameId = frontId + "***";
+		console.log("frontId " + frontId)
+		
+		var rname = "@"+ r_writer+"("+renameId+")"+"&nbsp;";
 // 		console.log("댓글 번호" + r_no +"에 "+ u_id +"유저 아이디/" +r_writer)
 		
 		var r_coment_count = $(this).attr("data-r_coment_count");
 // 		console.log(r_no + "답글 버튼");
 // 		console.log(r_coment_count + " / "+ r_no + "답글 버튼");
-		var comentTextAreaHtml = "<textarea class='form-control replyComent_content' id='replyComent_content"+r_no+"' style = padding: 10px;'> <a href='#'>"+ rname+"</a></textarea>";
+		var comentTextAreaHtml = "<textarea class='form-control replyComent_content' id='replyComent_content"+r_no+"' style = padding: 10px;'>"+ rname+"</textarea>";
 		$(".replyComentTextarea"+r_no).html(comentTextAreaHtml);
 		
 		var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
