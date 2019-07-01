@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -84,9 +84,9 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<AreaData> getAreaData() throws Exception {
-		List<AreaData> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaData");
-		return areaDataList;
+	public AreaDataVo getAreaData(int a_no) throws Exception {
+		AreaDataVo areaDataVo = sqlSession.selectOne(NAMESPACE + "getAreaData", a_no);
+		return areaDataVo;
 	}
 
 	@Override
@@ -101,9 +101,15 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public AreaData getANo() throws Exception {
-		AreaData aOrderList = sqlSession.selectOne(NAMESPACE + "getANo");
+	public AreaDataVo getANo() throws Exception {
+		AreaDataVo aOrderList = sqlSession.selectOne(NAMESPACE + "getANo");
 		return aOrderList;
+	}
+
+	@Override
+	public List<AreaDataVo> getAreaDataList() throws Exception {
+		List<AreaDataVo> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaDataList");
+		return areaDataList;
 	}
 
 }

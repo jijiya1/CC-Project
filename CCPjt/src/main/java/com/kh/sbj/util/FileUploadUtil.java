@@ -40,5 +40,9 @@ public class FileUploadUtil {
 		}
 		return datePath; // 2019/5/17
 	}
-	
+	public static String getFormatName(String fileName) {
+		int dotIndex = fileName.lastIndexOf(".");
+		String formatName = fileName.substring(dotIndex+1);
+		return formatName;
+	}
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.shj.domain.NoticeBoardVo;
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.domain.NoPaginationDto;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
@@ -35,6 +35,7 @@ public class NoticeController {
 		model.addAttribute("list", list);
 //		System.out.println("list : " + list);
 //		System.out.println("a_no : " + a_no);
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		
 		int count = noticeBoardService.noticeBoardCount(noSearchDto);
 		model.addAttribute("count", count);
@@ -47,7 +48,8 @@ public class NoticeController {
 		noPaginationDto.setContentCount(contentCount);
 		
 		model.addAttribute("noPaginationDto", noPaginationDto);
-		model.addAttribute("a_no", a_no);
+
+		model.addAttribute("areaDataVo", areaDataVo);
 	}
 	
 	// 공지사항 해당 글 읽기
@@ -63,7 +65,7 @@ public class NoticeController {
 	@RequestMapping(value="/notice_write", method=RequestMethod.GET)
 	public void noticeBoardWrite(Model model) throws Exception {
 //		System.out.println("notice_write get 실행함.");
-		List<AreaData> areaData = noticeBoardService.getAreaData();
+		List<AreaDataVo> areaData = noticeBoardService.getAreaDataList();
 		model.addAttribute("areaData", areaData);
 		
 	}
@@ -83,8 +85,8 @@ public class NoticeController {
 	public void noticeBoardUpdate(@RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no, Model model) throws Exception {
 		NoticeBoardVo noticeBoardVo = noticeBoardService.noticeBoardRead(b_no, a_no);
 		model.addAttribute("noticeBoardVo", noticeBoardVo);
-		
-		List<AreaData> areaData = noticeBoardService.getAreaData();
+	
+		List<AreaDataVo> areaData = noticeBoardService.getAreaDataList();
 		model.addAttribute("areaData", areaData);
 	}
 	

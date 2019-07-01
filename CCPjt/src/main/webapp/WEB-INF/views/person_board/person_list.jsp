@@ -44,6 +44,7 @@ $(document).ready(function(){
 	<input type="hidden" name="u_id" >
 </form>
 
+<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞${areaDataVo.a_name } ＞ 의원정보</p>
 
 <div class="container-fluid">
 	<div class="row">

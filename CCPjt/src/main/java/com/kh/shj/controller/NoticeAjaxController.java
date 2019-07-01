@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.service.INoticeBoardService;
 
 @RestController
@@ -20,8 +20,8 @@ public class NoticeAjaxController {
 	INoticeBoardService noticeBoardService;
 	
 	@RequestMapping(value="/getList", method=RequestMethod.GET)
-	public ResponseEntity<List<AreaData>> getList() throws Exception {
-		ResponseEntity<List<AreaData>> entity = null;
+	public ResponseEntity<List<AreaDataVo>> getList() throws Exception {
+		ResponseEntity<List<AreaDataVo>> entity = null;
 		
 		
 		return null;

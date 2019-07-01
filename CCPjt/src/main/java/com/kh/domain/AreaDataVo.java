@@ -1,6 +1,6 @@
 package com.kh.domain;
 
-public class AreaData {
+public class AreaDataVo {
 	private int a_no;
 	private String a_name;
 	private int a_order;
