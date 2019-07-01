@@ -43,13 +43,20 @@ public class BoardDaoImpl_Discussion implements IBoardDao_Discussion {
 	// 찬성 또는 반대 투표 업데이트
 	@Override
 	public void ModifyAgreeInfo(BoardAgreeInfoVo_Discussion agreeInfoVo_Discussion) throws Exception {
-		
+		sqlSession.update(NAMESPACE+"ModifyAgreeInfo", agreeInfoVo_Discussion);
 	}
 	
 	// 찬성 또는 반대 투표로 인한 메인 테이블 찬반 카운트 업데이트
 	@Override
 	public void BoardAgreeCountModify(int b_no) throws Exception {
-		
+		sqlSession.update(NAMESPACE+"BoardAgreeCountModify", b_no);
+	}
+	
+	//특정 토론글 찬성 반대 갯수 가져오기
+	@Override
+	public BoardVo_Discussion getAgreeRatio(int b_no) throws Exception {
+		BoardVo_Discussion boardVo_Discussion = sqlSession.selectOne(NAMESPACE+"getAgreeRatio", b_no);
+		return boardVo_Discussion;
 	}
 
 }

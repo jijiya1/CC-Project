@@ -108,12 +108,25 @@
 			<p></p>
 			<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
 			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
+			
+			<!-- 찬반 비율 표시 줄 -->
+			<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; display: none;">
+				<div id ="agreeRatioArea${boardVo_discussion.b_no }" style="background-color: #70A9F2; width: 50%; float: left; " >
+					<label id ="agreeRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: left;">&nbsp;${boardVo_discussion.b_agreementcount}</label>
+				</div>
+				
+				<div id ="oppositionRatioArea${boardVo_discussion.b_no }" style="background-color: #FF6060; width: 50%;  float: right;">
+					<label id ="oppositionRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: right;">${boardVo_discussion.b_oppositioncount}&nbsp;</label>
+				</div>
+			</div>	
 		</div>
 	</c:forEach>
 	
 	<a class="prev" onclick="plusSlides(-1)">❮</a>
 	<a class="next" onclick="plusSlides(1)">❯</a>
 </div>
+
+
 
 <div class="dot-container">
 	<c:forEach begin="1" end="${discussionListSize }" var= "i" >
@@ -164,12 +177,12 @@
 	var nowReplyPage = 1;
 	
 	//임시 로그인 중인 사용자 -------------------------------------------
-	var r_writer = "시민3";
-	var u_id = "user3";
+	var r_writer = "시민1";
+	var u_id = "user1";
 	// --------------------------------------------------------------------
 
 	//임시 지역 정보 ---------------------------------------------------
-	var b_addInfo = ${a_no};
+	var b_addInfo = ${areaDataVo.a_no};
 	// --------------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
@@ -196,8 +209,6 @@
 	  } else {
 		  addReplyListButton();
 	  }
-	  
-	  b_contentArea.style.display = "none";
 	}
 	
 	function currentSlide(n) {
@@ -216,9 +227,11 @@
 		  addReplyTextarea(YorNSelect);
 	  } else {
 		  addReplyListButton();
+		  
 	  }// if
 	  
 	  b_contentArea.style.display = "none";
+	  
 	}
 	
 	function showSlides(n) {
@@ -319,7 +332,6 @@
 		} else if (YorN == "N") {
 			agreenum = 2;
 		}
-
 		
 		var b_no = $(this).attr("data-b_no");
 // 		console.log("글번호 "+b_no+" "+ YorN_Select+"체크함");
@@ -340,7 +352,32 @@
 			"dataType" : "text",
 			"data" : JSON.stringify(sendData),
 			"success" : function (receivedData) {
+// 				console.log("성공 " + receivedData)
+				var commaIndex = receivedData.lastIndexOf(",");
+				var strLength = receivedData.length;
+				var agreeCount = receivedData.substring(0,commaIndex);
+				var oppositionCount = receivedData.substring(commaIndex+1, strLength);
 				
+				$("#agreeRatio"+b_no).html("&nbsp;"+agreeCount);
+				$("#oppositionRatio"+b_no).html(oppositionCount+"&nbsp;");
+				
+				var totalCount = parseInt(agreeCount) + parseInt(oppositionCount);
+// 				console.log("totalCount : " + totalCount);
+				
+				var agreeRatio = (parseInt(agreeCount) / totalCount *90) + 5;
+				var oppositionRatio = (parseInt(oppositionCount) / totalCount *90) + 5;
+				
+// 				console.log(agreeRatio + " / " + oppositionRatio);
+
+				
+				var agreeRatioArea = document.getElementById("agreeRatioArea"+b_no);
+				var oppositionRatioArea = document.getElementById("oppositionRatioArea"+b_no);
+				
+				agreeRatioArea.style.width = agreeRatio+"%";
+				oppositionRatioArea.style.width = oppositionRatio+"%";
+				
+				var ratioArea = document.getElementById("ratioArea"+b_no);
+				ratioArea.style.display = "block";
 			}
 		});
 		
@@ -350,11 +387,11 @@
 
 	// 댓글 작성(쓰기)완료 버튼
 	$("#reply_Textarea").on("click",".btnReplyWrite", function () {
-		console.log("작성 완료 버튼");
+// 		console.log("작성 완료 버튼");
 		var r_content = $(".r_content").val(); // 댓글 내용 가져 오기
 		$(".r_content").val("");
 		var YorNSelect = $(".mySlides").eq(slideIndex - 1).attr("data-YorNSelect"); // 찬성 || 반대 정보 가져오기
-		console.log("r_content : " + YorNSelect+ " / "+ r_content);
+// 		console.log("r_content : " + YorNSelect+ " / "+ r_content);s
 		
 		// 공란일때 알림
 		if(r_content == "") {
@@ -409,7 +446,7 @@
 // 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			var discussionReplyList = receivedData.discussionReplyList;
 
-			console.log("discussionReplyList : " ,  discussionReplyList);
+// 			console.log("discussionReplyList : " ,  discussionReplyList);
 			
 			if(discussionReplyList == "") {
 				alert("해당 글에 대한 댓글이 아직 없습니다.")
@@ -456,7 +493,7 @@
 													if(this.r_no == listR_no && this.r_likenum == 1 && this.u_id == u_id) {
 														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
 													}//if
-												})
+												})v xv vx 
 					strHtml +=				">"
 							+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
 											// 싫어요 버튼
@@ -561,7 +598,7 @@
 		var r_likenum = $(this).attr("data-r_likenum");
 		
 		var selected = $(this).attr("data-selected");
-		console.log("selected : " + selected);
+// 		console.log("selected : " + selected);
 		if(selected == "Yes") {
 			r_likenum = 0;
 		}
@@ -596,7 +633,7 @@
 		
 		nowReplyPage = reply_page;
 		getReplyList();
-		console.log(reply_page+" 페이지 버튼")
+// 		console.log(reply_page+" 페이지 버튼")
 	})
 	
 	// 댓글에 답글 달기 버튼
@@ -774,7 +811,7 @@
 		
 		var frontId = u_id.substring(0,3);
 		renameId = frontId + "***";
-		console.log("frontId " + frontId)
+// 		console.log("frontId " + frontId)
 		
 		var rname = "@"+ r_writer+"("+renameId+")"+"&nbsp;";
 // 		console.log("댓글 번호" + r_no +"에 "+ u_id +"유저 아이디/" +r_writer)

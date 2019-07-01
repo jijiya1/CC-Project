@@ -7,7 +7,7 @@ public class BoardVo_Discussion {
 	int b_no; 				// 토론 게시글 번호
 	int b_addinfo; 			// 토론 게시글 정보 (지역 번호)
 	String a_name;			// 토론 게시글 지역 이름
-	String b_detailinfo; 	// 토론 게시글 상세 지역 이름
+	int b_detailinfo; 	// 토론 게시글 상세 지역 이름
 	String b_title;
 	String b_writer;
 	String u_id;
@@ -52,11 +52,11 @@ public class BoardVo_Discussion {
 		this.a_name = a_name;
 	}
 
-	public String getB_detailinfo() {
+	public int getB_detailinfo() {
 		return b_detailinfo;
 	}
 
-	public void setB_detailinfo(String b_detailinfo) {
+	public void setB_detailinfo(int b_detailinfo) {
 		this.b_detailinfo = b_detailinfo;
 	}
 

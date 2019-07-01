@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.domain.AreaDataVo;
 import com.kh.domain.LocalDto;
 import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
@@ -28,6 +29,11 @@ public class SelectController_Discussion {
 		
 		LocalDto localDto = new LocalDto();
 		localDto.setB_addInfo(b_addInfo);
+		
+		AreaDataVo areaDataVo = new AreaDataVo();
+		areaDataVo.setA_no(b_addInfo);
+		
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(localDto);
 		
