@@ -101,7 +101,6 @@ public class PagingDto {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
-	
 	public LocalDto getLocalDto() {
 		return localDto;
 	}
