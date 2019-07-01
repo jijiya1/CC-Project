@@ -493,7 +493,7 @@
 													if(this.r_no == listR_no && this.r_likenum == 1 && this.u_id == u_id) {
 														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
 													}//if
-												})v xv vx 
+												})
 					strHtml +=				">"
 							+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
 											// 싫어요 버튼
