@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/head.jsp" %>
-	<!-- 토론 추천 게시판 시작 -->
+	<!-- 토론 주제 추천게시판 시작 -->
 	<div class="container-fluid">
-	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board">토론 게시판</a> ＞토론 추천 게시판</p>
-	
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board">토론 게시판</a> ＞토론 주제 추천게시판</p>
 	<!-- 페이지 헤더 -->	
-	<h1 class="h3 mb-2 text-gray-800">토론 추천 게시판</h1>
+	<h1 class="h3 mb-2 text-gray-800">토론 주제 추천게시판</h1>
+	<p>데이터확인: ${pagingDto }</p>
 
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
@@ -48,22 +47,23 @@
 	            <tr>
 	              <th>번&nbsp;&nbsp;호</th>
 	              <th>제&nbsp;&nbsp;목</th>
-	              <th>첨부파일</th>
 	              <th>작성자</th>
 	              <th>조회수</th>
+	              <th>추천수</th>
 	              <th>작성날짜</th>
 	            </tr>
 	          </thead>
 	          <tbody>
-	          
-	            <tr>
-	              <td>ㄱ</td>
-	              <td>ㄴ</td>
-           		  <td>ㄷ</td>
-	              <td>ㄹ</td>
-	              <td>ㅁ</td>
-	              <td>ㅂ</td>
-	            </tr>
+		          <c:forEach items="${selectBoardList }" var="selectBoardVo">
+		          	<tr>
+			          <td>${selectBoardVo.b_no}</td>
+	           		  <td><a href="#" style="float: left;">[${selectBoardVo.b_addInfo}/${selectBoardVo.b_detailInfo}]${selectBoardVo.b_title}</a></td>
+		              <td>${selectBoardVo.b_writer}</td>
+		              <td>${selectBoardVo.b_readCount}</td>
+		              <td>${selectBoardVo.b_upCount}</td>
+		              <td><fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+		             </tr>
+		          </c:forEach>
 	          </tbody>
 	        </table>
 	      </div>
@@ -79,7 +79,7 @@
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
-			
+				
 				<li class="paginate_button page-item previous" id="dataTable_previous">
 					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">≪</a>
 				</li>
@@ -87,13 +87,12 @@
 				<li class="paginate_button page-item previous" id="dataTable_previous">
 					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" >＜</a>
 				</li>
-			
-				<li class="paginate_button page-item active">
-					<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" >1</a>
-				</li>
-				<li class="paginate_button page-item">
-					<a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link" >2</a>
-				</li>
+				
+				<c:forEach var ="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+					<li class="paginate_button page-item">
+						<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" data-nowPage="${i }" class="page-link" >${i }</a>
+					</li>
+				</c:forEach>
 			
 				<li class="paginate_button page-item next" id="dataTable_next">
 					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">＞</a>
@@ -102,7 +101,6 @@
 				<li class="paginate_button page-item next" id="dataTable_next">
 					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">≫</a>
 				</li>
-				
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->

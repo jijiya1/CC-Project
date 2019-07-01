@@ -3,18 +3,19 @@ package com.kh.hys.domain;
 import java.sql.Timestamp;
 
 public class BoardVo_Discussion {
-	String b_serialno; // 게시글 시리얼 넘버
-	int b_no; // 토론 게시글 번호
-	String b_addinfo; // 토론 게시글 정보 (지역) 서울
-	String b_detailinfo; // 토론 게시글
+	String b_serialno; 		// 게시글 시리얼 넘버
+	int b_no; 				// 토론 게시글 번호
+	int b_addinfo; 			// 토론 게시글 정보 (지역 번호)
+	String a_name;			// 토론 게시글 지역 이름
+	String b_detailinfo; 	// 토론 게시글 상세 지역 이름
 	String b_title;
 	String b_writer;
 	String u_id;
 	String b_content;
 	int b_readcount;
 	Timestamp b_createddate;
-	int b_agreementcount;
-	int b_oppositioncount;
+	int b_agreementcount;	// 찬성 수
+	int b_oppositioncount;	// 반대 수
 	int b_upcount;
 	int b_downcount;
 	int b_checkeddel;
@@ -35,12 +36,20 @@ public class BoardVo_Discussion {
 		this.b_no = b_no;
 	}
 
-	public String getB_addinfo() {
+	public int getB_addinfo() {
 		return b_addinfo;
 	}
 
-	public void setB_addinfo(String b_addinfo) {
+	public void setB_addinfo(int b_addinfo) {
 		this.b_addinfo = b_addinfo;
+	}
+
+	public String getA_name() {
+		return a_name;
+	}
+
+	public void setA_name(String a_name) {
+		this.a_name = a_name;
 	}
 
 	public String getB_detailinfo() {
@@ -141,11 +150,12 @@ public class BoardVo_Discussion {
 
 	@Override
 	public String toString() {
-		return "Discussion_boardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addinfo=" + b_addinfo
-				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
-				+ u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount + ", b_createddate="
-				+ b_createddate + ", b_agreementcount=" + b_agreementcount + ", b_oppositioncount=" + b_oppositioncount
-				+ ", b_upcount=" + b_upcount + ", b_downcount=" + b_downcount + ", b_checkeddel=" + b_checkeddel + "]";
+		return "BoardVo_Discussion [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addinfo=" + b_addinfo
+				+ ", a_name=" + a_name + ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer="
+				+ b_writer + ", u_id=" + u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount
+				+ ", b_createddate=" + b_createddate + ", b_agreementcount=" + b_agreementcount + ", b_oppositioncount="
+				+ b_oppositioncount + ", b_upcount=" + b_upcount + ", b_downcount=" + b_downcount + ", b_checkeddel="
+				+ b_checkeddel + "]";
 	}
 
 }

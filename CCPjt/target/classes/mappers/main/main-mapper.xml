@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="main">
+
+	<!-- 메인페이지 공지사항 목록 불러오기 -->
+	<select id="getNoticeList" resultType="noticeBoardVo">
+		select* from 
+			(select rownum rnum, a.* from 
+				(select * from notice_board, area_data
+					where b_addinfo = a_no
+					order by b_no desc)a)
+		where rnum &gt;= 1 and rnum &lt;= 5
+	</select>
+
+</mapper>

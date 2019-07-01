@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="Select_Discussion">
+	<!-- 토론주제 추천게시판 글리스트 가져오기 -->
+	<select id="getSeletDiscussionList" resultType="SelectDiscussion_BoardVo">
+		select *
+		from (select ROWNUM rnum, a.*
+		      from (select * 
+		            from selectdiscussion_board
+		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo}) a)
+		where rnum &gt;= 1 and rnum &lt;=10
+		order by b_no desc
+	</select>
+	
+	<!-- 토론주제 추천게시판 글 갯수 가져오기 -->
+	<select id ="totalSelectBoardCount" resultType="int" >
+		select count(*) 
+        from selectdiscussion_board
+        where b_checkeddel = 0 and b_addinfo = #{b_addInfo}
+	</select>
+</mapper>

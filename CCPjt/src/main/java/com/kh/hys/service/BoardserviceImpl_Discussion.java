@@ -16,8 +16,8 @@ public class BoardserviceImpl_Discussion implements IBoardService_Discussion {
 	IBoardDao_Discussion discussionBoardDao;
 
 	@Override
-	public List<BoardVo_Discussion> getDiscussionList() throws Exception {
-		List<BoardVo_Discussion> discussionList = discussionBoardDao.getDiscussionList();
+	public List<BoardVo_Discussion> getDiscussionList(int a_no) throws Exception {
+		List<BoardVo_Discussion> discussionList = discussionBoardDao.getDiscussionList(a_no);
 		
 //		System.out.println("Discussion_serviceImpl, getDiscussionList, discussionList : " + discussionList);
 		

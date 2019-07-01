@@ -6,13 +6,19 @@
 <mapper namespace ="notice_board">
 
 	<!-- 지역 정보 불러오기 -->
-	<select id="getAreaData" resultType="areaData">
+	<select id="getAreaDataList" resultType="areaDataVo">
 		select * from area_data
 	</select>
+
+	<!-- 공지사항 지역 정보 불러오기 -->
+	<select id="getAreaData" resultType="areaDataVo">
+		select * from area_data
+		where a_no = #{a_no}
+	</select>
 	
-	<!-- areaData.a_order 불러오기 -->
-	<select id="getAOrder" resultType="areaData">
-		select a_order from area_data
+	<!-- areaData.a_no 불러오기 -->
+	<select id="getANo" resultType="areaDataVo">
+		select a_no from area_data
 	</select>
 	
 	<!-- 글 갯수 -->
@@ -91,7 +97,7 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'b_title'">
-				and b_title like '%' || #{keyword} || '%' 
+				and b_title like '%' || #{keyword} || '%' d
 			</if>
 		</if>
 	</sql>

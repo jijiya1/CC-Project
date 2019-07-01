@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.domain.AreaDataVo;
 import com.kh.sbj.domain.PersonVo;
 import com.kh.sbj.service.IPersonService;
 
@@ -24,9 +25,13 @@ public class PersonController {
 	private IPersonService personService;
 	
 	@RequestMapping(value = "/person_list", method = RequestMethod.GET)
-	public String personBoardList(Model model) throws Exception {
+	public String personBoardList(Model model, @RequestParam("a_no") int a_no) throws Exception {
 		List<PersonVo> personList = personService.selectAll();
+		AreaDataVo areaDataVo = personService.selectArea(a_no);
+		System.out.println("ano = "+ a_no);
+		System.out.println("areaData = "+ areaDataVo);
 		model.addAttribute("personList", personList);
+		model.addAttribute("areaDataVo", areaDataVo);
 		return "/person_board/person_list";
 	}
 	

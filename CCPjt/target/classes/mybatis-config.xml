@@ -8,9 +8,9 @@
 <!-- 		<package name="com.kh.domain"/> -->
 		
 		<!-- 클래스 단위 -->
-		<typeAlias type="com.kh.domain.AreaData" alias="areaData"/>
+		<typeAlias type="com.kh.domain.AreaDataVo" alias="areaDataVo"/>
+		<typeAlias type="com.kh.domain.DetailDataVo" alias="detailDataVo"/>
 		<typeAlias type="com.kh.domain.PagingDto" alias="pagingDto"/>
-		
 		
 		<typeAlias type="com.kh.hys.domain.BoardVo_Discussion" alias="BoardVo_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.ReplyVo_Discussion" alias="ReplyVo_Discussion"/>
@@ -26,9 +26,7 @@
 		<typeAlias type="com.kh.jhj.domain.DoSearchDto" alias="Donation_searchDto"/>
 		<typeAlias type="com.kh.jhj.domain.DoFileDto" alias="Donation_fileDto"/>
 		
-		
 		<typeAlias type="com.kh.jhj.domain.PetitionVo" alias="PetitionVo"/>
-		
 		
 		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="PersonVo"/>
 		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="PersonPromiseVo"/>

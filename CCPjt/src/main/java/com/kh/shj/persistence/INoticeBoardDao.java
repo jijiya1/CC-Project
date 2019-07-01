@@ -2,7 +2,7 @@ package com.kh.shj.persistence;
 
 import java.util.List;
 
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -28,7 +28,7 @@ public interface INoticeBoardDao {
 	public void noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception;
 	
 	// 글 작성 시 해당 지역 번호 빼오기
-	public List<AreaData> getAOrder() throws Exception;
+	public AreaDataVo getANo() throws Exception;
 	
 	// 글 수정
 	public void noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception;
@@ -37,6 +37,9 @@ public interface INoticeBoardDao {
 	public void noticeBoardDelete(int b_no) throws Exception;
 	
 	// 지역 카테고리 불러오기
-	public List<AreaData> getAreaData() throws Exception;
+	public AreaDataVo getAreaData(int a_no) throws Exception;
+	
+	// 글 작성시 지역 카테고리 불러오기
+	public List<AreaDataVo> getAreaDataList() throws Exception;
 	
 }

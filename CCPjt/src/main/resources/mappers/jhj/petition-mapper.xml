@@ -6,26 +6,48 @@
 <mapper namespace ="petition_board">
 
 	<!-- 전체 목록 보기 -->
+
 	<select id="listAll" resultType="PetitionVo">
-		select aName.*, d_data.d_name, pBoard.* from
-		        (select rownum rnum, pe.*
-		                from (select * from petition_board 
-		                where b_agree &gt; 5 order by b_no) pe) pBoard, 
-		        detail_data d_data , 
-		        (select a_name from area_data where a_no=52) aName
-		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
-		order by rnum desc;
+		select rownum rnum, allList.* 
+		    from (select ad.a_name,dd.d_name, pb.* 
+		                from petition_board pb,area_data ad, detail_data dd
+		                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+		                	and b_addinfo=ad.a_no
+		                    and b_agree &gt;= 5 and b_addinfo=#{a_no}
+		                    and b_enddate &gt;=sysdate
+		                order by b_detailinfo) allList
+	    where b_delno='N'
+
 	</select>
 	
-	<select id="count">
+	<select id="listCount" resultType="int">
 		select count(*)
-		from (select rownum rnum, pe.*
-		                from (select * from petition_board 
-		                where b_agree &gt; 5 order by b_no) pe) pBoard, 
-		        detail_data d_data , 
-		        (select a_name from area_data where a_no=52) aName
-		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
+    		 from (select ad.a_name,dd.d_name, pb.* 
+		                from petition_board pb,area_data ad, detail_data dd
+		                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+		                	and b_addinfo=ad.a_no
+		                    and b_agree &gt;= 5 and b_addinfo=52 
+		                    and b_enddate &gt;=sysdate
+		                order by b_detailinfo) allList
+	    where b_delno='N'
 	</select>
-
+	
+	<!-- 메인페이지 보이기(랭킹3위까지만보이기) -->
+	<select id="listMain" resultType="PetitionVo">
+		select * from (
+		        select rownum rnum, allList.*, rank() over(order by b_agree desc) as ranking
+		            from (select ad.a_name,dd.d_name, pb.* 
+		                        from petition_board pb,area_data ad, detail_data dd
+		                        where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+		                        	and b_addinfo=ad.a_no
+				                    and b_agree &gt;= 5 and b_addinfo=52 
+				                    and b_enddate &gt;=sysdate
+				                order by b_detailinfo) allList
+		                )
+    where b_delno='N' and ranking &lt;= 3
+    order by ranking
+	</select>
+	
+<!-- 서치데이터 -->
 
 </mapper>
