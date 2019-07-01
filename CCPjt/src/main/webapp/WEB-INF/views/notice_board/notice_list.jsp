@@ -112,7 +112,7 @@ $(document).ready(function() {
 
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
-	
+	${ areaDataVo }
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 공지사항</p>
 	
 	<!-- 페이지 헤더 -->	

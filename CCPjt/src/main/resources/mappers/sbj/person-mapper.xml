@@ -13,4 +13,8 @@
 		where u_id = #{u_id}
 	</select>
 
+	<select id="selectArea" resultType="AreaDataVo">
+		select * from area_data
+		where a_no = #{a_no}
+	</select>
 </mapper>  	

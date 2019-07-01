@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.domain.LocalDto;
 import com.kh.jhj.domain.DoPageDto;
 import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
@@ -23,31 +25,29 @@ public class PetitionController {
 	IPeBoardService peService;
 	
 	@RequestMapping(value="petitionList", method = RequestMethod.GET)
-	public void petitionList(Model model, DoPageDto pageDto, DoSearchDto searchDto) throws Exception{
+	public void petitionList(@RequestParam("a_no") int a_no,
+						Model model, DoPageDto pageDto, DoSearchDto searchDto) throws Exception{
 		int b_agree = 0;
 		
 		int listCount = peService.listCount(searchDto);
-		pageDto.setTotalData(listCount);
+			pageDto.setTotalData(listCount);
+		
+		
 		System.out.println("listCount :" + listCount);
-		HashMap<String, String> hashDto = new HashMap<>();
-		String startRow = Integer.toString(pageDto.getStartRow());
-		String endRow = Integer.toString(pageDto.getEndRow());
-		String serchType = searchDto.getSearchType();
-		String searchVal = searchDto.getSearchVal();
+//		System.out.println("a_no :" + a_no);
 		
-		hashDto.put("startRow", startRow);
-		hashDto.put("endRow", endRow);
-		hashDto.put("serchType", serchType);
-		hashDto.put("searchVal", searchVal);
-		
-		List<PetitionVo> pList = peService.listAll(b_agree);
+//		HashMap<String, String> hashDto = new HashMap<>();
+
+		List<PetitionVo> pList = peService.listAll(a_no);
 		model.addAttribute("pList", pList);
+		model.addAttribute("a_no", a_no);
 	}
 	
 	@RequestMapping(value="petitionMain", method=RequestMethod.GET)
-	public void petitionMain(Model model) throws Exception{
-		List<PetitionVo> pMain = peService.listMain();
+	public void petitionMain(@RequestParam("a_no") int a_no, Model model) throws Exception{
+		List<PetitionVo> pMain = peService.listMain(a_no);
 		model.addAttribute("pMain", pMain);
+		model.addAttribute("a_no", a_no);
 	}
 	
 
