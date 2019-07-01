@@ -70,72 +70,67 @@ $(document).ready(function() {
       </div>
       
       	<!-- Nav Item - 공지사항 -->
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>공지사항</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">분류 :</h6>
-            <a class="collapse-item" href="/notice_board/notice_list?a_no=10">전체</a>
-            <a class="collapse-item" href="/notice_board/notice_location">지역별</a>
-          </div>
-        </div>
-      </li>
-
+      	
+    	 <li class="nav-item active">
+	        <a class="nav-link" href="/notice_board/notice_list?a_no=10">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>공지사항</span></a>
+	    </li>
 
 	<c:if test="${ areaDataVo.a_no != null }">
 		      <!-- Divider -->
       <hr class="sidebar-divider">
+      
 	<c:choose>
-	<c:when test="${ areaDataVo.a_no == 10 }">
-	<!-- Nav Item - 지역선택 -->
-     <div class="sidebar-heading">
-        정해주삼
-      </div>
-      <li class="nav-item active">
-        <a class="nav-link" href="/notice_board/notice_location">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>지역선택</span></a>
-      </li>
-	</c:when>
-	<c:otherwise>
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        정해주삼
-      </div>
-
-	<!-- Nav Item - 정혜지 -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/petition_board/petitionList?a_no=${ areaDataVo.a_no }">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>청원게시판</span></a>
-      </li>
-      
-	<!-- Nav Item - 손병진 -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/person_board/person_list?a_no=${ areaDataVo.a_no }">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>의원정보게시판</span></a>
-      </li>
-      
-	<!-- Nav Item - 황용석 -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/discussion_board/discussion_main_board">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>토론게시판</span></a>
-      </li>
-      
-	<!-- Nav Item - 박석환 -->
-      <li class="nav-item active">
-        <a class="nav-link" href="/suggest_board/suggest_list">
-          <i class="fas fa-fw fa-list-alt"></i>
-          <span>자유게시판</span></a>
-      </li>
-
-
-      </c:otherwise>
+	
+		<c:when test="${ areaDataVo.a_no == 10 }">
+		<!-- Nav Item - 지역선택 -->
+	     <div class="sidebar-heading">
+	        정해주삼
+	      </div>
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/notice_board/notice_location">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>지역선택</span></a>
+	      </li>
+		</c:when>
+		
+		<c:otherwise>
+	      <!-- Heading -->
+	      <div class="sidebar-heading">
+	        정해주삼
+	      </div>
+	
+		<!-- Nav Item - 정혜지 -->
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/petition_board/petitionMain?a_no=${ areaDataVo.a_no }">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>청원게시판</span></a>
+	      </li>
+	      
+		<!-- Nav Item - 손병진 -->
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/person_board/person_list?a_no=${ areaDataVo.a_no }">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>의원정보게시판</span></a>
+	      </li>
+	      
+		<!-- Nav Item - 황용석 -->
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/discussion_board/discussion_main_board">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>토론게시판</span></a>
+	      </li>
+	      
+		<!-- Nav Item - 박석환 -->
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/suggest_board/suggest_list">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>자유게시판</span></a>
+	      </li>
+	
+	
+	      </c:otherwise>
       </c:choose>
             <!-- Divider -->
       <hr class="sidebar-divider">

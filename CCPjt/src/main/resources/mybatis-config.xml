@@ -9,6 +9,7 @@
 		
 		<!-- 클래스 단위 -->
 		<typeAlias type="com.kh.domain.AreaDataVo" alias="areaDataVo"/>
+		<typeAlias type="com.kh.domain.DetailDataVo" alias="detailDataVo"/>
 		<typeAlias type="com.kh.domain.PagingDto" alias="pagingDto"/>
 		
 		<typeAlias type="com.kh.hys.domain.BoardVo_Discussion" alias="BoardVo_Discussion"/>
