@@ -64,8 +64,6 @@ public class NoticeController {
 		List<AreaData> areaData = noticeBoardService.getAreaData();
 		model.addAttribute("areaData", areaData);
 		
-		List<AreaData> getAOrder = noticeBoardService.getAOrder();
-		model.addAttribute("areaData_aOrder", getAOrder);
 	}
 	
 	// 공지사항 작성 실행

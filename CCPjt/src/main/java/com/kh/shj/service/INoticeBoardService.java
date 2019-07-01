@@ -25,7 +25,7 @@ public interface INoticeBoardService {
 	public void noticeBoardWrite(NoticeBoardVo noticeBoardVo) throws Exception;
 	
 	// 글 작성 시 해당 지역 번호 빼오기
-	public List<AreaData> getAOrder() throws Exception;
+	public AreaData getANo() throws Exception;
 	
 	// 글 수정
 	public void noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception;

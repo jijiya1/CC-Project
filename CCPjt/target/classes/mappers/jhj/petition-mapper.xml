@@ -7,16 +7,14 @@
 
 	<!-- 전체 목록 보기 -->
 	<select id="listAll" resultType="PetitionVo">
-		select rownum rnum, areaData.*, pBoard.*
-    from(select * 
-        from petition_board 
-        where b_agree &gt;= 5 and b_enddate &gt; sysdate
-            and b_addinfo =52 and b_detailinfo=11
-        order by b_no) pBoard,
-        (select a_name, d_name 
-                from area_data aData, detail_data dData
-                where aData.a_no =52 and dData.a_no =52 and dData.d_no =11 ) areaData
-    where b_delno ='N';
+		select aName.*, d_data.d_name, pBoard.* from
+		        (select rownum rnum, pe.*
+		                from (select * from petition_board 
+		                where b_agree &gt; 5 order by b_no) pe) pBoard, 
+		        detail_data d_data , 
+		        (select a_name from area_data where a_no=52) aName
+		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
+		order by rnum desc
 	</select>
 	
 	<select id="listCount" resultType="int">
@@ -41,7 +39,5 @@
 		where b_delno = 'N' and  b_detailinfo = d_data.d_no 
 				and b_enddate &gt;= sysdate
 	</select>
-
-
 
 </mapper>

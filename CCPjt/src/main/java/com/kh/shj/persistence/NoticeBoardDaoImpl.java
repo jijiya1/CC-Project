@@ -1,6 +1,5 @@
 package com.kh.shj.persistence;
 
-import java.awt.geom.Area;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 		
 		HashMap<Object, Object> data = new HashMap<>();
 		data.put("b_no", b_no);
-		data.put("a_no", a_no);		
+		data.put("a_no", a_no);
 		
 		NoticeBoardVo noticeBoardVo = sqlSession.selectOne(NAMESPACE + "noticeBoardRead", data);
 		return noticeBoardVo;
@@ -102,8 +101,8 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<AreaData> getAOrder() throws Exception {
-		List<AreaData> aOrderList = sqlSession.selectList(NAMESPACE + "getAOrder");
+	public AreaData getANo() throws Exception {
+		AreaData aOrderList = sqlSession.selectOne(NAMESPACE + "getANo");
 		return aOrderList;
 	}
 

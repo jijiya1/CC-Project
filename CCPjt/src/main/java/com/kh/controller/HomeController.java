@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.domain.PagingDto;
+import com.kh.persistence.IMainDao;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -25,11 +27,17 @@ public class HomeController {
 	@Inject
 	INoticeBoardDao noticeBoardDao;
 	
+	@Inject
+	IMainDao mainDao;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model, Locale locale) throws Exception {
+	public String home(
+			PagingDto pagingDto, NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model, Locale locale
+			) throws Exception {
+		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		List<NoticeBoardVo> noticeList = noticeBoardDao.noticeBoardList(noSearchDto, noPagingDto);
+		List<NoticeBoardVo> noticeList = mainDao.getNoticeBoardList(pagingDto);
 		model.addAttribute("noticeList", noticeList);
 
 		return "main/main";

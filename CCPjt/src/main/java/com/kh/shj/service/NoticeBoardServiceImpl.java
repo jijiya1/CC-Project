@@ -73,8 +73,8 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 	@Override
-	public List<AreaData> getAOrder() throws Exception {
-		List<AreaData> aOrderList = noticeBoardDao.getAOrder();
+	public AreaData getANo() throws Exception {
+		AreaData aOrderList = noticeBoardDao.getANo();
 		return aOrderList;
 	}
 
