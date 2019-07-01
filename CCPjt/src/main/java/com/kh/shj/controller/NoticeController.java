@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.shj.domain.NoticeBoardVo;
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.domain.NoPaginationDto;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
@@ -27,13 +27,14 @@ public class NoticeController {
 	
 	// 공지사항 리스트
 	@RequestMapping(value = "/notice_list", method = RequestMethod.GET)
-	public void noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model) throws Exception {
+	public void noticeBoardList(@RequestParam("a_no") int a_no, NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model) throws Exception {
 //		System.out.println("notice_list get 실행함.");
 //		System.out.println("noSearchDto : " + noSearchDto);
 //		System.out.println("noPagingDto : " + noPagingDto);
 		List<NoticeBoardVo> list = noticeBoardService.noticeBoardList(noSearchDto, noPagingDto);
 		model.addAttribute("list", list);
 //		System.out.println("list : " + list);
+//		System.out.println("a_no : " + a_no);
 		
 		int count = noticeBoardService.noticeBoardCount(noSearchDto);
 		model.addAttribute("count", count);
@@ -46,6 +47,8 @@ public class NoticeController {
 		noPaginationDto.setContentCount(contentCount);
 		
 		model.addAttribute("noPaginationDto", noPaginationDto);
+		model.addAttribute("a_no", a_no);
+
 	}
 	
 	// 공지사항 해당 글 읽기
@@ -61,11 +64,9 @@ public class NoticeController {
 	@RequestMapping(value="/notice_write", method=RequestMethod.GET)
 	public void noticeBoardWrite(Model model) throws Exception {
 //		System.out.println("notice_write get 실행함.");
-		List<AreaData> areaData = noticeBoardService.getAreaData();
+		List<AreaDataVo> areaData = noticeBoardService.getAreaData();
 		model.addAttribute("areaData", areaData);
 		
-		List<AreaData> getAOrder = noticeBoardService.getAOrder();
-		model.addAttribute("areaData_aOrder", getAOrder);
 	}
 	
 	// 공지사항 작성 실행
@@ -84,7 +85,7 @@ public class NoticeController {
 		NoticeBoardVo noticeBoardVo = noticeBoardService.noticeBoardRead(b_no, a_no);
 		model.addAttribute("noticeBoardVo", noticeBoardVo);
 		
-		List<AreaData> areaData = noticeBoardService.getAreaData();
+		List<AreaDataVo> areaData = noticeBoardService.getAreaData();
 		model.addAttribute("areaData", areaData);
 	}
 	

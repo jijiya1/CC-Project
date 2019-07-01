@@ -5,11 +5,10 @@
   
 <mapper namespace="Reply_Discussion">
 
-
 	<!-- 댓글 리스트 불러오기 -->
 	<select id="getDiscussionReplyList" resultType="ReplyVo_Discussion">
 		select * 
-	    from(select rownum rnum, a.*, (select count(*) from discussion_reply where b_serialno = #{b_serialno}) totalReplyCount
+	    from(select rownum rnum, a.*, (select count(*) from discussion_reply where b_serialno = #{b_serialno} and r_level = 0) totalReplyCount
 	        from ( select * 
 	        	   from discussion_reply
 	        	   where b_serialno = #{b_serialno} and r_level= 0
@@ -24,8 +23,8 @@
 	
 	<!-- 댓글 쓰기 -->
 	<insert id="writeReply">
-		insert into discussion_reply(b_serialno, r_no, r_writer , r_content ,r_yesorno)
-        values (#{b_serialno}, seq_discussion_reply.nextval, #{r_writer}, #{r_content}, #{r_yesOrNo})
+		insert into discussion_reply(b_serialno, r_no, r_writer, u_id , r_content ,r_yesorno)
+        values (#{b_serialno}, seq_discussion_reply.nextval, #{r_writer}, #{u_id}, #{r_content}, #{r_yesOrNo})
 	</insert>
 	
 	<!-- 댓글에 대해 좋아요 또는 싫어요값 추가 -->
@@ -66,8 +65,8 @@
 	
 	<!-- 댓글에 답글 달기 -->
 	<insert id="replyComentWrite">
-		insert into discussion_reply(b_serialno, r_no, r_writer , r_content, r_level, r_coment_no)
-		values (#{b_serialno},#{r_no},#{r_writer},#{r_content}, 1, seq_discussion_coment.nextval) 
+		insert into discussion_reply(b_serialno, r_no, r_writer, r_content, u_id, r_level, r_coment_no)
+		values (#{b_serialno},#{r_no},#{r_writer},#{r_content},#{u_id}, 1, seq_discussion_coment.nextval) 
 	</insert>
 	<!-- 댓글달린 답글 카운트 업데이트 -->
 	<update id="replyComentCountModify">

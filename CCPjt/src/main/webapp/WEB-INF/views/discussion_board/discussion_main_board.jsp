@@ -92,20 +92,23 @@
 </style>
 
 <div class="container-fluid">
-	<p>데이터 확인 :</p>
+	<p style="font: strong;">데이터 확인 :</p>
+	<p ><span class='12345678a'>데이터 확인 :</span></p>
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
 </div>
 
 <div class="slideshow-container">
 	<div>
-		<input type="button" id="btn_Discussion_rec" value="토론주제 추천 게시판" style="float: right;" >
+		<input type="button" id="btn_Discussion_rec" value="토론주제 추천게시판" style="float: right;" >
 	</div>
 	<c:forEach items="${discussionList }" var="boardVo_discussion" >
-		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="" >
-			<q style="font-size: 50px">${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}</q>
+		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
+			<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
+				${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
+			</q>
 			<p></p>
-			<p> 토론에 대해서 찬성 <input type="radio"  name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y"></p>
-			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N"></p>
+			<p> 토론에 대해서 찬성 <input type="radio"  name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" style= "cursor:pointer;"></p>
+			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" style="cursor:pointer;"></p>
 		</div>
 	</c:forEach>
 	
@@ -120,23 +123,29 @@
 </div>
 <br>
 
+<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
+	<label>토론 상세 내용</label>
+	<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
+</div>
+
+
 <!-- 댓글(의견) 달기 부분 -->
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12" id = "reply_Textarea">
-			<!-- 댓글 리스트 표시 부분 -->
+			<!-- 댓글 보기 버튼 -->
 			<a href="#" class="btn btn-primary btn-icon-split btnReplyList"  id="btnReplyList">                     
 				<span class="icon text-white-50">
 					<i class="fas fa-flag"></i>
 				</span>
 				<span class='text'>댓글 보기</span>
 			</a>
-
 		</div>
 	</div>
 </div>
 <br>
 
+<!-- 댓글 리스트 부분 -->
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -156,9 +165,17 @@
 	var nowReplyPage = 1;
 	
 	//임시 로그인 중인 사용자 -------------------------------------------
-	var r_writer = "시민(user2)";
-	var u_id = "user2";
+	var r_writer = "시민3";
+	var u_id = "user3";
 	// --------------------------------------------------------------------
+	
+	//임시 지역 정보 ---------------------------------------------------
+	var b_addInfo = "울산";
+	var b_detailInfo = "중구";
+	// --------------------------------------------------------------------
+	
+	
+	
 	
 	// 현재 댓글이 표시 되고 있는지
 	var replyListShow = false;
@@ -184,6 +201,8 @@
 	  } else {
 		  addReplyListButton();
 	  }
+	  
+	  b_contentArea.style.display = "none";
 	}
 	
 	function currentSlide(n) {
@@ -203,8 +222,9 @@
 	  } else {
 		  addReplyListButton();
 	  }// if
+	  
+	  b_contentArea.style.display = "none";
 	}
-	
 	
 	function showSlides(n) {
 	  var i; 
@@ -229,9 +249,24 @@
 	
 	// 토론 주제선정 게시판으로 이동버튼
 	$("#btn_Discussion_rec").click(function () {
-		location.href = "/discussion_board/discussion_res_board";
+		location.href = "/selectDiscussion/discussion_res_board/"+b_addInfo+"/"+b_detailInfo;
 	});//("#btn_Discussion_rec").click
 	
+	
+	// 토론 타이틀 클릭시 (토론 내용 상세보기 div 보이게)
+	$(".discussionTitle").click( function () {
+		var b_content = $(this).attr("data-b_content");
+		var b_contentArea = document.getElementById("b_contentArea");
+		
+		$(".b_content").val(b_content);
+		
+		if(b_contentArea.style.display == "none") {
+			b_contentArea.style.display = "block";
+		} else {
+			b_contentArea.style.display = "none";
+		}
+		
+	});
 	
 	// 댓글 작성(쓰기) 텍스트 Area Html 추가 기능
 	function addReplyTextarea(YorNSelect) {
@@ -246,7 +281,7 @@
 			borderColor = "#FF0000";
 		}//if
 
-		strHtml += "<textarea class='form-control r_content' id='r_content' style = 'box-sizing: border-box; border: solid 2px "+borderColor+"; padding: 10px;'></textarea>"
+		strHtml += "<textarea class='form-control r_content' id='r_content' style = 'box-sizing: border-box; border: solid 2px "+borderColor+"; padding: 10px;'></textarea><br>"
 					// 댓글 보기 버튼(html 코드)
 					+"<a href='#' class='btn btn-primary btn-icon-split btnReplyList' id='btnReplyList'>"
 					+	"<span class='icon text-white-50'>"
@@ -294,17 +329,20 @@
 	$("#reply_Textarea").on("click",".btnReplyWrite", function () {
 		console.log("작성 완료 버튼");
 		var r_content = $(".r_content").val(); // 댓글 내용 가져 오기
+		$(".r_content").val("");
 		var YorNSelect = $(".mySlides").eq(slideIndex - 1).attr("data-YorNSelect"); // 찬성 || 반대 정보 가져오기
 		console.log("r_content : " + YorNSelect+ " / "+ r_content);
 		
 		// 공란일때 알림
 		if(r_content == "") {
 			alert("내용을 입력해주세요");
+			$(".r_content").focus();
 		} else {
 			var url = "/discussion_reply/writeReply/"+YorNSelect;
 			var sendData = {
 					"b_serialno" : nowDiscussion_b_serialno,
 					"r_writer" : r_writer,
+					"u_id" : u_id,
 					"r_content" : r_content
 			};
 			$.ajax ({
@@ -370,6 +408,7 @@
 				}//if
 				
 				totalReplyCount = this.totalreplycount;
+				
 				var listR_no = this.r_no;
 				
 // 				console.log("r_no " + listR_no);
@@ -378,7 +417,7 @@
 				
 				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 				 		+ 		"<div class='card-body'>"
-						+			"<p>"+this.r_no+". "+this.r_writer+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+						+			"<p>"+this.r_no+". "+this.r_writer+"("+this.u_id+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
 						+			"<p>&nbsp;"+this.r_content+"</p>"
 						+			"<p style='text-align: right;' class='likeSelectArea'>"
 										// 좋아요 버튼
@@ -424,6 +463,7 @@
 			
 			// 리플 페이징 수
 			var replyPaging = parseInt(totalReplyCount/perPage);
+		
 			if (totalReplyCount%perPage > 0) {
 				replyPaging += 1;
 			}; //if
@@ -579,6 +619,7 @@
 			var sendData = {
 					"b_serialno" : nowDiscussion_b_serialno,
 					"r_no" : r_no,
+					"u_id"	: u_id,
 					"r_writer" : r_writer,
 					"r_content" : coment
 			}
@@ -613,7 +654,8 @@
 					var strHtml2 = "";
 					$.getJSON(url2, function (receivedData) {
 						$(receivedData).each(function (i) {
-							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px'>"+this.r_writer+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"+this.r_writer+"("+this.u_id+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+							
 						})
 
 						$(".replyComentList"+r_no).html(strHtml2);
@@ -661,8 +703,10 @@
 		var strHtml = "";
 		$.getJSON(url, function (receivedData) {
 			$(receivedData).each(function (i) {
-				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px'>"+this.r_writer+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
+				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
+						+this.r_writer+"("+this.u_id+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 			})
+
 			$(".replyComentList"+r_no).html(strHtml);
 		})
 		
@@ -680,8 +724,47 @@
 		
 		var strHtml = "<a href='#'  class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↓답글 보기["+r_coment_count+"]</a>";
 		$(".replyContentShowArea"+r_no).html(strHtml);
-	})
+	});
 	
+	// 답글 유저 아이디 클릭 이벤트
+	$("#discussion_ReplyList").on("click",".comentUserId", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		var u_id = $(this).attr("data-u_id");
+		var r_writer = $(this).attr("data-r_writer");
+		
+		var rname = "@"+ r_writer+"("+u_id+")"+"&nbsp;";
+// 		console.log("댓글 번호" + r_no +"에 "+ u_id +"유저 아이디/" +r_writer)
+		
+		var r_coment_count = $(this).attr("data-r_coment_count");
+// 		console.log(r_no + "답글 버튼");
+// 		console.log(r_coment_count + " / "+ r_no + "답글 버튼");
+		var comentTextAreaHtml = "<textarea class='form-control replyComent_content' id='replyComent_content"+r_no+"' style = padding: 10px;'> <a href='#'>"+ rname+"</a></textarea>";
+		$(".replyComentTextarea"+r_no).html(comentTextAreaHtml);
+		
+		var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
+// 		console.log(nowComentShow + " / "+ r_no + "보이는지 상태");
+// 		console.log(r_coment_count + " 개");
+		var strHtml = "";
+		
+	 	if (r_coment_count >= 1) {
+			if(nowComentShow == "false") {
+				strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기["+r_coment_count+"]</a></span>";
+			} else {
+				strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>";
+			}
+		}
+	 	
+		strHtml += 	"<p style='float: right;  margin-top: 10px;'>"
+						// 답글 등록버튼(체크 모양)
+				+  		"<a href='#' class='btn btn-success btn-circle btn-sm btnReplyComentWrite' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
+						// 답글 취소 버튼(휴지통)
+				+  		"<a href='#' class='btn btn-danger btn-circle btn-sm btnReplyComentCancel' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>"
+				+		"<i class='fas fa-trash'></i></a>"
+				+ 	"</p>";
+		$(".replyComentButtonArea"+r_no).html(strHtml);
+		$("#replyComent_content"+r_no).focus();
+	})
 </script>
 
 <%@include file="../include/footer.jsp" %>

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.domain.AreaDataVo;
 import com.kh.sbj.domain.PersonVo;
 
 
@@ -27,6 +28,12 @@ public class PersonDaoImpl implements IPersonDao {
 	public PersonVo selectPerson(String u_id) throws Exception {
 		PersonVo personVo = sqlSession.selectOne("person.selectPerson", u_id);
 		return personVo;
+	}
+
+	@Override
+	public AreaDataVo selectArea(int a_no) throws Exception {
+		AreaDataVo areaDataVo = sqlSession.selectOne("person.selectArea", a_no);
+		return areaDataVo;
 	}
 
 }

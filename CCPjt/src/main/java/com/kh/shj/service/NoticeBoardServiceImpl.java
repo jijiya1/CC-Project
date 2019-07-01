@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -61,8 +61,8 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 	@Override
-	public List<AreaData> getAreaData() throws Exception {
-		List<AreaData> areaDataList = noticeBoardDao.getAreaData();
+	public List<AreaDataVo> getAreaData() throws Exception {
+		List<AreaDataVo> areaDataList = noticeBoardDao.getAreaData();
 		return areaDataList;
 	}
 
@@ -73,8 +73,8 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 	@Override
-	public List<AreaData> getAOrder() throws Exception {
-		List<AreaData> aOrderList = noticeBoardDao.getAOrder();
+	public AreaDataVo getANo() throws Exception {
+		AreaDataVo aOrderList = noticeBoardDao.getANo();
 		return aOrderList;
 	}
 

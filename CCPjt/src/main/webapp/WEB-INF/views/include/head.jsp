@@ -13,7 +13,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-
   <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -23,6 +22,12 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+});
+</script>
 
 </head>
 
@@ -39,9 +44,9 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">CC-Project<sup>2</sup></div>
       </a>
-
+	
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
@@ -56,9 +61,6 @@
       
 <!--       Divider -->
 <!--       <hr class="sidebar-divider"> -->
-
-
-
 
 
 	<!-- 좌측 메뉴바 시작 -->
@@ -82,6 +84,8 @@
         </div>
       </li>
 
+
+	<c:if test="${ a_no != null }">	
       <!-- Divider -->
       <hr class="sidebar-divider">
       <!-- Heading -->
@@ -91,34 +95,36 @@
 
 	<!-- Nav Item - 정혜지 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/petition_board/petitionList">
+        <a class="nav-link" href="/petition_board/petitionList?a_no=${ a_no }">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>청원게시판(정혜지)</span></a>
+          <span>청원게시판</span></a>
       </li>
       
 	<!-- Nav Item - 손병진 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/person_board/person_list">
+        <a class="nav-link" href="/person_board/person_list?a_no=${ a_no }">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>의원정보게시판(손병진)</span></a>
+          <span>의원정보게시판</span></a>
       </li>
       
 	<!-- Nav Item - 황용석 -->
       <li class="nav-item active">
         <a class="nav-link" href="/discussion_board/discussion_main_board">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>토론게시판(황용석)</span></a>
+          <span>토론게시판</span></a>
       </li>
       
 	<!-- Nav Item - 박석환 -->
       <li class="nav-item active">
         <a class="nav-link" href="/suggest_board/suggest_list">
           <i class="fas fa-fw fa-list-alt"></i>
-          <span>자유게시판(박석환)</span></a>
+          <span>자유게시판</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      
+     </c:if>
       
       
       
@@ -290,7 +296,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인 부분</span>
                 <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
               </a>
               <!-- Dropdown - User Information -->

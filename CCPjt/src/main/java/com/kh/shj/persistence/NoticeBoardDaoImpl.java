@@ -1,6 +1,5 @@
 package com.kh.shj.persistence;
 
-import java.awt.geom.Area;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kh.domain.AreaData;
+import com.kh.domain.AreaDataVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -44,7 +43,7 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 		
 		HashMap<Object, Object> data = new HashMap<>();
 		data.put("b_no", b_no);
-		data.put("a_no", a_no);		
+		data.put("a_no", a_no);
 		
 		NoticeBoardVo noticeBoardVo = sqlSession.selectOne(NAMESPACE + "noticeBoardRead", data);
 		return noticeBoardVo;
@@ -85,8 +84,8 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<AreaData> getAreaData() throws Exception {
-		List<AreaData> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaData");
+	public List<AreaDataVo> getAreaData() throws Exception {
+		List<AreaDataVo> areaDataList = sqlSession.selectList(NAMESPACE + "getAreaData");
 		return areaDataList;
 	}
 
@@ -102,8 +101,8 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	}
 
 	@Override
-	public List<AreaData> getAOrder() throws Exception {
-		List<AreaData> aOrderList = sqlSession.selectList(NAMESPACE + "getAOrder");
+	public AreaDataVo getANo() throws Exception {
+		AreaDataVo aOrderList = sqlSession.selectOne(NAMESPACE + "getANo");
 		return aOrderList;
 	}
 

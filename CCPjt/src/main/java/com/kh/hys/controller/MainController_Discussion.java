@@ -17,20 +17,14 @@ import com.kh.hys.service.IBoardService_Discussion;
 public class MainController_Discussion {
 	
 	@Inject
-	IBoardService_Discussion discussion_BoardService;
-	
-	// 토론 주제 선정 게시판으로 가기
-	@RequestMapping(value = "/discussion_res_board", method=RequestMethod.GET)
-	public void discussion_res_board() throws Exception {
-		discussion_BoardService.getDiscussionList();
-	}
+	IBoardService_Discussion boardService_Discussion;
 	
 	// 토론 메인 게시판으로 가기
 	@RequestMapping(value = "/discussion_main_board", method=RequestMethod.GET)
 	public void discussion_main_board(Model model) throws Exception {
 //		System.out.println("discussion_main_board get 실행");
 		
-		List<BoardVo_Discussion> discussionList =  discussion_BoardService.getDiscussionList();
+		List<BoardVo_Discussion> discussionList =  boardService_Discussion.getDiscussionList();
 		int discussionListSize = discussionList.size();
 		String firstDiscussion_b_serialno =  discussionList.get(0).getB_serialno();
 		
@@ -38,5 +32,4 @@ public class MainController_Discussion {
 		model.addAttribute("discussionListSize", discussionListSize);
 		model.addAttribute("firstDiscussion_b_serialno", firstDiscussion_b_serialno);
 	}
-	
 }
