@@ -8,6 +8,9 @@ $(document).ready(function(){
 	
 });
 </script>
+<form>
+	
+</form>
 
 <div class="container-fluid">
 	<div class="row">
