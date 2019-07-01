@@ -21,8 +21,8 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	INoticeBoardDao noticeBoardDao;
 
 	@Override
-	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
-		List<NoticeBoardVo> list = noticeBoardDao.noticeBoardList(noSearchDto, noPagingDto);
+	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto, int a_no) throws Exception {
+		List<NoticeBoardVo> list = noticeBoardDao.noticeBoardList(noSearchDto, noPagingDto, a_no);
 //		System.out.println("Service list : " + list);
 		return list;
 	}

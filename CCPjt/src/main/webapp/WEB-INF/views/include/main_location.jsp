@@ -86,7 +86,7 @@ $(document).ready(function() {
 	
 	// 테스트 버튼
 	$("#btnSubMain").click(function() {
-		location.href="/main/sub_main";
+		location.href="/main/sub_main?a_no=10";
 	});
 
 });

@@ -39,7 +39,7 @@ $(document).ready(function() {
 			
 			<div>
 				<Button type="button" class="btn btn-danger" id="btnDelete"><span class="fas fa-check"></span></Button>
-				<Button type="button" class="btn btn-primary" id="btnCancel"><span class="fas fa-check"></span></Button>
+				<Button type="button" class="btn btn-primary" id="btnCancel"><span class="fas fa-times"></span></Button>
 			</div>
 			<br>
 			

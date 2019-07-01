@@ -51,6 +51,7 @@
 		</if>
 		order by b_no desc) a)
 		where rnum &gt;= #{noPagingDto.startRow} and rnum &lt;= #{noPagingDto.endRow}
+				and b_addinfo= #{a_no}
 	</select>
 	
 	<!-- 해당 게시글 읽기 -->
@@ -97,7 +98,7 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'b_title'">
-				and b_title like '%' || #{keyword} || '%' d
+				and b_title like '%' || #{keyword} || '%' 
 			</if>
 		</if>
 	</sql>

@@ -22,13 +22,14 @@ public class NoticeBoardDaoImpl implements INoticeBoardDao {
 	SqlSession sqlSession;
 
 	@Override
-	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto, int a_no) throws Exception {
 //		System.out.println("NoticeBoardDaoImpl / noticeBoardList 실행됨");
-		
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("noSearchDto", noSearchDto);
 		data.put("noPagingDto", noPagingDto);
-//		System.out.println("noSearchDto" + noSearchDto);
+		data.put("a_no", a_no);
+		
+//		System.out.println("Dao noSearchDto" + noSearchDto);
 //		data.put("dto", dto);
 //		System.out.println("data : " + data);
 		

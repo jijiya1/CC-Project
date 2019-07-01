@@ -151,9 +151,9 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary">수정</button>
+			<button type="submit" class="btn btn-primary"><span class="fas fa-check"></span></button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
+			<button type="button" class="btn btn-success" id="btnNoticeBoardList"><span class="fas fa-list"></span></button>
 		</form>
 		<!-- 공지사항 수정 부분 끝 - form -->
 	</div>

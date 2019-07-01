@@ -9,7 +9,7 @@ $(document).ready(function() {
 	
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
-		location.href = "/notice_board/notice_list";
+		location.href = "/notice_board/notice_list?a_no=${a_no}&searchType=b_addinfo&keyword=${a_no}";
 	});
 	
 	// 글 수정
@@ -43,7 +43,7 @@ $(document).ready(function() {
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">${ noticeBoardVo.b_title }</h1><br>
 	
-	${ areaData }
+	${ areaDataVo }
 	
 	<!-- 공지사항 읽기 부분 시작 -->
 	<div class="card shadow mb-4">
@@ -91,9 +91,9 @@ $(document).ready(function() {
 	<!-- 공지사항 읽기 부분 끝 -->
 	
 	<!-- 하단 버튼 모음 시작 -->
-	<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
-	<button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
-	<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+	<button type="button" class="btn btn-success" id="btnNoticeBoardList"><span class="fas fa-list"></span></button>
+	<button type="button" class="btn btn-warning" id="btnUpdate"><span class="fas fa-pencil-alt"></span></button>
+	<button type="button" class="btn btn-danger" id="btnDelete"><span class="fas fa-trash"></span></button>
 	<!-- 하단 버튼 모음 끝 -->
 
 </div>

@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
-		location.href = "/notice_board/notice_list";
+		location.href = "/notice_board/notice_list?a_no=${a_no}&searchType=b_addinfo&keyword=${a_no}";
 	});
 	
 	$("#b_addinfo").change(function(e) {
@@ -28,6 +28,9 @@ $(document).ready(function() {
 		
 // 		var test = e.originalEvent.currentTarget[0].index;
 // 		console.log(test);
+		
+		var a_no = "${ areaDataVo.a_no }";
+		console.log(a_no);
 		
 		var strHtml = "";
 		if (b_addinfo == 10) {
@@ -61,6 +64,7 @@ $(document).ready(function() {
 					+  "</select>"
 					+  "</div>";
 		}
+		
 		$(".test").html(strHtml);
 			
 		
@@ -72,22 +76,28 @@ $(document).ready(function() {
 	});
 	
 	// 테스트
-// 	$("#test").click(function() {
-// 		var b_title = $("input[name=b_title]").val();
-// 		console.log(b_title);
-// 		var b_write = $("input[name=b_write]").val();
-// 		console.log(b_write);
-// 		var u_id = $("input[name=u_id]").val();
-// 		console.log(u_id);
-// 		var b_addinfo = $("select[name=b_addinfo]").val();
-// 		console.log(b_addinfo);
-// 		var b_detailinfo = $("select[name=b_detailinfo]").val();
-// 		console.log(b_detailinfo);
-// 		var name_b_content = $("textarea[name=b_content]").val();
-// 		console.log(name_b_content);
-// 		var b_content = $("#summernote").val();
-// 		console.log(b_content);
-// 	});
+	$("#test").click(function() {
+		var b_title = $("input[name=b_title]").val();
+		console.log(b_title);
+		
+		var u_id = $("input[name=u_id]").val();
+		console.log(u_id);
+		
+		var b_addinfo = $("select[name=b_addinfo]").val();
+		console.log(b_addinfo);
+		
+		var b_detailinfo = $("select[name=b_detailinfo]").val();
+		console.log(b_detailinfo);
+		
+		var name_b_content = $("textarea[name=b_content]").val();
+		console.log(name_b_content);
+		
+		var a_no = $("input[name=a_no]").val();
+		console.log(a_no);
+		
+		var b_content = $("#summernote").val();
+		console.log(b_content);
+	});
 	
 });
 </script>
@@ -102,6 +112,7 @@ $(document).ready(function() {
 		
 		<!-- 공지사항 작성 부분 시작 - form -->
 		<form role="form" method="post">
+			<input type="hidden" name="a_no" value="${ areaDataVo.a_no }">
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
@@ -179,9 +190,9 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary">작성</button>
-<!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
+			<button type="submit" class="btn btn-primary"><span class="fas fa-check"></span></button>
+			<button type="button" class="btn btn-success" id="btnNoticeBoardList"><span class="fas fa-list"></span></button>
+			<button type="button" class="btn btn-primary" id="test">테스트</button>
 		</form>
 		<!-- 공지사항 작성 부분 끝 - form -->
 

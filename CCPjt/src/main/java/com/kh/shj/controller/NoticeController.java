@@ -31,11 +31,13 @@ public class NoticeController {
 //		System.out.println("notice_list get 실행함.");
 //		System.out.println("noSearchDto : " + noSearchDto);
 //		System.out.println("noPagingDto : " + noPagingDto);
-		List<NoticeBoardVo> list = noticeBoardService.noticeBoardList(noSearchDto, noPagingDto);
+		List<NoticeBoardVo> list = noticeBoardService.noticeBoardList(noSearchDto, noPagingDto, a_no);
 		model.addAttribute("list", list);
 //		System.out.println("list : " + list);
 //		System.out.println("a_no : " + a_no);
+		
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 		int count = noticeBoardService.noticeBoardCount(noSearchDto);
 		model.addAttribute("count", count);
@@ -48,7 +50,6 @@ public class NoticeController {
 		noPaginationDto.setContentCount(contentCount);
 		
 		model.addAttribute("noPaginationDto", noPaginationDto);
-		model.addAttribute("areaDataVo", areaDataVo);
 
 	}
 	
@@ -58,26 +59,31 @@ public class NoticeController {
 //		System.out.println("notice_read get 실행함.");
 		NoticeBoardVo noticeBoardVo = noticeBoardService.noticeBoardRead(b_no, a_no);
 		model.addAttribute("noticeBoardVo", noticeBoardVo);
+		model.addAttribute("a_no", a_no);
 		
 	}
 	
 	// 공지사항 작성 폼 이동
 	@RequestMapping(value="/notice_write", method=RequestMethod.GET)
-	public void noticeBoardWrite(Model model) throws Exception {
+	public void noticeBoardWrite(@RequestParam("a_no") int a_no, Model model) throws Exception {
 //		System.out.println("notice_write get 실행함.");
 		List<AreaDataVo> areaData = noticeBoardService.getAreaDataList();
 		model.addAttribute("areaData", areaData);
+		
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 	}
 	
 	// 공지사항 작성 실행
 	@RequestMapping(value="/notice_write", method=RequestMethod.POST)
-	public String noticeBoardWrite(NoticeBoardVo noticeBoardVo, RedirectAttributes rttr) throws Exception {
+	public String noticeBoardWrite(@RequestParam("a_no") int a_no, NoticeBoardVo noticeBoardVo, RedirectAttributes rttr, Model model) throws Exception {
 //		System.out.println("notice_write post 실행함.");
 //		System.out.println("noticeBoardVo : " + noticeBoardVo);
 		noticeBoardService.noticeBoardWrite(noticeBoardVo);
 		rttr.addFlashAttribute("message", "success_write");
-		return "redirect:/notice_board/notice_list";
+		model.addAttribute("a_no", a_no);
+		return "redirect:/notice_board/notice_list?a_no="+ a_no;
 	}
 	
 	// 공지사항 글 수정 폼 이동
@@ -92,10 +98,10 @@ public class NoticeController {
 	
 	// 공지사항 글 수정 실행
 	@RequestMapping(value="/notice_update", method=RequestMethod.POST)
-	public String noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception {
+	public String noticeBoardUpdate(@RequestParam("a_no") int a_no, NoticeBoardVo noticeBoardVo) throws Exception {
 //		System.out.println("noticeBoardVo : " + noticeBoardVo);
 		noticeBoardService.noticeBoardUpdate(noticeBoardVo);
-		return "redirect:/notice_board/notice_read?b_no=" + noticeBoardVo.getB_no() + "&a_no=" + noticeBoardVo.getA_no();
+		return "redirect:/notice_board/notice_read?b_no=" + noticeBoardVo.getB_no() + "&a_no=" + a_no;
 	}
 	
 	// 공지사항 글 삭제 폼 이동

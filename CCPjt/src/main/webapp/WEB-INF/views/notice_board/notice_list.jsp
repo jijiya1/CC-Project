@@ -25,7 +25,7 @@ $(document).ready(function() {
 	
 	// 공지사항 작성
 	$("#btnNoticeWrite").click(function() {
-		location.href = "/notice_board/notice_write";
+		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
 	});
 	 
 	 // 해당 글 읽기
@@ -73,8 +73,12 @@ $(document).ready(function() {
 			 if(e.keyCode == 13) {
 				setPage();
 				$("input[name=searchType]").val("b_title");
+				var a_no = "${ areaDataVo.a_no }";
+				console.log(a_no);
+				$("input[name=a_no]").val(a_no);
 				var keyword = $("#keyword").val();
 				$("input[name=keyword]").val(keyword);
+// 				console.log(keyword);
 				$("#hiddenData").submit();
 			 }
 		 });
@@ -212,7 +216,7 @@ $(document).ready(function() {
 	  
 	  <!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
-		<a href="/notice_board/notice_list"><button type="button" class="btn btn-success" style="float: left;"><span class="fas fa-list"></span></button></a>
+		<a href="/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;"><span class="fas fa-list"></span></button></a>
 		<button class="btn btn-danger" id="btnNoticeWrite">공지사항 작성</button>
 		
 	  	<!-- 페이지네이션 시작 -->
@@ -261,6 +265,6 @@ $(document).ready(function() {
 	<!-- 공지사항 끝 -->
 	
 	<!-- css 테스트 -->
-	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div>
+<!-- 	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div> -->
 
 <%@include file="../include/footer.jsp" %>

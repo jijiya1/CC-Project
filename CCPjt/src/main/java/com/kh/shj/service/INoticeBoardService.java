@@ -10,7 +10,7 @@ import com.kh.shj.domain.NoticeBoardVo;
 public interface INoticeBoardService {
 
 	// 글 목록
-	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception;
+	public List<NoticeBoardVo> noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto, int a_no) throws Exception;
 	
 	// 해당 글 읽기
 	public NoticeBoardVo noticeBoardRead(int b_no, int a_no) throws Exception;
