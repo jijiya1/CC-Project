@@ -83,6 +83,11 @@ $(document).ready(function() {
 	$("#btnJeju").click(function() {
 		location.href="/notice_board/notice_list?b_no=&a_no=64&nowPage=1&perPage=10&searchType=b_addinfo&keyword=64";
 	});
+	
+	// 테스트 버튼
+	$("#btnSubMain").click(function() {
+		location.href="/main/sub_main";
+	});
 
 });
 </script>
@@ -169,6 +174,12 @@ $(document).ready(function() {
 		<button type="button" class="btn btn-outline-primary" id="btnGangwon">강 원</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnJeju">제 주</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnSejong">세 종</button>&nbsp;&nbsp;
+				<br><br>
+	</div>
+	
+	<!-- sub_main 테스트 버튼 -->
+	<div>
+		<button type="button" class="btn btn-outline-primary" id="btnSubMain">테스트</button>&nbsp;&nbsp;
 				<br><br>
 	</div>
 	
