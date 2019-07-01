@@ -78,16 +78,29 @@ $(document).ready(function() {
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">분류 :</h6>
-            <a class="collapse-item" href="/notice_board/notice_list">전체</a>
+            <a class="collapse-item" href="/notice_board/notice_list?a_no=10">전체</a>
             <a class="collapse-item" href="/notice_board/notice_location">지역별</a>
           </div>
         </div>
       </li>
 
 
-	<c:if test="${ a_no != null }">	
-      <!-- Divider -->
+	<c:if test="${ areaDataVo.a_no != null }">
+		      <!-- Divider -->
       <hr class="sidebar-divider">
+	<c:choose>
+	<c:when test="${ areaDataVo.a_no == 10 }">
+	<!-- Nav Item - 지역선택 -->
+     <div class="sidebar-heading">
+        정해주삼
+      </div>
+      <li class="nav-item active">
+        <a class="nav-link" href="/notice_board/notice_location">
+          <i class="fas fa-fw fa-list-alt"></i>
+          <span>지역선택</span></a>
+      </li>
+	</c:when>
+	<c:otherwise>
       <!-- Heading -->
       <div class="sidebar-heading">
         정해주삼
@@ -95,14 +108,14 @@ $(document).ready(function() {
 
 	<!-- Nav Item - 정혜지 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/petition_board/petitionList?a_no=${ a_no }">
+        <a class="nav-link" href="/petition_board/petitionList?a_no=${ areaDataVo.a_no }">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>청원게시판</span></a>
       </li>
       
 	<!-- Nav Item - 손병진 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/person_board/person_list?a_no=${ a_no }">
+        <a class="nav-link" href="/person_board/person_list?a_no=${ areaDataVo.a_no }">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>의원정보게시판</span></a>
       </li>
@@ -121,11 +134,12 @@ $(document).ready(function() {
           <span>자유게시판</span></a>
       </li>
 
-      <!-- Divider -->
+
+      </c:otherwise>
+      </c:choose>
+            <!-- Divider -->
       <hr class="sidebar-divider">
-      
      </c:if>
-      
       
       
 	<!-- 좌측 메뉴바 끝 -->
