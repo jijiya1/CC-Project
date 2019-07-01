@@ -27,13 +27,14 @@ public class NoticeController {
 	
 	// 공지사항 리스트
 	@RequestMapping(value = "/notice_list", method = RequestMethod.GET)
-	public void noticeBoardList(NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model) throws Exception {
+	public void noticeBoardList(@RequestParam("a_no") int a_no, NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model) throws Exception {
 //		System.out.println("notice_list get 실행함.");
 //		System.out.println("noSearchDto : " + noSearchDto);
 //		System.out.println("noPagingDto : " + noPagingDto);
 		List<NoticeBoardVo> list = noticeBoardService.noticeBoardList(noSearchDto, noPagingDto);
 		model.addAttribute("list", list);
 //		System.out.println("list : " + list);
+//		System.out.println("a_no : " + a_no);
 		
 		int count = noticeBoardService.noticeBoardCount(noSearchDto);
 		model.addAttribute("count", count);
@@ -46,6 +47,8 @@ public class NoticeController {
 		noPaginationDto.setContentCount(contentCount);
 		
 		model.addAttribute("noPaginationDto", noPaginationDto);
+		model.addAttribute("a_no", a_no);
+
 	}
 	
 	// 공지사항 해당 글 읽기

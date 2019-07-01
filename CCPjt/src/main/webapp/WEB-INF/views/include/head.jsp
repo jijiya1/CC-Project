@@ -13,7 +13,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-
   <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -26,10 +25,7 @@
 
 <script>
 $(document).ready(function() {
-	$("#jhj").click(function() {
-		var url = "/petition_board/petitionList?a_no=";
-		$("#jhj").attr("href", url).submit();
-	});
+
 });
 </script>
 
@@ -88,6 +84,8 @@ $(document).ready(function() {
         </div>
       </li>
 
+
+	<c:if test="${ a_no != null }">	
       <!-- Divider -->
       <hr class="sidebar-divider">
       <!-- Heading -->
@@ -97,14 +95,14 @@ $(document).ready(function() {
 
 	<!-- Nav Item - 정혜지 -->
       <li class="nav-item active">
-        <a class="nav-link" href="#" id="jhj">
+        <a class="nav-link" href="/petition_board/petitionList?a_no=${ a_no }">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>청원게시판</span></a>
       </li>
       
 	<!-- Nav Item - 손병진 -->
       <li class="nav-item active">
-        <a class="nav-link" href="/person_board/person_list">
+        <a class="nav-link" href="/person_board/person_list?a_no=${ a_no }">
           <i class="fas fa-fw fa-list-alt"></i>
           <span>의원정보게시판</span></a>
       </li>
@@ -125,6 +123,8 @@ $(document).ready(function() {
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      
+     </c:if>
       
       
       
