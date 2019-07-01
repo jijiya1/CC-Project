@@ -106,8 +106,8 @@
 				${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
 			</q>
 			<p></p>
-			<p> 토론에 대해서 찬성 <input type="radio"  name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" style= "cursor:pointer;"></p>
-			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" style="cursor:pointer;"></p>
+			<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
+			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
 		</div>
 	</c:forEach>
 	
@@ -167,14 +167,10 @@
 	var r_writer = "시민3";
 	var u_id = "user3";
 	// --------------------------------------------------------------------
-	
+
 	//임시 지역 정보 ---------------------------------------------------
-	var b_addInfo = "울산";
-	var b_detailInfo = "중구";
+	var b_addInfo = ${a_no};
 	// --------------------------------------------------------------------
-	
-	
-	
 	
 	// 현재 댓글이 표시 되고 있는지
 	var replyListShow = false;
@@ -248,7 +244,7 @@
 	
 	// 토론 주제선정 게시판으로 이동버튼
 	$("#btn_Discussion_rec").click(function () {
-		location.href = "/selectDiscussion/discussion_res_board/"+b_addInfo+"/"+b_detailInfo;
+		location.href = "/selectDiscussion/discussion_select_board/"+b_addInfo;
 	});//("#btn_Discussion_rec").click
 	
 	
@@ -315,15 +311,43 @@
 	
 	// 토론 찬성 또는 반대(radio 버튼)에 따른 기능구분
 	$(".radioYorN").click(function () {
-		var YorN_Select = $(this).attr("data-YorN");
-// 		console.log(YorN_Select+"체크함");
+		var YorN = $(this).attr("data-YorN");
+		var agreenum = 0;
 		
-		$(".mySlides").eq(slideIndex-1).attr("data-YorNSelect", YorN_Select);
+		if(YorN == "Y") {
+			agreenum = 1;
+		} else if (YorN == "N") {
+			agreenum = 2;
+		}
+
 		
-		addReplyTextarea(YorN_Select);
+		var b_no = $(this).attr("data-b_no");
+// 		console.log("글번호 "+b_no+" "+ YorN_Select+"체크함");
+		var url = "/discussion_board/discussion_agreeSelect"
+		var sendData = {
+				"b_no" : b_no,
+				"u_id" : u_id,
+				"agreenum" : agreenum
+		}
+		
+		$.ajax({
+			"type" : "post",
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method_Override" : "post" 
+			},
+			"dataType" : "text",
+			"data" : JSON.stringify(sendData),
+			"success" : function (receivedData) {
+				
+			}
+		});
+		
+		$(".mySlides").eq(slideIndex-1).attr("data-YorNSelect", YorN);
+		addReplyTextarea(YorN);
 	});// $(".radioYorN").click
-	
-	
+
 	// 댓글 작성(쓰기)완료 버튼
 	$("#reply_Textarea").on("click",".btnReplyWrite", function () {
 		console.log("작성 완료 버튼");
@@ -383,144 +407,149 @@
 		
 		$.getJSON(url, function (receivedData) {
 // 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
-			
 			var discussionReplyList = receivedData.discussionReplyList;
-			var replyLikeInfoList = receivedData.replyLikeInfoList;
-// 			console.log("discussionReplyList : " ,  discussionReplyList);
-// 			console.log("replyLikeInfoList : " ,replyLikeInfoList);
-			var strHtml = "";
-			var borderColor = "";
-			var YorN = "";
-			var YorNColor = "";
-			var totalReplyCount = 1;
+
+			console.log("discussionReplyList : " ,  discussionReplyList);
 			
-			$(discussionReplyList).each(function (i) {
+			if(discussionReplyList == "") {
+				alert("해당 글에 대한 댓글이 아직 없습니다.")
+			} else {
+				var replyLikeInfoList = receivedData.replyLikeInfoList;
+	// 			console.log("replyLikeInfoList : " ,replyLikeInfoList);
+				var strHtml = "";
+				var borderColor = "";
+				var YorN = "";
+				var YorNColor = "";
+				var totalReplyCount = 1;
 				
-				var frontId = this.u_id.substring(0,3);
-				renameId = frontId + "***";
+				$(discussionReplyList).each(function (i) {
+					
+					var frontId = this.u_id.substring(0,3);
+					renameId = frontId + "***";
+					
+					if (this.r_yesOrNo == "0") {
+						borderColor = "primary"
+						YorN = "찬성";
+						YorNColor = "blue";
+					} else if (this.r_yesOrNo == "1") {
+						borderColor = "danger";
+						YorN = "반대";
+						YorNColor = "red";
+					}//if
+					
+					totalReplyCount = this.totalreplycount;
+					
+					var listR_no = this.r_no;
+					
+	// 				console.log("r_no " + listR_no);
+	// 				console.log("this " , this);
+	// 				console.log("this.r_no " + this.r_no);
+					
+					strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
+					 		+ 		"<div class='card-body'>"
+							+			"<p>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+							+			"<p>&nbsp;"+this.r_content+"</p>"
+							+			"<p style='text-align: right;' class='likeSelectArea'>"
+											// 좋아요 버튼
+							+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
+												$(replyLikeInfoList).each(function (i) {
+													if(this.r_no == listR_no && this.r_likenum == 1 && this.u_id == u_id) {
+														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+													}//if
+												})
+					strHtml +=				">"
+							+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
+											// 싫어요 버튼
+							+				"<a href='#' class='btn btn-danger btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
+												$(replyLikeInfoList).each(function (i) {
+													if(this.r_no == listR_no && this.r_likenum == 2 && this.u_id == u_id) {
+														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+													}//if
+												})
+					strHtml +=				">"
+							+				"<span class='fas fa-thumbs-down'>&nbsp;"+this.r_downcount+"</span></a>"
+							+			"</p> "
+							+			"<div class='replyComentTextarea"+this.r_no+"'>"
+							+			"</div>"
+							+			"<div class='replyComentButtonArea"+this.r_no+"' data-nowComentShow='false'>"
+							+				"<p>";
+												// 댓글에 ↓ 답글 더보기 버튼
+												if (this.r_coment_count >= 1) {
+													strHtml +=	"<span class='replyContentShowArea"+this.r_no+"'><a href='#'  class='btnReplyComentList' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >↓답글 보기["+this.r_coment_count+"]</a></span>";
+												}
+												// 댓글에 답글 달기 버튼
+					strHtml +=					"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >답글 달기</a></span>"
+							+				"</p>"
+							+			"</div>"
+							+			"<div class='replyComentList"+this.r_no+"'>"
+							+			"</div>"
+							+ 		"</div>"	
+							+  "</div>";
+				});//$(receivedData).each
 				
-				if (this.r_yesOrNo == "0") {
-					borderColor = "primary"
-					YorN = "찬성";
-					YorNColor = "blue";
-				} else if (this.r_yesOrNo == "1") {
-					borderColor = "danger";
-					YorN = "반대";
-					YorNColor = "red";
-				}//if
+				var startPage = 1;
+				var endPage = 10;
+				var perPage = 5;
 				
-				totalReplyCount = this.totalreplycount;
+				// 리플 페이징 수
+				var replyPaging = parseInt(totalReplyCount/perPage);
+			
+				if (totalReplyCount%perPage > 0) {
+					replyPaging += 1;
+				}; //if
 				
-				var listR_no = this.r_no;
+				var pageConunt = parseInt((nowReplyPage-1)/perPage);
 				
-// 				console.log("r_no " + listR_no);
-// 				console.log("this " , this);
-// 				console.log("this.r_no " + this.r_no);
+				startPage = startPage + (perPage*pageConunt);
+				endPage = startPage + (perPage-1);
+				if (replyPaging < endPage){
+					endPage = replyPaging;
+				}; // if
 				
-				strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
-				 		+ 		"<div class='card-body'>"
-						+			"<p>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
-						+			"<p>&nbsp;"+this.r_content+"</p>"
-						+			"<p style='text-align: right;' class='likeSelectArea'>"
-										// 좋아요 버튼
-						+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
-											$(replyLikeInfoList).each(function (i) {
-												if(this.r_no == listR_no && this.r_likenum == 1 && this.u_id == u_id) {
-													strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
-												}//if
-											})
-				strHtml +=				">"
-						+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
-										// 싫어요 버튼
-						+				"<a href='#' class='btn btn-danger btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
-											$(replyLikeInfoList).each(function (i) {
-												if(this.r_no == listR_no && this.r_likenum == 2 && this.u_id == u_id) {
-													strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
-												}//if
-											})
-				strHtml +=				">"
-						+				"<span class='fas fa-thumbs-down'>&nbsp;"+this.r_downcount+"</span></a>"
-						+			"</p> "
-						+			"<div class='replyComentTextarea"+this.r_no+"'>"
-						+			"</div>"
-						+			"<div class='replyComentButtonArea"+this.r_no+"' data-nowComentShow='false'>"
-						+				"<p>";
-											// 댓글에 ↓ 답글 더보기 버튼
-											if (this.r_coment_count >= 1) {
-												strHtml +=	"<span class='replyContentShowArea"+this.r_no+"'><a href='#'  class='btnReplyComentList' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >↓답글 보기["+this.r_coment_count+"]</a></span>";
-											}
-											// 댓글에 답글 달기 버튼
-				strHtml +=					"<span style='float:right;'><a href='#'  class='replyComent' data-r_no='"+this.r_no+"' data-r_coment_count='"+this.r_coment_count+"' >답글 달기</a></span>"
-						+				"</p>"
-						+			"</div>"
-						+			"<div class='replyComentList"+this.r_no+"'>"
-						+			"</div>"
-						+ 		"</div>"	
-						+  "</div>";
-			});//$(receivedData).each
-			
-			var startPage = 1;
-			var endPage = 10;
-			var perPage = 5;
-			
-			// 리플 페이징 수
-			var replyPaging = parseInt(totalReplyCount/perPage);
-		
-			if (totalReplyCount%perPage > 0) {
-				replyPaging += 1;
-			}; //if
-			
-			var pageConunt = parseInt((nowReplyPage-1)/perPage);
-			
-			startPage = startPage + (perPage*pageConunt);
-			endPage = startPage + (perPage-1);
-			if (replyPaging < endPage){
-				endPage = replyPaging;
-			}; // if
-			
-// 			console.log("startPage :" + startPage )
-			
-			if(strHtml != ""){
-				strHtml += 	"<div class='container-fluid'>"
-							+	"<div class='row'>"
-							+	"<div class='col-md-4'></div>"
-							+	"<div class='col-md-4'>"
-							+	"<ul class='pagination'>"
-							
-							//startPage가 1일때 이전 버튼 비활성화
-							if(startPage == "1"){
-								strHtml += "<li class='paginate_button page-item previous disabled' id='reply_previous'>";
-							} else {
-								strHtml += "<li class='paginate_button page-item previous' id='reply_previous'>";
-							};// if
-							
-							startPage -= 1;
-							strHtml += "<a class='page-link' data-reply_page = '"+startPage+"' href='#'>Previous</a></li>";
-			 				
-							startPage += 1;
-			 				for (var i = startPage; i<= endPage ; i++){
-			 					strHtml +=	"<li class='paginate_button page-item";
-			 					if(i == nowReplyPage) {
-			 						strHtml += " active";
-			 					}
-			 					strHtml += "'><a class='page-link' data-reply_page = '"+i+"' href='#'>"+i+"</a></li>";
-			 				};//for
-			 				
-			 				//endPage가 마지막일때 이전 버튼 비활성화
-			 				if(replyPaging == endPage) {
-			 					strHtml +=	"<li class='paginate_button page-item disabled' id='reply_next'>";
-			 				} else {
-			 					strHtml +=	"<li class='paginate_button page-item' id='reply_next'>";
-			 				};//if
-			 				
-			 				endPage += 1;
-				 			strHtml +=	"<a class='page-link' data-reply_page = '"+endPage+"' href='#'>Next</a></li>";
-			 				+		"</ul>";
-			 				+	"</div>"
-			 				+	"<div class='col-md-4'></div>"
-		 				+	"</div>";
-			}//if		
-			$("#discussion_ReplyList").html(strHtml);
+	// 			console.log("startPage :" + startPage )
+				
+				if(strHtml != ""){
+					strHtml += 	"<div class='container-fluid'>"
+								+	"<div class='row'>"
+								+	"<div class='col-md-4'></div>"
+								+	"<div class='col-md-4'>"
+								+	"<ul class='pagination'>"
+								
+								//startPage가 1일때 이전 버튼 비활성화
+								if(startPage == "1"){
+									strHtml += "<li class='paginate_button page-item previous disabled' id='reply_previous'>";
+								} else {
+									strHtml += "<li class='paginate_button page-item previous' id='reply_previous'>";
+								};// if
+								
+								startPage -= 1;
+								strHtml += "<a class='page-link' data-reply_page = '"+startPage+"' href='#'>Previous</a></li>";
+				 				
+								startPage += 1;
+				 				for (var i = startPage; i<= endPage ; i++){
+				 					strHtml +=	"<li class='paginate_button page-item";
+				 					if(i == nowReplyPage) {
+				 						strHtml += " active";
+				 					}
+				 					strHtml += "'><a class='page-link' data-reply_page = '"+i+"' href='#'>"+i+"</a></li>";
+				 				};//for
+				 				
+				 				//endPage가 마지막일때 이전 버튼 비활성화
+				 				if(replyPaging == endPage) {
+				 					strHtml +=	"<li class='paginate_button page-item disabled' id='reply_next'>";
+				 				} else {
+				 					strHtml +=	"<li class='paginate_button page-item' id='reply_next'>";
+				 				};//if
+				 				
+				 				endPage += 1;
+					 			strHtml +=	"<a class='page-link' data-reply_page = '"+endPage+"' href='#'>Next</a></li>";
+				 				+		"</ul>";
+				 				+	"</div>"
+				 				+	"<div class='col-md-4'></div>"
+			 				+	"</div>";
+				}//if		
+				$("#discussion_ReplyList").html(strHtml);
+			}	
 		});//$.getJSON(url, function (receivedData)
 	}//getReplyList()
 	

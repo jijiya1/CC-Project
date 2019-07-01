@@ -10,7 +10,7 @@
 		from (select ROWNUM rnum, a.*
 		      from (select * 
 		            from selectdiscussion_board
-		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo} and b_detailinfo = #{b_detailInfo}) a)
+		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo}) a)
 		where rnum &gt;= 1 and rnum &lt;=10
 		order by b_no desc
 	</select>
@@ -19,6 +19,6 @@
 	<select id ="totalSelectBoardCount" resultType="int" >
 		select count(*) 
         from selectdiscussion_board
-        where b_checkeddel = 0 and b_addinfo = #{b_addInfo} and b_detailinfo = #{b_detailInfo}
+        where b_checkeddel = 0 and b_addinfo = #{b_addInfo}
 	</select>
 </mapper>

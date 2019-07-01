@@ -48,7 +48,6 @@ public class NoticeController {
 		
 		model.addAttribute("noPaginationDto", noPaginationDto);
 		model.addAttribute("a_no", a_no);
-
 	}
 	
 	// 공지사항 해당 글 읽기
