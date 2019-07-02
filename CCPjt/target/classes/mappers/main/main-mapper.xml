@@ -11,8 +11,23 @@
 			(select rownum rnum, a.* from 
 				(select * from notice_board, area_data
 					where b_addinfo = a_no
+                    and b_checkeddel = 0
 					order by b_no desc)a)
-		where rnum &gt;= 1 and rnum &lt;= 5
+            where rnum &gt;= 1 and rnum &lt;= 5
 	</select>
-
+	
+	<!-- 서브페이지 공지사항 목록 불러오기 -->
+	<select id="getSubnoticeBoardList" resultType="noticeBoardVo">
+		select * from (select rownum rnum, a.* from (select * from notice_board, area_data
+		where b_addinfo = a_no
+		and b_checkeddel = 0
+		<if test="noSearchDto.searchType != null">
+			<if test="noSearchDto.searchType == 'b_addinfo'">
+				and b_addinfo like '%' || #{noSearchDto.keyword} || '%' 
+			</if>
+		</if>
+			order by b_no desc) a)
+		where rnum &gt;= 1 and rnum &lt;= 5
+		and b_addinfo= #{a_no}
+	</select>
 </mapper>

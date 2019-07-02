@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.DetailDataVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -49,8 +50,8 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	}
 
 	@Override
-	public void noticeBoardDelete(int b_no) throws Exception {
-		noticeBoardDao.noticeBoardDelete(b_no);
+	public void noticeBoardDelete(int b_no, int a_no) throws Exception {
+		noticeBoardDao.noticeBoardDelete(b_no, a_no);
 
 	}
 
@@ -82,6 +83,18 @@ public class NoticeBoardServiceImpl implements INoticeBoardService {
 	public List<AreaDataVo> getAreaDataList() throws Exception {
 		List<AreaDataVo> areaDataList = noticeBoardDao.getAreaDataList();
 		return areaDataList;
+	}
+
+	@Override
+	public List<DetailDataVo> getDetailAreaData(int a_no) throws Exception {
+		List<DetailDataVo> getDetailAreaData = noticeBoardDao.getDetailAreaData(a_no);
+		return getDetailAreaData;
+	}
+
+	@Override
+	public AreaDataVo getAreaDataANo(int a_no) throws Exception {
+		AreaDataVo getAreaDataANo = noticeBoardDao.getAreaDataANo(a_no);
+		return getAreaDataANo;
 	}
 
 }

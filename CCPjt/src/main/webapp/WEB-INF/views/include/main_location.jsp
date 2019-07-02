@@ -13,81 +13,81 @@
 $(document).ready(function() {
 	
 	$("#btnAll").click(function() {
-		location.href="/notice_board/notice_list?a_no=10";
+		location.href="/main/sub_main?b_no=&a_no=10&nowPage=1&perPage=5&searchType=b_addinfo&keyword=10";
 	});
 	
 	$("#btnSeoul").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=20&nowPage=1&perPage=10&searchType=b_addinfo&keyword=20";
+		location.href="/main/sub_main?b_no=&a_no=20&nowPage=1&perPage=5&searchType=b_addinfo&keyword=20";
 	});
 	
 	$("#btnGygg").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=31&nowPage=1&perPage=10&searchType=b_addinfo&keyword=31";
+		location.href="/main/sub_main?b_no=&a_no=31&nowPage=1&perPage=5&searchType=b_addinfo&keyword=31";
 	});
 	
 	$("#btnIncheon").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=32&nowPage=1&perPage=10&searchType=b_addinfo&keyword=32";
+		location.href="/main/sub_main?b_no=&a_no=32&nowPage=1&perPage=5&searchType=b_addinfo&keyword=32";
 	});
 	
 	$("#btnGangwon").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=33&nowPage=1&perPage=10&searchType=b_addinfo&keyword=33";
+		location.href="/main/sub_main?b_no=&a_no=33&nowPage=1&perPage=5&searchType=b_addinfo&keyword=33";
 	});
 	
 	$("#btnChungbuk").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=43&nowPage=1&perPage=10&searchType=b_addinfo&keyword=43";
+		location.href="/main/sub_main?b_no=&a_no=43&nowPage=1&perPage=5&searchType=b_addinfo&keyword=43";
 	});
 	
 	$("#btnChungnam").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=41&nowPage=1&perPage=10&searchType=b_addinfo&keyword=41";
+		location.href="/main/sub_main?b_no=&a_no=41&nowPage=1&perPage=5&searchType=b_addinfo&keyword=41";
 	});
 	
 	$("#btnDaejeon").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=42&nowPage=1&perPage=10&searchType=b_addinfo&keyword=42";
+		location.href="/main/sub_main?b_no=&a_no=42&nowPage=1&perPage=5&searchType=b_addinfo&keyword=42";
 	});
 	
 	$("#btnSejong").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=44&nowPage=1&perPage=10&searchType=b_addinfo&keyword=44";
+		location.href="/main/sub_main?b_no=&a_no=44&nowPage=1&perPage=5&searchType=b_addinfo&keyword=44";
 	});
 	
 	$("#btnJeonbuk").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=63&nowPage=1&perPage=10&searchType=b_addinfo&keyword=63";
+		location.href="/main/sub_main?b_no=&a_no=63&nowPage=1&perPage=5&searchType=b_addinfo&keyword=63";
 	});
 	
 	$("#btnGwangju").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=62&nowPage=1&perPage=10&searchType=b_addinfo&keyword=62";
+		location.href="/main/sub_main?b_no=&a_no=62&nowPage=1&perPage=5&searchType=b_addinfo&keyword=62";
 	});
 	
 	$("#btnJeonnam").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=61&nowPage=1&perPage=10&searchType=b_addinfo&keyword=61";
+		location.href="/main/sub_main?b_no=&a_no=61&nowPage=1&perPage=5&searchType=b_addinfo&keyword=61";
 	});
 	
 	$("#btnGyeongbuk").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=54&nowPage=1&perPage=10&searchType=b_addinfo&keyword=54";
+		location.href="/main/sub_main?b_no=&a_no=54&nowPage=1&perPage=5&searchType=b_addinfo&keyword=54";
 	});
 	
 	$("#btnDaegu").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=53&nowPage=1&perPage=10&searchType=b_addinfo&keyword=53";
+		location.href="/main/sub_main?b_no=&a_no=53&nowPage=1&perPage=5&searchType=b_addinfo&keyword=53";
 	});
 	
 	$("#btnGyeongnam").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=55&nowPage=1&perPage=10&searchType=b_addinfo&keyword=55";
+		location.href="/main/sub_main?b_no=&a_no=55&nowPage=1&perPage=5&searchType=b_addinfo&keyword=55";
 	});
 	
 	$("#btnUlsan").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=52&nowPage=1&perPage=10&searchType=b_addinfo&keyword=52";
+		location.href="/main/sub_main?b_no=&a_no=52&nowPage=1&perPage=5&searchType=b_addinfo&keyword=52";
 	});
 	
 	$("#btnBusan").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=51&nowPage=1&perPage=10&searchType=b_addinfo&keyword=51";
+		location.href="/main/sub_main?b_no=&a_no=51&nowPage=1&perPage=5&searchType=b_addinfo&keyword=51";
 	});
 	
 	$("#btnJeju").click(function() {
-		location.href="/notice_board/notice_list?b_no=&a_no=64&nowPage=1&perPage=10&searchType=b_addinfo&keyword=64";
+		location.href="/main/sub_main?b_no=&a_no=64&nowPage=1&perPage=5&searchType=b_addinfo&keyword=64";
 	});
 	
 	// 테스트 버튼
-	$("#btnSubMain").click(function() {
-		location.href="/main/sub_main?a_no=10";
-	});
+// 	$("#btnSubMain").click(function() {
+// 		location.href="/main/sub_main?b_no=&a_no=52&nowPage=1&perPage=5&searchType=b_addinfo&keyword=52";
+// 	});
 
 });
 </script>
@@ -178,10 +178,10 @@ $(document).ready(function() {
 	</div>
 	
 	<!-- sub_main 테스트 버튼 -->
-	<div>
-		<button type="button" class="btn btn-outline-primary" id="btnSubMain">테스트</button>&nbsp;&nbsp;
-				<br><br>
-	</div>
+<!-- 	<div> -->
+<!-- 		<button type="button" class="btn btn-outline-primary" id="btnSubMain">테스트</button>&nbsp;&nbsp; -->
+<!-- 				<br><br> -->
+<!-- 	</div> -->
 	
 	</div>
 	

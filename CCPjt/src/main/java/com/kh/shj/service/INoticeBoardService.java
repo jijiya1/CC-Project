@@ -3,6 +3,7 @@ package com.kh.shj.service;
 import java.util.List;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.DetailDataVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -27,16 +28,22 @@ public interface INoticeBoardService {
 	// 글 작성 시 해당 지역 번호 빼오기
 	public AreaDataVo getANo() throws Exception;
 	
+	// 글 작성 시 해당 지역 번호 하나만 빼오기
+	public AreaDataVo getAreaDataANo(int a_no) throws Exception;
+	
 	// 글 수정
 	public void noticeBoardUpdate(NoticeBoardVo noticeBoardVo) throws Exception;
 	
 	// 글 삭제
-	public void noticeBoardDelete(int b_no) throws Exception;
+	public void noticeBoardDelete(int b_no, int a_no) throws Exception;
 	
 	// 지역 카테고리 불러오기
 	public AreaDataVo getAreaData(int a_no) throws Exception;
 	
 	// 글 작성시 지역 카테고리 불러오기
 	public List<AreaDataVo> getAreaDataList() throws Exception;
+	
+	// 해당지역 세부정보 불러오기
+	public List<DetailDataVo> getDetailAreaData(int a_no) throws Exception;
 	
 }

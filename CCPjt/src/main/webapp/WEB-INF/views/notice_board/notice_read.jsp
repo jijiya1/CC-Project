@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
 <script>
 $(document).ready(function() {
+	
+	// 툴팁
+	$('[data-toggle="tooltip"]').tooltip();
 	
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
@@ -38,12 +39,10 @@ $(document).ready(function() {
 <!-- 공지사항 읽기 시작 -->
 	<div class="container-fluid">
         
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ ${ noticeBoardVo.b_title }</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ <a href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no}">공지사항</a> ＞ ${ noticeBoardVo.b_title }</p>
 	
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">${ noticeBoardVo.b_title }</h1><br>
-	
-	${ areaDataVo }
 	
 	<!-- 공지사항 읽기 부분 시작 -->
 	<div class="card shadow mb-4">
@@ -91,9 +90,9 @@ $(document).ready(function() {
 	<!-- 공지사항 읽기 부분 끝 -->
 	
 	<!-- 하단 버튼 모음 시작 -->
-	<button type="button" class="btn btn-success" id="btnNoticeBoardList"><span class="fas fa-list"></span></button>
-	<button type="button" class="btn btn-warning" id="btnUpdate"><span class="fas fa-pencil-alt"></span></button>
-	<button type="button" class="btn btn-danger" id="btnDelete"><span class="fas fa-trash"></span></button>
+	<button type="button" class="btn btn-success" id="btnNoticeBoardList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
+	<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
+	<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
 	<!-- 하단 버튼 모음 끝 -->
 
 </div>
