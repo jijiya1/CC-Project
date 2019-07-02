@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="user_join">
+	<insert id="insertUser">
+		insert into user_info(u_email, u_pw, u_name, u_address, u_detail, u_local)
+		values(#{u_email}, #{u_pw}, #{u_name}, #{u_address}, #{u_detail}, #{u_local})
+	</insert>
+	
+	<select id="duplicateCheck" resultType="Integer">
+		select count(*) from user_info
+		where u_email = #{joinEmail}
+	</select>	
+	
+	<select id="loginUser" resultType="UserInfoVo">
+		select * from user_info
+		where u_email = #{u_email} and u_pw = #{u_pw}
+	</select>
+</mapper>  	

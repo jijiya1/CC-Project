@@ -24,8 +24,8 @@ public class PeBoardService implements IPeBoardService {
 	}
 
 	@Override
-	public int listCount(DoSearchDto searchDto) throws Exception {
-		int count = peBoardDao.listCount(searchDto);
+	public int listCount(DoSearchDto searchDto, int a_no) throws Exception {
+		int count = peBoardDao.listCount(searchDto, a_no);
 		return count;
 	}
 
@@ -33,6 +33,29 @@ public class PeBoardService implements IPeBoardService {
 	public List<PetitionVo> listMain(int a_no) throws Exception {
 		List<PetitionVo> pMain = peBoardDao.listMain(a_no);
 		return pMain;
+	}
+
+	@Override
+	public PetitionVo petitionRead(int b_no) throws Exception {
+		PetitionVo peVo = peBoardDao.petitionRead(b_no);
+		return peVo;
+	}
+
+	@Override
+	public void petitionDel(String b_serialno) throws Exception {
+		peBoardDao.petitionDel(b_serialno);		
+	}
+
+	@Override
+	public List<PetitionVo> listRunOut(int a_no) throws Exception {
+		List<PetitionVo> peVo = peBoardDao.listRunOut(a_no);
+		return peVo;
+	}
+
+	@Override
+	public void update(PetitionVo peVo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

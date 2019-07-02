@@ -70,12 +70,22 @@ $(document).ready(function() {
       </div>
       
       	<!-- Nav Item - 공지사항 -->
-      	
+      	<c:choose>
+      	<c:when test="${ areaDataVo.a_no == null }">
     	 <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>공지사항</span></a>
 	    </li>
+	    </c:when>
+	    <c:otherwise>
+       	 <li class="nav-item active">
+	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>공지사항</span></a>
+	    </li>
+	    </c:otherwise>
+	    </c:choose>
 
 
 	<c:if test="${ areaDataVo.a_no != null }">
@@ -310,6 +320,12 @@ $(document).ready(function() {
                 <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
               </a>
               <!-- Dropdown - User Information -->
+              <c:choose>
+              	<c:when test="">
+              	</c:when>
+              	<c:otherwise>
+              	</c:otherwise>
+              </c:choose>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -324,6 +340,10 @@ $(document).ready(function() {
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/login">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Login
+                </a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
