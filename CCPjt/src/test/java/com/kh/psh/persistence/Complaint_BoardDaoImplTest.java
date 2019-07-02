@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.psh.domain.Complaint_PagingDto;
+import com.kh.sbj.persistence.IUserJoinDao;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
 
@@ -19,6 +20,9 @@ public class Complaint_BoardDaoImplTest {
 	
 	@Inject
 	private IBoardDao boardDao;
+	
+	@Inject
+	private IUserJoinDao userJoinDao;
 
 	@Test
 	public void testInsert() throws Exception {
@@ -47,4 +51,11 @@ public class Complaint_BoardDaoImplTest {
 	public void testDelete() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testUserDul() throws Exception {
+		String n="sbj5757@naver.com";
+		userJoinDao.duplicateCheck(n);
+	}
+	
 }

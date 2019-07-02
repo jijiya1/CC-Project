@@ -314,6 +314,12 @@ $(document).ready(function() {
                 <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
               </a>
               <!-- Dropdown - User Information -->
+              <c:choose>
+              	<c:when test="">
+              	</c:when>
+              	<c:otherwise>
+              	</c:otherwise>
+              </c:choose>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -328,6 +334,10 @@ $(document).ready(function() {
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/login">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Login
+                </a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
