@@ -15,9 +15,21 @@
 		                	and b_addinfo=ad.a_no
 		                    and b_agree &gt;= 5 and b_addinfo=#{a_no} 
 		                    and b_enddate &gt;=sysdate
-		                order by b_detailinfo) allList
+		                order by b_enddate desc) allList
 	    where b_delno='N'
 
+	</select>
+<!-- 만료된청원보기	 -->
+	<select id="listRunOut">
+		select rownum rnum, allList.* 
+		    from (select ad.a_name,dd.d_name, pb.* 
+		                from petition_board pb,area_data ad, detail_data dd
+		                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+		                	and b_addinfo=ad.a_no
+		                    and b_agree &gt;= 5 and b_addinfo=#{a_no} 
+		                    and b_enddate &lt;=sysdate
+		                order by b_enddate desc) allList
+	    where b_delno='N'
 	</select>
 
 <!-- 글 갯수 파악	 -->

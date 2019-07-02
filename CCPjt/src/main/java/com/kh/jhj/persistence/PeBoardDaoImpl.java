@@ -48,9 +48,15 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 
 	@Override
 	public void petitionDel(String b_serialno) throws Exception {
-		System.out.println("peDao : " +b_serialno);
+//		System.out.println("peDao : " +b_serialno);
 		sqlSession.update(NAMESPACE + "petitionDel", b_serialno);
 		
+	}
+
+	@Override
+	public List<PetitionVo> listRunOut(int a_no) throws Exception {
+		List<PetitionVo> peVo = sqlSession.selectList(NAMESPACE + "listRunOut", a_no);
+		return peVo;
 	}
 
 }

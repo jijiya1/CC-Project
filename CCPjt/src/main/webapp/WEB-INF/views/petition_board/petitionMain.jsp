@@ -22,7 +22,6 @@ $(document).ready(function(){
 	<input type="hidden" name="b_no" value="${param.b_no}">
 	
 </form>
-${areaDataVo }
 <p class="mb-4">
 	<span class="fas fa-home">&nbsp;</span>
 	<a href="/">홈</a> ＞<a href="/notice_board/notice_list?a_no=${areaDataVo.a_no}"> ${areaDataVo.a_name}</a>

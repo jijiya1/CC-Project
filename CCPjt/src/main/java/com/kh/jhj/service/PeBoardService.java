@@ -46,4 +46,16 @@ public class PeBoardService implements IPeBoardService {
 		peBoardDao.petitionDel(b_serialno);		
 	}
 
+	@Override
+	public List<PetitionVo> listRunOut(int a_no) throws Exception {
+		List<PetitionVo> peVo = peBoardDao.listRunOut(a_no);
+		return peVo;
+	}
+
+	@Override
+	public void update(PetitionVo peVo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -11,4 +11,5 @@ public interface IPeBoardDao {
 	public List<PetitionVo> listMain(int a_no) throws Exception;
 	public PetitionVo petitionRead (int b_no) throws Exception;
 	public void petitionDel (String b_serialno) throws Exception;
+	public List<PetitionVo> listRunOut(int a_no) throws Exception;
 }

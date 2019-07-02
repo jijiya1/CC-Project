@@ -74,12 +74,12 @@ $(document).ready(function(){
 	});
 	
 	$("#btnList").click(function(){
-		location.href="/petition_board/petitionList?a_no=${areaDataVo.a_no}";
+		location.href="/petition_board/petitionList?a_no=${a_no}";
 	});
 	$("#btnDel").click(function(){
 		var conDel = confirm("정말 삭제하시겠습니까?");
 		if(conDel == true){
-			location.href="/petition_board/petitionDel?a_no=${areaDataVo.a_no}&b_serialno=${peVo.b_serialno}";
+			location.href="/petition_board/petitionDel?a_no=${a_no}&b_serialno=${peVo.b_serialno}";
 		}
 		
 	});

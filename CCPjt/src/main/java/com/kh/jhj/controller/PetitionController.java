@@ -38,7 +38,6 @@ public class PetitionController {
 			pageDto.setTotalData(listCount);
 //			System.out.println("pageDto:" + pageDto);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
-		areaDataVo.setA_no(a_no);
 		
 //		System.out.println("listCount :" + listCount);
 //		System.out.println("a_no :" + a_no);
@@ -54,7 +53,6 @@ public class PetitionController {
 	public void petitionMain(@RequestParam("a_no") int a_no, Model model) throws Exception{
 		List<PetitionVo> pMain = peService.listMain(a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
-		areaDataVo.setA_no(a_no);
 		model.addAttribute("pMain", pMain);
 		model.addAttribute("areaDataVo", areaDataVo);
 	}
@@ -63,8 +61,7 @@ public class PetitionController {
 	public void petitionRead(@RequestParam("b_no") int b_no, Model model,
 							@RequestParam("a_no") int a_no) throws Exception{
 //		System.out.println("bno :" + b_no);
-		AreaDataVo areaDataVo = new AreaDataVo();
-		areaDataVo.setA_no(a_no);
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		PetitionVo peVo = peService.petitionRead(b_no);
 		model.addAttribute("peVo", peVo);
 		model.addAttribute("areaDataVo", areaDataVo);
@@ -73,12 +70,10 @@ public class PetitionController {
 	@RequestMapping(value="petitionDel", method=RequestMethod.GET)
 	public String petitionDel(@RequestParam("b_serialno") String b_serialno,
 							@RequestParam("a_no") int a_no, RedirectAttributes rttr) throws Exception{
-		System.out.println("petitionDel : 됩니까" + b_serialno );
+		
 		peService.petitionDel(b_serialno);
-		AreaDataVo areaDataVo = new AreaDataVo();
-		areaDataVo.setA_no(a_no);
-		rttr.addAttribute("areaDataVo", areaDataVo);
-		return "redirect:/petition_board/petitionList";
+		
+		return "redirect:/petition_board/petitionList?a_no="+a_no;
 	}
 	
 
