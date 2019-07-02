@@ -127,6 +127,78 @@
   }
 
 }
+
+/* Slideshow container */
+.slideshow-container {
+  position: relative;
+  background: #f1f1f1f1;
+}
+
+/* Slides */
+.mySlides {
+  display: none;
+  padding: 67.5px;
+  text-align: center;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+
+/* The dot/bullet/indicator container */
+.dot-container {
+    text-align: center;
+    padding: 20px;
+    background: #ddd;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the active dot/circle */
+.dactive, .dot:hover {
+  background-color: #717171;
+}
+
+/* Add an italic font style to all quotes */
+q {font-style: italic;}
+
+/* Add a blue color to the author */
+.author {color: cornflowerblue;}
+
 </style>
 
 <script>
@@ -147,7 +219,7 @@ $(document).ready(function() {
 		$("#hiddenData").attr("action", href).submit();
 		
 	 });
-	 
+
 });
 </script>
 
@@ -210,40 +282,81 @@ $(document).ready(function() {
   </div>
 <!-- 공지사항 끝 -->
 
-<!-- 게시판01 시작 -->
+<!-- 토론게시판 시작 -->
   <div class="board01">
-  <!-- 공지사항 테이블 영역 시작 -->
+  <!-- 토론게시판 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
-	      </div>
+ 	  	
+	      <h6 class="m-0 font-weight-bold text-primary" style="float: right;" data-toggle="tooltip" data-placement="top" title="더보기">
+	      <a href="/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }">+</a>
+	      </h6>
+	      
+	      <h6 class="m-0 font-weight-bold text-primary">현재 토론 중</h6>
+	    </div>
 	      <div class="card-body">
-	      	<div class="table-responsive">
-		      	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
-			      <tbody>
-		          <c:forEach items="${ noticeList }" var="noticeList">
-		          
-		          <c:if test="${ noticeList.b_checkeddel == 0 }">
-		            <tr>
-		              <td>
-		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
-		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
-		              	[${ noticeList.a_name }] ${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
-		              	</a>
-	           		  </td>
-		              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
-		            </tr>
-				  </c:if>
-	           	  </c:forEach>
-		          </tbody>
-				</table>
-	     	</div>
+	      
+			<div class="slideshow-container">
+			
+			<c:forEach items="${ discussionList }" var="boardVo_discussion" >
+				<div class="mySlides" data-b_serialno ="${ boardVo_discussion.b_serialno }" data-YorNSelect ="">
+					<q style="cursor:pointer;" class="discussionTitle">
+						${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
+					</q>
+				  <p class="author">- ${ boardVo_discussion.u_id }</p>
+				</div>
+			</c:forEach>
+			
+			<a class="prev" onclick="plusSlides(-1)">❮</a>
+			<a class="next" onclick="plusSlides(1)">❯</a>
+			
+			</div>
+			
+			<div class="dot-container">
+				<c:forEach begin="1" end="${ discussionListSize }" var= "i" >
+					<span class="dot" onclick="currentSlide(${i})"></span> 
+				</c:forEach>
+			</div>
+	
 	      </div>
  	</div>
- 	<!-- 공지사항 테이블 영역 끝 -->
+ 	<!-- 토론게시판 영역 끝 -->
   </div>
-<!-- 게시판01 끝 -->
+<!-- 토론게시판 끝 -->
+
+<script>
+	var slideIndex = 1;
+	showSlides(slideIndex);
+	
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+	
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+	
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("dot");
+	  for (i = 0; i < slides.length; i++) {
+	    slides[i].style.display = "none";  
+	  }
+	  slideIndex++;
+	  if (slideIndex > slides.length) {slideIndex = 1}    
+	  for (i = 0; i < dots.length; i++) {
+	    dots[i].className = dots[i].className.replace(" dactive", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";  
+	  dots[slideIndex-1].className += " dactive";
+	  setTimeout(showSlides, 3000);
+	}
+	
+	$(".discussionTitle").click(function() {
+		location.href = "/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }";
+	});
+</script>
   
 <!-- 게시판02 시작 -->
   <div class="board02">
