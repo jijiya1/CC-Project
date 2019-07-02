@@ -1,16 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/head.jsp" %>
+
+<script>
+$(document).ready(function () {
+	
+	// 표시 게시글 갯수 변경
+	$("#dataTable_length").change(function () {
+		var url = "/selectDiscussion/discussion_select_board";
+		$("#hiddenData").attr("action",url);
+		
+		var nowPage = 1;
+		$("input[name=nowPage]").val(nowPage);
+		
+		var countRow = $("select[name=dataTable_length]").val();
+		$("input[name=countRow]").val(countRow);
+		
+		console.log(countRow);
+		
+		$("#hiddenData").submit();
+	});
+	
+	// 페이지네이션
+	$(".page-link").click(function (e) {
+		e.preventDefault();
+		
+		var url = "/selectDiscussion/discussion_select_board";
+		$("#hiddenData").attr("action",url);
+		
+		nowPage = $(this).attr("data-nowPage");
+		$("input[name=nowPage]").val(nowPage);
+		
+		var countRow = $("select[name=dataTable_length]").val();
+		$("input[name=countRow]").val(countRow);
+		
+		$("#hiddenData").submit();
+	});
+});
+</script>
+
 	<!-- 토론 주제 추천게시판 시작 -->
 	<div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">토론 주제 추천게시판</h1>
-	<p>데이터확인: ${pagingDto }</p>
+	<p>데이터확인: ${areaDataVo.a_no }</p>
 
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
-		<span>전체 1건의 게시물이 있습니다.</span>
+		<span>전체 ${pagingDto.totalData }건의 게시물이 있습니다.</span>
 	</p>
 
 	<!-- 공지사항 리스트 -->
@@ -21,15 +59,22 @@
 	   
 		<!-- 히든 데이터 값 시작 -->
 		<form id="hiddenData" action="">
-			<input type="hidden" name="">
+			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
+			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
+			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
 	      <!-- 페이징 시작 -->
 	      <div class="dataTables_length" id="dataTable_length" style="float:left;">
 	      	<select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-	      		<c:forEach var="i" begin="10" end="30" step="5">
-			      	<option value="${ i }">${ i }</option>
+	      		<c:forEach var="i" begin="5" end="25" step="5">
+			      	<option value="${ i }"
+				      	<c:if test="${pagingDto.countRow == i}">
+				      		selected="selected"			      	
+				      	</c:if> 
+			      	>${ i }</option>
+			      	
 		      	</c:forEach>
 	      	</select>
 	      	</div>
@@ -57,7 +102,7 @@
 		          <c:forEach items="${selectBoardList }" var="selectBoardVo">
 		          	<tr>
 			          <td>${selectBoardVo.b_no}</td>
-	           		  <td><a href="#" style="float: left;">[${selectBoardVo.b_addInfo}/${selectBoardVo.b_detailInfo}]${selectBoardVo.b_title}</a></td>
+	           		  <td><a href="#" style="float: left;">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]${selectBoardVo.b_title}</a></td>
 		              <td>${selectBoardVo.b_writer}</td>
 		              <td>${selectBoardVo.b_readCount}</td>
 		              <td>${selectBoardVo.b_upCount}</td>
@@ -80,27 +125,38 @@
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
 				
-				<li class="paginate_button page-item previous" id="dataTable_previous">
-					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">≪</a>
-				</li>
-			
-				<li class="paginate_button page-item previous" id="dataTable_previous">
-					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" >＜</a>
-				</li>
+				<c:if test="${pagingDto.prev == true}">
+					<li class="paginate_button page-item previous" id="dataTable_previous">
+						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" data-nowPage="${pagingDto.startPage - 1}" class="page-link">≪</a>
+					</li>
+				</c:if>
+				
+				<c:if test="${pagingDto.nowPage != 1}">
+					<li class="paginate_button page-item previous" id="dataTable_previous">
+						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" data-nowPage="${pagingDto.nowPage - 1}" class="page-link" >＜</a>
+					</li>
+				</c:if>
 				
 				<c:forEach var ="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
-					<li class="paginate_button page-item">
+					<li class="paginate_button page-item 
+						<c:if test="${pagingDto.nowPage == i}">
+						 active
+						</c:if>	">
 						<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" data-nowPage="${i }" class="page-link" >${i }</a>
 					</li>
 				</c:forEach>
-			
-				<li class="paginate_button page-item next" id="dataTable_next">
-					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">＞</a>
-				</li>
-			
-				<li class="paginate_button page-item next" id="dataTable_next">
-					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">≫</a>
-				</li>
+				
+				<c:if test="${pagingDto.nowPage != pagingDto.endPage}">
+					<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.nowPage + 1}" class="page-link">＞</a>
+					</li>
+				</c:if>
+				
+				<c:if test="${pagingDto.next == true}">
+					<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.endPage + 1}" class="page-link">≫</a>
+					</li>
+				</c:if>
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->

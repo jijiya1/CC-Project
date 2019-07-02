@@ -104,7 +104,7 @@
 					<div class="alert alert-success alert-dismissable">
 						<h4>
 							정해진 토론 주제가 없습니다.!
-						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board/${areaDataVo.a_no }" class="alert-link">토론 주제 게시판</a>
+						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }" class="alert-link">토론 주제 게시판</a>
 
 					</div>
 				</div>
@@ -127,7 +127,7 @@
 					<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
 					
 					<!-- 찬반 비율 표시 줄 -->
-					<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; display: none;">
+					<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; border-radius: 20em; display: none;">
 						<div id ="agreeRatioArea${boardVo_discussion.b_no }" style="background-color: #70A9F2; width: 50%; float: left; " >
 							<label id ="agreeRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: left;">&nbsp;${boardVo_discussion.b_agreementcount}</label>
 						</div>
@@ -200,10 +200,6 @@
 	//임시 로그인 중인 사용자 -------------------------------------------
 	var r_writer = "시민1";
 	var u_id = "user1";
-	// --------------------------------------------------------------------
-
-	//임시 지역 정보 ---------------------------------------------------
-	var b_addInfo = ${areaDataVo.a_no};
 	// --------------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
@@ -278,7 +274,7 @@
 	
 	// 토론 주제선정 게시판으로 이동버튼
 	$("#btn_Discussion_rec").click(function () {
-		location.href = "/selectDiscussion/discussion_select_board/"+b_addInfo;
+		location.href = "/selectDiscussion/discussion_select_board?a_no="+${areaDataVo.a_no};
 	});//("#btn_Discussion_rec").click
 	
 	

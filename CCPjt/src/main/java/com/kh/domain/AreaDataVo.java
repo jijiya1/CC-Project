@@ -1,6 +1,7 @@
 package com.kh.domain;
 
 public class AreaDataVo {
+	
 	private int a_no;
 	private String a_name;
 	private int a_order;

@@ -31,6 +31,7 @@ public class NoticeController {
 //		System.out.println("notice_list get 실행함.");
 //		System.out.println("noSearchDto : " + noSearchDto);
 //		System.out.println("noPagingDto : " + noPagingDto);
+		
 		List<NoticeBoardVo> list = noticeBoardService.noticeBoardList(noSearchDto, noPagingDto);
 		model.addAttribute("list", list);
 //		System.out.println("list : " + list);

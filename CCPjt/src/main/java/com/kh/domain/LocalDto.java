@@ -9,21 +9,17 @@ public class LocalDto {
 		return b_addInfo;
 	}
 
-
 	public void setB_addInfo(int b_addInfo) {
 		this.b_addInfo = b_addInfo;
 	}
-
 
 	public int getB_detailInfo() {
 		return b_detailInfo;
 	}
 
-
 	public void setB_detailInfo(int b_detailInfo) {
 		this.b_detailInfo = b_detailInfo;
 	}
-
 
 	@Override
 	public String toString() {
