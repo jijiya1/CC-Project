@@ -8,6 +8,9 @@ $(document).ready(function(){
 	
 });
 </script>
+<form>
+	
+</form>
 
 <div class="container-fluid">
 	<div class="row">
@@ -16,10 +19,10 @@ $(document).ready(function(){
 			<div class="tabbable" id="tabs-989343">
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionMain">청원메인</a>
+						<a class="nav-link active show" href="/petition_board/petitionMain?a_no=${areaVo.a_no}">청원메인</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/petitionList">게시판전체보기</a>
+						<a class="nav-link" href="/petition_board/petitionList?a_no=${areaVo.a_no}">게시판전체보기</a>
 					</li>
 				</ul>
 				<div class="tab-content">

@@ -77,6 +77,7 @@ $(document).ready(function() {
 	          <span>공지사항</span></a>
 	    </li>
 
+
 	<c:if test="${ areaDataVo.a_no != null }">
 		      <!-- Divider -->
       <hr class="sidebar-divider">
@@ -117,7 +118,7 @@ $(document).ready(function() {
 	      
 		<!-- Nav Item - 황용석 -->
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/discussion_board/discussion_main_board">
+	        <a class="nav-link" href="/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>토론게시판</span></a>
 	      </li>

@@ -3,15 +3,15 @@ package com.kh.psh.domain;
 import java.security.Timestamp;
 
 public class Complaint_ReplyVo {
-	private String b_serialno;
-	private int r_no;
-	private String r_writer;
-	private String r_content;
-	private Timestamp r_createddate;
-	private Timestamp r_modifieddate;
-	private int b_upcount;
-	private int b_downcount;
-	private int r_step;
+	private String b_serialno;//게시글 시리얼 넘버
+	private int r_no;// 리플 번호
+	private String r_writer;//리플 작성자
+	private String r_content;//리플 내용
+	private Timestamp r_createddate;//리플 작성일
+	private Timestamp r_modifieddate;//리플 수정일
+	private int b_upcount;//리플 좋아요
+	private int b_downcount;//리플 싫어요
+	private int r_step;//리플 삭제여부
 	private int r_level;
 	private int r_checkeddel;
 	

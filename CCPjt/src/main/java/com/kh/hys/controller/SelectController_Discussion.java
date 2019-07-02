@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.domain.AreaDataVo;
 import com.kh.domain.LocalDto;
 import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
@@ -23,12 +24,16 @@ public class SelectController_Discussion {
 	ISelectService_Discussion selectService;
 	
 	// 토론 주제 선정 게시판으로 가기
-	@RequestMapping(value = "/discussion_res_board/{b_addInfo}/{b_detailInfo}", method=RequestMethod.GET)
-	public String discussion_res_board(Model model, @PathVariable("b_addInfo") String b_addInfo, @PathVariable("b_detailInfo") String b_detailInfo) throws Exception {
+	@RequestMapping(value = "/discussion_select_board/{b_addInfo}", method=RequestMethod.GET)
+	public String discussion_res_board(Model model, @PathVariable("b_addInfo") int b_addInfo) throws Exception {
 		
 		LocalDto localDto = new LocalDto();
 		localDto.setB_addInfo(b_addInfo);
-		localDto.setB_detailInfo(b_detailInfo);
+		
+		AreaDataVo areaDataVo = new AreaDataVo();
+		areaDataVo.setA_no(b_addInfo);
+		
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(localDto);
 		
@@ -38,8 +43,9 @@ public class SelectController_Discussion {
 		
 		model.addAttribute("selectBoardList", selectBoardList);
 		model.addAttribute("pagingDto", pagingDto);
+		model.addAttribute("areaDataVo", areaDataVo);
 		
-		return "/discussion_board/discussion_res_board";
+		return "/discussion_board/discussion_select_board";
 	}
 
 }

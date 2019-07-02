@@ -143,9 +143,6 @@ public class ReplyController_Discussion {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
-
-		
 		return entity;
 	}
 }

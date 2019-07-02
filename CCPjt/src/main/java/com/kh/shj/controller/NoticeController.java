@@ -51,7 +51,6 @@ public class NoticeController {
 		noPaginationDto.setContentCount(contentCount);
 		
 		model.addAttribute("noPaginationDto", noPaginationDto);
-
 	}
 	
 	// 공지사항 해당 글 읽기

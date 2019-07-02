@@ -3,7 +3,7 @@
 <%@include file="../include/head.jsp" %>
 	<!-- 토론 주제 추천게시판 시작 -->
 	<div class="container-fluid">
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board">토론 게시판</a> ＞토론 주제 추천게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">토론 주제 추천게시판</h1>
 	<p>데이터확인: ${pagingDto }</p>
