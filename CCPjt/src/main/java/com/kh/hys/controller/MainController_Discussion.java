@@ -32,16 +32,25 @@ public class MainController_Discussion {
 //		System.out.println("discussion_main_board get 실행");
 		
 		List<BoardVo_Discussion> discussionList =  boardService_Discussion.getDiscussionList(a_no);
-		int discussionListSize = discussionList.size();
-		String firstDiscussion_b_serialno =  discussionList.get(0).getB_serialno();
+		
+//		System.out.println("MainController_Discussion,  discussionList : " + discussionList);
 		
 		AreaDataVo areaDataVo = new AreaDataVo();
 		areaDataVo.setA_no(a_no);
 		
 		model.addAttribute("areaDataVo", areaDataVo);
+		
+		// 리스트 안에 글이 하나라도 있을 경우
+		if(discussionList.size() != 0) {
+			int discussionListSize = discussionList.size();
+			String firstDiscussion_b_serialno =  discussionList.get(0).getB_serialno();
+			
+
+			model.addAttribute("discussionListSize", discussionListSize);
+			model.addAttribute("firstDiscussion_b_serialno", firstDiscussion_b_serialno);
+		}//if
+		
 		model.addAttribute("discussionList", discussionList);
-		model.addAttribute("discussionListSize", discussionListSize);
-		model.addAttribute("firstDiscussion_b_serialno", firstDiscussion_b_serialno);
 	}
 	
 	@RequestMapping(value = "/discussion_agreeSelect", method=RequestMethod.POST)

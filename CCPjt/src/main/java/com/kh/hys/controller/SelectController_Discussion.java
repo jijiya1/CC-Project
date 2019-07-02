@@ -43,6 +43,7 @@ public class SelectController_Discussion {
 		
 		model.addAttribute("selectBoardList", selectBoardList);
 		model.addAttribute("pagingDto", pagingDto);
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 		return "/discussion_board/discussion_select_board";
 	}

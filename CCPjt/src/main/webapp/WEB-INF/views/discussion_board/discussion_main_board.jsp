@@ -92,81 +92,102 @@
 </style>
 
 <div class="container-fluid">
-	<p style="font: strong;">데이터 확인 :</p>
+	<p style="font: strong;">데이터 확인 :${areaDataVo.a_no }</p>
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
 </div>
 
-<div class="slideshow-container">
-	<div>
-		<input type="button" id="btn_Discussion_rec" value="토론주제 추천게시판" style="float: right;" >
-	</div>
-	<c:forEach items="${discussionList }" var="boardVo_discussion" >
-		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
-			<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
-				${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
-			</q>
-			<p></p>
-			<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
-			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
-			
-			<!-- 찬반 비율 표시 줄 -->
-			<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; display: none;">
-				<div id ="agreeRatioArea${boardVo_discussion.b_no }" style="background-color: #70A9F2; width: 50%; float: left; " >
-					<label id ="agreeRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: left;">&nbsp;${boardVo_discussion.b_agreementcount}</label>
+<c:choose>
+	<c:when test="${discussionList == '[]'}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="alert alert-success alert-dismissable">
+						<h4>
+							정해진 토론 주제가 없습니다.!
+						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board/${areaDataVo.a_no }" class="alert-link">토론 주제 게시판</a>
+
+					</div>
 				</div>
-				
-				<div id ="oppositionRatioArea${boardVo_discussion.b_no }" style="background-color: #FF6060; width: 50%;  float: right;">
-					<label id ="oppositionRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: right;">${boardVo_discussion.b_oppositioncount}&nbsp;</label>
-				</div>
-			</div>	
-		</div>
-	</c:forEach>
-	
-	<a class="prev" onclick="plusSlides(-1)">❮</a>
-	<a class="next" onclick="plusSlides(1)">❯</a>
-</div>
-
-
-
-<div class="dot-container">
-	<c:forEach begin="1" end="${discussionListSize }" var= "i" >
-		<span class="dot" onclick="currentSlide(${i})"></span> 
-	</c:forEach>
-</div>
-<br>
-
-<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
-	<label>토론 상세 내용</label>
-	<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
-</div>
-
-
-<!-- 댓글(의견) 달기 부분 -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12" id = "reply_Textarea">
-			<!-- 댓글 보기 버튼 -->
-			<a href="#" class="btn btn-primary btn-icon-split btnReplyList"  id="btnReplyList">                     
-				<span class="icon text-white-50">
-					<i class="fas fa-flag"></i>
-				</span>
-				<span class='text'>댓글 보기</span>
-			</a>
-		</div>
-	</div>
-</div>
-<br>
-
-<!-- 댓글 리스트 부분 -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div id = "discussion_ReplyList">
-				
 			</div>
 		</div>
-	</div>
-</div>
+	</c:when>
+	<c:otherwise>
+		<div class="slideshow-container">
+			<div>
+				<input type="button" id="btn_Discussion_rec" value="토론주제 추천게시판" style="float: right;" >
+			</div>
+		
+			<c:forEach items="${discussionList }" var="boardVo_discussion" >
+				<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
+					<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
+						${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
+					</q>
+					<p></p>
+					<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
+					<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
+					
+					<!-- 찬반 비율 표시 줄 -->
+					<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; display: none;">
+						<div id ="agreeRatioArea${boardVo_discussion.b_no }" style="background-color: #70A9F2; width: 50%; float: left; " >
+							<label id ="agreeRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: left;">&nbsp;${boardVo_discussion.b_agreementcount}</label>
+						</div>
+						
+						<div id ="oppositionRatioArea${boardVo_discussion.b_no }" style="background-color: #FF6060; width: 50%;  float: right;">
+							<label id ="oppositionRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: right;">${boardVo_discussion.b_oppositioncount}&nbsp;</label>
+						</div>
+					</div>	
+				</div>
+			</c:forEach>
+			
+			<a class="prev" onclick="plusSlides(-1)">❮</a>
+			<a class="next" onclick="plusSlides(1)">❯</a>
+		</div>
+		
+		
+		
+		<div class="dot-container">
+			<c:forEach begin="1" end="${discussionListSize }" var= "i" >
+				<span class="dot" onclick="currentSlide(${i})"></span> 
+			</c:forEach>
+		</div>
+		<br>
+		
+		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
+			<label>토론 상세 내용</label>
+			<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
+		</div>
+		
+		
+		<!-- 댓글(의견) 달기 부분 -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12" id = "reply_Textarea">
+					<!-- 댓글 보기 버튼 -->
+					<a href="#" class="btn btn-primary btn-icon-split btnReplyList"  id="btnReplyList">                     
+						<span class="icon text-white-50">
+							<i class="fas fa-flag"></i>
+						</span>
+						<span class='text'>댓글 보기</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+		<!-- 댓글 리스트 부분 -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div id = "discussion_ReplyList">
+						
+					</div>
+				</div>
+			</div>
+		</div>	
+	</c:otherwise>
+</c:choose>
+
+
 
 <!-----------------------------------  스크립트 ----------------------------------->
 <script>
