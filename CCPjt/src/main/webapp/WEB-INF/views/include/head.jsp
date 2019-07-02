@@ -70,12 +70,22 @@ $(document).ready(function() {
       </div>
       
       	<!-- Nav Item - 공지사항 -->
-      	
+      	<c:choose>
+      	<c:when test="${ areaDataVo.a_no == null }">
     	 <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>공지사항</span></a>
 	    </li>
+	    </c:when>
+	    <c:otherwise>
+       	 <li class="nav-item active">
+	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">
+	          <i class="fas fa-fw fa-list-alt"></i>
+	          <span>공지사항</span></a>
+	    </li>
+	    </c:otherwise>
+	    </c:choose>
 
 
 	<c:if test="${ areaDataVo.a_no != null }">
