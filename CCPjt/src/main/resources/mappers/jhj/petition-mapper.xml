@@ -13,20 +13,21 @@
 		                from petition_board pb,area_data ad, detail_data dd
 		                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
 		                	and b_addinfo=ad.a_no
-		                    and b_agree &gt;= 5 and b_addinfo=#{a_no}
+		                    and b_agree &gt;= 5 and b_addinfo=#{a_no} 
 		                    and b_enddate &gt;=sysdate
 		                order by b_detailinfo) allList
 	    where b_delno='N'
 
 	</select>
-	
+
+<!-- 글 갯수 파악	 -->
 	<select id="listCount" resultType="int">
 		select count(*)
     		 from (select ad.a_name,dd.d_name, pb.* 
 		                from petition_board pb,area_data ad, detail_data dd
 		                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
 		                	and b_addinfo=ad.a_no
-		                    and b_agree &gt;= 5 and b_addinfo=52 
+		                    and b_agree &gt;= 5 and b_addinfo=#{a_no}
 		                    and b_enddate &gt;=sysdate
 		                order by b_detailinfo) allList
 	    where b_delno='N'
@@ -40,7 +41,7 @@
 		                        from petition_board pb,area_data ad, detail_data dd
 		                        where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
 		                        	and b_addinfo=ad.a_no
-				                    and b_agree &gt;= 5 and b_addinfo=52 
+				                    and b_agree &gt;= 5 and b_addinfo=#{a_no} 
 				                    and b_enddate &gt;=sysdate
 				                order by b_detailinfo) allList
 		                )
@@ -48,6 +49,22 @@
     order by ranking
 	</select>
 	
+<!-- 글 읽기	 -->
+	<select id="petitionRead" resultType="PetitionVo">
+		select ad.a_name,dd.d_name, pb.* 
+           from petition_board pb,area_data ad, detail_data dd
+           where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+           	 and b_addinfo=ad.a_no
+        	 and b_no=#{b_no} 
+		order by b_detailinfo
+	</select>
+
+<!-- 글 삭제하기	 -->
+	<update id="petitionDel">
+		update petition_board set
+			b_delno = 'Y'
+			where b_serialno = #{b_serialno}
+	</update>
 <!-- 서치데이터 -->
 
 </mapper>

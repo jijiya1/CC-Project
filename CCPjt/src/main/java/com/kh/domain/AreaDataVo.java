@@ -31,7 +31,7 @@ public class AreaDataVo {
 
 	@Override
 	public String toString() {
-		return "AreaData [a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order + "]";
+		return "AreaDataVo [a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order + "]";
 	}
 
 }
