@@ -1,5 +1,6 @@
 package com.kh.hys.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,7 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kh.domain.LocalDto;
+import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 
 @Repository
@@ -20,15 +21,19 @@ public class SelectBoardDaoImpl_Discussion implements ISelectBoardDao_Discussion
 	
 	// 토론 주제 추천 게시판 글 리스트 가져오기
 	@Override
-	public List<SelectDiscussion_BoardVo> getSelectBoardList(LocalDto localDto) throws Exception {
-		List<SelectDiscussion_BoardVo> selectBoardList = sqlSession.selectList(NAMESPACE+"getSeletDiscussionList", localDto);
+	public List<SelectDiscussion_BoardVo> getSelectBoardList(PagingDto pagingDto, int b_addInfo) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pagingDto", pagingDto);
+		map.put("b_addInfo", b_addInfo);
+		
+		List<SelectDiscussion_BoardVo> selectBoardList = sqlSession.selectList(NAMESPACE+"getSeletDiscussionList", map);
 		return selectBoardList;
 	}
 	
 	// 토론 주제 추천 게시판 글갯수 가져오기
 	@Override
-	public int totalSelectBoardCount(LocalDto localDto) throws Exception {
-		int totalCount = sqlSession.selectOne(NAMESPACE+"totalSelectBoardCount", localDto);
+	public int totalSelectBoardCount(int b_addInfo) throws Exception {
+		int totalCount = sqlSession.selectOne(NAMESPACE+"totalSelectBoardCount", b_addInfo);
 		return totalCount;
 	}
 

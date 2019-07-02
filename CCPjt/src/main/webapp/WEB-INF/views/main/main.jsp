@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 
 <style>
@@ -137,6 +136,25 @@
 
 </style>
 
+<script>
+$(document).ready(function() {
+	
+	 // 공지사항 글 읽기
+	 $(".title").click(function(e) {
+		e.preventDefault();
+		
+		var b_no = $(this).attr("data-b_no");
+		$("input[name=b_no]").val(b_no);
+		var a_no = $(this).attr("data-a_no");
+		$("input[name=a_no]").val(a_no);
+		var href = $(this).attr("href");
+		$("#hiddenData").attr("action", href).submit();
+		
+	 });
+	 
+});
+</script>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a></p>
 </div>
@@ -149,7 +167,20 @@
   <div class="blank5"></div>
   <div class="blank6"></div>
   
+<!-- 히든 데이터 값 시작 -->
+	<form id="hiddenData" action="/notice_board/notice_list">
+		<input type="hidden" name="b_no">
+		<input type="hidden" name="a_no">
+		<input type="hidden" name="nowPage">
+		<input type="hidden" name="perPage">
+		<input type="hidden" name="searchType">
+		<input type="hidden" name="keyword">
+	</form>
+<!-- 히든 데이터 값 끝 -->
+  
+  <!-- 화제의 글 시작 -->
   <div class="hotContent">
+  <!-- 화제의 글 테이블 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
 	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
@@ -178,9 +209,13 @@
 	     	</div>
 	      </div>
  	</div>
+ 	<!-- 화제의 글 테이블 영역 끝 -->
   </div>
+  <!-- 화제의 글 끝 -->
   
+  <!-- 공지사항 시작 -->
   <div class="noticeContent">
+  <!-- 공지사항 테이블 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
 	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
@@ -209,11 +244,15 @@
 	     	</div>
 	      </div>
  	</div>
+ 	<!-- 공지사항 테이블 영역 끝 -->
   </div>
+  <!-- 공지사항 끝 -->
   
+  <!-- 지역 지도 및 버튼 시작 -->
   <div class="location">
   	<%@include file="../include/main_location.jsp" %>
   </div>
+  <!-- 지역 지도 및 버튼 끝 -->
   
 </div>
 

@@ -72,10 +72,11 @@ $(document).ready(function() {
       	<!-- Nav Item - 공지사항 -->
       	
     	 <li class="nav-item active">
-	        <a class="nav-link" href="/notice_board/notice_list?a_no=10">
+	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>공지사항</span></a>
 	    </li>
+
 
 	<c:if test="${ areaDataVo.a_no != null }">
 		      <!-- Divider -->
@@ -86,7 +87,7 @@ $(document).ready(function() {
 		<c:when test="${ areaDataVo.a_no == 10 }">
 		<!-- Nav Item - 지역선택 -->
 	     <div class="sidebar-heading">
-	        정해주삼
+	        Location
 	      </div>
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_location">
@@ -117,7 +118,7 @@ $(document).ready(function() {
 	      
 		<!-- Nav Item - 황용석 -->
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/discussion_board/discussion_main_board">
+	        <a class="nav-link" href="/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>토론게시판</span></a>
 	      </li>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 
 <!-- summernote 필수!! - SHJ4359 -->
@@ -11,80 +10,88 @@
 
 <script>
 $(document).ready(function() {
+	
+	// 툴팁
+	$('[data-toggle="tooltip"]').tooltip();
 
-	// 목록으로
-	$("#btnNoticeBoardList").click(function() {
-		location.href = "/notice_board/notice_list";
+	// 글 작성 취소
+	$("#btnCancel").click(function() {
+		location.href = "/notice_board/notice_list?a_no=${a_no}&searchType=b_addinfo&keyword=${a_no}";
 	});
 	
-	$("#b_addinfo").change(function(e) {
+// 	$("#b_addinfo").change(function(e) {
 // 		console.log(e);
 
 // 		var test = e.originalEvent.currentTarget[0];
 // 		console.log(test);
 
-		var b_addinfo = $("select[name=b_addinfo]").val();
-		console.log(b_addinfo);
+// 		var b_addinfo = $("select[name=b_addinfo]").val();
+// 		console.log(b_addinfo);
 		
 // 		var test = e.originalEvent.currentTarget[0].index;
 // 		console.log(test);
 		
-		var strHtml = "";
-		if (b_addinfo == 10) {
-			strHtml += "<div class='form-group' style='display: none;'>"
-					+  "<label>구</label>"
-					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-					+  "<option value='공지'>공지사항</option>"
-					+  "</select>"
-					+  "</div>";
-		} 
+// 		var a_no = "${ areaDataVo.a_no }";
+// 		console.log(a_no);
 		
-		else if (b_addinfo == 52) {
-			strHtml += "<div class='form-group'>"
-					+  "<label>구</label>"
-					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-					+  "<option value='10'>중구</option>"
-					+  "<option value='11'>남구갑</option>"
-					+  "<option value='12'>남구을</option>"
-					+  "<option value='13'>동구</option>"
-					+  "<option value='14'>북구</option>"
-					+  "<option value='15'>울주군</option>"
-					+  "</select>"
-					+  "</div>";
-		}
-
-		else {
-			strHtml += "<div class='form-group' style='display: none;'>"
-					+  "<label>구</label>"
-					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-					+  "<option value='공지'>공지사항</option>"
-					+  "</select>"
-					+  "</div>";
-		}
-		$(".test").html(strHtml);
+// 		var strHtml = "";
+// 		if (b_addinfo == 10) {
+// 			strHtml += "<div class='form-group' style='display: none;'>"
+// 				+  "<label>구</label>"
+// 				+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+// 				+  "<option value='100'>전체</option>"
+// 				+  "</select>"
+// 				+  "</div>";
+// 		} else {
+// 			strHtml += "<div class='form-group'>"
+// 				+  "<label>구</label>"
+// 				+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+// 				+  "<c:forEach items='${getDetailAreaData}' var='detailAreaData'>"
+// 				+  "<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>"
+// 				+  "</c:forEach>"
+// 				+  "</select>"
+// 				+  "</div>";
+// 		}
+		
+// 		$(".detail_info").html(strHtml);
 			
 		
-		$("#b_detailinfo").change(function() {
-			var b_detailinfo = $("select[name=b_detailinfo]").val();
-			console.log(b_detailinfo);
-		});
+// 		$("#b_detailinfo").change(function() {
+// 			var b_detailinfo = $("select[name=b_detailinfo]").val();
+// 			console.log(b_detailinfo);
+// 		});
 
-	});
+// 	});
 	
 	// 테스트
 // 	$("#test").click(function() {
 // 		var b_title = $("input[name=b_title]").val();
 // 		console.log(b_title);
-// 		var b_write = $("input[name=b_write]").val();
-// 		console.log(b_write);
+		
 // 		var u_id = $("input[name=u_id]").val();
 // 		console.log(u_id);
+		
 // 		var b_addinfo = $("select[name=b_addinfo]").val();
 // 		console.log(b_addinfo);
+		
 // 		var b_detailinfo = $("select[name=b_detailinfo]").val();
 // 		console.log(b_detailinfo);
+		
 // 		var name_b_content = $("textarea[name=b_content]").val();
 // 		console.log(name_b_content);
+		
+// 		var a_no = $("input[name=a_no]").val();
+// 		console.log(a_no);
+		
+// 		var areaDataVo = "${areaDataVo}";
+// 		console.log(areaDataVo);
+		
+// 		var areaData = "${areaData}";
+// 		console.log(areaData);
+		
+// 		var getDetailAreaData = "${getDetailAreaData}";
+// 		console.log(getDetailAreaData);
+		
 // 		var b_content = $("#summernote").val();
 // 		console.log(b_content);
 // 	});
@@ -95,13 +102,14 @@ $(document).ready(function() {
 <!-- 공지사항 작성 시작 -->
 	<div class="container-fluid">
 	       
-		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="notice_list">공지사항</a> ＞ 공지사항 작성</p>
+		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ <a href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">공지사항</a> ＞ 공지사항 작성</p>
 		
 		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">공지사항 작성</h1><br>
 		
 		<!-- 공지사항 작성 부분 시작 - form -->
 		<form role="form" method="post">
+			<input type="hidden" name="a_no" value="${ areaDataVo.a_no }">
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
@@ -118,22 +126,22 @@ $(document).ready(function() {
 				<input type="text" class="form-control" name="u_id" required="required" />
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>
 				<label>시/도</label>
 				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
 					<c:forEach items="${ areaData }" var="areaData">
-						<option value="${ areaData.a_no }">${ areaData.a_name }</option>
+						<option value="${ areaData.a_no }" <c:if test='${ areaData.a_no eq a_no }'>selected</c:if>>${ areaData.a_name }</option>
 					</c:forEach>
 				</select>
 			</div>
 			
-			<div class="test">
-			<div class="form-group" style="display: none;">
-			<label>구</label>
-				<select class="form-control " name="b_detailinfo" id="b_detailinfo" required="required">
-					<option value="공지">공지사항</option>
+			<div class="form-group">
+				<label>구</label>
+				<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>
+					<c:forEach items='${getDetailAreaData}' var='detailAreaData'>
+						<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>
+					</c:forEach>
 				</select>
-			</div>
 			</div>
 			
 			<div class="form-group">
@@ -153,35 +161,13 @@ $(document).ready(function() {
 				        var postForm = function() {
 				        	var content = $('textarea[name="b_content"]').html($('#summernote').code());
 				        }
-				        
-				        function uploadImage(image) {
-				            var data = new FormData();
-				            data.append("image", image);
-				            $.ajax({
-				                type: "post",
-				                cache: false,
-				                contentType:false,
-				                processData: false,
-				                dataType :'jsonp',
-				                url: '/cop/bbs/insertSummberNoteFile.do',
-				                data: data,
-				                success: function(data) {
-				   				//이미지 경로를 작성하면 됩니다 ^  ^
-				                    var image = $('<img>').attr('src', '/cmm/fms/getImage.do?atchFileId='+data[0].atchFileId+'&fileSn=0');
-				                    $('#nttCn').summernote("insertNode", image[0]);
-				                },
-				                error: function(data) {
-				                    alert('error : ' +data);
-				                }
-				            });
-				        }
 
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary">작성</button>
+			<button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-check"></span></button>
+			<button type="button" class="btn btn-danger" id="btnCancel" data-toggle="tooltip" data-placement="top" title="취소"><span class="fas fa-times"></span></button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-			<button type="button" class="btn btn-success" id="btnNoticeBoardList">목록</button>
 		</form>
 		<!-- 공지사항 작성 부분 끝 - form -->
 

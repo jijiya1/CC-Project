@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="../include/head.jsp" %>
 
 <style>
@@ -23,9 +21,12 @@ $(document).ready(function() {
 		alert("글을 삭제하였습니다.")
 	}
 	
+	// 툴팁
+	$('[data-toggle="tooltip"]').tooltip();
+	
 	// 공지사항 작성
 	$("#btnNoticeWrite").click(function() {
-		location.href = "/notice_board/notice_write";
+		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
 	});
 	 
 	 // 해당 글 읽기
@@ -73,8 +74,12 @@ $(document).ready(function() {
 			 if(e.keyCode == 13) {
 				setPage();
 				$("input[name=searchType]").val("b_title");
+				var a_no = "${ areaDataVo.a_no }";
+// 				console.log(a_no);
+				$("input[name=a_no]").val(a_no);
 				var keyword = $("#keyword").val();
 				$("input[name=keyword]").val(keyword);
+// 				console.log(keyword);
 				$("#hiddenData").submit();
 			 }
 		 });
@@ -87,12 +92,22 @@ $(document).ready(function() {
 	 $("select[name=dataTable_length]").change(function() {
 		 setPage();
 		 setSearch();
+		 
+		 var a_no = "${ areaDataVo.a_no }";
+		 $("input[name=a_no]").val(a_no);
+		 
 		 $("#hiddenData").submit();
 	 });
 	 
 	 // 페이지네이션
 	 $(".page-link").click(function(e) {
 		 e.preventDefault();
+		 
+		 var a_no = "${ areaDataVo.a_no }";
+		 $("input[name=a_no]").val(a_no);
+		 $("input[name=keyword]").val(a_no);
+		 
+		 $("input[name=searchType]").val("b_addinfo");
 		 
 		 var nowPage = $(this).attr("data-page");
 		 $("input[name=nowPage]").val(nowPage);
@@ -113,22 +128,10 @@ $(document).ready(function() {
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
 	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 공지사항</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 공지사항</p>
 	
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">공지사항</h1>
-	
-	<!-- 검색바 -->
-<!-- 	<div style="float: right;"> -->
-<!-- 		<select id="searchType"> -->
-<!-- 			<option value="viewAll" selected="selected">전체</option> -->
-<!-- 			<option value="b_title">제목</option> -->
-<!-- 			<option value="b_content">내용</option> -->
-<!-- 			<option value="b_writer">작성자</option> -->
-<!-- 		</select> -->
-<!-- 		<input type="text" id="keyword" placeholder="Search for..."> -->
-<!-- 		<button class="btn btn-primary" id="btnSearch">검색</button> -->
-<!-- 	</div> -->
 	
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
@@ -137,9 +140,6 @@ $(document).ready(function() {
 
 	<!-- 공지사항 리스트 -->
 	  <div class="card shadow mb-4">
-<!-- 	    <div class="card-header py-3"> -->
-<!-- 	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>	 -->
-<!-- 	    </div> -->
 	    
 	    <div class="card-body">
 	      <div class="table-responsive">
@@ -212,8 +212,8 @@ $(document).ready(function() {
 	  
 	  <!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
-		<a href="/notice_board/notice_list"><button type="button" class="btn btn-success" style="float: left;"><span class="fas fa-list"></span></button></a>
-		<button class="btn btn-danger" id="btnNoticeWrite">공지사항 작성</button>
+		<a href="/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button></a>
+		<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
 		
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
@@ -261,6 +261,6 @@ $(document).ready(function() {
 	<!-- 공지사항 끝 -->
 	
 	<!-- css 테스트 -->
-	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div>
+<!-- 	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div> -->
 
 <%@include file="../include/footer.jsp" %>
