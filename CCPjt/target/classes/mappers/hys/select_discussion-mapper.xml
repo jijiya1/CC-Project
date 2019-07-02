@@ -7,18 +7,19 @@
 	<!-- 토론주제 추천게시판 글리스트 가져오기 -->
 	<select id="getSeletDiscussionList" resultType="SelectDiscussion_BoardVo">
 		select *
-		from (select ROWNUM rnum, a.*
+		from (select ROWNUM rnum, a.*, (select a_name from area_data where a_no = b_addinfo) a_name, (select d_name from detail_data where a_no = b_addinfo and d_no= b_detailinfo) d_name
 		      from (select * 
 		            from selectdiscussion_board
-		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo} and b_detailinfo = #{b_detailInfo}) a)
-		where rnum &gt;= 1 and rnum &lt;=10
-		order by b_no desc
+		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo} 
+		            order by b_no desc) a)
+		where rnum &gt;= #{pagingDto.startRow} and rnum &lt;=#{pagingDto.endRow}
+		
 	</select>
 	
 	<!-- 토론주제 추천게시판 글 갯수 가져오기 -->
 	<select id ="totalSelectBoardCount" resultType="int" >
 		select count(*) 
         from selectdiscussion_board
-        where b_checkeddel = 0 and b_addinfo = #{b_addInfo} and b_detailinfo = #{b_detailInfo}
+        where b_checkeddel = 0 and b_addinfo = #{b_addInfo}
 	</select>
 </mapper>

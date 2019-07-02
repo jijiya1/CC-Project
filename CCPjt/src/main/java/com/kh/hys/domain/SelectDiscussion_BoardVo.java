@@ -6,8 +6,10 @@ public class SelectDiscussion_BoardVo {
 	
 	String b_serialno; 			// 게시글 시리얼넘버
 	int b_no; 					// 토론주제선정 게시글번호
-	String b_addInfo; 			// 토론주제선정 게시글 정보(지역) 서울
-	String b_detailInfo;		// 토론주제선정 게시글 정보(상세정보) 송파구
+	int b_addInfo; 				// 토론주제선정 게시글 정보 번호(지역)
+	String a_name;				// 토론주제선정 게시글 정보 이름(지역)
+	int b_detailInfo;			// 토론주제선정 게시글 정보 번호(상세정보)
+	String d_name;				// 토론주제선정 게시글 정보 이름(상세정보)
 	String b_title; 			// 토론주제선정 제목
 	String b_writer; 			// 토론주제선정 작성자
 	String u_id ;				// 게시글 작성자 ID
@@ -36,20 +38,36 @@ public class SelectDiscussion_BoardVo {
 		this.b_no = b_no;
 	}
 
-	public String getB_addInfo() {
+	public int getB_addInfo() {
 		return b_addInfo;
 	}
 
-	public void setB_addInfo(String b_addInfo) {
+	public void setB_addInfo(int b_addInfo) {
 		this.b_addInfo = b_addInfo;
 	}
 
-	public String getB_detailInfo() {
+	public String getA_name() {
+		return a_name;
+	}
+
+	public void setA_name(String a_name) {
+		this.a_name = a_name;
+	}
+
+	public int getB_detailInfo() {
 		return b_detailInfo;
 	}
 
-	public void setB_detailInfo(String b_detailInfo) {
+	public void setB_detailInfo(int b_detailInfo) {
 		this.b_detailInfo = b_detailInfo;
+	}
+
+	public String getD_name() {
+		return d_name;
+	}
+
+	public void setD_name(String d_name) {
+		this.d_name = d_name;
 	}
 
 	public String getB_title() {
@@ -143,10 +161,11 @@ public class SelectDiscussion_BoardVo {
 	@Override
 	public String toString() {
 		return "SelectDiscussion_BoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addInfo=" + b_addInfo
-				+ ", b_detailInfo=" + b_detailInfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
-				+ u_id + ", b_content=" + b_content + ", b_readCount=" + b_readCount + ", b_createdDate="
-				+ b_createdDate + ", b_modifiedDate=" + b_modifiedDate + ", b_recommendCount=" + b_recommendCount
-				+ ", b_upCount=" + b_upCount + ", b_downCount=" + b_downCount + ", b_checkedDel=" + b_checkedDel + "]";
+				+ ", a_name=" + a_name + ", b_detailInfo=" + b_detailInfo + ", d_name=" + d_name + ", b_title="
+				+ b_title + ", b_writer=" + b_writer + ", u_id=" + u_id + ", b_content=" + b_content + ", b_readCount="
+				+ b_readCount + ", b_createdDate=" + b_createdDate + ", b_modifiedDate=" + b_modifiedDate
+				+ ", b_recommendCount=" + b_recommendCount + ", b_upCount=" + b_upCount + ", b_downCount=" + b_downCount
+				+ ", b_checkedDel=" + b_checkedDel + "]";
 	}
 
 }

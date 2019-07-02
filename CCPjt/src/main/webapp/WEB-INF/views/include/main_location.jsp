@@ -83,6 +83,12 @@ $(document).ready(function() {
 	$("#btnJeju").click(function() {
 		location.href="/main/sub_main?b_no=&a_no=64&nowPage=1&perPage=5&searchType=b_addinfo&keyword=64";
 	});
+	
+	// 테스트 버튼
+// 	$("#btnSubMain").click(function() {
+// 		location.href="/main/sub_main?b_no=&a_no=52&nowPage=1&perPage=5&searchType=b_addinfo&keyword=52";
+// 	});
+
 });
 </script>
 
@@ -114,13 +120,9 @@ $(document).ready(function() {
 </style>
 
 <div class="container-fluid">
-
 	<div class="row">
-	<div class="col-md-2"></div>
-	
-	<div class="col-md-3">
 		<div style="width:100%; height:400px;">
-			<div id="canvas" style="float: right;">
+			<div id="canvas">
 				<div id="south"></div>
 				<div id="seoul"><h2>서울특별시</h2></div>
 				<div id="gygg"><h2>경기도</h2></div>
@@ -142,8 +144,10 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
-	<div class="col-md-5">
+	<br><br>
+	
+	<div class="row">
+	<div>
 		<button type="button" class="btn btn-outline-primary" id="btnAll">전 체</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnSeoul">서 울</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnGygg">경 기</button>&nbsp;&nbsp;
@@ -151,6 +155,9 @@ $(document).ready(function() {
 		<button type="button" class="btn btn-outline-primary" id="btnBusan">부 산</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnDaegu">대 구</button>&nbsp;&nbsp;
 				<br><br>
+	</div>
+	
+	<div>
 		<button type="button" class="btn btn-outline-primary" id="btnDaejeon">대 전</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnGyeongnam">경 남</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnJeonnam">전 남</button>&nbsp;&nbsp;
@@ -158,6 +165,9 @@ $(document).ready(function() {
 		<button type="button" class="btn btn-outline-primary" id="btnGwangju">광 주</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnUlsan">울 산</button>&nbsp;&nbsp;
 				<br><br>
+	</div>
+	
+	<div>
 		<button type="button" class="btn btn-outline-primary" id="btnGyeongbuk">경 북</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnJeonbuk">전 북</button>&nbsp;&nbsp;
 		<button type="button" class="btn btn-outline-primary" id="btnChungbuk">충 북</button>&nbsp;&nbsp;
@@ -167,9 +177,14 @@ $(document).ready(function() {
 				<br><br>
 	</div>
 	
-	<div class="col-md-2"></div>
+	<!-- sub_main 테스트 버튼 -->
+<!-- 	<div> -->
+<!-- 		<button type="button" class="btn btn-outline-primary" id="btnSubMain">테스트</button>&nbsp;&nbsp; -->
+<!-- 				<br><br> -->
+<!-- 	</div> -->
 	
 	</div>
+	
 </div>
 
 <!-- 지도 끝 -->
