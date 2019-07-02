@@ -21,11 +21,11 @@ public class INoticeBoardDaoTest {
 	public void testSearchTest() throws Exception {
 		NoSearchDto noSearchDto = new NoSearchDto();
 		noSearchDto.setSearchType("b_title");
-		noSearchDto.setKeyword("수정");
+		noSearchDto.setKeyword("테스트");
 		NoPagingDto noPagingDto = new NoPagingDto();
 		noPagingDto.setStartRow(1);
 		noPagingDto.setEndRow(10);
-		boardDao.noticeBoardList(noSearchDto, noPagingDto);
+		
 	}
 	
 	@Test

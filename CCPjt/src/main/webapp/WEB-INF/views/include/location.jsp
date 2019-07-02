@@ -13,7 +13,7 @@
 $(document).ready(function() {
 	
 	$("#btnAll").click(function() {
-		location.href="/notice_board/notice_list";
+		location.href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10";
 	});
 	
 	$("#btnSeoul").click(function() {

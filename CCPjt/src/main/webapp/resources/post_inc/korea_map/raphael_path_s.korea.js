@@ -90,71 +90,71 @@ window.onload = function () {
 
 				switch(state) {
 					case "seoul":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=20";
+						location.href="/main/sub_main?b_no=&a_no=20&nowPage=1&perPage=5&searchType=b_addinfo&keyword=20";
 						current = state;
 						break;
 					case "gygg":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=31";
+						location.href="/main/sub_main?b_no=&a_no=31&nowPage=1&perPage=5&searchType=b_addinfo&keyword=31";
 						current = state;
 						break;
 					case "incheon":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=32";
+						location.href="/main/sub_main?b_no=&a_no=32&nowPage=1&perPage=5&searchType=b_addinfo&keyword=32";
 						current = state;
 						break;
 					case "gangwon":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=33";
+						location.href="/main/sub_main?b_no=&a_no=33&nowPage=1&perPage=5&searchType=b_addinfo&keyword=33";
 						current = state;
 						break;
 					case "chungbuk":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=43";
+						location.href="/main/sub_main?b_no=&a_no=43&nowPage=1&perPage=5&searchType=b_addinfo&keyword=43";
 						current = state;
 						break;
 					case "chungnam":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=41";
+						location.href="/main/sub_main?b_no=&a_no=41&nowPage=1&perPage=5&searchType=b_addinfo&keyword=41";
 						current = state;
 						break;
 					case "daejeon":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=42";
+						location.href="/main/sub_main?b_no=&a_no=42&nowPage=1&perPage=5&searchType=b_addinfo&keyword=42";
 						current = state;
 						break;
 					case "sejong":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=44";
+						location.href="/main/sub_main?b_no=&a_no=44&nowPage=1&perPage=5&searchType=b_addinfo&keyword=44";
 						current = state;
 						break;
 					case "jeonbuk":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=63";
+						location.href="/main/sub_main?b_no=&a_no=63&nowPage=1&perPage=5&searchType=b_addinfo&keyword=63";
 						current = state;
 						break;
 					case "gwangju":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=62";
+						location.href="/main/sub_main?b_no=&a_no=62&nowPage=1&perPage=5&searchType=b_addinfo&keyword=62";
 						current = state;
 						break;
 					case "jeonnam":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=61";
+						location.href="/main/sub_main?b_no=&a_no=61&nowPage=1&perPage=5&searchType=b_addinfo&keyword=61";
 						current = state;
 						break;
 					case "gyeongbuk":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=54";
+						location.href="/main/sub_main?b_no=&a_no=54&nowPage=1&perPage=5&searchType=b_addinfo&keyword=54";
 						current = state;
 						break;
 					case "daegu":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=53";
+						location.href="/main/sub_main?b_no=&a_no=53&nowPage=1&perPage=5&searchType=b_addinfo&keyword=53";
 						current = state;
 						break;
 					case "gyeongnam":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=55";
+						location.href="/main/sub_main?b_no=&a_no=55&nowPage=1&perPage=5&searchType=b_addinfo&keyword=55";
 						current = state;
 						break;
 					case "ulsan":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=52";
+						location.href="/main/sub_main?b_no=&a_no=52&nowPage=1&perPage=5&searchType=b_addinfo&keyword=52";
 						current = state;
 						break;
 					case "busan":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=51";
+						location.href="/main/sub_main?b_no=&a_no=51&nowPage=1&perPage=5&searchType=b_addinfo&keyword=51";
 						current = state;
 						break;
 					case "jeju":
-						location.href="/notice_board/notice_list?b_no=&a_no=&nowPage=1&perPage=10&searchType=b_addinfo&keyword=64";
+						location.href="/main/sub_main?b_no=&a_no=64&nowPage=1&perPage=5&searchType=b_addinfo&keyword=64";
 						current = state;
 						break;
 
