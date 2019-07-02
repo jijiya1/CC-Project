@@ -24,5 +24,15 @@ public class ReplyDaoImpl implements IReplyDao {
 		List<Complaint_ReplyVo> list = sqlSession.selectList(NAMESPACE + ".list", b_no);
 		return list;
 	}
+	@Override
+	public void update(Complaint_ReplyVo replyVo) throws Exception {
+		sqlSession.update(NAMESPACE + ".update", replyVo);
+		
+	}
+	@Override
+	public void delete(int r_no) throws Exception {
+		sqlSession.delete(NAMESPACE + ".delete", r_no);
+		
+	}
 
 }
