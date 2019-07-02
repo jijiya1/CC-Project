@@ -20,7 +20,7 @@
 
 	</select>
 <!-- 만료된청원보기	 -->
-	<select id="listRunOut">
+	<select id="listRunOut" resultType="PetitionVo">
 		select rownum rnum, allList.* 
 		    from (select ad.a_name,dd.d_name, pb.* 
 		                from petition_board pb,area_data ad, detail_data dd
