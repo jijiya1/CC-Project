@@ -76,5 +76,14 @@ public class PetitionController {
 		return "redirect:/petition_board/petitionList?a_no="+a_no;
 	}
 	
+	@RequestMapping(value="petitionRunOut", method=RequestMethod.GET)
+	public void petitionRunOut(@RequestParam("a_no") int a_no,
+								Model model) throws Exception{
+		List<PetitionVo> peVo = peService.listRunOut(a_no);
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		model.addAttribute("peVo",peVo);
+		model.addAttribute("areaDataVo",areaDataVo);
+	}
+	
 
 }
