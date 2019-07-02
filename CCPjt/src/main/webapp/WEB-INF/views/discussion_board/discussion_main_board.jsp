@@ -4,7 +4,7 @@
 
 <style>
 	* {box-sizing: border-box}
-	body {font-family: Verdana, sans-serif; margin:0}
+	body {margin:0}
 	
 	/* Slideshow container */
 	.slideshow-container {
@@ -86,7 +86,6 @@
 		margin-left:30px;
 		font-size: 20px;
 	}
-	
 	
 	
 </style>

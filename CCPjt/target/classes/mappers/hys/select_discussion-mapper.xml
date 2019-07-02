@@ -10,16 +10,20 @@
 		from (select ROWNUM rnum, a.*, (select a_name from area_data where a_no = b_addinfo) a_name, (select d_name from detail_data where a_no = b_addinfo and d_no= b_detailinfo) d_name
 		      from (select * 
 		            from selectdiscussion_board
-		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo} 
+		            where b_checkeddel = 0 and b_addinfo = #{areaDataVo.a_no}
+		            <if test="(pagingDto.serchKeyword != null) and (pagingDto.serchKeyword != '')" >
+		            	and b_title like '%' || #{pagingDto.serchKeyword} || '%'
+		            </if>
 		            order by b_no desc) a)
 		where rnum &gt;= #{pagingDto.startRow} and rnum &lt;=#{pagingDto.endRow}
-		
 	</select>
 	
 	<!-- 토론주제 추천게시판 글 갯수 가져오기 -->
 	<select id ="totalSelectBoardCount" resultType="int" >
 		select count(*) 
         from selectdiscussion_board
-        where b_checkeddel = 0 and b_addinfo = #{b_addInfo}
+        where b_checkeddel = 0 and b_addinfo = #{areaDataVo.a_no}
 	</select>
+	
+	<!-- 검색 기능 -->
 </mapper>

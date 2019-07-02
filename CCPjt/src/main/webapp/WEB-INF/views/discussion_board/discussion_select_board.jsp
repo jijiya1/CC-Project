@@ -4,7 +4,6 @@
 
 <script>
 $(document).ready(function () {
-	
 	// 표시 게시글 갯수 변경
 	$("#dataTable_length").change(function () {
 		var url = "/selectDiscussion/discussion_select_board";
@@ -16,10 +15,27 @@ $(document).ready(function () {
 		var countRow = $("select[name=dataTable_length]").val();
 		$("input[name=countRow]").val(countRow);
 		
-		console.log(countRow);
-		
 		$("#hiddenData").submit();
 	});
+	
+	// 검색 기능
+	$("#keyword").keyup(function(e) {
+		if(e.keyCode == 13) {
+			var url = "/selectDiscussion/discussion_select_board";
+			$("#hiddenData").attr("action",url);
+			
+			var serchKeyword =  $(this).val();
+			$("input[name=serchKeyword]").val(serchKeyword);
+			
+			var nowPage = 1;
+			$("input[name=nowPage]").val(nowPage);
+			
+			var countRow = $("select[name=dataTable_length]").val();
+			$("input[name=countRow]").val(countRow);
+			
+			$("#hiddenData").submit();
+		}
+	})
 	
 	// 페이지네이션
 	$(".page-link").click(function (e) {
@@ -62,6 +78,7 @@ $(document).ready(function () {
 			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
 			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
+			<input type="hidden" name="serchKeyword">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
@@ -125,17 +142,22 @@ $(document).ready(function () {
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
 				
-				<c:if test="${pagingDto.prev == true}">
-					<li class="paginate_button page-item previous" id="dataTable_previous">
+				
+					<li class="paginate_button page-item previous
+						<c:if test="${pagingDto.prev == false}">
+							disabled
+						</c:if>
+					" id="dataTable_previous">
 						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" data-nowPage="${pagingDto.startPage - 1}" class="page-link">≪</a>
 					</li>
-				</c:if>
 				
-				<c:if test="${pagingDto.nowPage != 1}">
-					<li class="paginate_button page-item previous" id="dataTable_previous">
+					<li class="paginate_button page-item previous
+						<c:if test="${pagingDto.nowPage == 1}">
+							disabled
+						</c:if>
+					" id="dataTable_previous">
 						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" data-nowPage="${pagingDto.nowPage - 1}" class="page-link" >＜</a>
 					</li>
-				</c:if>
 				
 				<c:forEach var ="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
 					<li class="paginate_button page-item 
@@ -146,17 +168,22 @@ $(document).ready(function () {
 					</li>
 				</c:forEach>
 				
-				<c:if test="${pagingDto.nowPage != pagingDto.endPage}">
-					<li class="paginate_button page-item next" id="dataTable_next">
+					<li class="paginate_button page-item next
+						<c:if test="${pagingDto.nowPage == pagingDto.endPage}">
+							disabled
+						</c:if>
+					" id="dataTable_next">
 						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.nowPage + 1}" class="page-link">＞</a>
 					</li>
-				</c:if>
 				
-				<c:if test="${pagingDto.next == true}">
-					<li class="paginate_button page-item next" id="dataTable_next">
+					<li class="paginate_button page-item next
+						<c:if test="${pagingDto.next == false}">
+							disabled
+						</c:if>
+					" id="dataTable_next">
 						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.endPage + 1}" class="page-link">≫</a>
 					</li>
-				</c:if>
+				
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->

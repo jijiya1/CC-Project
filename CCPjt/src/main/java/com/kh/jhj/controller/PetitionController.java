@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.domain.AreaDataVo;
-import com.kh.domain.LocalDto;
 import com.kh.jhj.domain.DoPageDto;
 import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;

@@ -19,7 +19,7 @@ public class SelectService_Discussion implements ISelectService_Discussion {
 	// 토론 주제 추천 게시판 글 리스트 가져오기
 	@Override
 	public List<SelectDiscussion_BoardVo> getSelectBoardList(PagingDto pagingDto, int b_addInfo) throws Exception {
-		List<SelectDiscussion_BoardVo> selectBoardList = selectBoardDao.getSelectBoardList(pagingDto, b_addInfo);
+		List<SelectDiscussion_BoardVo> selectBoardList = selectBoardDao.getSelectBoardList(pagingDto ,b_addInfo);
 		return selectBoardList;
 	}
 	

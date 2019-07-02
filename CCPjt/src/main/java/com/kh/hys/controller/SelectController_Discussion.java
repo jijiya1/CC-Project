@@ -14,6 +14,7 @@ import com.kh.domain.AreaDataVo;
 import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.hys.service.ISelectService_Discussion;
+import com.kh.shj.service.INoticeBoardService;
 
 @Controller
 @RequestMapping("/selectDiscussion/*")
@@ -22,19 +23,20 @@ public class SelectController_Discussion {
 	@Inject
 	ISelectService_Discussion selectService;
 	
+	@Inject
+	INoticeBoardService service;
+	
 	// 토론 주제 선정 게시판으로 가기
 	@RequestMapping(value = "/discussion_select_board", method=RequestMethod.GET)
 	public String discussion_res_board(Model model, @RequestParam("a_no") int a_no, PagingDto pagingDto) throws Exception {
-		
-		AreaDataVo areaDataVo = new AreaDataVo();
-		areaDataVo.setA_no(a_no);
+	
+		AreaDataVo areaDataVo = service.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
 		
 		int totalBoardCount = selectService.totalSelectBoardCount(a_no);
 		pagingDto.setTotalData(totalBoardCount);
 		
-		System.out.println("pagingDto : " + pagingDto);
-		
-		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(pagingDto, a_no);
+		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(pagingDto ,a_no);
 		
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("selectBoardList", selectBoardList);
