@@ -82,8 +82,8 @@
 
 	<!-- 글 작성 -->
 	<insert id="noticeBoardWrite">
-		insert into notice_board(b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, u_id, b_content)
-		values ('no_' || seq_notice_serialno.nextval, seq_notice.nextval, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{u_id}, #{b_content})
+		insert into notice_board(b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, u_email, b_content)
+		values ('no_' || seq_notice_serialno.nextval, seq_notice.nextval, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{u_email}, #{b_content})
 	</insert>
 	
 	<!-- 글 수정 -->
@@ -93,7 +93,7 @@
 			b_detailinfo = #{b_detailinfo},
 			b_title = #{b_title},
 			b_writer = #{b_writer},
-			u_id = #{u_id},
+			u_email = #{u_email},
 			b_content = #{b_content},
 			b_modifieddate = sysdate
 		where b_no = #{b_no}
