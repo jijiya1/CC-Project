@@ -281,7 +281,7 @@ $(document).ready(function() {
 		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
-	           		  <td>${ noticeList.b_writer }</td>
+	           		  <td>${ noticeList.u_name }</td>
 	           		  <td>${ noticeList.b_readcount }
 		              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
 		            </tr>
