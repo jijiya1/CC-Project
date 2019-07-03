@@ -81,7 +81,7 @@ $(document).ready(function(){
 	
 		<!-- 페이지 헤더 -->	
 	
-		<h1 class="h3 mb-2 text-gray-800"> 청원 만료 게시판</h1><p class="mb-4">
+		<h1 class="h3 mb-2 text-gray-800"> 청원게시판(전체보기)</h1><p class="mb-4">
 		<span> 전체 ${count}건의 게시물이 있습니다.</span>
 	</p>
 
@@ -118,10 +118,10 @@ $(document).ready(function(){
 						<a class="nav-link" href="/petition_board/petitionMain?a_no=${areaDataVo.a_no}">청원메인</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
+						<a class="nav-link active show" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
+						<a class="nav-link" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -137,7 +137,7 @@ $(document).ready(function(){
 									<th width="200">조회수</th>
 								</tr></thead>
 							<tbody>
-							<c:forEach items="${pRunOut}" var="peVo">
+							<c:forEach items="${pList}" var="peVo">
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"

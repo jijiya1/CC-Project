@@ -19,7 +19,7 @@ public class PagingDto {
 	
 	//검색 정보
 	private String searchType;
-	private String serchKeyword;
+	private String searchKeyword;
 	
 	private void calcPage() {
 		int totalPage = totalData/countRow;
@@ -118,12 +118,13 @@ public class PagingDto {
 		this.searchType = searchType;
 	}
 
-	public String getSerchKeyword() {
-		return serchKeyword;
+
+	public String getSearchKeyword() {
+		return searchKeyword;
 	}
 
-	public void setSerchKeyword(String serchKeyword) {
-		this.serchKeyword = serchKeyword;
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 	@Override
@@ -131,7 +132,7 @@ public class PagingDto {
 		return "PagingDto [totalData=" + totalData + ", startRow=" + startRow + ", endRow=" + endRow + ", countRow="
 				+ countRow + ", nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", countPage=" + countPage + ", prev=" + prev + ", next=" + next + ", searchType=" + searchType
-				+ ", serchKeyword=" + serchKeyword + "]";
+				+ ", searchKeyword=" + searchKeyword + "]";
 	}
 	
 }

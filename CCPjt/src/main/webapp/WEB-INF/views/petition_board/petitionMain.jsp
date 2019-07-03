@@ -30,9 +30,6 @@ $(document).ready(function(){
 	$("#countRow").change(function(e){
 		e.preventDefault();
 		setPage();
-// 		var countRow = $("#countRow").val();
-// 		console.log("countRow" + countRow);
-// 		$("input[name=countRow]").val(countRow);
 		$("#pageForm").submit();
 	});
 	
@@ -61,6 +58,11 @@ $(document).ready(function(){
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action",href).submit();
 	});
+	
+	$("#btnPetition").click(function(){
+		var href = "/petition_board/petitionWrite";
+// 		$("#pageForm").attr("action", href).submit();
+	});
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
@@ -81,7 +83,8 @@ $(document).ready(function(){
 	
 		<!-- 페이지 헤더 -->	
 	
-		<h1 class="h3 mb-2 text-gray-800"> 청원 만료 게시판</h1><p class="mb-4">
+		<h1 class="h3 mb-2 text-gray-800"> 청원게시판(관심 청원 Best3)</h1><p class="mb-4">
+		<input class="btn btn-primary" type="button" value="청원하기" id="btnPetition">
 		<span> 전체 ${count}건의 게시물이 있습니다.</span>
 	</p>
 
@@ -115,13 +118,13 @@ $(document).ready(function(){
 			
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/petitionMain?a_no=${areaDataVo.a_no}">청원메인</a>
+						<a class="nav-link active show" href="/petition_board/petitionMain?a_no=${areaDataVo.a_no}">청원메인</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
+						<a class="nav-link" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -137,7 +140,7 @@ $(document).ready(function(){
 									<th width="200">조회수</th>
 								</tr></thead>
 							<tbody>
-							<c:forEach items="${pRunOut}" var="peVo">
+							<c:forEach items="${pMain}" var="peVo">
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"
@@ -162,6 +165,7 @@ $(document).ready(function(){
 							</c:forEach>
 							</tbody>
 						</table>
+						${pageDto.startPage}
 			<c:if test="${pageDto.startPage != 0 && pageDto.startPage != null}">
 				<ul class="pagination" style="float: right;">
 					<c:if test="${pageDto.prev == true}">
