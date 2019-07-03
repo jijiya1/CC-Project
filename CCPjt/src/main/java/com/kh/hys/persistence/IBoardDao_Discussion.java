@@ -21,4 +21,7 @@ public interface IBoardDao_Discussion {
 	
 	// 찬성 또는 반대 투표로 인한 메인 테이블 찬반 카운트 업데이트
 	public void BoardAgreeCountModify(int b_no) throws Exception;
+	
+	//특정 토론글 찬성 반대 갯수 가져오기
+	public BoardVo_Discussion getAgreeRatio(int b_no) throws Exception;
 }

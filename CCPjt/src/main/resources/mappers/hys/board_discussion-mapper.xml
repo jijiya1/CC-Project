@@ -10,6 +10,7 @@
 		from (select *
 			  from discussion_board
 			  where b_checkeddel = 0 and b_addinfo = #{a_no}) a
+		order by b_no
 	</select>
 	
 	<!-- 특정유저가 토론 게시판 해당글 찬성 또는 반대 첫투표 -->
@@ -34,9 +35,16 @@
 	
 	<!-- 찬성 또는 반대 투표로 인한 메인 테이블 찬반 카운트 업데이트 -->
 	<update id="BoardAgreeCountModify">
-		update BoardAgreeCountModify
+		update discussion_board
 		set b_agreementcount = (select count(*) from discussion_agreeinfo where agreenum = 1 and b_no = #{b_no}),
 			b_oppositioncount = (select count(*) from discussion_agreeinfo where agreenum = 2 and b_no = #{b_no})
 		where b_no = #{b_no}
 	</update>
+	
+	<!-- 특정 토론글 찬성 반대 갯수 가져오기 -->
+	<select id="getAgreeRatio" resultType="BoardVo_Discussion">
+        select b_serialno, b_no, b_agreementcount, b_oppositioncount
+        from discussion_board 
+        where b_no = #{b_no}
+	</select>
 </mapper>

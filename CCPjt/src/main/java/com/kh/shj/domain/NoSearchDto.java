@@ -1,6 +1,7 @@
 package com.kh.shj.domain;
 
 public class NoSearchDto {
+	
 	private String searchType;
 	private String keyword;
 

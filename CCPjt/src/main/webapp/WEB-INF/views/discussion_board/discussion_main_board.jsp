@@ -4,7 +4,7 @@
 
 <style>
 	* {box-sizing: border-box}
-	body {font-family: Verdana, sans-serif; margin:0}
+	body {margin:0}
 	
 	/* Slideshow container */
 	.slideshow-container {
@@ -88,72 +88,105 @@
 	}
 	
 	
-	
 </style>
 
 <div class="container-fluid">
-	<p style="font: strong;">데이터 확인 :</p>
+	<p style="font: strong;">데이터 확인 :${areaDataVo.a_no }</p>
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
 </div>
 
-<div class="slideshow-container">
-	<div>
-		<input type="button" id="btn_Discussion_rec" value="토론주제 추천게시판" style="float: right;" >
-	</div>
-	<c:forEach items="${discussionList }" var="boardVo_discussion" >
-		<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
-			<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
-				${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
-			</q>
-			<p></p>
-			<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
-			<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
-		</div>
-	</c:forEach>
-	
-	<a class="prev" onclick="plusSlides(-1)">❮</a>
-	<a class="next" onclick="plusSlides(1)">❯</a>
-</div>
+<c:choose>
+	<c:when test="${discussionList == '[]'}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="alert alert-success alert-dismissable">
+						<h4>
+							정해진 토론 주제가 없습니다.!
+						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }" class="alert-link">토론 주제 게시판</a>
 
-<div class="dot-container">
-	<c:forEach begin="1" end="${discussionListSize }" var= "i" >
-		<span class="dot" onclick="currentSlide(${i})"></span> 
-	</c:forEach>
-</div>
-<br>
-
-<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
-	<label>토론 상세 내용</label>
-	<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
-</div>
-
-
-<!-- 댓글(의견) 달기 부분 -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12" id = "reply_Textarea">
-			<!-- 댓글 보기 버튼 -->
-			<a href="#" class="btn btn-primary btn-icon-split btnReplyList"  id="btnReplyList">                     
-				<span class="icon text-white-50">
-					<i class="fas fa-flag"></i>
-				</span>
-				<span class='text'>댓글 보기</span>
-			</a>
-		</div>
-	</div>
-</div>
-<br>
-
-<!-- 댓글 리스트 부분 -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div id = "discussion_ReplyList">
-				
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+	</c:when>
+	<c:otherwise>
+		<div class="slideshow-container">
+			<div>
+				<input type="button" id="btn_Discussion_rec" value="토론주제 추천게시판" style="float: right;" >
+			</div>
+		
+			<c:forEach items="${discussionList }" var="boardVo_discussion" >
+				<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
+					<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
+						${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
+					</q>
+					<p></p>
+					<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
+					<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
+					
+					<!-- 찬반 비율 표시 줄 -->
+					<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; border-radius: 20em; display: none;">
+						<div id ="agreeRatioArea${boardVo_discussion.b_no }" style="background-color: #70A9F2; width: 50%; float: left; " >
+							<label id ="agreeRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: left;">&nbsp;${boardVo_discussion.b_agreementcount}</label>
+						</div>
+						
+						<div id ="oppositionRatioArea${boardVo_discussion.b_no }" style="background-color: #FF6060; width: 50%;  float: right;">
+							<label id ="oppositionRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: right;">${boardVo_discussion.b_oppositioncount}&nbsp;</label>
+						</div>
+					</div>	
+				</div>
+			</c:forEach>
+			
+			<a class="prev" onclick="plusSlides(-1)">❮</a>
+			<a class="next" onclick="plusSlides(1)">❯</a>
+		</div>
+		
+		
+		
+		<div class="dot-container">
+			<c:forEach begin="1" end="${discussionListSize }" var= "i" >
+				<span class="dot" onclick="currentSlide(${i})"></span> 
+			</c:forEach>
+		</div>
+		<br>
+		
+		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
+			<label>토론 상세 내용</label>
+			<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
+		</div>
+		
+		
+		<!-- 댓글(의견) 달기 부분 -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12" id = "reply_Textarea">
+					<!-- 댓글 보기 버튼 -->
+					<a href="#" class="btn btn-primary btn-icon-split btnReplyList"  id="btnReplyList">                     
+						<span class="icon text-white-50">
+							<i class="fas fa-flag"></i>
+						</span>
+						<span class='text'>댓글 보기</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+		<!-- 댓글 리스트 부분 -->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div id = "discussion_ReplyList">
+						
+					</div>
+				</div>
+			</div>
+		</div>	
+	</c:otherwise>
+</c:choose>
+
+
 
 <!-----------------------------------  스크립트 ----------------------------------->
 <script>
@@ -164,12 +197,8 @@
 	var nowReplyPage = 1;
 	
 	//임시 로그인 중인 사용자 -------------------------------------------
-	var r_writer = "시민3";
-	var u_id = "user3";
-	// --------------------------------------------------------------------
-
-	//임시 지역 정보 ---------------------------------------------------
-	var b_addInfo = ${a_no};
+	var r_writer = "시민1";
+	var u_id = "user1";
 	// --------------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
@@ -196,8 +225,6 @@
 	  } else {
 		  addReplyListButton();
 	  }
-	  
-	  b_contentArea.style.display = "none";
 	}
 	
 	function currentSlide(n) {
@@ -216,9 +243,11 @@
 		  addReplyTextarea(YorNSelect);
 	  } else {
 		  addReplyListButton();
+		  
 	  }// if
 	  
 	  b_contentArea.style.display = "none";
+	  
 	}
 	
 	function showSlides(n) {
@@ -244,7 +273,7 @@
 	
 	// 토론 주제선정 게시판으로 이동버튼
 	$("#btn_Discussion_rec").click(function () {
-		location.href = "/selectDiscussion/discussion_select_board/"+b_addInfo;
+		location.href = "/selectDiscussion/discussion_select_board?a_no="+${areaDataVo.a_no};
 	});//("#btn_Discussion_rec").click
 	
 	
@@ -319,7 +348,6 @@
 		} else if (YorN == "N") {
 			agreenum = 2;
 		}
-
 		
 		var b_no = $(this).attr("data-b_no");
 // 		console.log("글번호 "+b_no+" "+ YorN_Select+"체크함");
@@ -340,7 +368,32 @@
 			"dataType" : "text",
 			"data" : JSON.stringify(sendData),
 			"success" : function (receivedData) {
+// 				console.log("성공 " + receivedData)
+				var commaIndex = receivedData.lastIndexOf(",");
+				var strLength = receivedData.length;
+				var agreeCount = receivedData.substring(0,commaIndex);
+				var oppositionCount = receivedData.substring(commaIndex+1, strLength);
 				
+				$("#agreeRatio"+b_no).html("&nbsp;"+agreeCount);
+				$("#oppositionRatio"+b_no).html(oppositionCount+"&nbsp;");
+				
+				var totalCount = parseInt(agreeCount) + parseInt(oppositionCount);
+// 				console.log("totalCount : " + totalCount);
+				
+				var agreeRatio = (parseInt(agreeCount) / totalCount *90) + 5;
+				var oppositionRatio = (parseInt(oppositionCount) / totalCount *90) + 5;
+				
+// 				console.log(agreeRatio + " / " + oppositionRatio);
+
+				
+				var agreeRatioArea = document.getElementById("agreeRatioArea"+b_no);
+				var oppositionRatioArea = document.getElementById("oppositionRatioArea"+b_no);
+				
+				agreeRatioArea.style.width = agreeRatio+"%";
+				oppositionRatioArea.style.width = oppositionRatio+"%";
+				
+				var ratioArea = document.getElementById("ratioArea"+b_no);
+				ratioArea.style.display = "block";
 			}
 		});
 		
@@ -350,11 +403,11 @@
 
 	// 댓글 작성(쓰기)완료 버튼
 	$("#reply_Textarea").on("click",".btnReplyWrite", function () {
-		console.log("작성 완료 버튼");
+// 		console.log("작성 완료 버튼");
 		var r_content = $(".r_content").val(); // 댓글 내용 가져 오기
 		$(".r_content").val("");
 		var YorNSelect = $(".mySlides").eq(slideIndex - 1).attr("data-YorNSelect"); // 찬성 || 반대 정보 가져오기
-		console.log("r_content : " + YorNSelect+ " / "+ r_content);
+// 		console.log("r_content : " + YorNSelect+ " / "+ r_content);s
 		
 		// 공란일때 알림
 		if(r_content == "") {
@@ -409,7 +462,7 @@
 // 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			var discussionReplyList = receivedData.discussionReplyList;
 
-			console.log("discussionReplyList : " ,  discussionReplyList);
+// 			console.log("discussionReplyList : " ,  discussionReplyList);
 			
 			if(discussionReplyList == "") {
 				alert("해당 글에 대한 댓글이 아직 없습니다.")
@@ -561,7 +614,7 @@
 		var r_likenum = $(this).attr("data-r_likenum");
 		
 		var selected = $(this).attr("data-selected");
-		console.log("selected : " + selected);
+// 		console.log("selected : " + selected);
 		if(selected == "Yes") {
 			r_likenum = 0;
 		}
@@ -596,7 +649,7 @@
 		
 		nowReplyPage = reply_page;
 		getReplyList();
-		console.log(reply_page+" 페이지 버튼")
+// 		console.log(reply_page+" 페이지 버튼")
 	})
 	
 	// 댓글에 답글 달기 버튼
@@ -774,7 +827,7 @@
 		
 		var frontId = u_id.substring(0,3);
 		renameId = frontId + "***";
-		console.log("frontId " + frontId)
+// 		console.log("frontId " + frontId)
 		
 		var rname = "@"+ r_writer+"("+renameId+")"+"&nbsp;";
 // 		console.log("댓글 번호" + r_no +"에 "+ u_id +"유저 아이디/" +r_writer)

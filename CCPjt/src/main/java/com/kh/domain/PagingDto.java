@@ -1,6 +1,7 @@
 package com.kh.domain;
 
 public class PagingDto {
+	
 	private int totalData;
 	
 	// 페이징
@@ -16,7 +17,9 @@ public class PagingDto {
 	private boolean prev;
 	private boolean next;
 	
-	LocalDto localDto; // 지역 정보 담기
+	//검색 정보
+	private String searchType;
+	private String searchKeyword;
 	
 	private void calcPage() {
 		int totalPage = totalData/countRow;
@@ -25,13 +28,18 @@ public class PagingDto {
 		}
 		startPage = ((nowPage-1)/countPage)*countPage+1;
 		endPage = startPage +countPage-1;
-		if(endPage > totalPage) {
+		
+		if(endPage >= totalPage) {
 			endPage = totalPage;
 			next=false;
+		} else {
+			next=true;
 		}
 		
 		if(startPage > countPage) {
 			prev=true;
+		} else {
+			prev=false;
 		}
 		
 		endRow = nowPage*countRow;
@@ -101,18 +109,29 @@ public class PagingDto {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
-	public LocalDto getLocalDto() {
-		return localDto;
+
+	public String getSearchType() {
+		return searchType;
 	}
-	public void setLocalDto(LocalDto localDto) {
-		this.localDto = localDto;
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 	@Override
 	public String toString() {
 		return "PagingDto [totalData=" + totalData + ", startRow=" + startRow + ", endRow=" + endRow + ", countRow="
 				+ countRow + ", nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", countPage=" + countPage + ", prev=" + prev + ", next=" + next + ", localDto=" + localDto + "]";
+				+ ", countPage=" + countPage + ", prev=" + prev + ", next=" + next + ", searchType=" + searchType
+				+ ", searchKeyword=" + searchKeyword + "]";
 	}
 	
 }
