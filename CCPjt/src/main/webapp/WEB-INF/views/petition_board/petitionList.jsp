@@ -6,15 +6,49 @@
 <title>국민 청원</title>
 <script>
 $(document).ready(function(){
-	
+	var a_no = "${areaDataVo.a_no}";
+	$("input[name=a_no]").val(a_no);
 	function setPage(){
-		var ano = ${areaDataVo.a_no};
-// 		var nowPage =1;
-// 		nowPage= ${pagingDto.page};
+		var nowPage="${pageDto.nowPage}";
+			if(nowPage == ""){
+				nowPage = 1;
+			}
+		var countRow = $("#countRow").val();
+		
+		$("input[name=nowPage]").val(nowPage);
+		$("input[name=countRow]").val(countRow);
 	}
+	function setSearch(){
+		setPage();
+		var searchType = $("#searchType").val();
+		var keyword = $("#keyword").val();
+
+		$("input[name=searchType]").val(searchType);
+		$("input[name=searchKeyword]").val(keyword);
+	}
+	
+	$("#countRow").change(function(e){
+		e.preventDefault();
+		setPage();
+// 		var countRow = $("#countRow").val();
+// 		console.log("countRow" + countRow);
+// 		$("input[name=countRow]").val(countRow);
+		$("#pageForm").submit();
+	});
+	
+	 $("#keyword").keyup(function(e){
+		 if(e.keyCode == 13) {
+			 setSearch();
+			$("#pageForm").submit();
+		 }
+	 });
+
 	
 	$(".a_page").click(function(e){
 		e.preventDefault();
+		var nowPage = $(this).attr("data-page");
+		$("input[name=nowPage]").val(nowPage);
+		$("#pageForm").submit();
 	});
 	
 	$(".a_title").click(function(e){
@@ -28,12 +62,14 @@ $(document).ready(function(){
 		$("#pageForm").attr("action",href).submit();
 	});
 });
-
 </script>
-<form id="pageForm" action="/petition_board/petitionMain">
+<form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
 	<input type="hidden" name="b_no" >
-	
+	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
+	<input type="hidden" name="countRow" value="${pageDto.countRow} ">
+	<input type="hidden" name="searchType" value="${pageDto.searchType} ">
+	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
 </form>
 
 <div class="container-fluid">
@@ -44,15 +80,37 @@ $(document).ready(function(){
 	＞ 청원게시판</p>
 	
 		<!-- 페이지 헤더 -->	
-	<h1 class="h3 mb-2 text-gray-800"> 청원게시판(전체보기)</h1>
 	
-		<p class="mb-4">
-		<span> 전체 ${ count }건의 게시물이 있습니다.</span>
+		<h1 class="h3 mb-2 text-gray-800"> 청원게시판(전체보기)</h1><p class="mb-4">
+		<span> 전체 ${count}건의 게시물이 있습니다.</span>
 	</p>
 
 	  <div class="card shadow mb-4">
 	    
 	    <div class="card-body">
+	    <!-- 페이징 시작 -->
+	      <div class="dataTables_length" id="dataTable_length" style="float:left;">
+	      	<select id="countRow" aria-controls="dataTable" 
+	      					class="custom-select custom-select-sm form-control form-control-sm">
+	      		<c:forEach var="i" begin="10" end="30" step="5">
+			      	<option value="${ i }" <c:if test="${ i == pageDto.countRow }">selected</c:if>>${ i }</option>
+		      	</c:forEach>
+	      	</select>
+	      	</div>
+	      	<!-- 페이징 끝 -->
+	      	<div class="row" style="float:right;">
+		      	<div><select class="form-control form-control-sm" id="searchType">
+		      			<option value="title">제목</option>
+		      			<option value="content">내용</option>
+		      			<option value="writer">작성자</option>
+		      		</select>
+		      	</div>
+		      	<!-- 검색바 시작 -->
+		      	<div id="dataTable_filter" class="dataTables_filter">
+		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+		      	</div>
+	      	</div>
+	      	<!-- 검색바 끝 -->
 	      <div class="table-responsive">
 			
 				<ul class="nav nav-tabs">
@@ -63,7 +121,7 @@ $(document).ready(function(){
 						<a class="nav-link active show" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
+						<a class="nav-link" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -71,12 +129,12 @@ $(document).ready(function(){
 				<div class="tab-pane active" id="tab2">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 						<thead><tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>청원만료일</th>
-									<th>진행도</th>
-									<th>참여인원</th>
-									<th>조회수</th>
+									<th width="140">번 &nbsp;&nbsp;호</th>
+									<th>제 <c:forEach var="i" begin="1" end="18">&nbsp;</c:forEach>목</th>
+									<th width="200">청원만료일</th>
+									<th width="200">진행도</th>
+									<th width="200">참여인원</th>
+									<th width="200">조회수</th>
 								</tr></thead>
 							<tbody>
 							<c:forEach items="${pList}" var="peVo">
@@ -88,7 +146,7 @@ $(document).ready(function(){
 											&nbsp; ${peVo.b_title}</a>
 									</td>
 									<td><fmt:formatDate value="${peVo.b_enddate}"
-													pattern="yy/MM/dd HH:mm"/> </td>
+													pattern="yyyy-MM-dd"/> </td>
 									<td>
 										<c:choose>
 											<c:when test="${peVo.b_progress == 1}" >사전 동의 진행중</c:when>
@@ -104,19 +162,29 @@ $(document).ready(function(){
 							</c:forEach>
 							</tbody>
 						</table>
-						
+			<c:if test="${pageDto.startPage != 0 && pageDto.startPage != null}">
 				<ul class="pagination" style="float: right;">
-					<li class="page-item">
-						<a class="page-link a_page" href="#">＜</a>
-					</li>
-
-					<li class="page-item">
-						<a class="page-link a_page" href="#">1</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link a_page" href="#">＞</a>
-					</li>
+					<c:if test="${pageDto.prev == true}">
+						<li class="page-item">
+							<a class="page-link a_page" href="#"
+								data-page="${pageDto.startPage- pageDto.countPage+1}">＜</a>
+						</li>
+					</c:if>
+					<c:forEach var="i" begin="${pageDto.startPage}" end="${pageDto.endPage}">
+						<li class="page-item <c:if test="${pageDto.nowPage == i }">active</c:if>">
+							<a class="page-link a_page" href="#"
+								
+								data-page="${i}">${i}</a>
+						</li>
+					</c:forEach>
+					<c:if test="${pageDto.next == true }">
+						<li class="page-item">
+							<a class="page-link a_page" href="#"
+								data-page="${pageDto.endPage+1 }">＞</a>
+						</li>
+					</c:if>
 				</ul>
+			</c:if>	
 					</div>
 				</div> 
 			</div>
@@ -125,4 +193,3 @@ $(document).ready(function(){
 </div>
 
 <%@include file="../include/footer.jsp" %>
-
