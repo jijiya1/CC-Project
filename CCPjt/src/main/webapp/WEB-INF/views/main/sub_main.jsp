@@ -236,11 +236,7 @@ $(document).ready(function() {
 
 });
 </script>
-<h1>userInfoVo: ${sessionScope.userInfoVo }</h1>
-<%
-UserInfoVo userInfoVo = (UserInfoVo)session.getAttribute("userInfoVo2");
-System.out.println("main.jsp, userInfoVo:" + userInfoVo);
-%>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ ${ areaDataVo.a_name }</p>
 </div>

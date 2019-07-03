@@ -28,6 +28,11 @@ $(document).ready(function() {
 	$("#btnNoticeWrite").click(function() {
 		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
 	});
+	
+	// 공지사항 목록
+	$("#btnNoticeList").click(function() {
+		location.href = "/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }";
+	});
 	 
 	 // 해당 글 읽기
 	 $(".title").click(function(e) {
@@ -214,8 +219,7 @@ $(document).ready(function() {
 	<div>
 	
 		<!-- 목록, 공지사항 작성 버튼 시작 -->
-		<a href="/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button></a>
-		<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
+		<button type="button" class="btn btn-success" style="float: left;" id="btnNoticeList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
 		<!-- 목록, 공지사항 작성 버튼 끝 -->
 		
 	  	<!-- 페이지네이션 시작 -->
@@ -259,12 +263,20 @@ $(document).ready(function() {
 	</div>
 	<!-- 각종 버튼 및 유틸 끝 -->
 	
-	</div>
-	<br>
-	<!-- 공지사항 끝 -->
-	
 	<!-- css 테스트 -->
+<!-- 	<div> -->
 <!-- 		&nbsp;<button type="button" class="btn btn-primary"><span class="fas fa-pencil-alt"></span></button> -->
 <!-- 		<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
+<!-- 	</div> -->
+
+	<div>
+		<c:if test="${ userVo.u_email eq 'admin' }">
+			<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
+		</c:if>
+		<br><br>
+	</div>
+	
+	</div>
+	<!-- 공지사항 끝 -->
 
 <%@include file="../include/footer.jsp" %>
