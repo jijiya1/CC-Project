@@ -92,8 +92,11 @@ $(document).ready(function() {
 						<th>지역</th>
 						<th>구</th>
 						<th>글제목</th>
-						<th>작성자</th>					
+						<th>작성자</th>
+						<th>좋아요</th>
+						<th>싫어요</th>					
 						<th>조회수</th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -104,7 +107,9 @@ $(document).ready(function() {
 						<td>${complaint_boardVo.b_detailinfo}</td>
 						<td><a href="/suggest_board/suggest_read" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.b_writer}</td>																								
+						<td>${complaint_boardVo.b_writer}</td>
+						<th>${complaint_boardVo.b_upcount}</th>
+						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>
 					</tr>
 				</c:forEach>	
@@ -114,7 +119,8 @@ $(document).ready(function() {
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-		<button type="button" class="btn btn-success"id="btnWrite" style="float: right;">글쓰기</button>
+ 		<button type="button" class="btn btn-success"id="btnWrite" style="float: right;">글쓰기</button> 
+
 			<nav>
 				<ul class="pagination">
 					<c:if test="${paginationDto.prev == true}">	

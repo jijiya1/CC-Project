@@ -19,4 +19,5 @@ public interface IBoardService {
 	//글 갯수
 	public int listCount(Complaint_PagingDto pagingDto)throws Exception;
 
+
 }

@@ -54,6 +54,5 @@ public class BoardDaoImpl implements IBoardDao {
 		int count = sqlSession.selectOne(NAMESPACE + ".listCount", pagingDto);
 		return count;
 		
-	}
-	
+	}	
 }

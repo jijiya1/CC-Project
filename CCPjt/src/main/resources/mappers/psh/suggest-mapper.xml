@@ -47,6 +47,10 @@
 	select count(*) from complaint_board
 	<include refid="search"></include>
 </select>
+<!-- 첨부파일 경로 추가 -->
+<insert id="attach">
+
+</insert>
 <sql id="search">
 		<if test="searchType != null">
       		<if test="searchType == 'b_title'">
