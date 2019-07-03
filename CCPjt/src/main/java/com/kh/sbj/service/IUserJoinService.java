@@ -9,5 +9,6 @@ public interface IUserJoinService {
 	public void deleteUser(UserInfoVo userInfoVo) throws Exception;
 	public boolean duplicateCheck(String joinEmail) throws Exception;
 	public UserInfoVo userLogin(LoginDto loginDto) throws Exception;
+	public String searchPw(String u_email) throws Exception;
 
 }

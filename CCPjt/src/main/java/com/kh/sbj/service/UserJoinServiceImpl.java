@@ -46,4 +46,10 @@ public class UserJoinServiceImpl implements IUserJoinService {
 		return userInfoVo;
 	}
 
+	@Override
+	public String searchPw(String u_email) throws Exception {
+		String u_pw = userJoinDao.searchPw(u_email);
+		return u_pw;
+	}
+
 }
