@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.hys.domain.ReplyLikeInfoDto_Discussion;
@@ -28,37 +29,17 @@ public class ReplyController_Discussion {
 	
 	// 토론 메인 게시판 댓글 리스트 가져오기
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> getDiscussionReplyList(ReplyPagingDto_Discussion replyPagingDto) throws Exception {
-//		public ResponseEntity<Map<String, Object>> getDiscussionReplyList(@PathVariable("nowDiscussion_b_serialno") String nowDiscussion_b_serialno,
-//				@PathVariable("nowReplyPage") int nowReplyPage,
-//				@PathVariable("u_email") String u_email,
-//				ReplyPagingDto_Discussion replyPagingDto) throws Exception {
-//		System.out.println("getDiscussionReplyList 실행");
-//		replyPagingDto.setB_serialno(nowDiscussion_b_serialno);
-//		System.out.println("u_email:" + u_email);
-//		System.out.println("nowDiscussion_b_serialno:" + nowDiscussion_b_serialno);
-		System.out.println("replyPagingDto:" + replyPagingDto);
-		System.out.println("ReplyController_Discussion ");
-		
-		
+	public ResponseEntity<Map<String, Object>> getDiscussionReplyList(ReplyPagingDto_Discussion replyPagingDto, @RequestParam("u_email") String u_email) throws Exception {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try {
-			// 현재 불러오려는 글의 시리얼 넘버 담기
-//			replyPagingDto.setB_serialno(nowDiscussion_b_serialno);
-			// 페이징 하려는 번호 담기
-//			replyPagingDto.setNowReplyPage(nowReplyPage);
-//			System.out.println("ReplyController_Discussion, getDiscussionReplyList nowDiscussion_b_serialno : " + nowDiscussion_b_serialno);
 			List<ReplyVo_Discussion> discussionReplyList = replyService_Discussion.getDiscussionReply(replyPagingDto);
-//			List<ReplyLikeInfoDto_Discussion> replyLikeInfoList = replyService_Discussion.replyLikeInfoById(u_email);
+			List<ReplyLikeInfoDto_Discussion> replyLikeInfoList = replyService_Discussion.replyLikeInfoById(u_email);
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("discussionReplyList", discussionReplyList);
-//			map.put("replyLikeInfoList", replyLikeInfoList);
+			map.put("replyLikeInfoList", replyLikeInfoList);
 			
-//			System.out.println("replyLikeInfoList" + replyLikeInfoList);
-//			System.out.println("ReplyController_Discussion, map : " + map);
-//			System.out.println("ReplyController_Discussion, getDiscussionReplyList discussionReplyList : " + discussionReplyList);
 			entity = new ResponseEntity<>(map , HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,8 +101,6 @@ public class ReplyController_Discussion {
 	public ResponseEntity<String> replyComentWrite(@RequestBody ReplyVo_Discussion replyVo_Discussion) {
 		ResponseEntity<String> entity = null;
 		
-		System.out.println("ReplyController_Discussion, replyComentWrite, replyVo_Discussion : " + replyVo_Discussion);
-		
 		try {
 			replyService_Discussion.replyComentWrite(replyVo_Discussion);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
@@ -141,7 +120,6 @@ public class ReplyController_Discussion {
 		
 		try {
 			List<ReplyVo_Discussion> comentList = replyService_Discussion.replyComentList(r_no);
-//			System.out.println("ReplyController_Discussion, replyComentList, comentList :" + comentList);
 			entity = new ResponseEntity<>(comentList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

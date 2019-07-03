@@ -62,12 +62,26 @@ public class SelectBoardDaoImpl_Discussion implements ISelectBoardDao_Discussion
 		sqlSession.update(NAMESPACE+"addReadCount", b_no);
 	}
 	
+	// 글 쓰기
+	@Override
+	public void writeSelectBoard(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		sqlSession.insert(NAMESPACE+"selectBoardWrite", selectDiscussion_BoardVo);
+	}
+
+	// 글 수정하기
+	@Override
+	public void modifySelectBoard(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		sqlSession.update(NAMESPACE+"selectBoardModify", selectDiscussion_BoardVo);
+	}
+	
 	// 글 삭제 하기 (b_checkeddel = 0 -> 1 로 업데이트)
 	@Override
 	public void deleteSelectBoard(int b_no) throws Exception {
 		sqlSession.update(NAMESPACE+"deleteSelectBoard", b_no);
 		
 	}
+
+
 
 
 }
