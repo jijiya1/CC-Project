@@ -29,7 +29,7 @@ public interface IReplyService_Discussion {
 	public int replyLikeInfoExist(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception;
 	
 	// 유저가 좋아요or싫어요 표시한 정보 가져오기
-	public List<ReplyLikeInfoDto_Discussion> replyLikeInfoById(String u_id) throws Exception;
+	public List<ReplyLikeInfoDto_Discussion> replyLikeInfoById(String u_email) throws Exception;
 	
 	// 이미 유저가 해당 댓글에 좋아요 또는 싫어요를 클릭했다면 변경
 	public void replyLikeInfoModify(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception;

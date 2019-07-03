@@ -27,10 +27,10 @@ public class ReplyController_Discussion {
 	IReplyService_Discussion replyService_Discussion;
 	
 	// 토론 메인 게시판 댓글 리스트 가져오기
-	@RequestMapping(value="/list/{nowDiscussion_b_serialno}/{nowReplyPage}/{u_id}", method = RequestMethod.GET)
+	@RequestMapping(value="/list/{nowDiscussion_b_serialno}/{nowReplyPage}/{u_email}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> getDiscussionReplyList(@PathVariable("nowDiscussion_b_serialno") String nowDiscussion_b_serialno,
 															@PathVariable("nowReplyPage") int nowReplyPage,
-															@PathVariable("u_id") String u_id,
+															@PathVariable("u_email") String u_email,
 															ReplyPagingDto_Discussion replyPagingDto) throws Exception {
 //		System.out.println("getDiscussionReplyList 실행");
 		
@@ -45,7 +45,7 @@ public class ReplyController_Discussion {
 //			System.out.println("ReplyController_Discussion, getDiscussionReplyList nowDiscussion_b_serialno : " + nowDiscussion_b_serialno);
 			
 			List<ReplyVo_Discussion> discussionReplyList = replyService_Discussion.getDiscussionReply(replyPagingDto);
-			List<ReplyLikeInfoDto_Discussion> replyLikeInfoList = replyService_Discussion.replyLikeInfoById(u_id);
+			List<ReplyLikeInfoDto_Discussion> replyLikeInfoList = replyService_Discussion.replyLikeInfoById(u_email);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
