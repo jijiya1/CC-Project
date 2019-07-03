@@ -37,8 +37,37 @@ public class SelectBoardDaoImpl_Discussion implements ISelectBoardDao_Discussion
 	
 	// 토론 주제 추천 게시판 글갯수 가져오기
 	@Override
-	public int totalSelectBoardCount(int b_addInfo) throws Exception {
-		int totalCount = sqlSession.selectOne(NAMESPACE+"totalSelectBoardCount", b_addInfo);
+	public int totalSelectBoardCount(PagingDto pagingDto,int b_addInfo) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		AreaDataVo areaDataVo = new AreaDataVo();
+		areaDataVo.setA_no(b_addInfo);
+		
+		map.put("areaDataVo", areaDataVo);
+		map.put("pagingDto", pagingDto);
+		
+		int totalCount = sqlSession.selectOne(NAMESPACE+"totalSelectBoardCount", map);
 		return totalCount;
 	}
+	
+	// 글 상세보기
+	@Override
+	public SelectDiscussion_BoardVo readSelectBoard(int b_no) throws Exception {
+		SelectDiscussion_BoardVo selectDiscussion_BoardVo = sqlSession.selectOne(NAMESPACE+"readSelectBoard", b_no);
+		return selectDiscussion_BoardVo;
+	}
+	
+	// 조회수 증가
+	@Override
+	public void addReadCount(int b_no) throws Exception {
+		sqlSession.update(NAMESPACE+"addReadCount", b_no);
+	}
+	
+	// 글 삭제 하기 (b_checkeddel = 0 -> 1 로 업데이트)
+	@Override
+	public void deleteSelectBoard(int b_no) throws Exception {
+		sqlSession.update(NAMESPACE+"deleteSelectBoard", b_no);
+		
+	}
+
+
 }

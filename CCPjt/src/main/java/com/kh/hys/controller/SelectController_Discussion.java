@@ -26,14 +26,14 @@ public class SelectController_Discussion {
 	@Inject
 	INoticeBoardService service;
 	
-	// 토론 주제 선정 게시판으로 가기
+	// 토론 주제 추천 게시판으로 가기
 	@RequestMapping(value = "/discussion_select_board", method=RequestMethod.GET)
 	public String discussion_res_board(Model model, @RequestParam("a_no") int a_no, PagingDto pagingDto) throws Exception {
 	
 		AreaDataVo areaDataVo = service.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
-		int totalBoardCount = selectService.totalSelectBoardCount(a_no);
+		int totalBoardCount = selectService.totalSelectBoardCount(pagingDto, a_no);
 		pagingDto.setTotalData(totalBoardCount);
 		
 		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(pagingDto ,a_no);
@@ -43,6 +43,25 @@ public class SelectController_Discussion {
 		model.addAttribute("pagingDto", pagingDto);
 		
 		return "/discussion_board/discussion_select_board";
+	}
+	
+	// 토론 주제 추천 게시판 글 상세보기 페이지
+	@RequestMapping(value = "/discussion_select_read", method = RequestMethod.GET)
+	public String readSelectBoard(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no) throws Exception {
+		System.out.println("readSelectBoard 실행");
+		AreaDataVo areaDataVo = service.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
+		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
+		return "/discussion_board/discussion_select_read";
+	}
+	
+	// 토론 주제 추천 게시판 글 삭제
+	@RequestMapping(value = "/discussion_select_delete", method = RequestMethod.GET)
+	public String selectBoardDelete(@RequestParam("a_no") int a_no, @RequestParam("b_no") int b_no) throws Exception {
+		selectService.deleteSelectBoard(b_no);
+		return "redirect:/selectDiscussion/discussion_select_board?a_no="+a_no;
 	}
 
 }
