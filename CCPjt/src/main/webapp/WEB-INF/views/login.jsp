@@ -4,15 +4,18 @@
 <%@include file="include/head.jsp" %>
 
 <script>
-var email = "${u_email}";
-console.log("email = "+email);
-if(email!=null){
-	$("#u_email").val(email);
-	$("#u_pw").attr("placeholder","잘못입력하셨습니다.");
-	$("#u_email").attr("style", "border:1px solid red;");
-	$("#u_pw").attr("style", "border:1px solid red;");
-}
+
 $(document).ready(function(){
+	var loginTryEmail = "${u_email}";
+	if(loginTryEmail != ""){
+		$("#u_email").val(loginTryEmail);
+		$("#u_pw").attr("placeholder","잘못입력하셨습니다.");
+		$("#u_email").attr("style", "border:1px solid gold;");
+		$("#u_pw").attr("style", "border:1px solid gold;");
+	}else{
+		$("#u_email").attr("style", "");
+		$("#u_pw").attr("style", "");
+	}
 	$("#btnLogin").click(function(){
 		$("#loginForm").submit();
 	});
@@ -24,7 +27,6 @@ $(document).ready(function(){
 
 </head>
 <body class="bg-gradient-primary">
-
   <div class="container">
 
     <!-- Outer Row -->
@@ -44,11 +46,11 @@ $(document).ready(function(){
                   </div>
                   <form class="user" id="loginForm" action="/login_run" method="POST">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="u_emil" name="u_email" aria-describedby="emailHelp"
-                       placeholder="이메일을 입력해주세요...">
+                      <input type="email" class="form-control form-control-user" id="u_email" name="u_email" aria-describedby="emailHelp"
+                       placeholder="이메일을 입력해주세요..." value="sbj5757@naver.com">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="u_pw" name="u_pw" placeholder="비밀번호">
+                      <input type="password" class="form-control form-control-user" id="u_pw" name="u_pw" placeholder="비밀번호" value="123123123">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -67,7 +69,7 @@ $(document).ready(function(){
 <!--                     </a> -->
                   </form>
                   <div class="row">
-					<div class="col-md-6 text-left"" >
+					<div class="col-md-6 text-left">
                 	  <a class="small" href="/user_join/find_password">비밀번호 찾기</a>
 					</div>
 					<div class="col-md-6 text-right">
