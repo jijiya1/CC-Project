@@ -24,8 +24,8 @@ $(document).ready(function () {
 			var url = "/selectDiscussion/discussion_select_board";
 			$("#hiddenData").attr("action",url);
 			
-			var serchKeyword =  $(this).val();
-			$("input[name=serchKeyword]").val(serchKeyword);
+			var searchKeyword =  $(this).val();
+			$("input[name=searchKeyword]").val(searchKeyword);
 			
 			var nowPage = 1;
 			$("input[name=nowPage]").val(nowPage);
@@ -65,6 +65,11 @@ $(document).ready(function () {
 		
 		$("#hiddenData").submit();
 	})
+	
+	// 글 작성 페이지로 이동
+	$("#btnWrite").click(function () {
+		location.href = "/selectDiscussion/discussion_select_write?a_no="+${areaDataVo.a_no };
+	})
 });
 </script>
 
@@ -91,7 +96,7 @@ $(document).ready(function () {
 			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
 			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
-			<input type="hidden" name="serchKeyword" value = "${pagingDto.serchKeyword }">
+			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
@@ -152,7 +157,7 @@ $(document).ready(function () {
 		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;">
 		<span class="fas fa-list"></span></button></a>
 		
-		<button class="btn btn-danger">글작성 작성</button>
+		<button class="btn btn-danger" id = "btnWrite">글작성 작성</button>
 		
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
