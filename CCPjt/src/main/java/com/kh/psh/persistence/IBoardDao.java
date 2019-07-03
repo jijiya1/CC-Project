@@ -19,5 +19,4 @@ public interface IBoardDao {
 	public void suggest_delete(int b_no) throws Exception;
 	//글갯수
 	public int listCount(Complaint_PagingDto pagingDto)throws Exception;
-
 }

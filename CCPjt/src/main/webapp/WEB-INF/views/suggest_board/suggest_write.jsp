@@ -14,10 +14,10 @@ $(document).ready(function() {
 });
 </script>
 <h1>글쓰기</h1>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<form role="form" method="post" id="WriteForm">
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+			<form role="form" method="post" id="WriteForm" enctype="multipart/form-data">
 				<div class="form-group">			 
 					<label for="title">글제목</label>
 					<input type="text" class="form-control" id="b_title" name="b_title"/>
@@ -27,31 +27,39 @@ $(document).ready(function() {
 					<label for="b_addinfo">지역</label>
 					<input type="text" class="form-control" id="b_addinfo" name="b_addinfo" />
 				</div>
+<!-- 				<label>지역</label> -->
+<!-- 				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">			 -->
+<!-- 				</select> -->
 				
-				<div class="form-group">					 
-					<label for="b_detailinfo">구</label>
-					<input type="text" class="form-control" id="b_detailinfo" name="b_detailinfo"/>
-				</div>
+			<div class="form-group">					 
+				<label for="b_detailinfo">구</label>
+				<input type="text" class="form-control" id="b_detailinfo" name="b_detailinfo"/>
+			</div>
+				
+<!-- 				<label>구</label> -->
+<!-- 				<select class="form-control" name="b_detailinfo" id="b_detailinfo" required="required">			 -->
+<!-- 				</select> -->
 				
 				<div class="form-group">					 
 					<label for="writer">작성자</label>
 					<input type="text" class="form-control" id="b_writer" name="b_writer" />
 				</div>
 				
-				<div class="form-group">				 
-					<label for="content">글내용</label>
-					<textarea rows="10" cols="80" id="b_content" name="b_content"></textarea>															
-				</div>	
-				
-				<div class="form-group">					 
-					<label for="writer">첨부파일</label>
-					<input type="text" class="form-control" id="b_writer" name="b_writer" />
+				<div class="form-group">
+					<label for="b_content">글내용</label>
+					<textarea rows="10" cols="80" id="b_content"
+						class="form-control" name="b_content"></textarea>
 				</div>
-											
-				<input type="button" id="btnWrite"
-					class="btn btn-primary" value="작성완료">
+				<!-- 첨부파일 -->
+				<input type="file" id="upFile" multiple="multiple"
+					class="btn btn-primary" value="첨부파일">
+					<br/><br/>				
 			</form>
+			
+				<button type="button" class="btn btn-success" value="작성완료"
+						id="btnWrite" style="float: right;"><span class="fas fa-pencil-alt"></span>작성완료</button>	
 		</div>
+				
 	</div>
 </div>
 <%@ include file="../include/footer.jsp" %>
