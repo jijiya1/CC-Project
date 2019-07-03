@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.domain.LoginDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.sbj.service.IUserJoinService;
 import com.kh.sbj.util.EmailCertifiedKey;
@@ -36,22 +37,11 @@ public class UserJoinController {
 	@RequestMapping(value = "/join_run", method = RequestMethod.POST)
 	public String joinRun(@RequestParam("joinEmail") String joinEmail, @RequestParam("joinPw") String joinPw, @RequestParam("joinName") String joinName,
 			@RequestParam("joinAddress") String joinAddress, @RequestParam("joinDetailAddress") String joinDetailAddress) throws Exception{
-//		System.out.println("joinEmail = "+ joinEmail);
-//		System.out.println("joinPw = "+ joinPw);
-//		System.out.println("joinName = "+ joinName);
-//		System.out.println("joinAddress = "+ joinAddress);
 		String[] add = joinAddress.split(" ");
-//		System.out.println("add1 = "+ add[0]);
-//		System.out.println("add2 = "+ add[1]);
-//		System.out.println("add3 = "+ add[2]);
-//		System.out.println("add4 = "+ add[3]);
-//		System.out.println("joinDetailAddress = "+ joinDetailAddress);
-//		
 		String detailAdd = "";
 		for(int i=2 ; i<add.length; i++) {
 			detailAdd += add[i];
 		}
-//		System.out.println("컨트롤러 정보입력 전");
 		
 		UserInfoVo userInfoVo = new UserInfoVo();
 		userInfoVo.setU_email(joinEmail);
@@ -61,15 +51,48 @@ public class UserJoinController {
 		userInfoVo.setU_detail(add[1]);
 		userInfoVo.setU_local(detailAdd + " " + joinDetailAddress);
 		
-//		System.out.println("컨트롤러 정보입력 후");
-//		System.out.println("컨트롤러 userInfoVo 조회 = "+ userInfoVo);
-//		System.out.println("컨트롤러 서비스 작동 전");
 		userJoinService.insertUser(userInfoVo);
-//		System.out.println("컨트롤러 서비스 작동 후");
 		
 		return "redirect:/login/";
 	}
 	
+	@RequestMapping(value = "/update_form", method = RequestMethod.GET)
+	public void updateForm() throws Exception{
+	}
+	
+	@RequestMapping(value = "/update_run", method = RequestMethod.POST)
+	public String updateRun(@RequestParam("joinEmail") String joinEmail, @RequestParam("joinPw") String joinPw, @RequestParam("joinName") String joinName,
+			@RequestParam("joinAddress") String joinAddress, @RequestParam("joinDetailAddress") String joinDetailAddress) throws Exception{
+		String[] add = joinAddress.split(" ");
+		String detailAdd = "";
+		for(int i=2 ; i<add.length; i++) {
+			detailAdd += add[i];
+		}
+		
+		UserInfoVo userInfoVo = new UserInfoVo();
+		userInfoVo.setU_email(joinEmail);
+		userInfoVo.setU_pw(joinPw);
+		userInfoVo.setU_name(joinName);
+		userInfoVo.setU_address(add[0]);
+		userInfoVo.setU_detail(add[1]);
+		userInfoVo.setU_local(detailAdd + " " + joinDetailAddress);
+		
+		userJoinService.updateUser(userInfoVo);
+		
+		return "redirect:/user_join/update_form";
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String updateRun(@RequestParam("joinEmail") String joinEmail, @RequestParam("joinPw") String joinPw) throws Exception{
+		LoginDto loginDto = new LoginDto();
+		
+		loginDto.setU_email(joinEmail);
+		loginDto.setU_pw(joinPw);
+		
+		userJoinService.deleteUser(loginDto);
+		
+		return "redirect:/";
+	}
 	@RequestMapping(value = "/send_email", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> sendEmail(@RequestBody String joinEmail) throws Exception {
