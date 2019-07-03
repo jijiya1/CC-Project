@@ -43,6 +43,8 @@
 		where b_no = #{b_no}
 	</update>
 	
+	<!-- 토론 게시판 글 작성 하기 -->
+	
 	<!-- 글 삭제 하기 b_checkeddel = 0 -> 1 로 업데이트 -->
 	<update id="deleteSelectBoard">
 		update selectdiscussion_board

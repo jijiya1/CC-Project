@@ -50,7 +50,7 @@ $(document).ready(function() {
 			
 			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>
 				<label>시/도</label>
-				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
+				<select class="form-control" name="b_addInfo" id="b_addinfo" required="required">
 					<c:forEach items="${ areaData }" var="areaData">
 						<option value="${ areaData.a_no }" <c:if test='${ areaData.a_no eq a_no }'>selected</c:if>>${ areaData.a_name }</option>
 					</c:forEach>
@@ -59,7 +59,7 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>구</label>
-				<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>
+				<select class='form-control' name='b_detailInfo' id='b_detailinfo' required='required'>
 					<c:forEach items='${getDetailAreaData}' var='detailAreaData'>
 						<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>
 					</c:forEach>
