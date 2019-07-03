@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../include/head.jsp" %>
 <style>
+div {
+	position:relative;
+}
+
 .text-name{
 	cursor:pointer;
 }
@@ -22,6 +26,7 @@
 .container {
   padding: 2px 8px;
 }
+
 </style>
 
 
@@ -44,8 +49,13 @@ $(document).ready(function(){
 	<input type="hidden" name="u_id" >
 </form>
 
-<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞${areaDataVo.a_name } ＞ 의원정보</p>
-
+	<div class="container-fluid">
+	
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 의원정보</p>
+	
+	<!-- 페이지 헤더 -->	
+	<h1 class="h3 mb-2 text-gray-800">의원정보</h1>
+	
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
