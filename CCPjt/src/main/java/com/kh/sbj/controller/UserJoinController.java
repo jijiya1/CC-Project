@@ -48,7 +48,7 @@ public class UserJoinController {
 //		System.out.println("joinDetailAddress = "+ joinDetailAddress);
 //		
 		String detailAdd = "";
-		for(int i=1 ; i<add.length; i++) {
+		for(int i=2 ; i<add.length; i++) {
 			detailAdd += add[i];
 		}
 //		System.out.println("컨트롤러 정보입력 전");
@@ -58,8 +58,8 @@ public class UserJoinController {
 		userInfoVo.setU_pw(joinPw);
 		userInfoVo.setU_name(joinName);
 		userInfoVo.setU_address(add[0]);
-		userInfoVo.setU_detail(detailAdd);
-		userInfoVo.setU_local(joinDetailAddress);
+		userInfoVo.setU_detail(add[1]);
+		userInfoVo.setU_local(detailAdd + " " + joinDetailAddress);
 		
 //		System.out.println("컨트롤러 정보입력 후");
 //		System.out.println("컨트롤러 userInfoVo 조회 = "+ userInfoVo);

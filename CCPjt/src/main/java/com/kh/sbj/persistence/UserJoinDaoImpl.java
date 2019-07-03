@@ -53,4 +53,10 @@ public class UserJoinDaoImpl implements IUserJoinDao {
 		return userInfoVo;
 	}
 
+	@Override
+	public String searchPw(String u_email) throws Exception {
+		String u_pw = sqlSession.selectOne("user_join.searchPw", u_email);
+		return u_pw;
+	}
+
 }
