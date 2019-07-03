@@ -109,7 +109,7 @@ $(document).ready(function() {
 		<c:otherwise>
 	      <!-- Heading -->
 	      <div class="sidebar-heading">
-	        정해주삼
+	        Board
 	      </div>
 	
 		<!-- Nav Item - 정혜지 -->
@@ -123,7 +123,7 @@ $(document).ready(function() {
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/person_board/person_list?a_no=${ areaDataVo.a_no }">
 	          <i class="fas fa-fw fa-list-alt"></i>
-	          <span>의원정보게시판</span></a>
+	          <span>의원 정보</span></a>
 	      </li>
 	      
 		<!-- Nav Item - 황용석 -->

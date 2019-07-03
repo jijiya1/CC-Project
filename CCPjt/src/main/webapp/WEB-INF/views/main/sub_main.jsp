@@ -396,7 +396,7 @@ $(document).ready(function() {
 	      	<div class="table-responsive">
 		      	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 			      <tbody>
-		          <c:forEach items="${ noticeList }" var="noticeList">
+		          <c:forEach items="${ selectBoardList }" var="selectBoardVo">
 		          
 		          <c:if test="${ noticeList.b_checkeddel == 0 }">
 		            <tr>

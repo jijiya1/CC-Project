@@ -264,7 +264,7 @@ $(document).ready(function() {
 	<!-- 공지사항 끝 -->
 	
 	<!-- css 테스트 -->
-<!-- 	<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
-<!-- 	<button type="button" class="btn btn-danger"><span class="fas fa-exclamation-triangle"></span></button> -->
+<!-- 		&nbsp;<button type="button" class="btn btn-primary"><span class="fas fa-pencil-alt"></span></button> -->
+<!-- 		<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
 
 <%@include file="../include/footer.jsp" %>
