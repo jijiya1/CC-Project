@@ -205,7 +205,7 @@ $(document).ready(function() {
 	              	</a>
            		  </td>
            		  <td>N</td>
-	              <td>${ noticeBoardVo.b_writer }</td>
+	              <td>${ noticeBoardVo.u_name }</td>
 	              <td>${ noticeBoardVo.b_readcount }</td>
 	              <td><fmt:formatDate value="${ noticeBoardVo.b_createddate }" pattern="yyyy-MM-dd"/></td>
 	            </tr>
