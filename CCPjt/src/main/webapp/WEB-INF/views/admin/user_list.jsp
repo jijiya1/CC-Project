@@ -65,24 +65,13 @@ $(document).ready(function() {
 	            </tr>
 	          </thead>
 	          <tbody>
-	          <c:forEach items="${ list }" var="noticeBoardVo">
-	          
-	          <c:if test="${ noticeBoardVo.b_checkeddel == 0 }">
+	          <c:forEach items="${ userVo }" var="userVo">
 	            <tr>
-	              <td>${ noticeBoardVo.b_no }</td>
-	              <td>
-	              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
-	              	data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">
-	              	[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }&nbsp;
-	              	<c:if test="${ noticeBoardVo.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
-	              	</a>
-           		  </td>
-           		  <td>N</td>
-	              <td>${ noticeBoardVo.b_writer }</td>
-	              <td>${ noticeBoardVo.b_readcount }</td>
-	              <td><fmt:formatDate value="${ noticeBoardVo.b_createddate }" pattern="yyyy-MM-dd"/></td>
+	              <td>${ userVo.u_name }</td>
+	              <td>${ userVo.u_email }</td>
+	              <td><fmt:formatDate value="${ userVo.u_createddate }" pattern="yyyy-MM-dd"/></td>
+	              <td>&nbsp;</td>
 	            </tr>
-			  </c:if>
            	  </c:forEach>
 	          </tbody>
 	        </table>
