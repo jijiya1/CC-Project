@@ -60,7 +60,6 @@ public class HomeController {
 		for(Cookie cookie : cookies) {
 			String cookieName = cookie.getName();
 			String cookieValue = cookie.getValue();
-			System.out.println(cookieName + ":" + cookieValue);
 			if(cookieName.equals("loginCookie")) {
 				loginCookie = cookieValue;
 			}else if(cookieName.equals("u_email")) {
@@ -70,7 +69,6 @@ public class HomeController {
 		
 		if(loginCookie != null && loginCookie.equals("true") && u_email != null) {
 			String u_pw = userJoinService.searchPw(u_email);
-			System.out.println("비밀번호 : "+ u_pw);
 			model.addAttribute("u_email", u_email);
 			model.addAttribute("u_pw", u_pw);
 		}

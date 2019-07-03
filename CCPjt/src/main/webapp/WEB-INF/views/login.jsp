@@ -60,15 +60,15 @@ $(document).ready(function(){
                   <form class="user" id="loginForm" action="/login_run" method="POST">
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="u_email" name="u_email" aria-describedby="emailHelp"
-                       placeholder="이메일을 입력해주세요..." >
+                       placeholder="이메일을 입력해주세요" >
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" id="u_pw" name="u_pw" placeholder="비밀번호" >
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">로그인정보 저장</label>
+                        <input type="checkbox" class="custom-control-input" id="keepLogin" name="keepLogin">
+                        <label class="custom-control-label" for="keepLogin">로그인정보 저장</label>
                       </div>
                     </div>
                     <input type="button" id="btnLogin" class="btn btn-primary btn-user btn-block" value="로그인">

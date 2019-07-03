@@ -26,9 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		String keepLogin = request.getParameter("keepLogin");
 		HttpSession session = request.getSession();
 		UserInfoVo userVo = (UserInfoVo)session.getAttribute("userVo");
-		System.out.println("keepLogin1 = "+ keepLogin);
 		if(userVo !=null) {
-			System.out.println("keepLogin2 = "+ keepLogin);
 			if(keepLogin != null) {
 				// 쿠키 생성
 				Cookie loginCookie = new Cookie("loginCookie", "true");
