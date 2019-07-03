@@ -11,13 +11,17 @@ public class UserInfoVo {
     private String u_grade;
     private String u_activity_rate;
     private String u_withdrawDate;
+    private String u_createdDate;
+    private String u_party;
+    private String u_position;
     
 	public UserInfoVo() {
 		super();
 	}
 
 	public UserInfoVo(String u_email, String u_pw, String u_name, String u_address, String u_detail, String u_local,
-			String u_grade, String u_activity_rate, String u_withdrawDate) {
+			String u_grade, String u_activity_rate, String u_withdrawDate, String u_createdDate, String u_party,
+			String u_position) {
 		super();
 		this.u_email = u_email;
 		this.u_pw = u_pw;
@@ -28,6 +32,9 @@ public class UserInfoVo {
 		this.u_grade = u_grade;
 		this.u_activity_rate = u_activity_rate;
 		this.u_withdrawDate = u_withdrawDate;
+		this.u_createdDate = u_createdDate;
+		this.u_party = u_party;
+		this.u_position = u_position;
 	}
 
 	public String getU_email() {
@@ -101,13 +108,32 @@ public class UserInfoVo {
 	public void setU_withdrawDate(String u_withdrawDate) {
 		this.u_withdrawDate = u_withdrawDate;
 	}
-    
-	@Override
-	public String toString() {
-		return "UserInfoVo [u_email=" + u_email + ", u_pw=" + u_pw + ", u_name=" + u_name + ", u_address=" + u_address
-				+ ", u_detail=" + u_detail + ", u_local=" + u_local + ", u_grade=" + u_grade + ", u_activity_rate="
-				+ u_activity_rate + ", u_withdrawDate=" + u_withdrawDate + "]";
+
+	public String getU_createdDate() {
+		return u_createdDate;
 	}
 
+	public void setU_createdDate(String u_createdDate) {
+		this.u_createdDate = u_createdDate;
+	}
+
+	public String getU_party() {
+		return u_party;
+	}
+
+	public void setU_party(String u_party) {
+		this.u_party = u_party;
+	}
+
+	public String getU_position() {
+		return u_position;
+	}
+
+	public void setU_position(String u_position) {
+		this.u_position = u_position;
+	}
+	
     
+    
+   
 }

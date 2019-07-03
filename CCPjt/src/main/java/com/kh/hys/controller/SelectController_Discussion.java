@@ -71,9 +71,6 @@ public class SelectController_Discussion {
 	// 토론 주제 추천 게시판 글 작성 실행
 	@RequestMapping(value="/discussion_select_write", method = RequestMethod.POST)
 	public String selectBoardWrite(@RequestParam("a_no") int a_no, SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
-		System.out.println("selectBoardWrite 실행");
-//		System.out.println("selectDiscussion_BoardVo" + selectDiscussion_BoardVo);
-		
 		selectService.writeSelectBoard(selectDiscussion_BoardVo);
 		
 		return "redirect:/selectDiscussion/discussion_select_board?a_no="+a_no;

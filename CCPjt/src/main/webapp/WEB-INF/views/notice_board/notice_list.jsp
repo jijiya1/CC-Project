@@ -28,6 +28,11 @@ $(document).ready(function() {
 	$("#btnNoticeWrite").click(function() {
 		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
 	});
+	
+	// 공지사항 목록
+	$("#btnNoticeList").click(function() {
+		location.href = "/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }";
+	});
 	 
 	 // 해당 글 읽기
 	 $(".title").click(function(e) {
@@ -66,6 +71,7 @@ $(document).ready(function() {
 		 var perPage = $("select[name=dataTable_length]").val();
 		 $("input[name=nowPage]").val(nowPage);
 		 $("input[name=perPage]").val(perPage);
+		 
 	 }
 	 
 	 // 검색 기능
@@ -95,6 +101,8 @@ $(document).ready(function() {
 		 
 		 var a_no = "${ areaDataVo.a_no }";
 		 $("input[name=a_no]").val(a_no);
+		 $("input[name=searchType]").val("b_addinfo");
+		 $("input[name=keyword]").val(a_no);
 		 
 		 $("#hiddenData").submit();
 	 });
@@ -197,7 +205,7 @@ $(document).ready(function() {
 	              	</a>
            		  </td>
            		  <td>N</td>
-	              <td>${ noticeBoardVo.b_writer }</td>
+	              <td>${ noticeBoardVo.u_name }</td>
 	              <td>${ noticeBoardVo.b_readcount }</td>
 	              <td><fmt:formatDate value="${ noticeBoardVo.b_createddate }" pattern="yyyy-MM-dd"/></td>
 	            </tr>
@@ -206,16 +214,9 @@ $(document).ready(function() {
 	          </tbody>
 	        </table>
 	      </div>
-	    </div>
-	  </div>
-	  <!-- 테이블 끝 -->
-	  
-	<!-- 각종 버튼 및 유틸 모음 시작 -->
-	<div>
-	
-		<!-- 목록, 공지사항 작성 버튼 시작 -->
-		<a href="/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button></a>
-		<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
+	      
+        <!-- 목록, 공지사항 작성 버튼 시작 -->
+		<button type="button" class="btn btn-success" style="float: left;" id="btnNoticeList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
 		<!-- 목록, 공지사항 작성 버튼 끝 -->
 		
 	  	<!-- 페이지네이션 시작 -->
@@ -255,16 +256,23 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->
-
-	</div>
-	<!-- 각종 버튼 및 유틸 끝 -->
-	
-	</div>
-	<br>
-	<!-- 공지사항 끝 -->
+	      
+	    </div>
+	  </div>
+	  <!-- 테이블 끝 -->
 	
 	<!-- css 테스트 -->
-<!-- 	<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
-<!-- 	<button type="button" class="btn btn-danger"><span class="fas fa-exclamation-triangle"></span></button> -->
+<!-- 	<div> -->
+<!-- 		&nbsp;<button type="button" class="btn btn-primary"><span class="fas fa-pencil-alt"></span></button> -->
+<!-- 		<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
+<!-- 	</div> -->
+	<c:if test="${ userVo.u_email eq 'admin' }">
+		<div>
+			<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
+		</div>
+	</c:if>
+	
+	</div>
+	<!-- 공지사항 끝 -->
 
 <%@include file="../include/footer.jsp" %>

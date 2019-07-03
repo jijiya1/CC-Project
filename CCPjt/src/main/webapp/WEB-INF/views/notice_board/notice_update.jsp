@@ -4,8 +4,9 @@
 
 <!-- summernote 필수!! - SHJ4359 -->
 <!-- include summernote css/js -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/summernote/dist/lang/summernote-ko-KR.js"></script>
 
 <script>
@@ -16,7 +17,7 @@ $(document).ready(function() {
 	
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
-		location.href = "/notice_board/notice_list";
+		location.href = "/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }";
 	});
 	
 	// 테스트
@@ -37,57 +38,57 @@ $(document).ready(function() {
 // 		console.log(b_content);
 // 	});
 	
-	$("#b_addinfo").change(function(e) {
+// 	$("#b_addinfo").change(function(e) {
 // 		console.log(e);
 
 // 		var test = e.originalEvent.currentTarget[0];
 // 		console.log(test);
 
-		var b_addinfo = $("select[name=b_addinfo]").val();
+// 		var b_addinfo = $("select[name=b_addinfo]").val();
 		
 // 		var test = e.originalEvent.currentTarget[0].index;
 // 		console.log(test);
 		
-		var strHtml = "";
-		if (b_addinfo == 10) {
-			strHtml += "<div class='form-group' style='display: none;'>"
-					+  "<label>구</label>"
-					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-					+  "<option value='공지'>공지사항</option>"
-					+  "</select>"
-					+  "</div>";
-		} 
+// 		var strHtml = "";
+// 		if (b_addinfo == 10) {
+// 			strHtml += "<div class='form-group' style='display: none;'>"
+// 					+  "<label>구</label>"
+// 					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+// 					+  "<option value='공지'>공지사항</option>"
+// 					+  "</select>"
+// 					+  "</div>";
+// 		} 
 		
-		else if (b_addinfo == 52) {
-			strHtml += "<div class='form-group'>"
-					+  "<label>구</label>"
-					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-					+  "<option value='10'>중구</option>"
-					+  "<option value='11'>남구갑</option>"
-					+  "<option value='12'>남구을</option>"
-					+  "<option value='13'>동구</option>"
-					+  "<option value='14'>북구</option>"
-					+  "<option value='15'>울주군</option>"
-					+  "</select>"
-					+  "</div>";
-		}
+// 		else if (b_addinfo == 52) {
+// 			strHtml += "<div class='form-group'>"
+// 					+  "<label>구</label>"
+// 					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+// 					+  "<option value='10'>중구</option>"
+// 					+  "<option value='11'>남구갑</option>"
+// 					+  "<option value='12'>남구을</option>"
+// 					+  "<option value='13'>동구</option>"
+// 					+  "<option value='14'>북구</option>"
+// 					+  "<option value='15'>울주군</option>"
+// 					+  "</select>"
+// 					+  "</div>";
+// 		}
 
-		else {
-			strHtml += "<div class='form-group' style='display: none;'>"
-					+  "<label>구</label>"
-					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-					+  "<option value='공지'>공지사항</option>"
-					+  "</select>"
-					+  "</div>";
-		}
-		$(".test").html(strHtml);
+// 		else {
+// 			strHtml += "<div class='form-group' style='display: none;'>"
+// 					+  "<label>구</label>"
+// 					+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
+// 					+  "<option value='공지'>공지사항</option>"
+// 					+  "</select>"
+// 					+  "</div>";
+// 		}
+// 		$(".test").html(strHtml);
 			
 		
-		$("#b_detailinfo").change(function() {
-			var b_detailinfo = $("select[name=b_detailinfo]").val();
-			console.log(b_detailinfo);
-		});
-	});
+// 		$("#b_detailinfo").change(function() {
+// 			var b_detailinfo = $("select[name=b_detailinfo]").val();
+// 			console.log(b_detailinfo);
+// 		});
+// 	});
 	
 });
 </script>
@@ -102,38 +103,30 @@ $(document).ready(function() {
 		
 		<!-- 공지사항 수정 부분 시작 - form -->
 		<form role="form" method="post">
+			<input type="hidden" name="u_email" value="${ userVo.u_email }">
+			<input type="hidden" name="u_name" value="${ userVo.u_name }">
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
 				<input type="text" class="form-control" name="b_title" value="${ noticeBoardVo.b_title }"/>
 			</div>
 			
-			<div class="form-group">
-				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" value="${ noticeBoardVo.b_writer }" />
-			</div>
-			
-			<div class="form-group">
-				<label>ID</label>
-				<input type="text" class="form-control" name="u_id" value="${ noticeBoardVo.u_id }"/>
-			</div>
-			
-			<div class="form-group">
+			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>
 				<label>시/도</label>
 				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
 					<c:forEach items="${ areaData }" var="areaData">
-						<option value="${ areaData.a_no }">${ areaData.a_name }</option>
+						<option value="${ areaData.a_no }" <c:if test='${ areaData.a_no eq a_no }'>selected</c:if>>${ areaData.a_name }</option>
 					</c:forEach>
 				</select>
 			</div>
 			
-			<div class="test">
-			<div class="form-group" style="display: none;">
-			<label>구</label>
-				<select class="form-control " name="b_detailinfo" id="b_detailinfo" required="required">
-					<option value="공지">공지사항</option>
+			<div class="form-group">
+				<label>구</label>
+				<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>
+					<c:forEach items='${getDetailAreaData}' var='detailAreaData'>
+						<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>
+					</c:forEach>
 				</select>
-			</div>
 			</div>
 			
 			<div class="form-group">
@@ -153,12 +146,13 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary"><span class="fas fa-check"></span></button>
+			<button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-check"></span></button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-			<button type="button" class="btn btn-success" id="btnNoticeBoardList"><span class="fas fa-list"></span></button>
+			<button type="button" class="btn btn-success" id="btnNoticeBoardList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
 		</form>
 		<!-- 공지사항 수정 부분 끝 - form -->
 	</div>
 	<!-- 공지사항 수정 끝 -->
+	<div><br></div>
 
 <%@include file="../include/footer.jsp" %>
