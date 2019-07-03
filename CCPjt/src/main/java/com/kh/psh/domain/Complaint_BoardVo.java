@@ -2,6 +2,7 @@ package com.kh.psh.domain;
 
 import java.security.Timestamp;
 
+
 public class Complaint_BoardVo {
 
 	private String b_serialno; //고유번호 각자 테이블에 bno의 차이를 보여주기 위한 값

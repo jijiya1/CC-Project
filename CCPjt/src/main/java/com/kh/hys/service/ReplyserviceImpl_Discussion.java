@@ -71,8 +71,8 @@ public class ReplyserviceImpl_Discussion implements IReplyService_Discussion {
 	
 	// 유저가 좋아요or싫어요 표시한 정보 가져오기
 	@Override
-	public List<ReplyLikeInfoDto_Discussion> replyLikeInfoById(String u_id) throws Exception {
-		List<ReplyLikeInfoDto_Discussion> replyLikeInfoList = replyDao_Discussion.replyLikeInfoById(u_id);
+	public List<ReplyLikeInfoDto_Discussion> replyLikeInfoById(String u_email) throws Exception {
+		List<ReplyLikeInfoDto_Discussion> replyLikeInfoList = replyDao_Discussion.replyLikeInfoById(u_email);
 		return replyLikeInfoList;
 	}
 	

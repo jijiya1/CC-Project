@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.domain.PagingDto;
 import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.persistence.IPeBoardDao;
@@ -17,15 +18,15 @@ public class PeBoardService implements IPeBoardService {
 	private IPeBoardDao peBoardDao;
 	
 	@Override
-	public List<PetitionVo> listAll(int a_no) throws Exception {
-		List<PetitionVo> pList = peBoardDao.listAll(a_no);
+	public List<PetitionVo> listAll(PagingDto pageDto, int a_no) throws Exception {
+		List<PetitionVo> pList = peBoardDao.listAll(pageDto, a_no);
 		
 		return pList;
 	}
 
 	@Override
-	public int listCount(DoSearchDto searchDto, int a_no) throws Exception {
-		int count = peBoardDao.listCount(searchDto, a_no);
+	public int listCount(PagingDto pageDto, int a_no) throws Exception {
+		int count = peBoardDao.listCount(pageDto, a_no);
 		return count;
 	}
 

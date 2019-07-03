@@ -198,7 +198,7 @@
 	
 	//임시 로그인 중인 사용자 -------------------------------------------
 	var r_writer = "시민1";
-	var u_id = "user1";
+	var u_email = "ahems2005@naver.com";
 	// --------------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
@@ -354,7 +354,7 @@
 		var url = "/discussion_board/discussion_agreeSelect"
 		var sendData = {
 				"b_no" : b_no,
-				"u_id" : u_id,
+				"u_email" : u_email,
 				"agreenum" : agreenum
 		}
 		
@@ -418,7 +418,7 @@
 			var sendData = {
 					"b_serialno" : nowDiscussion_b_serialno,
 					"r_writer" : r_writer,
-					"u_id" : u_id,
+					"u_email" : u_email,
 					"r_content" : r_content
 			};
 			$.ajax ({
@@ -455,14 +455,20 @@
 	
 	// getJSON 댓글 리스트 가져오기 기능
 	function getReplyList() {
-// 		console.log("버튼 클릭");
-		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage+"/"+u_id;
-		
-		$.getJSON(url, function (receivedData) {
-// 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
+		console.log("버튼 클릭");
+		var url = "/discussion_reply/list/";
+// 		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage+"/"+u_email;
+		var data = {
+				"b_serialno" : nowDiscussion_b_serialno,
+				"nowReplyPage" : nowReplyPage,
+				"u_email" : u_email
+		};
+		$.get(url, data, function (receivedData) {
+			console.log("데이터 받기");
+			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			var discussionReplyList = receivedData.discussionReplyList;
 
-// 			console.log("discussionReplyList : " ,  discussionReplyList);
+			console.log("discussionReplyList : " ,  discussionReplyList);
 			
 			if(discussionReplyList == "") {
 				alert("해당 글에 대한 댓글이 아직 없습니다.")
@@ -477,7 +483,7 @@
 				
 				$(discussionReplyList).each(function (i) {
 					
-					var frontId = this.u_id.substring(0,3);
+					var frontId = this.u_email.substring(0,3);
 					renameId = frontId + "***";
 					
 					if (this.r_yesOrNo == "0") {
@@ -506,7 +512,7 @@
 											// 좋아요 버튼
 							+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
 												$(replyLikeInfoList).each(function (i) {
-													if(this.r_no == listR_no && this.r_likenum == 1 && this.u_id == u_id) {
+													if(this.r_no == listR_no && this.r_likenum == 1 && this.u_email == u_email) {
 														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
 													}//if
 												})
@@ -515,7 +521,7 @@
 											// 싫어요 버튼
 							+				"<a href='#' class='btn btn-danger btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
 												$(replyLikeInfoList).each(function (i) {
-													if(this.r_no == listR_no && this.r_likenum == 2 && this.u_id == u_id) {
+													if(this.r_no == listR_no && this.r_likenum == 2 && this.u_email == u_email) {
 														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
 													}//if
 												})
@@ -621,7 +627,7 @@
 
         var url = "/discussion_reply/likeOrDislikeSelect";
         var sendData = {
-        	"u_id" : u_id,
+        	"u_email" : u_email,
         	"r_no" : r_no,
         	"r_likenum" : r_likenum
         };
@@ -703,7 +709,7 @@
 			var sendData = {
 					"b_serialno" : nowDiscussion_b_serialno,
 					"r_no" : r_no,
-					"u_id"	: u_id,
+					"u_email"	: u_email,
 					"r_writer" : r_writer,
 					"r_content" : coment
 			}
@@ -738,10 +744,10 @@
 					var strHtml2 = "";
 					$.getJSON(url2, function (receivedData) {
 						$(receivedData).each(function (i) {
-							var frontId = this.u_id.substring(0,3);
+							var frontId = this.u_email.substring(0,3);
 							renameId = frontId + "***";
 							
-							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
+							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_email='"+this.u_email+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
 									 +  this.r_writer+"("+renameId+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 							
 						})
@@ -792,10 +798,10 @@
 		$.getJSON(url, function (receivedData) {
 			$(receivedData).each(function (i) {
 				
-				var frontId = this.u_id.substring(0,3);
+				var frontId = this.u_email.substring(0,3);
 				renameId = frontId + "***";
 				
-				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_id='"+this.u_id+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
+				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_email='"+this.u_email+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
 						+this.r_writer+"("+renameId+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 			})
 
@@ -822,15 +828,15 @@
 	$("#discussion_ReplyList").on("click",".comentUserId", function (e) {
 		e.preventDefault();
 		var r_no = $(this).attr("data-r_no");
-		var u_id = $(this).attr("data-u_id");
+		var u_email = $(this).attr("data-u_email");
 		var r_writer = $(this).attr("data-r_writer");
 		
-		var frontId = u_id.substring(0,3);
+		var frontId = u_email.substring(0,3);
 		renameId = frontId + "***";
 // 		console.log("frontId " + frontId)
 		
 		var rname = "@"+ r_writer+"("+renameId+")"+"&nbsp;";
-// 		console.log("댓글 번호" + r_no +"에 "+ u_id +"유저 아이디/" +r_writer)
+// 		console.log("댓글 번호" + r_no +"에 "+ u_email +"유저 아이디/" +r_writer)
 		
 		var r_coment_count = $(this).attr("data-r_coment_count");
 // 		console.log(r_no + "답글 버튼");

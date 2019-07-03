@@ -15,22 +15,22 @@
 	
 	<!-- 특정유저가 토론 게시판 해당글 찬성 또는 반대 첫투표 -->
 	<insert id="insertAgreeInfo">
-		insert into discussion_agreeinfo (b_no, u_id, agreenum)
-		values (#{b_no},#{u_id},#{agreenum})
+		insert into discussion_agreeinfo (b_no, u_email, agreenum)
+		values (#{b_no},#{u_email},#{agreenum})
 	</insert>
 	
 	<!-- 해당 유저가 토론 게시판 해당 글에 찬성 또는 반대 투표 했었는지 판단 -->
 	<select id="AgreeById" resultType="int">
 		select count(*)
 		from discussion_agreeinfo
-		where b_no = #{b_no} and u_id = #{u_id}
+		where b_no = #{b_no} and u_email = #{u_email}
 	</select>
 	
 	<!-- 찬성 또는 반대 투표 업데이트 -->
 	<update id="ModifyAgreeInfo">
 		update discussion_agreeinfo
 		set agreenum = #{agreenum}
-		where b_no = #{b_no} and u_id = #{u_id}
+		where b_no = #{b_no} and u_email = #{u_email}
 	</update>
 	
 	<!-- 찬성 또는 반대 투표로 인한 메인 테이블 찬반 카운트 업데이트 -->

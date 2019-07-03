@@ -27,8 +27,10 @@ public class PetitionVo {
 	private int b_agree;			//글동의인원
 	private int b_progress;			//진행상황(시작-진행-종료-답변완료)
 	private char b_delno;
+	
 	private String a_name;
 	private String d_name;
+	
 	private int rnum;
 	private int ranking;
 	

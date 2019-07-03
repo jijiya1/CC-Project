@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.domain.AreaDataVo;
+import com.kh.domain.PagingDto;
 import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
 
@@ -20,16 +22,26 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<PetitionVo> listAll(int a_no) throws Exception {
-		List<PetitionVo> pList = sqlSession.selectList(NAMESPACE+"listAll", a_no);
+	public List<PetitionVo> listAll(PagingDto pageDto, int a_no) throws Exception {
+		AreaDataVo areaDataVo = new AreaDataVo();
+			areaDataVo.setA_no(a_no);
+		
+		HashMap<String, Object> listMap = new HashMap<>();
+			listMap.put("areaDataVo", areaDataVo);
+			listMap.put("pagingDto", pageDto);
+//		System.out.println("Dao pageDto:" + pageDto);
+		List<PetitionVo> pList = sqlSession.selectList(NAMESPACE+"listAll", listMap);
 		return pList;
 	}
 
 	@Override
-	public int listCount(DoSearchDto searchDto, int a_no) throws Exception {
-		HashMap<String, Object> countMap = new HashMap<>();
-		countMap.put("doSearchDto", searchDto);
-		countMap.put("a_no", a_no);
+	public int listCount(PagingDto pageDto, int a_no) throws Exception {
+			AreaDataVo areaDataVo = new AreaDataVo();
+				areaDataVo.setA_no(a_no);
+			
+			HashMap<String, Object> countMap = new HashMap<>();
+				countMap.put("pagingDto", pageDto);
+				countMap.put("areaDataVo", areaDataVo);
 		int count = sqlSession.selectOne(NAMESPACE+"listCount", countMap);
 		return count;
 	}
@@ -56,6 +68,7 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 	@Override
 	public List<PetitionVo> listRunOut(int a_no) throws Exception {
 		List<PetitionVo> peVo = sqlSession.selectList(NAMESPACE + "listRunOut", a_no);
+//		System.out.println("peVo" + peVo);
 		return peVo;
 	}
 
