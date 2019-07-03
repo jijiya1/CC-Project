@@ -149,6 +149,24 @@ $(document).ready(function() {
       
       
 	<!-- 좌측 메뉴바 끝 -->
+	
+	<!-- 관리자 메뉴바 시작 -->
+	
+	<div class="sidebar-heading">
+	    관리자 전용
+	</div>
+	<li class="nav-item active">
+	    <a class="nav-link" href="#">
+	      <i class="fas fa-fw fa-user-alt"></i>
+	      <span>회원 관리</span></a>
+	</li>
+	<li class="nav-item active">
+	    <a class="nav-link" href="#">
+	      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
+	      <span>신고 게시물</span></a>
+	</li>
+	
+	<!-- 관리자 메뉴바 끝 -->
 
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

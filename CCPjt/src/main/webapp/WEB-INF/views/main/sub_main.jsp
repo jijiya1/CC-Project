@@ -295,29 +295,53 @@ $(document).ready(function() {
 	      <h6 class="m-0 font-weight-bold text-primary">현재 토론 중</h6>
 	    </div>
 	      <div class="card-body">
-	      
-			<div class="slideshow-container">
-			
-			<c:forEach items="${ discussionList }" var="boardVo_discussion" >
-				<div class="mySlides" data-b_serialno ="${ boardVo_discussion.b_serialno }" data-YorNSelect ="">
-					<q style="cursor:pointer;" class="discussionTitle">
-						${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
-					</q>
-				  <p class="author">- ${ boardVo_discussion.u_id }</p>
-				</div>
-			</c:forEach>
-			
-			<a class="prev" onclick="plusSlides(-1)">❮</a>
-			<a class="next" onclick="plusSlides(1)">❯</a>
-			
-			</div>
-			
-			<div class="dot-container">
-				<c:forEach begin="1" end="${ discussionListSize }" var= "i" >
-					<span class="dot" onclick="currentSlide(${i})"></span> 
-				</c:forEach>
-			</div>
-	
+
+			<c:choose>
+				<c:when test="${ discussionList == '[]' }">
+					<div class="slideshow-container">
+						<div class="mySlides">
+							<q style="cursor:pointer;" class="discussionBlankTitle">
+								현재 정해진 토론 주제가 없습니다.
+							</q>
+						  <p class="author">- 관리자</p>
+						</div>
+						
+						<a class="prev" onclick="plusSlides(-1)">❮</a>
+						<a class="next" onclick="plusSlides(1)">❯</a>
+				
+					</div>
+				
+					<div class="dot-container">
+						<span class="dot" onclick="currentSlide(1)"></span>
+					</div>
+				</c:when>
+				
+				<c:otherwise>
+					<div class="slideshow-container">
+					
+						<c:forEach items="${ discussionList }" var="boardVo_discussion" >
+							<div class="mySlides">
+								<q style="cursor:pointer;" class="discussionTitle">
+									${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
+								</q>
+							  <p class="author">- ${ boardVo_discussion.u_id }</p>
+							</div>
+						</c:forEach>
+						
+						<a class="prev" onclick="plusSlides(-1)">❮</a>
+						<a class="next" onclick="plusSlides(1)">❯</a>
+						
+					</div>
+					
+					<div class="dot-container">
+						<c:forEach begin="1" end="${ discussionListSize }" var= "i" >
+							<span class="dot" onclick="currentSlide(${i})"></span> 
+						</c:forEach>
+					</div>
+				</c:otherwise>
+				
+			</c:choose>
+
 	      </div>
  	</div>
  	<!-- 토론게시판 영역 끝 -->
@@ -325,7 +349,7 @@ $(document).ready(function() {
 <!-- 토론게시판 끝 -->
 
 <script>
-	var slideIndex = 1;
+	var slideIndex = 0;
 	showSlides(slideIndex);
 	
 	function plusSlides(n) {
@@ -333,7 +357,7 @@ $(document).ready(function() {
 	}
 	
 	function currentSlide(n) {
-	  showSlides(slideIndex = n);
+	  showSlides(slideIndex = n - 1);
 	}
 	
 	function showSlides(n) {
@@ -350,10 +374,13 @@ $(document).ready(function() {
 	  }
 	  slides[slideIndex-1].style.display = "block";  
 	  dots[slideIndex-1].className += " dactive";
-	  setTimeout(showSlides, 3000);
+	  setTimeout(showSlides, 5000);
 	}
 	
 	$(".discussionTitle").click(function() {
+		location.href = "/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }";
+	});
+	$(".discussionBlankTitle").click(function() {
 		location.href = "/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }";
 	});
 </script>
