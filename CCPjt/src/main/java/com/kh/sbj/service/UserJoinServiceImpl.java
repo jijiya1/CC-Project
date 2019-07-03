@@ -16,21 +16,17 @@ public class UserJoinServiceImpl implements IUserJoinService {
 	
 	@Override
 	public void insertUser(UserInfoVo userInfoVo) throws Exception {
-		System.out.println("서비스 작동 전");
-		System.out.println("서비스 userInfoVo 조회 = "+ userInfoVo);
 		userJoinDao.insertUser(userInfoVo);
-		System.out.println("서비스 작동 후");
 	}
 
 	@Override
 	public void updateUser(UserInfoVo userInfoVo) throws Exception {
-		// TODO Auto-generated method stub
-
+		userJoinDao.updateUser(userInfoVo);
 	}
 
 	@Override
-	public void deleteUser(UserInfoVo userInfoVo) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteUser(LoginDto loginDto) throws Exception {
+		userJoinDao.deleteUser(loginDto);
 
 	}
 

@@ -8,6 +8,16 @@
 		insert into user_info(u_email, u_pw, u_name, u_address, u_detail, u_local)
 		values(#{u_email}, #{u_pw}, #{u_name}, #{u_address}, #{u_detail}, #{u_local})
 	</insert>
+	<update id="updateUser">
+		update user_info set
+		u_address = #{u_address}, u_detail = #{u_detail}, u_local = #{u_local}
+		where u_email = #{u_email}
+	</update>
+	<update id="deleteUser">
+		update user_info set
+		u_withdrawdate = sysdate
+		where u_email = #{u_email}
+	</update>
 	
 	<select id="duplicateCheck" resultType="Integer">
 		select count(*) from user_info

@@ -10,7 +10,8 @@
 
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
-	var checkJoin = [0, 0, 0, 0]; //checkEmail, checkPw, checkName, checkAdd
+	var checkPw=0;
+	var checkAdd=0;
     function searchAddress() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -59,25 +60,16 @@
 				$("#joinDetailAddress").attr("style", "border:1px solid green;");
 				$("#joinPostcode").attr("style", "border:1px solid green;");
 				$("#joinExtraAddress").attr("style", "border:1px solid green;");
-				checkJoin[4] = 1;
+				checkAdd = 1;
             }
         }).open();
     }
 	function checkFormInfo(){
-		if(checkJoin[0]==0){
-			$("#joinEmail").attr("style", "border:1px solid gold;");
-		}
-		if(checkJoin[1]==0){
+		if(checkPw==0){
 			$("#joinPw").attr("style", "border:1px solid gold;");
 			$("#joinPwCheck").attr("style", "border:1px solid gold;");
 		}
-		if(checkJoin[2]==0){
-			$("#joinName").attr("style", "border:1px solid gold;");	
-		}
-		if(checkJoin[3]==0){
-			$("#joinPhoneNum").attr("style", "border:1px solid gold;");
-		}
-		if(checkJoin[4]==0){
+		if(checkAdd==0){
 			$("#joinAddress").attr("style", "border:1px solid gold;");
 			$("#joinDetailAddress").attr("style", "border:1px solid gold;");
 			$("#joinPostcode").attr("style", "border:1px solid gold;");
@@ -85,66 +77,6 @@
 		}
 	}
     $(document).ready(function(){
-    	$("#joinEmail").blur(function(){
-    		checkJoin[0] = 0;
-    	});
-    	
-    	$("#joinEmailCheck").click(function(){
-    		var joinEmail = $("#joinEmail").val();
-    		if(joinEmail==null || joinEmail==""){
-    			alert("이메일을 입력해주세요.")
-    			return;
-    		}
-    		
-    		var url = "/user_join/send_email"
-    		var data = {
-    				"joinEmail" : joinEmail
-    		}
-    		$.ajax({
-    			"type" : "post",
-    			"url" : url,
-    			"headers" : {
-    				"Content-Type" : "application/json",
-    				"X-HTTP-Method-Override" : "post"
-    			},
-    			"dataType" : "text",
-    			"data" : JSON.stringify(joinEmail),
-    			"success" : function(receivedData){
-    				var result = receivedData.trim();
-    				if(result == 'duplicate'){
-    					alert("이미 가입된 이메일입니다.")
-    				}else if(result == 'true'){
-        				$("#divEmailCertified").attr("style", "");
-    				}
-    			}
-    		})
-    	});
-    	
-    	$("#joinEmailCertifiedCheck").click(function(){
-    		var certifiedNum = $("#joinEmailCertifiedNum").val();
-    		var url = "/user_join/certified_email"
-        	$.ajax({
-        		"type" : "post",
-        		"url" : url,
-        		"dataType" : "text",
-        		"headers" : {
-    				"Content-Type" : "application/json",
-    				"X-HTTP-Method-Override" : "post"
-    			},
-        		"data" : certifiedNum,
-        		"success" : function(receivedData){
-        			var result = receivedData.trim();
-        			if(result == "true"){
-        	    		$("#joinEmail").attr("style", "border:1px solid green;");
-        	       		checkJoin[0] = 1;
-        	       		$("#divEmailCertified").attr("style", "display:none;");
-        	    	}else{
-        	    		alert("인증번호가 맞지않습니다.")
-        	    		$("#joinEmail").attr("style", "border:1px solid gold;");
-        	    	}
-        		}
-        	})		
-    	});
     	$("#joinPw").blur(function(){
     		var pwVal = $("#joinPw").val();
     		if(pwVal.length > 8 && pwVal.length < 20){
@@ -159,7 +91,7 @@
 				$("#txtPwCheck").text("유효하지않은 비밀번호입니다.");
 				$("#txtPwCheck").attr("style", "color:gold;");
 				$("#joinPwCheck").attr("disabled", "disabled");
-				checkJoin[1] = 0;
+				checkPw = 0;
     		}
     	});
     	
@@ -171,40 +103,38 @@
     			$("#joinPwCheck").attr("style", "border:1px solid green;");
 				$("#txtPwCheck").text("사용 가능한 비밀번호입니다.");
 				$("#txtPwCheck").attr("style", "color:green;");
-				checkJoin[1] = 1;
+				checkPw = 1;
     		}else{
     			$("#joinPw").attr("style", "border:1px solid gold;");
     			$("#joinPwCheck").attr("style", "border:1px solid gold;");
 				$("#txtPwCheck").text("비밀번호가 다릅니다.");
 				$("#txtPwCheck").attr("style", "color:gold;");
-				checkJoin[1] = 0;
+				checkPw = 0;
     		}
     	});
     	
-    	$("#joinName").blur(function(){
-    		var joinName = $("#joinName").val();
-    		if(joinName!=null){
-    			$("#joinName").attr("style", "border:1px solid green;");
-    			checkJoin[2] = 1;
-    		}
-    	});
-    	
-    	$("#btnFinish").click(function(){
-    		var checkFinish = 0;
-    		for(var i=0 ; i<checkJoin.length ; i++){
-    			checkFinish += checkJoin[i];
-    		}
-    		if(checkFinish == 4){
-				$("#joinForm").submit();
+    	$("#btnUpdate").click(function(){
+    		if(checkPw==1 && checkAdd==1){
+				$("#updateForm").submit();
     		}else{
     			checkFormInfo();
     			alert("가입실패 : 정보를 정확히 입력하세요.");
     		}
     	});
+    	$("#btnDelete").click(function(){
+    		if(checkPw==1){
+    			$("#updateForm").attr("action", "/user_join/delete);
+    			$("#updateForm").submit();
+    		}else{
+    			$("#joinPw").attr("style", "border:1px solid gold;");
+    			$("#joinPwCheck").attr("style", "border:1px solid gold;");
+    			$("#txtPwCheck").text()
+    		}
+    	});
     });
 </script>
 <head>
-  <title>회원가입</title>
+  <title>회원정보 변경</title>
 	
 </head>
 
@@ -221,21 +151,10 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
               </div>
-              <form class="user" action="/user_join/join_run" method="post" id="joinForm">
+              <form class="user" action="/user_join/update_run" method="post" id="updateForm">
                 <div class="form-group row">
                   <div class="col-sm-8 mb-3 mb-sm-0" >
-                    <input type="email" class="form-control form-control-user" id="joinEmail" name="joinEmail" placeholder="이메일 주소" required="required">
-                  </div>
-                  <div class="col-sm-4">
-                    <input type="button" id="joinEmailCheck" value="이메일 인증" class="btn btn-primary btn-user btn-block"/>
-                  </div>
-                </div>
-                <div id="divEmailCertified" class="form-group row email-certified" style="display:none;" >
-                  <div class="col-sm-8 mb-3 mb-sm-0" >
-                    <input type="text" class="form-control form-control-user" id="joinEmailCertifiedNum" placeholder="인증번호" required="required">
-                  </div>
-                  <div class="col-sm-4">
-                    <input type="button" id="joinEmailCertifiedCheck" value="인증번호 확인" class="btn btn-primary btn-user btn-block"/>
+                    <input type="email" class="form-control form-control-user" id="joinEmail" name="joinEmail" placeholder="이메일 주소"  value="${userVo.u_email }" disabled="disabled">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -271,16 +190,14 @@
                 	<input type="text" id="joinExtraAddress" class="form-control form-control-user" placeholder="" readonly="readonly">
                   </div>
                 </div>
-                <input type="button" class="btn btn-primary btn-user btn-block" id="btnFinish" value="가입완료">
-                 
+                <input type="button" class="btn btn-primary btn-user btn-block" id="btnUpdate" value="수정완료">
+                <hr>
+                <input type="button" class="btn btn-danger btn-user btn-block" id="btnDelete" value="회원탈퇴">
               </form>
               <hr>
               <div class="row">
-				<div class="col-md-6 text-left" >
-                  <a class="small" href="/user_join/find_password">비밀번호 찾기</a>
-				</div>
 				<div class="col-md-6 text-right">
-              	  <a class="small" href="/login">로그인</a>
+              	  <a class="small" href="/">메인</a>
 				</div>
 			  </div>
             </div>

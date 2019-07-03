@@ -16,21 +16,18 @@ public class UserJoinDaoImpl implements IUserJoinDao {
 	
 	@Override
 	public void insertUser(UserInfoVo userInfoVo) throws Exception {
-		System.out.println("다오 작동 전");
-		System.out.println("다오 userInfoVo 조회 = "+ userInfoVo);
 		sqlSession.insert("user_join.insertUser", userInfoVo);
-		System.out.println("다오 작동 후");
 	}
 
 	@Override
 	public void updateUser(UserInfoVo userInfoVo) throws Exception {
-		// TODO Auto-generated method stub
+		sqlSession.update("user_join.updateUser", userInfoVo);
 
 	}
 
 	@Override
-	public void deleteUser(UserInfoVo userInfoVo) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteUser(LoginDto loginDto) throws Exception {
+		sqlSession.update("user_join.deleteUser", loginDto);
 
 	}
 
