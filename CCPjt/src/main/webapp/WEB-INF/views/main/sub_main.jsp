@@ -338,7 +338,7 @@ $(document).ready(function() {
 								<q style="cursor:pointer;" class="discussionTitle">
 									${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
 								</q>
-							  <p class="author">- ${ boardVo_discussion.u_email }</p>
+							  <p class="author">- ${ boardVo_discussion.b_writer }(${ boardVo_discussion.u_email.substring(0, 3)}***)</p>
 							</div>
 						</c:forEach>
 						

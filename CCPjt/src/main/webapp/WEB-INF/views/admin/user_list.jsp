@@ -2,148 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/head.jsp" %>
 
-<style>
-
-	div {
-		position:relative;
-	}
-
-</style>
-
 <script>
 $(document).ready(function() {
-	
-	// 알람창
-	var message = "${message}";
-	if (message == "success_write") {
-		alert("글을 작성하였습니다.")
-	} else if (message == "success_delete") {
-		alert("글을 삭제하였습니다.")
-	}
-	
-	// 툴팁
-	$('[data-toggle="tooltip"]').tooltip();
-	
-	// 공지사항 작성
-	$("#btnNoticeWrite").click(function() {
-		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
-	});
-	
-	// 공지사항 목록
-	$("#btnNoticeList").click(function() {
-		location.href = "/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }";
-	});
-	 
-	 // 해당 글 읽기
-	 $(".title").click(function(e) {
-		e.preventDefault();
-		setPage();
-		setSearch();
-		
-		var b_no = $(this).attr("data-b_no");
-// 		console.log(b_no);
-		$("input[name=b_no]").val(b_no);
-		var a_no = $(this).attr("data-a_no");
-		$("input[name=a_no]").val(a_no);
-		var href = $(this).attr("href");
-// 		console.log(href);
-		$("#hiddenData").attr("action", href).submit();
-		
-	 });
-	 
-	 // 검색바
-// 	 $("#btnSearch").click(function() {
-// 		 var searchType = $("#searchType").val();
-// 		 var keyword = $("#keyword").val();
-// 		 console.log(searchType);
-// 		 console.log(keyword);
-// 		$("input[name=searchType]").val(searchType);
-// 		$("input[name=keyword]").val(keyword);
-// 		$("#hiddenData").submit();
-// 	 });
-	 
-	 // 페이징 기능
-	 function setPage() {
-		 var nowPage = "${ noPagingDto.nowPage }";
-		 if (nowPage == "") {
-			 nowPage = 1;
-		 }
-		 var perPage = $("select[name=dataTable_length]").val();
-		 $("input[name=nowPage]").val(nowPage);
-		 $("input[name=perPage]").val(perPage);
-		 
-	 }
-	 
-	 // 검색 기능
-	 function setSearch() {
-		 $("#keyword").keyup(function(e){
-			 if(e.keyCode == 13) {
-				setPage();
-				$("input[name=searchType]").val("b_title");
-				var a_no = "${ areaDataVo.a_no }";
-// 				console.log(a_no);
-				$("input[name=a_no]").val(a_no);
-				var keyword = $("#keyword").val();
-				$("input[name=keyword]").val(keyword);
-// 				console.log(keyword);
-				$("#hiddenData").submit();
-			 }
-		 });
-	 }
-	 
-	 // 검색
-	 setSearch();
 
-	 // n줄씩 보기
-	 $("select[name=dataTable_length]").change(function() {
-		 setPage();
-		 setSearch();
-		 
-		 var a_no = "${ areaDataVo.a_no }";
-		 $("input[name=a_no]").val(a_no);
-		 $("input[name=searchType]").val("b_addinfo");
-		 $("input[name=keyword]").val(a_no);
-		 
-		 $("#hiddenData").submit();
-	 });
-	 
-	 // 페이지네이션
-	 $(".page-link").click(function(e) {
-		 e.preventDefault();
-		 
-		 var a_no = "${ areaDataVo.a_no }";
-		 $("input[name=a_no]").val(a_no);
-		 $("input[name=keyword]").val(a_no);
-		 
-		 $("input[name=searchType]").val("b_addinfo");
-		 
-		 var nowPage = $(this).attr("data-page");
-		 $("input[name=nowPage]").val(nowPage);
-		 
-		 var perPage = $("select[name=dataTable_length]").val();
-		 $("input[name=perPage]").val(perPage);
-		 
-		 $("#hiddenData").submit();
-	 });
-
- });
+});
 </script>
-
-<style>
-	
-</style>
 
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
 	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 공지사항</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 유저 목록</p>
 	
 	<!-- 페이지 헤더 -->	
-	<h1 class="h3 mb-2 text-gray-800">공지사항</h1>
+	<h1 class="h3 mb-2 text-gray-800">유저 목록</h1>
 	
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
-		<span>전체 ${ count }건의 게시물이 있습니다.</span>
+		<span>총 ${ count }명의 유저가 가입했습니다.</span>
 	</p>
 
 	<!-- 공지사항 리스트 -->
@@ -183,12 +58,10 @@ $(document).ready(function() {
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 	          <thead>
 	            <tr>
-	              <th>번&nbsp;&nbsp;호</th>
-	              <th>제&nbsp;&nbsp;목</th>
-	              <th>첨부파일</th>
-	              <th>작성자</th>
-	              <th>조회수</th>
-	              <th>작성날짜</th>
+	              <th>유저 이름</th>
+	              <th>유저 이메일</th>
+	              <th>가입일자</th>
+	              <th>버튼</th>
 	            </tr>
 	          </thead>
 	          <tbody>
@@ -214,12 +87,11 @@ $(document).ready(function() {
 	          </tbody>
 	        </table>
 	      </div>
-	      
-        <!-- 목록, 공지사항 작성 버튼 시작 -->
-		<button type="button" class="btn btn-success" style="float: left;" id="btnNoticeList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
-		<!-- 목록, 공지사항 작성 버튼 끝 -->
-		
-	  	<!-- 페이지네이션 시작 -->
+	    </div>
+	  </div>
+	  <!-- 테이블 끝 -->
+	  
+	  <!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
 			
@@ -256,23 +128,9 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->
-	      
-	    </div>
+	  
+	  <div><br><br></div>
+	  
 	  </div>
-	  <!-- 테이블 끝 -->
-	
-	<!-- css 테스트 -->
-<!-- 	<div> -->
-<!-- 		&nbsp;<button type="button" class="btn btn-primary"><span class="fas fa-pencil-alt"></span></button> -->
-<!-- 		<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
-<!-- 	</div> -->
-	<c:if test="${ userVo.u_email eq 'admin' }">
-		<div>
-			<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
-		</div>
-	</c:if>
-	
-	</div>
-	<!-- 공지사항 끝 -->
 
 <%@include file="../include/footer.jsp" %>

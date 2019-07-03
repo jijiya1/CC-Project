@@ -156,7 +156,7 @@ $(document).ready(function() {
 		    관리자 전용
 		</div>
 		<li class="nav-item active">
-		    <a class="nav-link" href="#">
+		    <a class="nav-link" href="/admin/user_list">
 		      <i class="fas fa-fw fa-user-alt"></i>
 		      <span>회원 관리</span></a>
 		</li>

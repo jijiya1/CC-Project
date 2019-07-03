@@ -18,6 +18,12 @@ $(document).ready(function(){
 	$("#btnLogin").click(function(){
 		$("#loginForm").submit();
 	});
+	
+	$("#u_pw").keyup(function(e) {
+		if (e.keyCode == 13) {
+			$("#loginForm").submit();
+		}
+	});
 });
 </script>
 <head>
