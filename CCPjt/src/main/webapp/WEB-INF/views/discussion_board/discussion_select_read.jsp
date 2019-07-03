@@ -44,7 +44,7 @@ $(document).ready(function() {
 			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
 			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
-			<input type="hidden" name="serchKeyword" value = "${pagingDto.serchKeyword }">
+			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no" value = "${selectDiscussion_BoardVo.b_no}">
 		</form>
         
