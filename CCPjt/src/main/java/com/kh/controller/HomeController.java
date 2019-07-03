@@ -20,6 +20,7 @@ import com.kh.domain.UserInfoVo;
 import com.kh.persistence.IMainDao;
 import com.kh.sbj.persistence.UserJoinDaoImpl;
 import com.kh.sbj.service.IUserJoinService;
+import com.kh.service.IMainService;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -31,13 +32,10 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Inject
-	INoticeBoardDao noticeBoardDao;
-	
-	@Inject
 	IUserJoinService userJoinService;
 	
 	@Inject
-	IMainDao mainDao;
+	IMainService mainService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(
@@ -46,7 +44,7 @@ public class HomeController {
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		List<NoticeBoardVo> noticeList = mainDao.getNoticeBoardList(pagingDto);
+		List<NoticeBoardVo> noticeList = mainService.getNoticeBoardList(pagingDto);
 		model.addAttribute("noticeList", noticeList);
 
 		return "main/main";
