@@ -98,7 +98,6 @@ $(document).ready(function() {
 	</div>
 	<!-- 공지사항 읽기 부분 끝 -->
 	
-</div>
-<br>
+	</div>
 
 <%@include file="../include/footer.jsp" %>
