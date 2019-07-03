@@ -53,7 +53,7 @@ $(document).ready(function() {
 						<!-- 작성자 -->
 						<tr style="text-align: center;">
 							<th scope="row" >작성자</th>
-							<td>${ noticeBoardVo.b_writer }</td>
+							<td>${ noticeBoardVo.u_name }</td>
 							<th scope="row">작성일</th>
 							<td><fmt:formatDate value="${ noticeBoardVo.b_modifieddate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
@@ -91,8 +91,10 @@ $(document).ready(function() {
 	
 	<!-- 하단 버튼 모음 시작 -->
 	<button type="button" class="btn btn-success" id="btnNoticeBoardList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
-	<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
-	<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
+	<c:if test="${ userVo.u_email eq noticeBoardVo.u_email }">
+		<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
+		<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
+	</c:if>
 	<!-- 하단 버튼 모음 끝 -->
 
 </div>

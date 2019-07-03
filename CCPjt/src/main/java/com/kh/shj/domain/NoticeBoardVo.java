@@ -8,8 +8,8 @@ public class NoticeBoardVo {
 	private int b_addinfo; // 공지게시글 정보(지역) 서울
 	private String b_detailinfo; // 공지게시글 정보(세부정보) 송파구 
 	private String b_title; // 공지게시글 제목
-	private String b_writer; // 공지게시글 작성자
-	private String u_id; // 게시글 작성자 id
+	private String u_name; // 공지게시글 작성자
+	private String u_email; // 게시글 작성자 id
 	private String b_content; // 공지게시글 내용 
 	private int b_readcount; // 공지게시글 조회수
 	private Timestamp b_createddate; // 공지게시글 작성일
@@ -21,12 +21,6 @@ public class NoticeBoardVo {
 	private String a_name;
 	private int a_order;
 	
-	public int getA_order() {
-		return a_order;
-	}
-	public void setA_order(int a_order) {
-		this.a_order = a_order;
-	}
 	public String getB_serialno() {
 		return b_serialno;
 	}
@@ -57,17 +51,17 @@ public class NoticeBoardVo {
 	public void setB_title(String b_title) {
 		this.b_title = b_title;
 	}
-	public String getB_writer() {
-		return b_writer;
+	public String getU_name() {
+		return u_name;
 	}
-	public void setB_writer(String b_writer) {
-		this.b_writer = b_writer;
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
 	}
-	public String getU_id() {
-		return u_id;
+	public String getU_email() {
+		return u_email;
 	}
-	public void setU_id(String u_id) {
-		this.u_id = u_id;
+	public void setU_email(String u_email) {
+		this.u_email = u_email;
 	}
 	public String getB_content() {
 		return b_content;
@@ -123,11 +117,18 @@ public class NoticeBoardVo {
 	public void setA_name(String a_name) {
 		this.a_name = a_name;
 	}
+	public int getA_order() {
+		return a_order;
+	}
+	public void setA_order(int a_order) {
+		this.a_order = a_order;
+	}
+	
 	@Override
 	public String toString() {
 		return "NoticeBoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addinfo=" + b_addinfo
-				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
-				+ u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount + ", b_createddate="
+				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", u_name=" + u_name + ", u_email="
+				+ u_email + ", b_content=" + b_content + ", b_readcount=" + b_readcount + ", b_createddate="
 				+ b_createddate + ", b_modifieddate=" + b_modifieddate + ", b_up=" + b_up + ", b_down=" + b_down
 				+ ", b_checkeddel=" + b_checkeddel + ", a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order
 				+ "]";
