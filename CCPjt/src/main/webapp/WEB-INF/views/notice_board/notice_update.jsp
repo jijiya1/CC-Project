@@ -17,7 +17,7 @@ $(document).ready(function() {
 	
 	// 목록으로
 	$("#btnNoticeBoardList").click(function() {
-		location.href = "/notice_board/notice_list";
+		location.href = "/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }";
 	});
 	
 	// 테스트
@@ -146,12 +146,13 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary"><span class="fas fa-check"></span></button>
+			<button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-check"></span></button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-			<button type="button" class="btn btn-success" id="btnNoticeBoardList"><span class="fas fa-list"></span></button>
+			<button type="button" class="btn btn-success" id="btnNoticeBoardList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
 		</form>
 		<!-- 공지사항 수정 부분 끝 - form -->
 	</div>
 	<!-- 공지사항 수정 끝 -->
+	<div><br></div>
 
 <%@include file="../include/footer.jsp" %>
