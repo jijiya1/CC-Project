@@ -131,7 +131,7 @@ $(document).ready(function() {
 	("#replyList").on("click",".btn-danger", function() {
 		var r_no = $(this).attr("data-r_no");
 		var r_content = $(this).attr("data-r_content");
-		var index = $(this).attr("data-r_index");
+		var index = $(this).attr("data-index");
 		
 		var url = "/reply/delete/" + r_no + "/" + b_no;
 		$.ajax({
@@ -220,18 +220,26 @@ $(document).ready(function() {
 					<label for="b_readcount">조회수</label>
 					<input type="text" class="form-control" id="b_readcount"
 						value="${vo.b_readcount}" readonly/>
+				</div>
+				<div class="form-group">
+					<label for="b_readcount">첨부파일</label>
+					<input type="text" class="form-control" id="b_readcount"readonly/>					
 				</div>								
 				</form>
 			</div>	
 		</div>
 		<div class="row">
 		<div class="col-md-12">
-			<input type="button" class="btn btn-warning" value="수정"
-				id="btnUpt"/>
-			<input type="button" class="btn btn-danger" value="삭제"
-				id="btnDel"/>			
-			<input type="button" class="btn btn-success" value="목록"
-				id="btnList"/>
+				
+				<!-- 수정 -->
+				<button type="button" class="btn btn-warning" value="수정"
+					id="btnUpt"><span class="fas fa-pencil-alt"></span></button>
+				<!-- 삭제 -->
+				<button type="button" class="btn btn-danger" value="삭제"
+					id="btnDel"><span class="fas fa-trash"></span></button>
+				<!-- 목록 -->
+				<button type="button" class="btn btn-success" value="목록"
+					id="btnList"><span class="fas fa-list"></span></button>									
 		</div>
 	</div>
 </div>
@@ -248,8 +256,9 @@ $(document).ready(function() {
 				<input type="text" class="form-control" id="r_writer"/>
 			</div>
 			<div class="form-group">
-				<input type="button" class="btn btn-success" id="btnReply"
-					value="작성완료" style="float: right;"/>
+			
+				<input type="button" class="btn btn-warning" id="btnReply"
+					value="작성완료" style="float: right;"<span class="fas fa-pencil-alt"></span>/>
 			</div>
 		</div>
 	</div>

@@ -12,7 +12,7 @@ public class SelectDiscussion_BoardVo {
 	String d_name;				// 토론주제선정 게시글 정보 이름(상세정보)
 	String b_title; 			// 토론주제선정 제목
 	String b_writer; 			// 토론주제선정 작성자
-	String u_id ;				// 게시글 작성자 ID
+	private String u_email; 	// 유저 아이디(email)
 	String b_content; 			// 토론주제선정 내용
 	int b_readCount; 			// 토론주제선정 조회수
 	Timestamp b_createdDate; 	// 토론주제선정 작성일
@@ -86,12 +86,12 @@ public class SelectDiscussion_BoardVo {
 		this.b_writer = b_writer;
 	}
 
-	public String getU_id() {
-		return u_id;
+	public String getU_email() {
+		return u_email;
 	}
 
-	public void setU_id(String u_id) {
-		this.u_id = u_id;
+	public void setU_email(String u_email) {
+		this.u_email = u_email;
 	}
 
 	public String getB_content() {
@@ -162,10 +162,10 @@ public class SelectDiscussion_BoardVo {
 	public String toString() {
 		return "SelectDiscussion_BoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addInfo=" + b_addInfo
 				+ ", a_name=" + a_name + ", b_detailInfo=" + b_detailInfo + ", d_name=" + d_name + ", b_title="
-				+ b_title + ", b_writer=" + b_writer + ", u_id=" + u_id + ", b_content=" + b_content + ", b_readCount="
-				+ b_readCount + ", b_createdDate=" + b_createdDate + ", b_modifiedDate=" + b_modifiedDate
-				+ ", b_recommendCount=" + b_recommendCount + ", b_upCount=" + b_upCount + ", b_downCount=" + b_downCount
-				+ ", b_checkedDel=" + b_checkedDel + "]";
+				+ b_title + ", b_writer=" + b_writer + ", u_email=" + u_email + ", b_content=" + b_content
+				+ ", b_readCount=" + b_readCount + ", b_createdDate=" + b_createdDate + ", b_modifiedDate="
+				+ b_modifiedDate + ", b_recommendCount=" + b_recommendCount + ", b_upCount=" + b_upCount
+				+ ", b_downCount=" + b_downCount + ", b_checkedDel=" + b_checkedDel + "]";
 	}
 
 }

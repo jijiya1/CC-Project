@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -109,7 +108,7 @@ $(document).ready(function() {
 		<c:otherwise>
 	      <!-- Heading -->
 	      <div class="sidebar-heading">
-	        정해주삼
+	        ${areaDataVo.a_name }
 	      </div>
 	
 		<!-- Nav Item - 정혜지 -->
@@ -149,6 +148,24 @@ $(document).ready(function() {
       
       
 	<!-- 좌측 메뉴바 끝 -->
+	
+	<!-- 관리자 메뉴바 시작 -->
+	
+	<div class="sidebar-heading">
+	    관리자 전용
+	</div>
+	<li class="nav-item active">
+	    <a class="nav-link" href="#">
+	      <i class="fas fa-fw fa-user-alt"></i>
+	      <span>회원 관리</span></a>
+	</li>
+	<li class="nav-item active">
+	    <a class="nav-link" href="#">
+	      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
+	      <span>신고 게시물</span></a>
+	</li>
+	
+	<!-- 관리자 메뉴바 끝 -->
 
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -315,17 +332,20 @@ $(document).ready(function() {
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인 부분</span>
-                <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
-              </a>
+           		<c:choose>
+            		<c:when test="${userVo != null }">
+		              	<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                    <span class="mr-2 d-none d-lg-inline text-gray-600">${userVo.u_name }</span>
+		                    <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
+	                    </a>
+            		</c:when>
+            		<c:otherwise>
+	            		<a class="nav-link dropdown-toggle" href="/login" id="userLogin" role="button" aria-haspopup="true" aria-expanded="false" >
+		               		<span class="mr-2 d-none d-lg-inline text-gray-600">로그인</span>
+		              	</a>
+            		</c:otherwise>
+            	</c:choose>
               <!-- Dropdown - User Information -->
-              <c:choose>
-              	<c:when test="">
-              	</c:when>
-              	<c:otherwise>
-              	</c:otherwise>
-              </c:choose>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -340,10 +360,6 @@ $(document).ready(function() {
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/login">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Login
-                </a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout

@@ -23,14 +23,14 @@
 	
 	<!-- 댓글 쓰기 -->
 	<insert id="writeReply">
-		insert into discussion_reply(b_serialno, r_no, r_writer, u_id , r_content ,r_yesorno)
-        values (#{b_serialno}, seq_discussion_reply.nextval, #{r_writer}, #{u_id}, #{r_content}, #{r_yesOrNo})
+		insert into discussion_reply(b_serialno, r_no, r_writer, u_email , r_content ,r_yesorno)
+        values (#{b_serialno}, seq_discussion_reply.nextval, #{r_writer}, #{u_email}, #{r_content}, #{r_yesOrNo})
 	</insert>
 	
 	<!-- 댓글에 대해 좋아요 또는 싫어요값 추가 -->
 	<insert id="replylikeInfoAdd">
-		insert into discussion_reply_likeInfo (u_id, r_no, r_likenum)
-		values (#{u_id},#{r_no},#{r_likenum})
+		insert into discussion_reply_likeInfo (u_email, r_no, r_likenum)
+		values (#{u_email},#{r_no},#{r_likenum})
 	</insert>
 	
 	<!-- 댓글에 대해 좋아요 또는 싫어요 총 값 갱신-->
@@ -47,26 +47,26 @@
 	<select id="replyLikeInfoExist" resultType="int">
 		select count(*)
         from discussion_reply_likeinfo
-        where r_no = #{r_no} and u_id = #{u_id}
+        where r_no = #{r_no} and u_email = #{u_email}
 	</select>
 	
 	<!-- 이미 좋아요 또는 싫어요를 눌렀다면 새로 업데이트 -->
 	<update id="replyLikeInfoModify">
 		update discussion_reply_likeinfo
 		set r_likenum =  #{r_likenum}
-		where r_no = #{r_no} and u_id = #{u_id}
+		where r_no = #{r_no} and u_email = #{u_email}
 	</update>
 	
 	<!-- 특정유저가 좋아요or싫어요 표시한 정보 가져오기 -->
 	<select id="replyLikeInfoById" resultType="ReplyLikeInfoDto_Discussion">
 	    select * from discussion_reply_likeinfo
-        where u_id = #{u_id}
+        where u_email = #{u_email}
 	</select>
 	
 	<!-- 댓글에 답글 달기 -->
 	<insert id="replyComentWrite">
-		insert into discussion_reply(b_serialno, r_no, r_writer, r_content, u_id, r_level, r_coment_no)
-		values (#{b_serialno},#{r_no},#{r_writer},#{r_content},#{u_id}, 1, seq_discussion_coment.nextval) 
+		insert into discussion_reply(b_serialno, r_no, r_writer, r_content, u_email, r_level, r_coment_no)
+		values (#{b_serialno},#{r_no},#{r_writer},#{r_content},#{u_email}, 1, seq_discussion_coment.nextval) 
 	</insert>
 	<!-- 댓글달린 답글 카운트 업데이트 -->
 	<update id="replyComentCountModify">

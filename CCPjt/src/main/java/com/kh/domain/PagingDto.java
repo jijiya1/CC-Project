@@ -118,7 +118,6 @@ public class PagingDto {
 		this.searchType = searchType;
 	}
 
-
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}

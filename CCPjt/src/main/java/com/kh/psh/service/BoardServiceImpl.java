@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.psh.domain.Complaint_PagingDto;
@@ -17,8 +18,7 @@ public class BoardServiceImpl implements IBoardService {
 	//글쓰기
 	@Override
 	public void suggest_insert(Complaint_BoardVo vo) throws Exception {
-		boardDao.suggest_insert(vo);
-
+		boardDao.suggest_insert(vo);			
 	}
 	//글목록
 	@Override
