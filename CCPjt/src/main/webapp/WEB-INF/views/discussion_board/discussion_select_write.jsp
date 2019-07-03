@@ -11,102 +11,23 @@
 
 <script>
 $(document).ready(function() {
-	
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 
 	// 글 작성 취소
 	$("#btnCancel").click(function() {
-		location.href = "/notice_board/notice_list?a_no=${a_no}&searchType=b_addinfo&keyword=${a_no}";
-	});
-	
-// 	$("#b_addinfo").change(function(e) {
-// 		console.log(e);
+	});	
 
-// 		var test = e.originalEvent.currentTarget[0];
-// 		console.log(test);
-
-// 		var b_addinfo = $("select[name=b_addinfo]").val();
-// 		console.log(b_addinfo);
-		
-// 		var test = e.originalEvent.currentTarget[0].index;
-// 		console.log(test);
-		
-// 		var a_no = "${ areaDataVo.a_no }";
-// 		console.log(a_no);
-		
-// 		var strHtml = "";
-// 		if (b_addinfo == 10) {
-// 			strHtml += "<div class='form-group' style='display: none;'>"
-// 				+  "<label>구</label>"
-// 				+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-// 				+  "<option value='100'>전체</option>"
-// 				+  "</select>"
-// 				+  "</div>";
-// 		} else {
-// 			strHtml += "<div class='form-group'>"
-// 				+  "<label>구</label>"
-// 				+  "<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>"
-// 				+  "<c:forEach items='${getDetailAreaData}' var='detailAreaData'>"
-// 				+  "<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>"
-// 				+  "</c:forEach>"
-// 				+  "</select>"
-// 				+  "</div>";
-// 		}
-		
-// 		$(".detail_info").html(strHtml);
-			
-		
-// 		$("#b_detailinfo").change(function() {
-// 			var b_detailinfo = $("select[name=b_detailinfo]").val();
-// 			console.log(b_detailinfo);
-// 		});
-
-// 	});
-	
-	// 테스트
-// 	$("#test").click(function() {
-// 		var b_title = $("input[name=b_title]").val();
-// 		console.log(b_title);
-		
-// 		var u_id = $("input[name=u_id]").val();
-// 		console.log(u_id);
-		
-// 		var b_addinfo = $("select[name=b_addinfo]").val();
-// 		console.log(b_addinfo);
-		
-// 		var b_detailinfo = $("select[name=b_detailinfo]").val();
-// 		console.log(b_detailinfo);
-		
-// 		var name_b_content = $("textarea[name=b_content]").val();
-// 		console.log(name_b_content);
-		
-// 		var a_no = $("input[name=a_no]").val();
-// 		console.log(a_no);
-		
-// 		var areaDataVo = "${areaDataVo}";
-// 		console.log(areaDataVo);
-		
-// 		var areaData = "${areaData}";
-// 		console.log(areaData);
-		
-// 		var getDetailAreaData = "${getDetailAreaData}";
-// 		console.log(getDetailAreaData);
-		
-// 		var b_content = $("#summernote").val();
-// 		console.log(b_content);
-// 	});
-	
 });
 </script>
 
-<!-- 공지사항 작성 시작 -->
+<!-- 토론 주제 추천 작성 시작 -->
 	<div class="container-fluid">
 	       
-		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ <a href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">공지사항</a> ＞ 공지사항 작성</p>
+		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞</p>
 		
 		<!-- 페이지 헤더 -->
-		<h1 class="h3 mb-2 text-gray-800">공지사항 작성</h1><br>
+		<h1 class="h3 mb-2 text-gray-800">토론 주제 추천 글작성</h1><br>
 		
 		<!-- 공지사항 작성 부분 시작 - form -->
 		<form role="form" method="post">
@@ -146,7 +67,7 @@ $(document).ready(function() {
 			</div>
 			
 			<div class="form-group">
-				<label>공지사항 내용</label><br>
+				<label>토론 주제 추천 내용</label><br>
 				  <textarea id="summernote" name="b_content" required="required"></textarea>
 				  <script>
 				        $('#summernote').summernote({
@@ -170,9 +91,9 @@ $(document).ready(function() {
 			<button type="button" class="btn btn-danger" id="btnCancel" data-toggle="tooltip" data-placement="top" title="취소"><span class="fas fa-times"></span></button>
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
 		</form>
-		<!-- 공지사항 작성 부분 끝 - form -->
+		<!-- 토론 주제 추천 작성 부분 끝 - form -->
 
 	</div>
-	<!-- 공지사항 작성 끝 -->
+	<!-- 토론 주제 추천 작성 끝 -->
 
 <%@include file="../include/footer.jsp" %>

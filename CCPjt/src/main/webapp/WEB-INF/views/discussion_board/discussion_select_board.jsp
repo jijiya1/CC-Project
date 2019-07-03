@@ -4,7 +4,6 @@
 
 <script>
 $(document).ready(function () {
-	
 	// 표시 게시글 갯수 변경
 	$("#dataTable_length").change(function () {
 		var url = "/selectDiscussion/discussion_select_board";
@@ -16,10 +15,27 @@ $(document).ready(function () {
 		var countRow = $("select[name=dataTable_length]").val();
 		$("input[name=countRow]").val(countRow);
 		
-		console.log(countRow);
-		
 		$("#hiddenData").submit();
 	});
+	
+	// 검색 기능
+	$("#keyword").keyup(function(e) {
+		if(e.keyCode == 13) {
+			var url = "/selectDiscussion/discussion_select_board";
+			$("#hiddenData").attr("action",url);
+			
+			var searchKeyword =  $(this).val();
+			$("input[name=searchKeyword]").val(searchKeyword);
+			
+			var nowPage = 1;
+			$("input[name=nowPage]").val(nowPage);
+			
+			var countRow = $("select[name=dataTable_length]").val();
+			$("input[name=countRow]").val(countRow);
+			
+			$("#hiddenData").submit();
+		}
+	})
 	
 	// 페이지네이션
 	$(".page-link").click(function (e) {
@@ -36,6 +52,24 @@ $(document).ready(function () {
 		
 		$("#hiddenData").submit();
 	});
+	
+	// 제목 해당 게시글로 상세보기로 이동
+	$(".select_title").click(function (e) {
+		e.preventDefault();
+		var b_no = $(this).attr("data-b_no");
+// 		console.log(b_no + "번 글 제목 클릭");
+		$("input[name=b_no]").val(b_no);
+		
+		var url = "/selectDiscussion/discussion_select_read";
+		$("#hiddenData").attr("action",url);
+		
+		$("#hiddenData").submit();
+	})
+	
+	// 글 작성 페이지로 이동
+	$("#btnWrite").click(function () {
+		location.href = "/selectDiscussion/discussion_select_write?a_no="+${areaDataVo.a_no };
+	})
 });
 </script>
 
@@ -62,6 +96,8 @@ $(document).ready(function () {
 			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
 			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
+			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
+			<input type="hidden" name="b_no">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
@@ -102,7 +138,7 @@ $(document).ready(function () {
 		          <c:forEach items="${selectBoardList }" var="selectBoardVo">
 		          	<tr>
 			          <td>${selectBoardVo.b_no}</td>
-	           		  <td><a href="#" style="float: left;">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]${selectBoardVo.b_title}</a></td>
+	           		  <td><a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]${selectBoardVo.b_title}</a></td>
 		              <td>${selectBoardVo.b_writer}</td>
 		              <td>${selectBoardVo.b_readCount}</td>
 		              <td>${selectBoardVo.b_upCount}</td>
@@ -118,24 +154,30 @@ $(document).ready(function () {
 	  
 	  <!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
-		<a href="/notice_board/notice_list"><button type="button" class="btn btn-success" style="float: left;"><span class="fas fa-list"></span></button></a>
-		<button class="btn btn-danger">글작성 작성</button>
+		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;">
+		<span class="fas fa-list"></span></button></a>
+		
+		<button class="btn btn-danger" id = "btnWrite">글작성 작성</button>
 		
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
 				
-				<c:if test="${pagingDto.prev == true}">
-					<li class="paginate_button page-item previous" id="dataTable_previous">
+					<li class="paginate_button page-item previous
+						<c:if test="${pagingDto.prev == false}">
+							disabled
+						</c:if>
+					" id="dataTable_previous">
 						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" data-nowPage="${pagingDto.startPage - 1}" class="page-link">≪</a>
 					</li>
-				</c:if>
 				
-				<c:if test="${pagingDto.nowPage != 1}">
-					<li class="paginate_button page-item previous" id="dataTable_previous">
+					<li class="paginate_button page-item previous
+						<c:if test="${pagingDto.nowPage == 1}">
+							disabled
+						</c:if>
+					" id="dataTable_previous">
 						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" data-nowPage="${pagingDto.nowPage - 1}" class="page-link" >＜</a>
 					</li>
-				</c:if>
 				
 				<c:forEach var ="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
 					<li class="paginate_button page-item 
@@ -146,17 +188,22 @@ $(document).ready(function () {
 					</li>
 				</c:forEach>
 				
-				<c:if test="${pagingDto.nowPage != pagingDto.endPage}">
-					<li class="paginate_button page-item next" id="dataTable_next">
+					<li class="paginate_button page-item next
+						<c:if test="${pagingDto.nowPage == pagingDto.endPage}">
+							disabled
+						</c:if>
+					" id="dataTable_next">
 						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.nowPage + 1}" class="page-link">＞</a>
 					</li>
-				</c:if>
 				
-				<c:if test="${pagingDto.next == true}">
-					<li class="paginate_button page-item next" id="dataTable_next">
+					<li class="paginate_button page-item next
+						<c:if test="${pagingDto.next == false}">
+							disabled
+						</c:if>
+					" id="dataTable_next">
 						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.endPage + 1}" class="page-link">≫</a>
 					</li>
-				</c:if>
+				
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->

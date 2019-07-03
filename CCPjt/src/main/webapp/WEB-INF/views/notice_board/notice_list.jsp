@@ -210,10 +210,13 @@ $(document).ready(function() {
 	  </div>
 	  <!-- 테이블 끝 -->
 	  
-	  <!-- 각종 버튼 및 유틸 모음 시작 -->
+	<!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
+	
+		<!-- 목록, 공지사항 작성 버튼 시작 -->
 		<a href="/notice_board/notice_list?a_no=${ areaDataVo.a_no }&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button></a>
 		<button class="btn btn-danger" id="btnNoticeWrite" data-toggle="tooltip" data-placement="top" title="공지사항 작성">공지사항 작성</button>
+		<!-- 목록, 공지사항 작성 버튼 끝 -->
 		
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
@@ -261,6 +264,7 @@ $(document).ready(function() {
 	<!-- 공지사항 끝 -->
 	
 	<!-- css 테스트 -->
-<!-- 	<div style="text-align: center;"><span class="fas fa-comment-alt">&nbsp;</span></div> -->
+<!-- 	<div style="text-align: center;"><span class="fas fa-ambulance">&nbsp;</span></div> -->
+<!-- 	<button type="button" class="btn btn-danger"><span class="fas fa-exclamation-triangle"></span></button> -->
 
 <%@include file="../include/footer.jsp" %>

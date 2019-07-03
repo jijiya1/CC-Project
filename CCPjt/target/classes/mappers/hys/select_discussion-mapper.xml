@@ -10,16 +10,43 @@
 		from (select ROWNUM rnum, a.*, (select a_name from area_data where a_no = b_addinfo) a_name, (select d_name from detail_data where a_no = b_addinfo and d_no= b_detailinfo) d_name
 		      from (select * 
 		            from selectdiscussion_board
-		            where b_checkeddel = 0 and b_addinfo = #{b_addInfo} 
+		            where b_checkeddel = 0 and b_addinfo = #{areaDataVo.a_no}
+		            <if test="(pagingDto.searchKeyword != null) and (pagingDto.searchKeyword != '')" >
+		            	and b_title like '%' || #{pagingDto.searchKeyword} || '%'
+		            </if>
 		            order by b_no desc) a)
 		where rnum &gt;= #{pagingDto.startRow} and rnum &lt;=#{pagingDto.endRow}
-		
 	</select>
 	
 	<!-- 토론주제 추천게시판 글 갯수 가져오기 -->
 	<select id ="totalSelectBoardCount" resultType="int" >
 		select count(*) 
         from selectdiscussion_board
-        where b_checkeddel = 0 and b_addinfo = #{b_addInfo}
+        where b_checkeddel = 0 and b_addinfo = #{areaDataVo.a_no}
+        <if test="(pagingDto.searchKeyword != null) and (pagingDto.searchKeyword != '')" >
+       		and b_title like '%' || #{pagingDto.searchKeyword} || '%'
+        </if>        
 	</select>
+	
+	<!-- 글 상세보기 -->
+	<select id= "readSelectBoard" resultType="SelectDiscussion_BoardVo">
+        select a.* , (select a_name from area_data where a_no = b_addinfo) a_name, (select d_name from detail_data where a_no = b_addinfo and d_no= b_detailinfo) d_name
+        from (select *
+              from selectdiscussion_board 
+              where b_no = #{b_no}) a
+	</select>
+	
+	<!-- 조회수 증가 시키기 -->
+	<update id="addReadCount">
+		update selectdiscussion_board
+		set b_readcount = b_readcount + 1
+		where b_no = #{b_no}
+	</update>
+	
+	<!-- 글 삭제 하기 b_checkeddel = 0 -> 1 로 업데이트 -->
+	<update id="deleteSelectBoard">
+		update selectdiscussion_board
+		set b_checkeddel = 1
+		where b_no = #{b_no}
+	</update>
 </mapper>
