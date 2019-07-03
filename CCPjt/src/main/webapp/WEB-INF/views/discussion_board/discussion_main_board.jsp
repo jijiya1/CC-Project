@@ -455,14 +455,20 @@
 	
 	// getJSON 댓글 리스트 가져오기 기능
 	function getReplyList() {
-// 		console.log("버튼 클릭");
-		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage+"/"+u_email;
-		
-		$.getJSON(url, function (receivedData) {
-// 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
+		console.log("버튼 클릭");
+		var url = "/discussion_reply/list/";
+// 		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage+"/"+u_email;
+		var data = {
+				"b_serialno" : nowDiscussion_b_serialno,
+				"nowReplyPage" : nowReplyPage,
+				"u_email" : u_email
+		};
+		$.get(url, data, function (receivedData) {
+			console.log("데이터 받기");
+			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			var discussionReplyList = receivedData.discussionReplyList;
 
-// 			console.log("discussionReplyList : " ,  discussionReplyList);
+			console.log("discussionReplyList : " ,  discussionReplyList);
 			
 			if(discussionReplyList == "") {
 				alert("해당 글에 대한 댓글이 아직 없습니다.")
