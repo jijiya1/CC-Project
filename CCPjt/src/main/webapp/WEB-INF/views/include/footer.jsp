@@ -33,8 +33,8 @@
         </div>
 <!--         <div class="modal-body">로그아웃 하시겠습니까?</div> -->
         <div class="modal-footer">
-       	  <a class="btn btn-primary" href="logout">로그아웃</a>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+       	  <a class="btn btn-danger" href="logout" data-toggle="tooltip" data-placement="top" title="확인"><span class="fas fa-check"></span></a>
+          <button class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="취소" data-dismiss="modal"><span class="fas fa-times"></span></button>
           
         </div>
       </div>

@@ -24,7 +24,8 @@
 
 <script>
 $(document).ready(function() {
-
+	// 툴팁
+	$('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 
@@ -150,21 +151,21 @@ $(document).ready(function() {
 	<!-- 좌측 메뉴바 끝 -->
 	
 	<!-- 관리자 메뉴바 시작 -->
-	
-	<div class="sidebar-heading">
-	    관리자 전용
-	</div>
-	<li class="nav-item active">
-	    <a class="nav-link" href="#">
-	      <i class="fas fa-fw fa-user-alt"></i>
-	      <span>회원 관리</span></a>
-	</li>
-	<li class="nav-item active">
-	    <a class="nav-link" href="#">
-	      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
-	      <span>신고 게시물</span></a>
-	</li>
-	
+	<c:if test="${ userVo.u_email eq 'admin' }">
+		<div class="sidebar-heading">
+		    관리자 전용
+		</div>
+		<li class="nav-item active">
+		    <a class="nav-link" href="#">
+		      <i class="fas fa-fw fa-user-alt"></i>
+		      <span>회원 관리</span></a>
+		</li>
+		<li class="nav-item active">
+		    <a class="nav-link" href="#">
+		      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
+		      <span>신고 게시물</span></a>
+		</li>
+	</c:if>
 	<!-- 관리자 메뉴바 끝 -->
 
       <div class="text-center d-none d-md-inline">
@@ -341,7 +342,7 @@ $(document).ready(function() {
             		</c:when>
             		<c:otherwise>
 	            		<a class="nav-link dropdown-toggle" href="/login" id="userLogin" role="button" aria-haspopup="true" aria-expanded="false" >
-		               		<span class="mr-2 d-none d-lg-inline text-gray-600">로그인</span>
+		               		<span class="mr-2 d-none d-lg-inline text-gray-600">Login</span>
 		              	</a>
             		</c:otherwise>
             	</c:choose>
