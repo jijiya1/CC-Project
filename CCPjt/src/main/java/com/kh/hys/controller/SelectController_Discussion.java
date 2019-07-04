@@ -44,9 +44,11 @@ public class SelectController_Discussion {
 		pagingDto.setTotalData(totalBoardCount);
 		
 		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(pagingDto ,a_no);
+		List<SelectDiscussion_BoardVo> best3List = selectService.getBest3SelectBoard(a_no);
 		
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("selectBoardList", selectBoardList);
+		model.addAttribute("best3List", best3List);
 		model.addAttribute("pagingDto", pagingDto);
 		
 		return "/discussion_board/discussion_select_board";

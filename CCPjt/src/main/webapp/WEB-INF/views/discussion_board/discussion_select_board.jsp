@@ -95,41 +95,43 @@ $(document).ready(function () {
 		<span>전체 ${pagingDto.totalData }건의 게시물이 있습니다.</span>
 	</p>
 	
+	<p>${best3List }</p>
+	
 	<!-- 토론 주제 추천 리스트 -->
 	  <div class="card shadow mb-4">
 	    <div class="card-body">
-	    <div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="media">
-						<img class="mr-3" alt="Bootstrap Media Preview" src="https://www.layoutit.com/img/sports-q-c-64-64-8.jpg" />
-						<div class="media-body">
-							<h5 class="mt-0">
-								1위 글제목
-							</h5> 글내용
-							<div class="media mt-3">
-								 <a class="pr-3" href="#"><img alt="Bootstrap Media Another Preview" src="https://www.layoutit.com/img/sports-q-c-64-64-2.jpg" /></a>
-								<div class="media-body">
-									<h5 class="mt-0">
-										2위 글제목
-									</h5> 글내용
-									<div class="media mt-3">
-										 <a class="pr-3" href="#"><img alt="Bootstrap Media Another Preview" src="https://www.layoutit.com/img/sports-q-c-64-64-2.jpg" /></a>
-										<div class="media-body">
-											<h5 class="mt-0">
-												3위 글제목
-											</h5> 글내용
-										</div>
-									</div>
-								</div>
+		    <div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="media">
+							<img class="mr-3" alt="Bootstrap Media Preview" src="/resources/img/rank1.JPG" width="50px" />
+							<div class="media-body">
+								<h5 class="mt-0">
+									1위 글제목
+								</h5> 글내용
 							</div>
 						</div>
+						<div class="media">
+							 <a class="mr-3" href="#"><img alt="Bootstrap Media Another Preview" src="/resources/img/rank2.JPG" width="50px"/></a>
+							<div class="media-body">
+								<h5 class="mt-0">
+									2위 글제목
+								</h5> 글내용
+	
+							</div>
+						</div>							
+						<div class="media">
+							 <a class="mr-3" href="#"><img alt="Bootstrap Media Another Preview" src="/resources/img/rank3.JPG" width="50px"/></a>
+							<div class="media-body">
+								<h5 class="mt-0">
+									3위 글제목
+								</h5> 글내용
+							</div>
+						</div>	
 					</div>
 				</div>
 			</div>
 		</div>
-	  </div>
-
 	</div>
 	<!-- 각종 버튼 및 유틸 끝 -->
 	

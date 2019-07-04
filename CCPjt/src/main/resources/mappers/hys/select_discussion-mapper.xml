@@ -120,4 +120,16 @@
 		from selectdiscussion_board_resinfo
 		where b_no = #{b_no}	
 	</select>
+	
+	<!-- 추천수가 많은 게시판 3개 (추천수가 같으면 최신순으로) -->
+	<select id="getBest3SelectBoard" resultType="SelectDiscussion_BoardVo">
+       select *
+       from (select rownum rnum, b.*
+            from (select rank() over (order by b_upcount desc) ranking , a.*
+                  from (select *
+                        from selectdiscussion_board
+                        where b_addinfo = #{a_no}) a) b
+            order by b_createddate desc)
+       where rnum &lt;=3
+	</select>
 </mapper>
