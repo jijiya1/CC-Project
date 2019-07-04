@@ -365,6 +365,10 @@ $(document).ready(function() {
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   내 게시글
                 </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-envelope fa-fw mr-2 text-gray-400"></i>
+                  메시지
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout" >
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

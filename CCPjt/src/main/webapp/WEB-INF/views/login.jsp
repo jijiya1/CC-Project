@@ -5,7 +5,14 @@
 <script>
 
 $(document).ready(function(){
-	var loginTryEmail = "${inputEmail}";
+	var message = "${message}";
+	if(message=="login"){
+		var loginTryEmail = "${inputEmail}";
+	}else if(message=="searchPw"){
+		var searchPwEmail = "${inputEmail}";
+		var txt = searchPwEmail + "로 비밀번호를 발송했습니다.\n로그인 후 비밀번호를 변경해주세요.";
+		alert(txt);
+	}
 	var u_email = "${u_email}";
 	var u_pw = "${u_pw}";
 	if(u_email != ""){
@@ -37,7 +44,7 @@ $(document).ready(function(){
 </script>
 <head>
 
-  <title>Login</title>
+  <title>로그인</title>
 
 </head>
 <body class="bg-gradient-primary">
@@ -55,7 +62,7 @@ $(document).ready(function(){
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-<!--                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1> -->
+                    <h1 class="h4 text-gray-900 mb-4">로그인</h1>
                   </div>
                   <form class="user" id="loginForm" action="/login_run" method="POST">
                     <div class="form-group">
@@ -74,16 +81,10 @@ $(document).ready(function(){
                     <input type="button" id="btnLogin" class="btn btn-primary btn-user btn-block" value="로그인">
                     
                     <hr>
-<!--                     <a href="index.html" class="btn btn-google btn-user btn-block"> -->
-<!--                       <i class="fab fa-google fa-fw"></i> Login with Google -->
-<!--                     </a> -->
-<!--                     <a href="index.html" class="btn btn-facebook btn-user btn-block"> -->
-<!--                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook -->
-<!--                     </a> -->
                   </form>
                   <div class="row">
 					<div class="col-md-6 text-left">
-                	  <a class="small" href="/user_join/find_password">비밀번호 찾기</a>
+                	  <a class="small" href="/user_join/searchPw_form">비밀번호 찾기</a>
 					</div>
 					<div class="col-md-6 text-right">
               	 	  <a class="small" href="/user_join/join_form">회원가입</a>
