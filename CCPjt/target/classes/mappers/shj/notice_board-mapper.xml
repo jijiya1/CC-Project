@@ -73,6 +73,12 @@
 		and b_addinfo = a_no
 	</select>
 	
+	<!-- 해당 게시글 b_no 가져오기 -->
+	<select id="getBNo" resultType="noticeBoardVo">
+		select b_no notice_board
+		where b_no = #{b_no}
+	</select>
+	
 	<!-- 해당 게시글 클릭시 조회수 +1 업데이트 -->
 	<update id="noticeBoardReadCountUpdate">
 		update notice_board set

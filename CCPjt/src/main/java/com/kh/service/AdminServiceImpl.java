@@ -28,4 +28,10 @@ public class AdminServiceImpl implements IAdminService {
 		return getUserCount;
 	}
 
+	@Override
+	public void userDelete(String u_email) throws Exception {
+		adminDao.userDelete(u_email);
+		
+	}
+
 }

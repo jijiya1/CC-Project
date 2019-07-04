@@ -5,6 +5,12 @@
 <script>
 $(document).ready(function() {
 	
+	// 알람창
+	var message = "${message}";
+	if (message == "success_write") {
+		alert("글을 작성하였습니다.")
+	}
+	
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 	

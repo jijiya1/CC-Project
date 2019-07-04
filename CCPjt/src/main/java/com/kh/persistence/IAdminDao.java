@@ -11,4 +11,7 @@ public interface IAdminDao {
 	
 	// 회원 수 불러오기
 	public int getUserCount() throws Exception;
+	
+	// 회원 강제 탈퇴
+	public void userDelete(String u_email) throws Exception;
 }

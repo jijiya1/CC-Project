@@ -76,7 +76,6 @@
 	
 	/* Add a blue color to the author */
 	.author {color: cornflowerblue;}
-	
 	#btn_Discussion_rec {
 		margin-top: 15px;
 		margin-bottom: 5px;
@@ -467,7 +466,8 @@
 			console.log("데이터 받기");
 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			var discussionReplyList = receivedData.discussionReplyList;
-
+		
+			console.log("receivedData : " ,  receivedData);
 			console.log("discussionReplyList : " ,  discussionReplyList);
 			
 			if(discussionReplyList == "") {

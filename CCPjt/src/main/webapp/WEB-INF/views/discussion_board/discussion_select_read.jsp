@@ -5,6 +5,8 @@
 <script>
 $(document).ready(function() {
 	
+	var u_email = "ahems2005@naver.com";
+	
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 	
@@ -36,32 +38,35 @@ $(document).ready(function() {
 		} 
 	});
 	
+	
 	// 추천 버튼
-	$("#btnUp").click(function (e) {
-		
+	$("#btnUpArea").on("click", ".btnUp", function (e) {
 		e.preventDefault()
 		var url = "/selectDiscussion/selectUpcountUpdate";
 		var b_no = ${selectDiscussion_BoardVo.b_no};
-		var u_email = ${selectDiscussion_BoardVo.b_no};
+		var u_email = "${selectDiscussion_BoardVo.u_email}";
 		var sendData = {
 				"b_no" : b_no,
 				"u_email" : u_email
-		}
+		};
 		
-		$.ajax({
-			"type" : "post",
-			"url" : url ,
-			"headers" : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method_Override" : "post"
-			},
-        	"dataType" : "text",
-        	"data" : JSON.stringify(sendData),
-        	"success" : function (receviedData) {
-        		console.log("성공");
-        	}
-		})
-	})
+		$.get(url, sendData, function (receviedData) {
+			var resCountByEmail = receviedData.resCountByEmail;
+			var b_upCount = receviedData.selectBoardUpCount;
+			
+			var strHtml = "";
+			
+			strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center; ";
+							if( resCountByEmail >= 1 ) {
+								strHtml +=	"border: solid 5px; border-color: #27AE60;";
+							};				
+			strHtml += 	"'>"
+					+	"<span class='fas fa-thumbs-up'style='font-size: 40px;'>&nbsp;추천&nbsp;"+b_upCount+"</span>"
+					+	"</a>";
+			
+			$("#btnUpArea").html(strHtml);
+		});
+	});
 	
 });
 </script>
@@ -123,8 +128,13 @@ $(document).ready(function() {
 						</tr>
 					</tbody>
 				</table>
-				<div style="text-align: center;">
-					<a href='#' class='btn btn-primary btn-sm' id="btnUp" style="text-align: center;"><span class='fas fa-thumbs-up'style="font-size: 40px;">&nbsp;추천&nbsp;${selectDiscussion_BoardVo.b_upCount}</span></a>
+				<div style="text-align: center;" id ="btnUpArea">
+
+					<a href='#' class="btn btn-primary btn-sm btnUp" style="text-align: center; 
+						<c:if test="${resCountByEmail >= 1}">
+							border: solid 5px; border-color: #27AE60;
+						</c:if>
+					"><span class='fas fa-thumbs-up'style="font-size: 40px;">&nbsp;추천&nbsp;${selectDiscussion_BoardVo.b_upCount}</span></a>
 				</div>
 			</div>
 		</div>
