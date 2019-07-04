@@ -39,7 +39,6 @@ public class ReplyController {
 	@RequestMapping(value="/list/{b_no}", method=RequestMethod.GET)
 	public ResponseEntity<List<Complaint_ReplyVo>> list(@PathVariable("b_no") int b_no) {
 		ResponseEntity<List<Complaint_ReplyVo>> entity = null;
-		System.out.println("b_no" + b_no);
 		try {
 			List<Complaint_ReplyVo> list = replyService.list(b_no);
 			entity = new ResponseEntity<List<Complaint_ReplyVo>>(list, HttpStatus.OK);
@@ -50,8 +49,9 @@ public class ReplyController {
 		return entity;
 	}
 	//댓글 수정
-	@RequestMapping(value="/update/{rno}", method=RequestMethod.PUT)
-	public ResponseEntity<String> update(@PathVariable("r_no")int r_no, @RequestBody Complaint_ReplyVo replyVo) throws Exception {
+	@RequestMapping(value="/update/{r_no}", method=RequestMethod.PUT)
+	public ResponseEntity<String> update(@PathVariable("r_no")int r_no, 
+										@RequestBody Complaint_ReplyVo replyVo) throws Exception {
 		replyVo.setR_no(r_no);
 		ResponseEntity<String> entity = null;
 		try {

@@ -47,10 +47,20 @@
 	select count(*) from complaint_board
 	<include refid="search"></include>
 </select>
-<!-- 첨부파일 경로 추가 -->
-<insert id="attach">
 
-</insert>
+	<!-- 댓글 갯수 갱신 -->
+<!-- 	<update id="updateReplycnt"> -->
+<!-- 		update complaint_board set -->
+<!-- 			replycnt = (select count(*) -->
+<!-- 						from testreply -->
+<!-- 						where b_no = #{b_no}) -->
+<!-- 		where b_no = #{b_no} -->
+<!-- 	</update> -->
+	
+<!-- 첨부파일 경로 추가 -->
+<!-- <insert id="attach"> -->
+
+<!-- </insert> -->
 <sql id="search">
 		<if test="searchType != null">
       		<if test="searchType == 'b_title'">
