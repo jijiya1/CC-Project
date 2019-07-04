@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
+import com.kh.hys.domain.SelectResInfoDto_Discussion;
 import com.kh.hys.persistence.ISelectBoardDao_Discussion;
 
 @Service
@@ -40,16 +41,75 @@ public class SelectService_Discussion implements ISelectService_Discussion {
 		return selectDiscussion_BoardVo;
 	}
 	
+	// 조회수 증가
+	@Override
+	public void addReadCount(int b_no) throws Exception {
+		selectBoardDao.addReadCount(b_no);
+	}
+	
+	// 글 쓰기
+	@Override
+	public void writeSelectBoard(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		selectBoardDao.writeSelectBoard(selectDiscussion_BoardVo);
+	}
+	// 글 수정하기
+	@Override
+	public void modifySelectBoard(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		selectBoardDao.modifySelectBoard(selectDiscussion_BoardVo);
+	}
+	
 	// 글 삭제 하기 (b_checkeddel = 0 -> 1 로 업데이트)
 	@Override
 	public void deleteSelectBoard(int b_no) throws Exception {
 		selectBoardDao.deleteSelectBoard(b_no);
 	}
 	
-	// 조회수 증가
+	//해당 토론 추천글에 대한 추천 정보 가져오기
 	@Override
-	public void addReadCount(int b_no) throws Exception {
-		selectBoardDao.addReadCount(b_no);
+	public List<SelectResInfoDto_Discussion> selectBoardResList(SelectResInfoDto_Discussion selectResInfoDto_Discussion) throws Exception {
+		List<SelectResInfoDto_Discussion> selectResList = selectBoardDao.selectBoardResList(selectResInfoDto_Discussion);
+		return selectResList;
+	}
+	
+	//토론 추천글 추천하기 (유저 정보랑 글번호 insert)
+	@Transactional
+	@Override
+	public void insertBoardRes(SelectResInfoDto_Discussion selectResInfoDto_Discussion) throws Exception {
+		
+		int selectedCount = selectBoardDao.selectBoardResCountById(selectResInfoDto_Discussion);
+		
+		if(selectedCount >= 1) {
+			selectBoardDao.deleteBoardRes(selectResInfoDto_Discussion);
+		} else {
+			selectBoardDao.insertBoardRes(selectResInfoDto_Discussion);
+		}
+		
+		selectBoardDao.selectBoardUpCountModify(selectResInfoDto_Discussion.getB_no());
+	}
+	
+	//해당 글에 유저가 선택했었는지 확인
+	@Override
+	public int selectBoardResCountById(SelectResInfoDto_Discussion selectResInfoDto_Discussion) throws Exception {
+		int selectedCount = selectBoardDao.selectBoardResCountById(selectResInfoDto_Discussion);
+		return selectedCount;
+	}
+	
+	//토론 추천글 취소 하기
+	@Override
+	public void deleteBoardRes(SelectResInfoDto_Discussion selectResInfoDto_Discussion) throws Exception {
+		selectBoardDao.deleteBoardRes(selectResInfoDto_Discussion);
+	}
+	
+	//해당글 갯수 업데이트
+	@Override
+	public void selectBoardUpCountModify(int b_no) throws Exception {
+		selectBoardDao.selectBoardUpCountModify(b_no);
 	}
 
+	// 해당 게시글  추천 갯수 가져오기
+	@Override
+	public int getSelectBoardUpCount(int b_no) throws Exception {
+		int selectBoardUpCount = selectBoardDao.getSelectBoardUpCount(b_no);
+		return selectBoardUpCount;
+	}
 }

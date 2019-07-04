@@ -225,8 +225,11 @@ $(document).ready(function() {
 	$(".select_title").click(function (e) {
 		e.preventDefault();
 		var b_no = $(this).attr("data-b_no");
+		var a_no = "${a_no}";
 //  		console.log(b_no + "번 글 제목 클릭");
 		$("input[name=b_no]").val(b_no);
+		$("input[name=a_no]").val(a_no);
+		$("input[name=nowPage]").val(1);
 		
 		var url = "/selectDiscussion/discussion_select_read";
 		$("#hiddenData").attr("action",url);

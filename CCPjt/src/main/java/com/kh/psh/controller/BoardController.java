@@ -1,5 +1,6 @@
 package com.kh.psh.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,10 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.psh.domain.Complaint_PaginationDto;
 import com.kh.psh.domain.Complaint_PagingDto;
 import com.kh.psh.service.IBoardService;
+
+import sun.util.logging.resources.logging;
 
 @Controller
 @RequestMapping("/suggest_board/*")
@@ -27,9 +34,12 @@ public class BoardController {
 	public void writeGet() throws Exception {
 		
 	}
+	
+	
 	@RequestMapping(value="/suggest_write",method=RequestMethod.POST)
 	public String writePost(Complaint_BoardVo vo) throws Exception {
 		boardService.suggest_insert(vo);
+					
 		return "redirect:/suggest_board/suggest_list";
 	}
 	

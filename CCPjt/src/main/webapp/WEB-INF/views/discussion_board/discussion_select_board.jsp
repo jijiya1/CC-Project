@@ -78,7 +78,6 @@ $(document).ready(function () {
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">토론 주제 추천게시판</h1>
-	<p>데이터확인: ${areaDataVo.a_no }</p>
 
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
@@ -138,8 +137,8 @@ $(document).ready(function () {
 		          <c:forEach items="${selectBoardList }" var="selectBoardVo">
 		          	<tr>
 			          <td>${selectBoardVo.b_no}</td>
-	           		  <td><a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]${selectBoardVo.b_title}</a></td>
-		              <td>${selectBoardVo.b_writer}</td>
+	           		  <td><a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]&nbsp;${selectBoardVo.b_title}</a></td>
+		              <td>${selectBoardVo.b_writer}(${selectBoardVo.u_email.substring(0,3)}***)</td>
 		              <td>${selectBoardVo.b_readCount}</td>
 		              <td>${selectBoardVo.b_upCount}</td>
 		              <td><fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="yyyy-MM-dd HH:mm"/></td>
@@ -203,7 +202,6 @@ $(document).ready(function () {
 					" id="dataTable_next">
 						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" data-nowPage="${pagingDto.endPage + 1}" class="page-link">≫</a>
 					</li>
-				
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->

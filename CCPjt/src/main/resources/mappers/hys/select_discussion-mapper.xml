@@ -43,7 +43,19 @@
 		where b_no = #{b_no}
 	</update>
 	
-	<!-- 토론 게시판 글 작성 하기 -->
+	<!-- 토론 주제 추천 게시판 글 작성 하기 -->
+	<insert id="selectBoardWrite">
+		insert into selectdiscussion_board (b_serialno, b_no, b_addInfo, b_detailInfo, b_title, b_writer, u_email, b_content)
+		values ('dis_' || seq_discussion_serialno.nextval, seq_discussion_select.nextval, #{b_addInfo}, #{b_detailInfo}, #{b_title}, #{b_writer}, #{u_email}, #{b_content})
+	</insert>
+	
+	<!-- 토론 주제 추천 게시글 수정하기 -->
+	<update id="selectBoardModify">
+		update selectdiscussion_board 
+		set b_title = #{b_title},
+			b_content = #{b_content}
+		where b_no = #{b_no}	
+	</update>
 	
 	<!-- 글 삭제 하기 b_checkeddel = 0 -> 1 로 업데이트 -->
 	<update id="deleteSelectBoard">
@@ -51,4 +63,45 @@
 		set b_checkeddel = 1
 		where b_no = #{b_no}
 	</update>
+	
+	<!-- 해당 토론 추천글에 대한 추천 정보 가져오기 -->
+	<select id="selectBoardResList" resultType="SelectResInfoDto_Discussion">
+		select *
+		from discussion_board_resinfo
+		where u_email = #{u_email} and b_no = #{b_no}
+	</select>
+	
+	<!-- 토론 추천글 추천하기 (유저 정보랑 글번호 insert) -->
+	<insert id="insertBoardRes">
+		insert into discussion_board_resinfo (u_email, b_no)
+		values (#{u_email}, #{b_no})
+	</insert>
+	
+	<!-- 해당 글에 유저가 선택했었는지 확인 -->
+	<select id="selectBoardResCountById" resultType="int">
+		select count(*)
+		from discussion_board_resinfo
+		where u_email = #{u_email} and b_no = #{b_no}
+	</select>
+	
+	<!-- 토론 추천글 취소 하기 -->
+	<delete id="deleteBoardRes">
+		delete discussion_board_resinfo
+		where u_email = #{u_email} and b_no = #{b_no} 
+	</delete>
+	
+	<!-- 해당글 갯수 업데이트 -->
+	<update id="selectBoardUpCountModify">
+		update selectdiscussion_board
+		set b_upcount = (select count(*) from discussion_board_resinfo
+						  where b_no = #{b_no})
+		where b_no = #{b_no}
+	</update>
+	
+	<!-- 해당 게시글  추천 갯수 가져오기 -->
+	<select id="getSelectBoardUpCount" resultType="int">
+		select count(*)
+		from discussion_board_resinfo
+		where b_no = #{b_no}	
+	</select>
 </mapper>

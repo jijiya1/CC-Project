@@ -5,6 +5,12 @@
 <script>
 $(document).ready(function() {
 	
+	// 알람창
+	var message = "${message}";
+	if (message == "success_write") {
+		alert("글을 작성하였습니다.")
+	}
+	
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 	
@@ -85,19 +91,19 @@ $(document).ready(function() {
 					</tbody>
 				</table>
 			</div>
+			
+		<!-- 하단 버튼 모음 시작 -->
+		<button type="button" class="btn btn-success" id="btnNoticeBoardList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
+		<c:if test="${ userVo.u_email eq noticeBoardVo.u_email }">
+			<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
+			<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
+		</c:if>
+		<!-- 하단 버튼 모음 끝 -->
+			
 		</div>
 	</div>
 	<!-- 공지사항 읽기 부분 끝 -->
 	
-	<!-- 하단 버튼 모음 시작 -->
-	<button type="button" class="btn btn-success" id="btnNoticeBoardList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list"></span></button>
-	<c:if test="${ userVo.u_email eq noticeBoardVo.u_email }">
-		<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
-		<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
-	</c:if>
-	<!-- 하단 버튼 모음 끝 -->
-
-</div>
-<br>
+	</div>
 
 <%@include file="../include/footer.jsp" %>

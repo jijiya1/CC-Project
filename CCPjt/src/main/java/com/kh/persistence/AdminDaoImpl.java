@@ -19,8 +19,21 @@ public class AdminDaoImpl implements IAdminDao {
 
 	@Override
 	public List<UserInfoVo> getUserList() throws Exception {
-		List<UserInfoVo> getUserList = sqlSession.selectOne(NAMESPACE + "getUserList");
+		List<UserInfoVo> getUserList = sqlSession.selectList(NAMESPACE + "getUserList");
 		return getUserList;
+	}
+
+	@Override
+	public int getUserCount() throws Exception {
+		int getUserCount = sqlSession.selectOne(NAMESPACE + "getUserCount");
+//		System.out.println("Dao / getUserCount : " + getUserCount);
+		return getUserCount;
+	}
+
+	@Override
+	public void userDelete(String u_email) throws Exception {
+		sqlSession.selectOne(NAMESPACE + "userDelete", u_email);
+		
 	}
 
 }

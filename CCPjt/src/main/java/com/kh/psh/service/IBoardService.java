@@ -2,6 +2,8 @@ package com.kh.psh.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.psh.domain.Complaint_PagingDto;
 
