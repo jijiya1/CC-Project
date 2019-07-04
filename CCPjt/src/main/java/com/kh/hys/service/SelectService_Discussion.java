@@ -112,4 +112,11 @@ public class SelectService_Discussion implements ISelectService_Discussion {
 		int selectBoardUpCount = selectBoardDao.getSelectBoardUpCount(b_no);
 		return selectBoardUpCount;
 	}
+	
+	// 추천수가 많은 게시판 3개 (추천수가 같으면 최신순으로)
+	@Override
+	public List<SelectDiscussion_BoardVo> getBest3SelectBoard(int a_no) throws Exception {
+		List<SelectDiscussion_BoardVo> best3List = selectBoardDao.getBest3SelectBoard(a_no);
+		return best3List;
+	}
 }

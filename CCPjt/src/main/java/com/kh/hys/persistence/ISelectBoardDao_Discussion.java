@@ -47,6 +47,7 @@ public interface ISelectBoardDao_Discussion {
 	// 해당 게시글  추천 갯수 가져오기
 	public int getSelectBoardUpCount(int b_no) throws Exception;
 	
-	
+	// 추천수가 많은 게시판 3개 (추천수가 같으면 최신순으로)
+	public List<SelectDiscussion_BoardVo> getBest3SelectBoard(int a_no) throws Exception;
 	
 }
