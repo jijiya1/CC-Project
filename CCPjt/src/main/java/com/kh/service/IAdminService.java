@@ -11,4 +11,10 @@ public interface IAdminService {
 	
 	// 회원 수 불러오기
 	public int getUserCount() throws Exception;
+	
+	// 회원 강제 탈퇴
+	public void userDelete(String u_email) throws Exception;
+	
+	// 회원 상세정보 불러오기
+	public UserInfoVo loadUserInfo(String u_email) throws Exception;
 }

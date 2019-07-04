@@ -30,4 +30,16 @@ public class AdminDaoImpl implements IAdminDao {
 		return getUserCount;
 	}
 
+	@Override
+	public void userDelete(String u_email) throws Exception {
+		sqlSession.selectOne(NAMESPACE + "userDelete", u_email);
+		
+	}
+
+	@Override
+	public UserInfoVo loadUserInfo(String u_email) throws Exception {
+		UserInfoVo userInfoVo = sqlSession.selectOne(NAMESPACE + "userDetail", u_email);
+		return userInfoVo;
+	}
+
 }

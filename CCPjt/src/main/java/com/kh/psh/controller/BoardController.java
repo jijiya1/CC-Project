@@ -39,20 +39,7 @@ public class BoardController {
 	@RequestMapping(value="/suggest_write",method=RequestMethod.POST)
 	public String writePost(Complaint_BoardVo vo) throws Exception {
 		boardService.suggest_insert(vo);
-//		MultipartHttpServletRequest multipartHttpServletRequest = 
-//				(MultipartHttpServletRequest)request;
-//		
-//		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();		
-//		MultipartFile multipartFile = null;
-//		
-//		while(iterator.hasNext()){
-//			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
-//			if(multipartFile.isEmpty() == false) {
-//				System.out.println("name : "+multipartFile.getName());
-//				System.out.println("filename : "+multipartFile.getOriginalFilename());
-//			}
-//
-//		}						
+					
 		return "redirect:/suggest_board/suggest_list";
 	}
 	

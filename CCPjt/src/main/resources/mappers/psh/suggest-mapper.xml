@@ -5,16 +5,45 @@
   	
 <mapper namespace ="suggest_board">
 
+<!-- 지역 정보 불러오기 -->
+	<select id="getAreaDataList" resultType="areaDataVo">
+		select * from area_data
+	</select>
+	
+	<!-- 해당지역 세부정보 불러오기 -->
+	<select id="getDetailAreaData" resultType="detailDataVo">
+		select * from detail_data
+		where a_no = #{a_no}
+	</select>
+	
+	<!-- 공지사항 지역 정보 불러오기 -->
+	<select id="getAreaData" resultType="areaDataVo">
+		select * from area_data
+		where a_no = #{a_no}
+	</select>
+
+<!-- areaData.a_no 불러오기 -->
+	<select id="getANo" resultType="areaDataVo">
+		select a_no from area_data
+	</select>
+	
+	<!-- areaData.a_no 하나만 불러오기 -->
+	<select id="getAreaDataANo" resultType="areaDataVo">
+		select a_no from area_data
+		where a_no = #{a_no}
+	</select>
+
 <!-- 글쓰기 -->
 <insert id="insert">
-	insert into complaint_board(b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, b_content)
-	values (seq_suggest_serialno.nextval, seq_suggest.nextval, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
+	insert into complaint_board(b_serialno, b_no, u_id, b_detailinfo, b_title, b_writer, b_content)
+	values (seq_suggest_serialno.nextval, seq_suggest.nextval, #{u_id}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
 </insert>
 
 <!-- 글목록 -->
 <select id="suggest_list" resultType="complaint_BoardVo">
 <!--   	select * from complaint_board -->
 <!--  	order by b_no desc  -->
+
 	select * from (select rownum rnum, a.* from 
 		(select * from complaint_board
 		<include refid="search"></include> 
@@ -32,8 +61,7 @@
 <update id="suggest_update">
 	update complaint_board set
 		b_title = #{b_title},
-		b_content = #{b_content},
-		b_writer = #{b_writer}
+		b_content = #{b_content}
 	where b_no = #{b_no}
 </update>
 
@@ -47,6 +75,7 @@
 	select count(*) from complaint_board
 	<include refid="search"></include>
 </select>
+
 
 	<!-- 댓글 갯수 갱신 -->
 <!-- 	<update id="updateReplycnt"> -->

@@ -55,7 +55,7 @@ $(document).ready(function() {
 				<div class="row">
 					<div class="col-md-12">
 					
-				<button type="button" class="btn btn-success" id="btnUdt"
+				<button type="button" class="btn btn-primary" id="btnUdt"
 						value="수정완료" style="float: right;">
 				<span class="fas fa-check"></span></button>
 				
