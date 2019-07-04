@@ -3,6 +3,7 @@ package com.kh.jhj.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.xml.soap.Detail;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.service.IPeBoardService;
@@ -66,15 +68,18 @@ public class PetitionController {
 		model.addAttribute("pMain", pMain);
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("count", listCount);
+		model.addAttribute("pageDto", pageDto);
 	}
 	
 	@RequestMapping(value="petitionRead", method=RequestMethod.GET)
 	public void petitionRead(@RequestParam("b_no") int b_no, Model model,
-							@RequestParam("a_no") int a_no) throws Exception{
+							@RequestParam("a_no") int a_no,
+							PagingDto pageDto) throws Exception{
 //		System.out.println("bno :" + b_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		PetitionVo peVo = peService.petitionRead(b_no);
 		model.addAttribute("peVo", peVo);
+		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("areaDataVo", areaDataVo);
 	}
 	
@@ -89,16 +94,24 @@ public class PetitionController {
 	
 	@RequestMapping(value="petitionRunOut", method=RequestMethod.GET)
 	public void petitionRunOut(@RequestParam("a_no") int a_no,
-								Model model) throws Exception{
+								Model model, PagingDto pageDto) throws Exception{
 		List<PetitionVo> pRunOut = peService.listRunOut(a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		model.addAttribute("pRunOut",pRunOut);
+		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("areaDataVo",areaDataVo);
 	}
 	
+	@RequestMapping(value="petitionWrite", method=RequestMethod.GET)
 	public void petitionWrite(@RequestParam("a_no") int a_no,
-								Model model) throws Exception{
-		model.addAttribute("a_no", a_no);
+								Model model,
+								PagingDto pageDto) throws Exception{
+//		System.out.println("a_no : " + a_no);
+		List<DetailDataVo> dArea = peService.detailArea(a_no);
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("pageDto", pageDto);
+		model.addAttribute("dArea", dArea);
 	}
 
 }

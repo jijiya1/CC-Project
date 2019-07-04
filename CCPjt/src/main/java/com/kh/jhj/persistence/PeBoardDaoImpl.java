@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
 import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
@@ -70,6 +71,12 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 		List<PetitionVo> peVo = sqlSession.selectList(NAMESPACE + "listRunOut", a_no);
 //		System.out.println("peVo" + peVo);
 		return peVo;
+	}
+
+	@Override
+	public List<DetailDataVo> detailArea(int a_no) throws Exception {
+		List<DetailDataVo> dArea = sqlSession.selectList(NAMESPACE+ "detialData", a_no);
+		return dArea;
 	}
 
 }

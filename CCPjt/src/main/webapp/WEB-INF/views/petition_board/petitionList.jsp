@@ -53,6 +53,7 @@ $(document).ready(function(){
 	
 	$(".a_title").click(function(e){
 		e.preventDefault();
+		setPage();
 		var bno = $(this).attr("data-bno");
 		var ano = ${areaDataVo.a_no};
 		$("input[name=b_no]").val(bno);
@@ -64,7 +65,7 @@ $(document).ready(function(){
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
-	<input type="hidden" name="a_no" value="${param.a_no}">
+	<input type="hidden" name="a_no" value="${areaDataVo.a_no}">
 	<input type="hidden" name="b_no" >
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
 	<input type="hidden" name="countRow" value="${pageDto.countRow} ">

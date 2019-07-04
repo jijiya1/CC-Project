@@ -23,6 +23,7 @@
 		where rnum &gt;= #{pagingDto.startRow}	and rnum &lt;= #{pagingDto.endRow}	
 	   
 	</select>
+	
 <!-- 만료된청원보기	 -->
 	<select id="listRunOut" resultType="PetitionVo">
 		select rownum rnum, allList.* 
@@ -82,6 +83,13 @@
 			b_delno = 'Y'
 			where b_serialno = #{b_serialno}
 	</update>
+	
+<!-- 지역상세분류 데이터 불러오기	 -->
+	<select id="detialData" resultType="detailDataVo">
+		select a_no, d_no, d_name from detail_data
+		where a_no= #{a_no}
+	</select>
+	
 <!-- 서치데이터 -->
 <sql id="search">
 	<if test="(pagingDto.searchType != null and pagingDto.searchType != '') 

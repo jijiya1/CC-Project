@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
 import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
@@ -57,6 +58,12 @@ public class PeBoardService implements IPeBoardService {
 	public void update(PetitionVo peVo) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<DetailDataVo> detailArea(int a_no) throws Exception {
+		List<DetailDataVo> dArea = peBoardDao.detailArea(a_no);
+		return dArea;
 	}
 
 }

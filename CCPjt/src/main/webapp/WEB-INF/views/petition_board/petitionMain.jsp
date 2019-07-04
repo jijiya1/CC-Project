@@ -51,7 +51,7 @@ $(document).ready(function(){
 	$(".a_title").click(function(e){
 		e.preventDefault();
 		var bno = $(this).attr("data-bno");
-		var ano = ${areaDataVo.a_no};
+		var ano = "${areaDataVo.a_no}";
 		$("input[name=b_no]").val(bno);
 		$("input[name=a_no]").val(ano);
 		console.log("bno :" + bno);
@@ -61,13 +61,14 @@ $(document).ready(function(){
 	
 	$("#btnPetition").click(function(){
 		var href = "/petition_board/petitionWrite";
-// 		$("#pageForm").attr("action", href).submit();
+		console.log("href : " + href);
+		$("#pageForm").attr("action", href).submit();
 	});
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="b_no" >
+	<input type="hidden" name="b_no"  value="${param.b_no}">
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
 	<input type="hidden" name="countRow" value="${pageDto.countRow} ">
 	<input type="hidden" name="searchType" value="${pageDto.searchType} ">
@@ -165,30 +166,6 @@ $(document).ready(function(){
 							</c:forEach>
 							</tbody>
 						</table>
-						${pageDto.startPage}
-			<c:if test="${pageDto.startPage != 0 && pageDto.startPage != null}">
-				<ul class="pagination" style="float: right;">
-					<c:if test="${pageDto.prev == true}">
-						<li class="page-item">
-							<a class="page-link a_page" href="#"
-								data-page="${pageDto.startPage- pageDto.countPage+1}">＜</a>
-						</li>
-					</c:if>
-					<c:forEach var="i" begin="${pageDto.startPage}" end="${pageDto.endPage}">
-						<li class="page-item <c:if test="${pageDto.nowPage == i }">active</c:if>">
-							<a class="page-link a_page" href="#"
-								
-								data-page="${i}">${i}</a>
-						</li>
-					</c:forEach>
-					<c:if test="${pageDto.next == true }">
-						<li class="page-item">
-							<a class="page-link a_page" href="#"
-								data-page="${pageDto.endPage+1 }">＞</a>
-						</li>
-					</c:if>
-				</ul>
-			</c:if>	
 					</div>
 				</div> 
 			</div>
