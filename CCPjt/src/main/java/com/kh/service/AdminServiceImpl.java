@@ -21,4 +21,11 @@ public class AdminServiceImpl implements IAdminService {
 		return getUserList;
 	}
 
+	@Override
+	public int getUserCount() throws Exception {
+		int getUserCount = adminDao.getUserCount();
+//		System.out.println("Service / getUserCount : " + getUserCount);
+		return getUserCount;
+	}
+
 }

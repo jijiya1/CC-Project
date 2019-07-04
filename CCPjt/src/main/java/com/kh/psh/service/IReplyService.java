@@ -12,6 +12,6 @@ public interface IReplyService {
 	//댓글 수정
 	public void update(Complaint_ReplyVo replyVo) throws Exception;
 	//댓글 삭제
-	public void delete(int b_no,int r_no) throws Exception;
+	public void delete(int r_no, int b_no) throws Exception;
 
 }

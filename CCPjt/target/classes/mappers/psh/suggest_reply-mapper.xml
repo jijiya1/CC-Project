@@ -6,8 +6,8 @@
 <mapper namespace ="reply">
 <!-- 댓글쓰기 -->
 <insert id="insert">
-	insert into testreply(b_serialno, r_no, r_content, r_writer)
-		values (seq_suggest_reply_serialno.nextval, seq_suggest_reply.nextval,#{r_content}, #{r_writer})
+	insert into testreply(b_serialno, r_no, r_content, r_writer, b_no)
+		values (seq_suggest_reply_serialno.nextval, seq_suggest_reply.nextval,#{r_content}, #{r_writer}, #{b_no})
 </insert>
 <!-- 댓글 목록 -->
 <select id="list" resultType="Complaint_ReplyVo">
@@ -16,17 +16,18 @@
 		where b_no = #{b_no}
 		order by r_no desc
 </select>
-
+<!-- 수정 -->
 <update id="update">
 	update testreply set
 	r_content = #{r_content},
+	r_writer = #{r_writer},
 	r_modifieddate = sysdate
 	where r_no = #{r_no}
 	
 </update>
-
+	<!-- 글삭제 -->
 <delete id="delete">
-	delete from testreply
+	delete from testreply 
 	where r_no = #{r_no}
 </delete>
 	

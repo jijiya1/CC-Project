@@ -5,8 +5,15 @@
   	
 <mapper namespace ="admin">
 
+	<!-- 회원 목록 불러오기 -->
 	<select id="getUserList" resultType="userInfoVo">
 		select * from user_info
+		order by u_createddate desc
+	</select>
+	
+	<!-- 회원 수 불러오기 -->
+	<select id="getUserCount" resultType="int">
+		select count(*) from user_info
 	</select>
 	
 </mapper>
