@@ -5,19 +5,27 @@
 <script>
 $(document).ready(function() {
 	
-	// 유저 강제 탈퇴
+	// 회원 정보 수정
+	$(".user_update").click(function() {
+		location.href = "/user_join/update_form";
+	});
+	
+	// 회원 강제 탈퇴
 	$(".user_delete").click(function() {
 		var tr = $(this).parent().parent();
 // 		console.log(tr);
 		var u_email = $(this).attr('data-u_email');
+// 		console.log(u_email);
 		var url = "/admin/user_delete";
 		var sendData = {
 			"u_email" : u_email
 		};
 // 		console.log(sendData);
 		$.get(url, sendData, function(rData) {
-			if (rData.trim() == "true") {
-				tr.fadeOut(1000);
+// 			console.log(rData);
+			if (rData.trim() == "success") {
+// 				console.log("실행함");
+				tr.fadeOut();
 			}
 		})
 	});
@@ -78,15 +86,17 @@ $(document).ready(function() {
 	              <th>회원 이름</th>
 	              <th>회원 이메일</th>
 	              <th>가입일자</th>
-	              <th>버튼</th>
+	              <th>정보 수정</th>
+	              <th>강제 탈퇴</th>
 	            </tr>
 	          </thead>
-	          <tbody>
+	          <tbody id="tbody">
 				<c:forEach items="${ userinfoVo }" var="userinfoVo">
 		            <tr>
 		              <td>${ userinfoVo.u_name }</td>
 		              <td>${ userinfoVo.u_email }</td>
 		              <td><fmt:formatDate value="${ userinfoVo.u_createdDate }" pattern="yyyy-MM-dd"/></td>
+		              <td><Button type="button" class="btn btn-sm btn-success user_update" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="정보 수정"><span class="fas fa fa-user-times"></span></Button></td>
 		              <td><Button type="button" class="btn btn-sm btn-danger user_delete" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
 		            </tr>
            	  </c:forEach>
