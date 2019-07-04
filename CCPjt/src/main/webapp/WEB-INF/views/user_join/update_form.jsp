@@ -211,6 +211,10 @@
 			$("#divCanclePw").attr("style", "display:none;");
     		
     	});
+    	
+    	$("#btnMain").click(function(){
+    		location.href="/";
+    	});
     });
 </script>
 <head>
@@ -269,19 +273,19 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-8 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="joinPostcode" readonly="readonly" placeholder="우편번호" required="required">
+                    <input type="text" class="form-control form-control-user" id="joinPostcode" name="joinPostcode" readonly="readonly" placeholder="우편번호" required="required" value="${userVo.u_postcode }">
                   </div>
                   <div class="col-sm-4">
                 	<a href="#" onclick="searchAddress()" class="btn btn-primary btn-user btn-block">우편번호 찾기</a>
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" id="joinAddress" name="joinAddress" class="form-control form-control-user" placeholder="주소" readonly="readonly">
+                  <input type="text" id="joinAddress" name="joinAddress" class="form-control form-control-user" placeholder="주소" readonly="readonly" value="${userVo.u_address } ${userVo.u_detail} ${userVo.u_local}">
 				  <span id="guide" style="color:#999;display:none"></span>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-8 mb-3 mb-sm-0">
-                    <input type="text" id="joinDetailAddress" name="joinDetailAddress" class="form-control form-control-user" placeholder="상세주소">
+                    <input type="text" id="joinDetailAddress" name="joinDetailAddress" class="form-control form-control-user" placeholder="상세주소" value="${userVo.u_localextra }">
                	  </div>
                   <div class="col-sm-4">
                 	<input type="text" id="joinExtraAddress" class="form-control form-control-user" placeholder="" readonly="readonly">
@@ -298,7 +302,7 @@
               </form>
               <hr>
               <div class="col-sm-12 mb-3 mb-sm-0">
-				<a href="/" class="btn btn-success btn-user btn-block">메인</a>
+				<input type="button" class="btn btn-success btn-user btn-block" id="btnMain" value="메인">
               </div>
             </div>
           </div>

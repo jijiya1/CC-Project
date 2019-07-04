@@ -16,8 +16,8 @@
 		select count(*) from user_info
 	</select>
 	
-	<!-- 회원 강제 정보 수정 -->
-	<select id="userUpdate" resultType="userInfoVo">
+	<!-- 회원 상세정보 불러오기 -->
+	<select id="userDetail" resultType="userInfoVo">
 		select * from user_info
 		where u_email = #{u_email}
 	</select>

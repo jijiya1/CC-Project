@@ -14,4 +14,7 @@ public interface IAdminDao {
 	
 	// 회원 강제 탈퇴
 	public void userDelete(String u_email) throws Exception;
+
+	// 회원 상세정보 불러오기
+	public UserInfoVo loadUserInfo(String u_email) throws Exception;
 }

@@ -34,4 +34,10 @@ public class AdminServiceImpl implements IAdminService {
 		
 	}
 
+	@Override
+	public UserInfoVo loadUserInfo(String u_email) throws Exception {
+		UserInfoVo userInfoVo = adminDao.loadUserInfo(u_email);
+		return userInfoVo;
+	}
+
 }
