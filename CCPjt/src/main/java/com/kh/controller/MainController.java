@@ -16,6 +16,7 @@ import com.kh.hys.domain.BoardVo_Discussion;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.hys.service.IBoardService_Discussion;
 import com.kh.hys.service.ISelectService_Discussion;
+import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
 import com.kh.service.IMainService;
 import com.kh.service.MainServiceImpl;
@@ -67,6 +68,9 @@ public class MainController {
 		List<SelectDiscussion_BoardVo> selectBoardList = mainService.getSubSelectDiscussionBoardList(pagingDto, a_no);
 		model.addAttribute("selectBoardList", selectBoardList);
 //		System.out.println("selectBoardList : " + selectBoardList);
+		
+		List<PetitionVo> getPetitionRankingList = mainService.getPetitionRankingList(a_no);
+		model.addAttribute("pMain", getPetitionRankingList);
 		
 		model.addAttribute("a_no", a_no);
 		
