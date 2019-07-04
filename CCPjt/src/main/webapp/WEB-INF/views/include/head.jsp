@@ -135,7 +135,7 @@ $(document).ready(function() {
 	      
 		<!-- Nav Item - 박석환 -->
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/suggest_board/suggest_list">
+	        <a class="nav-link" href="/suggest_board/suggest_list?a_no=${ a_no }">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>자유게시판</span></a>
 	      </li>
