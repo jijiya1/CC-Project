@@ -4,24 +4,24 @@
 
 <script>
 $(document).ready(function() {
-
+	
 });
 </script>
 
-	<!-- 공지사항 시작 -->
+	<!-- 회원 목록 시작 -->
 	<div class="container-fluid">
 	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 유저 목록</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 회원 목록</p>
 	
 	<!-- 페이지 헤더 -->	
-	<h1 class="h3 mb-2 text-gray-800">유저 목록</h1>
+	<h1 class="h3 mb-2 text-gray-800">회원 목록</h1>
 	
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
-		<span>총 ${ count }명의 유저가 가입했습니다.</span>
+		<span>총 ${ getUserCount }명의 회원이 조회되었습니다.</span>
 	</p>
 
-	<!-- 공지사항 리스트 -->
+	<!-- 회원 목록 리스트 -->
 	  <div class="card shadow mb-4">
 	    
 	    <div class="card-body">
@@ -58,29 +58,26 @@ $(document).ready(function() {
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 	          <thead>
 	            <tr>
-	              <th>유저 이름</th>
-	              <th>유저 이메일</th>
+	              <th>회원 이름</th>
+	              <th>회원 이메일</th>
 	              <th>가입일자</th>
 	              <th>버튼</th>
 	            </tr>
 	          </thead>
-	          <tbody>
-	          <c:forEach items="${ userVo }" var="userVo">
-	            <tr>
-	              <td>${ userVo.u_name }</td>
-	              <td>${ userVo.u_email }</td>
-	              <td><fmt:formatDate value="${ userVo.u_createddate }" pattern="yyyy-MM-dd"/></td>
-	              <td>&nbsp;</td>
-	            </tr>
+	          <tbody id="tbodyUserList">
+				<c:forEach items="${ userinfoVo }" var="userinfoVo">
+		            <tr>
+		              <td>${ userinfoVo.u_name }</td>
+		              <td>${ userinfoVo.u_email }</td>
+		              <td><fmt:formatDate value="${ userinfoVo.u_createdDate }" pattern="yyyy-MM-dd"/></td>
+		              <td><Button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
+		            </tr>
            	  </c:forEach>
 	          </tbody>
 	        </table>
 	      </div>
-	    </div>
-	  </div>
-	  <!-- 테이블 끝 -->
-	  
-	  <!-- 페이지네이션 시작 -->
+	      
+	    <!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
 			
@@ -117,7 +114,11 @@ $(document).ready(function() {
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->
-	  
+	      
+	    </div>
+	  </div>
+	  <!-- 회원 목록 테이블 끝 -->
+
 	  <div><br><br></div>
 	  
 	  </div>

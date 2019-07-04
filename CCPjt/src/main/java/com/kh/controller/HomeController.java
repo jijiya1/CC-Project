@@ -81,6 +81,7 @@ public class HomeController {
 		if(userInfoVo==null) {
 			page+="/login?inputEmail="+loginDto.getU_email();
 		}else {
+//			System.out.println("loginDto.getU_email() : " + loginDto.getU_email());
 			session.setAttribute("userVo", userInfoVo);
 			page+="/";
 		}

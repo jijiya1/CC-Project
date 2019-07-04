@@ -6,7 +6,9 @@ import com.kh.domain.UserInfoVo;
 
 public interface IAdminService {
 	
-	// 유저 목록 불러오기
+	// 회원 목록 불러오기
 	public List<UserInfoVo> getUserList() throws Exception;
 	
+	// 회원 수 불러오기
+	public int getUserCount() throws Exception;
 }
