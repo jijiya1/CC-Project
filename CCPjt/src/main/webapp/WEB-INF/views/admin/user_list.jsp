@@ -5,6 +5,23 @@
 <script>
 $(document).ready(function() {
 	
+	// 유저 강제 탈퇴
+	$(".user_delete").click(function() {
+		var tr = $(this).parent().parent();
+// 		console.log(tr);
+		var u_email = $(this).attr('data-u_email');
+		var url = "/admin/user_delete";
+		var sendData = {
+			"u_email" : u_email
+		};
+// 		console.log(sendData);
+		$.get(url, sendData, function(rData) {
+			if (rData.trim() == "true") {
+				tr.fadeOut(1000);
+			}
+		})
+	});
+	
 });
 </script>
 
@@ -64,13 +81,13 @@ $(document).ready(function() {
 	              <th>버튼</th>
 	            </tr>
 	          </thead>
-	          <tbody id="tbodyUserList">
+	          <tbody>
 				<c:forEach items="${ userinfoVo }" var="userinfoVo">
 		            <tr>
 		              <td>${ userinfoVo.u_name }</td>
 		              <td>${ userinfoVo.u_email }</td>
 		              <td><fmt:formatDate value="${ userinfoVo.u_createdDate }" pattern="yyyy-MM-dd"/></td>
-		              <td><Button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
+		              <td><Button type="button" class="btn btn-sm btn-danger user_delete" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
 		            </tr>
            	  </c:forEach>
 	          </tbody>
