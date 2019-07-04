@@ -55,6 +55,7 @@ $(document).ready(function() {
 <form id="pageForm" action="/suggest_board/suggest_list">
 	<input type="hidden" name="b_no" 
 		value="${param.b_no}">
+	<input type="hidden" name="a_no">
 	<input type="hidden" name="page"
 		value="${paginationDto.pagingDto.page}">
 	<input type="hidden" name="perPage"
@@ -77,8 +78,8 @@ $(document).ready(function() {
 				제목</option>
 				<option value="b_writer"<c:if test="${paginationDto.pagingDto.searchType == 'b_writer'}">selected</c:if>>
 				작성자</option>
-				<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_addinfo'}">selected</c:if>>
-				지역</option>
+				<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_detailinfo'}">selected</c:if>>
+				구</option>
 			</select>
 			<input type="text" id="keyword"placeholder="검색어를 입력하세요"
 				value="${pagingDto.keyword}"/>
@@ -89,7 +90,6 @@ $(document).ready(function() {
 				<thead>
 					<tr>
 						<th>글번호</th>
-						<th>지역</th>
 						<th>구</th>
 						<th>글제목</th>
 						<th>작성자</th>
@@ -103,11 +103,10 @@ $(document).ready(function() {
 				<c:forEach items="${list}" var="complaint_boardVo">
 					<tr>
 						<td>${complaint_boardVo.b_no}</td>
-						<td>${complaint_boardVo.b_addinfo}</td>
 						<td>${complaint_boardVo.b_detailinfo}</td>
 						<td><a href="/suggest_board/suggest_read" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.b_writer}</td>
+						<td>${complaint_boardVo.b_writer} (${complaint_boardVo.u_id})</td>
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>

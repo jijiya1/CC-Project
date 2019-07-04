@@ -289,50 +289,15 @@ $(document).ready(function() {
 </div>
 <!-- 댓글 목록 -->
 <hr>
-<div class="row">
-	<div class="col-md-12">
-		<p><input type="button" value="댓글목록" id="btnReplyList"
-			class="btn btn-primary"></p>
-		<table class="table">
-			<thead>
-				<tr>				
-					<th>댓글번호</th>
-					<th>글내용</th>
-					<th>작성자</th>
-					<th>좋아요</th>
-					<th>싫어요</th>
-					<th>작성날짜</th>
-					<th>수정날짜</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
-			<tbody id="replyList">
-			
-			</tbody>
-		</table>
-	</div>
-</div>
-<!-- <div class="container-fluid"> -->
-<!-- 	<div class="row"> -->
-<!-- 		<div class="col-md-12"> -->
-<!-- 			 <a id="modal-867549" href="#modal-container-867549" role="button" class="btn btn-success" data-toggle="modal">댓글목록</a> -->
-			
-<!-- 			<div class="modal fade" id="modal-container-867549" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-<!-- 				<div class="modal-dialog" role="document"> -->
-<!-- 					<div class="modal-content"> -->
-<!-- 						<div class="modal-header"> -->
-<!-- 							<h5 class="modal-title" id="myModalLabel"> -->
-<!-- 								댓글목록 -->
-<!-- 							</h5>  -->
-<!-- 							<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fas fa-times"></span></button> -->
-<!-- 						</div> -->
-<!-- 						<div class="modal-body"> -->
-<!-- 							<table class="table"> -->
+<!-- <div class="row"> -->
+<!-- 	<div class="col-md-12"> -->
+<!-- 		<p><input type="button" value="댓글목록" id="btnReplyList" -->
+<!-- 			class="btn btn-primary"></p> -->
+<!-- 		<table class="table"> -->
 <!-- 			<thead> -->
 <!-- 				<tr>				 -->
-<!-- 					<th>번호</th> -->
-<!-- 					<th>댓글내용</th> -->
+<!-- 					<th>댓글번호</th> -->
+<!-- 					<th>글내용</th> -->
 <!-- 					<th>작성자</th> -->
 <!-- 					<th>좋아요</th> -->
 <!-- 					<th>싫어요</th> -->
@@ -346,12 +311,47 @@ $(document).ready(function() {
 			
 <!-- 			</tbody> -->
 <!-- 		</table> -->
-<!-- 						</div>						 -->
-<!-- 					</div>					 -->
-<!-- 				</div>				 -->
-<!-- 			</div>			 -->
-<!-- 		</div> -->
 <!-- 	</div> -->
 <!-- </div> -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			 <a id="modal-867549" href="#modal-container-867549" role="button" class="btn btn-success" data-toggle="modal">댓글목록</a>
+			
+			<div class="modal fade" id="modal-container-867549" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								댓글목록
+							</h5> 
+							<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fas fa-times"></span></button>
+						</div>
+						<div class="modal-body">
+							<table class="table">
+			<thead>
+				<tr>				
+					<th>번호</th>
+					<th>댓글내용</th>
+					<th>작성자</th>
+					<th>좋아요</th>
+					<th>싫어요</th>
+					<th>작성날짜</th>
+					<th>수정날짜</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody id="replyList">
+			
+			</tbody>
+		</table>
+						</div>						
+					</div>					
+				</div>				
+			</div>			
+		</div>
+	</div>
+</div>
 <!--  댓글목록 끝 -->
 <%@ include file="../include/footer.jsp"%>

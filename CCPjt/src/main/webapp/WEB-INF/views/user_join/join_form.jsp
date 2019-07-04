@@ -277,7 +277,7 @@
               <hr>
               <div class="row">
 				<div class="col-md-6 text-left" >
-                  <a class="small" href="/user_join/find_password">비밀번호 찾기</a>
+                  <a class="small" href="/user_join/searchPw_form">비밀번호 찾기</a>
 				</div>
 				<div class="col-md-6 text-right">
               	  <a class="small" href="/login">로그인</a>
