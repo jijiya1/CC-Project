@@ -71,20 +71,59 @@ public class SelectController_Discussion {
 	// 토론 주제 추천 게시판 글 작성 실행
 	@RequestMapping(value="/discussion_select_write", method = RequestMethod.POST)
 	public String selectBoardWrite(@RequestParam("a_no") int a_no, SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
-		System.out.println("selectBoardWrite 실행");
-		System.out.println("selectDiscussion_BoardVo" + selectDiscussion_BoardVo);
+		selectService.writeSelectBoard(selectDiscussion_BoardVo);
+		
 		return "redirect:/selectDiscussion/discussion_select_board?a_no="+a_no;
 	}
 	
 	// 토론 주제 추천 게시판 글 상세보기 페이지
 	@RequestMapping(value = "/discussion_select_read", method = RequestMethod.GET)
 	public String readSelectBoard(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no) throws Exception {
-		System.out.println("readSelectBoard 실행");
+//		System.out.println("readSelectBoard 실행");
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
 		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
 		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
+		return "/discussion_board/discussion_select_read";
+	}
+	
+	// 토론 주제 추천 게시판 글 수정 폼 으로 이동
+	@RequestMapping(value = "/discussion_select_modify", method = RequestMethod.GET)
+	public String selectBoardModifyForm(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no
+			,SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		AreaDataVo getAreaDataANo = noticeBoardService.getAreaDataANo(a_no);
+		model.addAttribute("getAreaDataANo", getAreaDataANo);
+		
+		List<DetailDataVo> getDetailAreaData = noticeBoardService.getDetailAreaData(a_no);
+		model.addAttribute("getDetailAreaData", getDetailAreaData);
+		
+		model.addAttribute("a_no", a_no);
+		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
+		
+		return "/discussion_board/discussion_select_modify";
+	}
+	
+	// 토론 주제 추천 게시판 글 수정 작업
+	@RequestMapping(value = "/discussion_select_modify", method = RequestMethod.POST)
+	public String selectBoardModify(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no
+			,SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		AreaDataVo getAreaDataANo = noticeBoardService.getAreaDataANo(a_no);
+		model.addAttribute("getAreaDataANo", getAreaDataANo);
+		
+		List<DetailDataVo> getDetailAreaData = noticeBoardService.getDetailAreaData(a_no);
+		model.addAttribute("getDetailAreaData", getDetailAreaData);
+		
+		model.addAttribute("a_no", a_no);
+		
+		selectService.modifySelectBoard(selectDiscussion_BoardVo);
+		
 		return "/discussion_board/discussion_select_read";
 	}
 	

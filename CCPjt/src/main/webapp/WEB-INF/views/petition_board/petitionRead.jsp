@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 <title>청원 게시판 읽기</title>
 
@@ -17,7 +18,7 @@
 	&nbsp; ― </div>
 	<div> </div>
 	<div>
-	<h2>${peVo.b_title} -</h2>
+	<h2>${peVo.b_title}</h2>
 	</div>
 	<div style="size: 50px"> 참여인원 : [ ${peVo.b_agree} 명]</div>
 	<div><progress id="myProgress"<c:choose>
@@ -37,6 +38,7 @@
 		</c:choose>
 		
 	</div>
+	<div>청원 만료 : <fmt:formatDate value="${peVo.b_enddate}" pattern="yyyy-MM-dd HH:mm"/></div>
 	<div>
 		<h6>청원 내용</h6>
 		<hr>
@@ -60,8 +62,12 @@
 	</div>
 </div>
 </div>
-<form>
-	<input type="hidden" name="a_no" value="${areaDataVo.a_no}">
+<form id="pageForm" action="/petition_board/petitionList">
+	<input type="hidden" name="a_no" value="${param.a_no}">
+	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
+	<input type="hidden" name="countRow" value="${pageDto.countRow} ">
+	<input type="hidden" name="searchType" value="${pageDto.searchType} ">
+	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
 </form>
 <script>
 $(document).ready(function(){
@@ -74,12 +80,12 @@ $(document).ready(function(){
 	});
 	
 	$("#btnList").click(function(){
-		location.href="/petition_board/petitionList?a_no=${a_no}";
+		$("#pageForm").submit()	;
 	});
 	$("#btnDel").click(function(){
 		var conDel = confirm("정말 삭제하시겠습니까?");
 		if(conDel == true){
-			location.href="/petition_board/petitionDel?a_no=${a_no}&b_serialno=${peVo.b_serialno}";
+			location.href="/petition_board/petitionDel?a_no=${areaDataVo.a_no}&b_serialno=${peVo.b_serialno}";
 		}
 		
 	});

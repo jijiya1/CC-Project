@@ -10,7 +10,7 @@
 
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
-	var checkJoin = [0, 0, 0, 0, 0]; //checkEmail, checkPw, checkName, checkPhoneNum, checkAdd
+	var checkJoin = [0, 0, 0, 0]; //checkEmail, checkPw, checkName, checkAdd
     function searchAddress() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -83,19 +83,6 @@
 			$("#joinPostcode").attr("style", "border:1px solid gold;");
 			$("#joinExtraAddress").attr("style", "border:1px solid gold;");
 		}
-// 		switch(0){
-// 			case checkJoin[0]:
-// 				$("#joinEmail").attr("style", "border:1px solid gold;");
-// 			case checkJoin[1]:
-// 				$("#joinPw").attr("style", "border:1px solid gold;");
-// 				$("#joinPwCheck").attr("style", "border:1px solid gold;");
-// 			case checkJoin[2]:
-// 				$("#joinName").attr("style", "border:1px solid gold;");
-// 			case checkJoin[3]:
-// 				$("#joinPhoneNum").attr("style", "border:1px solid gold;");
-// 			case checkJoin[4]:
-// 				$("#joinAdd").attr("style", "border:1px solid gold;");
-// 		}
 	}
     $(document).ready(function(){
     	$("#joinEmail").blur(function(){
@@ -202,30 +189,22 @@
     		}
     	});
     	
-//     	$("#joinPhoneNum").blur(function(){
-//     		var joinPhoneNum = $("#joinPhoneNum").val();
-//     		if(joinPhoneNum!=null){
-//     			$("#joinPhoneNum").attr("style", "border:1px solid green;");
-//     			checkJoin[3] = 1;
-//     		}
-//     	});
-    	
     	$("#btnFinish").click(function(){
     		var checkFinish = 0;
     		for(var i=0 ; i<checkJoin.length ; i++){
     			checkFinish += checkJoin[i];
     		}
-//     		if(checkFinish == 4){
+    		if(checkFinish == 4){
 				$("#joinForm").submit();
-//     		}else{
-//     			checkFormInfo();
-//     			alert("가입실패 : 정보를 정확히 입력하세요.");
-//     		}
+    		}else{
+    			checkFormInfo();
+    			alert("가입실패 : 정보를 정확히 입력하세요.");
+    		}
     	});
     });
 </script>
 <head>
-  <title>SB Admin 2 - Register</title>
+  <title>회원가입</title>
 	
 </head>
 
@@ -235,9 +214,7 @@
 
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
-        <!-- Nested Row within Card Body -->
         <div class="row">
-<!--           <div class="col-lg-5 d-none d-lg-block bg-register-image"></div> -->
 		  <div class="col-lg-2"></div>
           <div class="col-lg-8">
             <div class="p-5">
@@ -274,9 +251,6 @@
                 <div class="form-group">
                   <input type="text" class="form-control form-control-user" id="joinName" name="joinName" placeholder="이름" required="required">
                 </div>
-<!--                 <div class="form-group"> -->
-<!--                   <input type="text" class="form-control form-control-user" id="joinPhoneNum" placeholder="휴대폰 번호" required="required"> -->
-<!--                 </div> -->
                 <div class="form-group row">
                   <div class="col-sm-8 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="joinPostcode" readonly="readonly" placeholder="우편번호" required="required">
@@ -298,18 +272,11 @@
                   </div>
                 </div>
                 <input type="button" class="btn btn-primary btn-user btn-block" id="btnFinish" value="가입완료">
-                  
-<!--                 <hr> -->
-<!--                 <a href="index.html" class="btn btn-google btn-user btn-block"> -->
-<!--                   <i class="fab fa-google fa-fw"></i> Register with Google -->
-<!--                 </a> -->
-<!--                 <a href="index.html" class="btn btn-facebook btn-user btn-block"> -->
-<!--                   <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook -->
-<!--                 </a> -->
+                 
               </form>
               <hr>
               <div class="row">
-				<div class="col-md-6 text-left"" >
+				<div class="col-md-6 text-left" >
                   <a class="small" href="/user_join/find_password">비밀번호 찾기</a>
 				</div>
 				<div class="col-md-6 text-right">

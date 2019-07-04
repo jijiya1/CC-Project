@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.domain.PagingDto;
+import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.persistence.IMainDao;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -29,6 +30,13 @@ public class MainServiceImpl implements IMainService {
 	public List<NoticeBoardVo> getSubNoticeBoardList(PagingDto pagingDto, NoSearchDto noSearchDto, int a_no) throws Exception {
 		List<NoticeBoardVo> getSubNoticeBoardList = mainDao.getSubNoticeBoardList(pagingDto, noSearchDto, a_no);
 		return getSubNoticeBoardList;
+	}
+
+	@Override
+	public List<SelectDiscussion_BoardVo> getSubSelectDiscussionBoardList(PagingDto pagingDto, int a_no)
+			throws Exception {
+		List<SelectDiscussion_BoardVo> getSubSelectDiscussionBoardList = mainDao.getSubSelectDiscussionBoardList(pagingDto, a_no);
+		return getSubSelectDiscussionBoardList;
 	}
 
 }

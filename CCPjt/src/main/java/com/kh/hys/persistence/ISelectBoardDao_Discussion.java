@@ -19,6 +19,12 @@ public interface ISelectBoardDao_Discussion {
 	// 조회수 증가
 	public void addReadCount(int b_no) throws Exception;
 	
+	// 글 쓰기 
+	public void writeSelectBoard(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception;
+	
+	// 글 수정 하기 
+	public void modifySelectBoard(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception;
+	
 	// 글 삭제 하기 (b_checkeddel = 0 -> 1 로 업데이트)
 	public void deleteSelectBoard(int b_no) throws Exception;
 	

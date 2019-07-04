@@ -1,6 +1,5 @@
 package com.kh.jhj.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.domain.AreaDataVo;
-import com.kh.jhj.domain.DoPageDto;
-import com.kh.jhj.domain.DoSearchDto;
+import com.kh.domain.PagingDto;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.service.IPeBoardService;
 import com.kh.shj.service.INoticeBoardService;
@@ -31,10 +29,17 @@ public class PetitionController {
 	
 	@RequestMapping(value="petitionList", method = RequestMethod.GET)
 	public void petitionList(@RequestParam("a_no") int a_no,
-						Model model, DoPageDto pageDto, DoSearchDto searchDto) throws Exception{
+						Model model, PagingDto pageDto) throws Exception{
 		
-		int listCount = peService.listCount(searchDto, a_no);
+			if(pageDto.getCountRow() == 5) {
+				pageDto.setCountRow(10);
+			}
+			
+			int listCount = peService.listCount(pageDto, a_no);
 			pageDto.setTotalData(listCount);
+
+			
+//			System.out.println("controller PageDto"+ pageDto);
 //			System.out.println("pageDto:" + pageDto);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		
@@ -42,18 +47,25 @@ public class PetitionController {
 //		System.out.println("a_no :" + a_no);
 //		HashMap<String, String> hashDto = new HashMap<>();
 
-		List<PetitionVo> pList = peService.listAll(a_no);
+		List<PetitionVo> pList = peService.listAll(pageDto,a_no);
 		model.addAttribute("pList", pList);
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("count", listCount);
+		model.addAttribute("pageDto", pageDto);
 	}
 	
 	@RequestMapping(value="petitionMain", method=RequestMethod.GET)
-	public void petitionMain(@RequestParam("a_no") int a_no, Model model) throws Exception{
+	public void petitionMain(@RequestParam("a_no") int a_no, Model model,
+							PagingDto pageDto) throws Exception{
 		List<PetitionVo> pMain = peService.listMain(a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		
+		int listCount = peService.listCount(pageDto, a_no);
+		pageDto.setTotalData(listCount);
+		
 		model.addAttribute("pMain", pMain);
 		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("count", listCount);
 	}
 	
 	@RequestMapping(value="petitionRead", method=RequestMethod.GET)
@@ -78,11 +90,15 @@ public class PetitionController {
 	@RequestMapping(value="petitionRunOut", method=RequestMethod.GET)
 	public void petitionRunOut(@RequestParam("a_no") int a_no,
 								Model model) throws Exception{
-		List<PetitionVo> peVo = peService.listRunOut(a_no);
+		List<PetitionVo> pRunOut = peService.listRunOut(a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
-		model.addAttribute("peVo",peVo);
+		model.addAttribute("pRunOut",pRunOut);
 		model.addAttribute("areaDataVo",areaDataVo);
 	}
 	
+	public void petitionWrite(@RequestParam("a_no") int a_no,
+								Model model) throws Exception{
+		model.addAttribute("a_no", a_no);
+	}
 
 }

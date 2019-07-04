@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.domain.LoginDto;
 import com.kh.domain.PagingDto;
@@ -39,11 +41,6 @@ public class HomeController {
 	public String home(HttpSession session,
 			PagingDto pagingDto, NoSearchDto noSearchDto, NoPagingDto noPagingDto, Model model, Locale locale
 			) throws Exception {
-//		System.out.println("HomeController, home() 실행됨");
-//		Object userInfoVo1 = session.getAttribute("userInfoVo1");
-//		Object userInfoVo2 = session.getAttribute("userInfoVo2");
-//		System.out.println("HomeController, home(), userInfoVo1:" + userInfoVo1);
-//		System.out.println("HomeController, home(), userInfoVo2:" + userInfoVo2);
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		List<NoticeBoardVo> noticeList = mainService.getNoticeBoardList(pagingDto);
@@ -54,8 +51,27 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void login(String u_email, Model model) throws Exception{
-		model.addAttribute("u_email", u_email);
+	public void login(String inputEmail, Model model, HttpServletRequest request) throws Exception{
+		model.addAttribute("inputEmail", inputEmail);
+		
+		Cookie[] cookies = request.getCookies();
+		String u_email = null;
+		String loginCookie = null;
+		for(Cookie cookie : cookies) {
+			String cookieName = cookie.getName();
+			String cookieValue = cookie.getValue();
+			if(cookieName.equals("loginCookie")) {
+				loginCookie = cookieValue;
+			}else if(cookieName.equals("u_email")) {
+				u_email = cookieValue;
+			}
+		}
+		
+		if(loginCookie != null && loginCookie.equals("true") && u_email != null) {
+			String u_pw = userJoinService.searchPw(u_email);
+			model.addAttribute("u_email", u_email);
+			model.addAttribute("u_pw", u_pw);
+		}
 	}
 	
 	@RequestMapping(value = "/login_run", method = RequestMethod.POST)
@@ -63,8 +79,9 @@ public class HomeController {
 		UserInfoVo userInfoVo = userJoinService.userLogin(loginDto);
 		String page = "redirect:";
 		if(userInfoVo==null) {
-			page+="/login?u_email="+loginDto.getU_email();
+			page+="/login?inputEmail="+loginDto.getU_email();
 		}else {
+//			System.out.println("loginDto.getU_email() : " + loginDto.getU_email());
 			session.setAttribute("userVo", userInfoVo);
 			page+="/";
 		}

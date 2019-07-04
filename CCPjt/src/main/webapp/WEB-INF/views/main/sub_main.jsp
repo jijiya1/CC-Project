@@ -220,14 +220,23 @@ $(document).ready(function() {
 		$("#hiddenData").attr("action", href).submit();
 		
 	 });
+	 
+	// 토론 주제 추천 게시판 게시글 읽기
+	$(".select_title").click(function (e) {
+		e.preventDefault();
+		var b_no = $(this).attr("data-b_no");
+//  		console.log(b_no + "번 글 제목 클릭");
+		$("input[name=b_no]").val(b_no);
+		
+		var url = "/selectDiscussion/discussion_select_read";
+		$("#hiddenData").attr("action",url);
+		
+		$("#hiddenData").submit();
+	})
 
 });
 </script>
-<h1>userInfoVo: ${sessionScope.userInfoVo }</h1>
-<%
-UserInfoVo userInfoVo = (UserInfoVo)session.getAttribute("userInfoVo2");
-System.out.println("main.jsp, userInfoVo:" + userInfoVo);
-%>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ ${ areaDataVo.a_name }</p>
 </div>
@@ -272,7 +281,7 @@ System.out.println("main.jsp, userInfoVo:" + userInfoVo);
 		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
-	           		  <td>${ noticeList.b_writer }</td>
+	           		  <td>${ noticeList.u_name }</td>
 	           		  <td>${ noticeList.b_readcount }
 		              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
 		            </tr>
@@ -329,7 +338,7 @@ System.out.println("main.jsp, userInfoVo:" + userInfoVo);
 								<q style="cursor:pointer;" class="discussionTitle">
 									${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
 								</q>
-							  <p class="author">- ${ boardVo_discussion.u_id }</p>
+							  <p class="author">- ${ boardVo_discussion.b_writer }(${ boardVo_discussion.u_email.substring(0, 3)}***)</p>
 							</div>
 						</c:forEach>
 						
@@ -390,40 +399,39 @@ System.out.println("main.jsp, userInfoVo:" + userInfoVo);
 	});
 </script>
   
-<!-- 게시판02 시작 -->
+<!-- 토론 주제 추천게시판 시작 -->
   <div class="board02">
-  <!-- 공지사항 테이블 영역 시작 -->
+  <!-- 토론 주제 추천게시판 테이블 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+ 	  	
+ 	  	  <h6 class="m-0 font-weight-bold text-primary" style="float: right;" data-toggle="tooltip" data-placement="top" title="더보기">
+	      <a href="/selectDiscussion/discussion_select_board?a_no=${ areaDataVo.a_no }">+</a>
+	      </h6>
+ 	  	
+	      <h6 class="m-0 font-weight-bold text-primary">토론 주제 추천</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">
 		      	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
-			      <tbody>
-		          <c:forEach items="${ noticeList }" var="noticeList">
-		          
-		          <c:if test="${ noticeList.b_checkeddel == 0 }">
-		            <tr>
-		              <td>
-		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
-		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
-		              	[${ noticeList.a_name }] ${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
-		              	</a>
-	           		  </td>
-		              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
-		            </tr>
-				  </c:if>
-	           	  </c:forEach>
+		          <tbody>
+			          <c:forEach items="${ selectBoardList }" var="selectBoardVo">
+			          	<tr>
+		           		  <td><a href="#" style="float: left;" class="select_title" data-b_no="${ selectBoardVo.b_no }">[${ selectBoardVo.d_name }]${ selectBoardVo.b_title }</a></td>
+			              <td>${ selectBoardVo.b_writer }</td>
+			              <td>${ selectBoardVo.b_readCount }</td>
+			              <td>${ selectBoardVo.b_upCount }</td>
+			              <td><fmt:formatDate value="${ selectBoardVo.b_createdDate }" pattern="yyyy-MM-dd HH:mm"/></td>
+			             </tr>
+			          </c:forEach>
 		          </tbody>
 				</table>
 	     	</div>
 	      </div>
  	</div>
- 	<!-- 공지사항 테이블 영역 끝 -->
+ 	<!-- 토론 주제 추천게시판 테이블 영역 끝 -->
   </div>
-<!-- 게시판02 끝 -->
+<!-- 토론 주제 추천게시판 끝 -->
   
 <!-- 게시판03 시작 -->
   <div class="board03">
