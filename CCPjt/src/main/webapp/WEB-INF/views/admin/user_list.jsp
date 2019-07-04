@@ -8,7 +8,7 @@ $(document).ready(function() {
 	// 회원 정보 수정
 	$(".user_update").click(function() {
 		var u_email = $(this).attr('data-u_email');
-		location.href = "/user_join/update_form?u_email=" + u_email;
+		location.href = "/admin/user_detail?u_email=" + u_email;
 	});
 	
 	// 회원 강제 탈퇴

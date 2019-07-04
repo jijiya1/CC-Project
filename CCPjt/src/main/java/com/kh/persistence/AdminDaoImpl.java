@@ -36,4 +36,10 @@ public class AdminDaoImpl implements IAdminDao {
 		
 	}
 
+	@Override
+	public UserInfoVo loadUserInfo(String u_email) throws Exception {
+		UserInfoVo userInfoVo = sqlSession.selectOne(NAMESPACE + "userDetail", u_email);
+		return userInfoVo;
+	}
+
 }

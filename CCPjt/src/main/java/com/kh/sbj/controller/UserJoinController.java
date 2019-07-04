@@ -38,7 +38,7 @@ public class UserJoinController {
 	}
 	
 	@RequestMapping(value = "/join_run", method = RequestMethod.POST)
-	public String joinRun(@RequestParam("joinEmail") String joinEmail, @RequestParam("joinPw") String joinPw, @RequestParam("joinName") String joinName,
+	public String joinRun(@RequestParam("joinEmail") String joinEmail, @RequestParam("joinPw") String joinPw, @RequestParam("joinName") String joinName, @RequestParam("joinPostcode") int joinPostcode,
 			@RequestParam("joinAddress") String joinAddress, @RequestParam("joinDetailAddress") String joinDetailAddress) throws Exception{
 		String[] add = joinAddress.split(" ");
 		String detailAdd = "";
@@ -46,13 +46,16 @@ public class UserJoinController {
 			detailAdd += add[i];
 		}
 		
+		
 		UserInfoVo userInfoVo = new UserInfoVo();
 		userInfoVo.setU_email(joinEmail);
 		userInfoVo.setU_pw(joinPw);
 		userInfoVo.setU_name(joinName);
 		userInfoVo.setU_address(add[0]);
 		userInfoVo.setU_detail(add[1]);
-		userInfoVo.setU_local(detailAdd + " " + joinDetailAddress);
+		userInfoVo.setU_local(detailAdd);
+		userInfoVo.setU_localextra(joinDetailAddress);
+		userInfoVo.setU_postcode(joinPostcode);
 		
 		userJoinService.insertUser(userInfoVo);
 		
@@ -64,7 +67,7 @@ public class UserJoinController {
 	}
 	
 	@RequestMapping(value = "/update_run", method = RequestMethod.POST)
-	public String updateRun(HttpSession session, @RequestParam("joinPw") String joinPw, @RequestParam("joinName") String joinName,
+	public String updateRun(HttpSession session, @RequestParam("joinPw") String joinPw, @RequestParam("joinName") String joinName, @RequestParam("joinPostcode") int joinPostcode,
 			@RequestParam("joinAddress") String joinAddress, @RequestParam("joinDetailAddress") String joinDetailAddress, RedirectAttributes rttr) throws Exception{
 		rttr.addFlashAttribute("message", "updateRun");
 		UserInfoVo userVo = (UserInfoVo) session.getAttribute("userVo");
@@ -82,7 +85,9 @@ public class UserJoinController {
 		userInfoVo.setU_name(joinName);
 		userInfoVo.setU_address(add[0]);
 		userInfoVo.setU_detail(add[1]);
-		userInfoVo.setU_local(detailAdd + " " + joinDetailAddress);
+		userInfoVo.setU_local(detailAdd);
+		userInfoVo.setU_localextra(joinDetailAddress);
+		userInfoVo.setU_postcode(joinPostcode);
 		
 		userJoinService.updateUser(userInfoVo);
 		session.setAttribute("userVo", userInfoVo);
