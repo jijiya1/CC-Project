@@ -66,7 +66,7 @@ public class MainController {
 		
 		List<SelectDiscussion_BoardVo> selectBoardList = mainService.getSubSelectDiscussionBoardList(pagingDto, a_no);
 		model.addAttribute("selectBoardList", selectBoardList);
-		System.out.println("selectBoardList : " + selectBoardList);
+//		System.out.println("selectBoardList : " + selectBoardList);
 		
 		model.addAttribute("a_no", a_no);
 		
