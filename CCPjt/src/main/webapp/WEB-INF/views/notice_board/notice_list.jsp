@@ -19,9 +19,6 @@ $(document).ready(function() {
 		alert("글을 삭제하였습니다.")
 	}
 	
-	// 툴팁
-	$('[data-toggle="tooltip"]').tooltip();
-	
 	// 공지사항 작성
 	$("#btnNoticeWrite").click(function() {
 		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
@@ -95,7 +92,6 @@ $(document).ready(function() {
 	 // n줄씩 보기
 	 $("select[name=dataTable_length]").change(function() {
 		 setPage();
-		 setSearch();
 		 
 		 var a_no = "${ areaDataVo.a_no }";
 		 $("input[name=a_no]").val(a_no);
