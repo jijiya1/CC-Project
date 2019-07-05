@@ -112,4 +112,10 @@ public class AdminController {
 		return entity;
 	}
 	
+	// 테스트 게시판
+	@RequestMapping(value="/test_board", method=RequestMethod.GET)
+	public void testBoard() throws Exception {
+		
+	}
+	
 }

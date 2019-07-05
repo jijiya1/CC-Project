@@ -153,7 +153,7 @@ $(document).ready(function() {
 	<!-- 관리자 메뉴바 시작 -->
 	<c:if test="${ userVo.u_email eq 'admin' }">
 		<div class="sidebar-heading">
-		    관리자 전용
+		    admin
 		</div>
 		<li class="nav-item active">
 		    <a class="nav-link" href="/admin/user_list?nowPage=1&perPage=10&searchType=&keyword=">
@@ -164,6 +164,11 @@ $(document).ready(function() {
 		    <a class="nav-link" href="#">
 		      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
 		      <span>신고 게시물</span></a>
+		</li>
+		<li class="nav-item active">
+		    <a class="nav-link" href="/admin/test_board">
+		      <i class="fas fa-fw fas fas fa-cog"></i>
+		      <span>테스트</span></a>
 		</li>
 	</c:if>
 	<!-- 관리자 메뉴바 끝 -->
