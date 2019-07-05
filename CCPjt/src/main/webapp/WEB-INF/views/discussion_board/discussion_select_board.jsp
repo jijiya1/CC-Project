@@ -95,8 +95,6 @@ $(document).ready(function () {
 		<span>전체 ${pagingDto.totalData }건의 게시물이 있습니다.</span>
 	</p>
 	
-	<p>${best3List }</p>
-	
 	<!-- 토론 주제 추천 Best3 list -->
 	  <div class="card shadow mb-4">
 	    <div class="card-body">

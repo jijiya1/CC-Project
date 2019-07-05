@@ -101,7 +101,7 @@ $(document).ready(function() {
 						<th>좋아요</th>
 						<th>싫어요</th>					
 						<th>조회수</th>
-					
+						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -116,6 +116,7 @@ $(document).ready(function() {
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>
+						<td>${complaint_boardVo.b_createddate}</td>
 					</tr>
 				</c:forEach>	
 				</tbody>
