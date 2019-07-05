@@ -19,9 +19,6 @@ $(document).ready(function() {
 		alert("글을 삭제하였습니다.")
 	}
 	
-	// 툴팁
-	$('[data-toggle="tooltip"]').tooltip();
-	
 	// 공지사항 작성
 	$("#btnNoticeWrite").click(function() {
 		location.href = "/notice_board/notice_write?a_no=${areaDataVo.a_no}";
@@ -95,7 +92,6 @@ $(document).ready(function() {
 	 // n줄씩 보기
 	 $("select[name=dataTable_length]").change(function() {
 		 setPage();
-		 setSearch();
 		 
 		 var a_no = "${ areaDataVo.a_no }";
 		 $("input[name=a_no]").val(a_no);
@@ -134,7 +130,17 @@ $(document).ready(function() {
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
 	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 공지사항</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 
+	<c:choose>
+	<c:when test="${ areaDataVo.a_no ne 10 }">
+		<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a>
+	</c:when>
+	<c:otherwise>
+		<a href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">${ areaDataVo.a_name }</a>
+	</c:otherwise>
+	</c:choose>
+	
+	 ＞ 공지사항</p>
 	
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">공지사항</h1>

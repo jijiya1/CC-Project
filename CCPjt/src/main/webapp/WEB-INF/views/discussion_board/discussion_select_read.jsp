@@ -5,8 +5,6 @@
 <script>
 $(document).ready(function() {
 	
-	
-	
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 	
@@ -50,7 +48,6 @@ $(document).ready(function() {
 		} else {
 			var url = "/selectDiscussion/selectUpcountUpdate";
 			var b_no = ${selectDiscussion_BoardVo.b_no};
-			var u_email = "${selectDiscussion_BoardVo.u_email}";
 			
 			var sendData = {
 					"b_no" : b_no,
@@ -63,11 +60,10 @@ $(document).ready(function() {
 				
 				var strHtml = "";
 				
-				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center; ";
-				
-								if( resCountByEmail >= 1) {
-									strHtml +=	"border: solid 5px; border-color: #27AE60;";
-								}
+				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center;";
+				if( resCountByEmail >= 1 ) {
+					strHtml +=	"border: solid 5px; border-color: #27AE60;";
+				};
 								
 				strHtml += 	"'>"
 						+	"<span class='fas fa-thumbs-up'style='font-size: 40px;'>&nbsp;추천&nbsp;"+b_upCount+"</span>"
@@ -75,9 +71,20 @@ $(document).ready(function() {
 				
 				$("#btnUpArea").html(strHtml);
 			});
-		}//if
+		};//if
 	});// $("#btnUpArea").on("click", ".btnUp"
-	
+			
+	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
+	$("#btnSeletDiscussion").click(function (e) {
+		e.preventDefault();
+		if(confirm("해당 토론 글을 삭제 하시겠습니까?") == true){
+			var url = "/selectDiscussion/seletDiscussion";
+			
+			$("#hiddenData").attr("action", url);
+			$("#hiddenData").submit();
+
+		}//if
+	})
 });
 </script>
 	<div class="container-fluid">
@@ -91,14 +98,12 @@ $(document).ready(function() {
 			<input type="hidden" name="b_no" value = "${selectDiscussion_BoardVo.b_no}">
 			<input type="hidden" name="b_title" value = "${selectDiscussion_BoardVo.b_title}">
 			<input type="hidden" name="b_content" value = "${selectDiscussion_BoardVo.b_content}">
-			<input type="hidden" name="u_email" value = "${selectDiscussion_BoardVo.u_email}">
-			<input type="hidden" name="b_writer" value = "${selectDiscussion_BoardVo.b_writer}">
+			<input type="hidden" name="u_email" value = "${userVo.u_email}">
+			<input type="hidden" name="b_writer" value = "${userVo.u_name}">
 		</form>
         
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a>＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞<a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞
 		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }">토론 주제 추천게시판</a> ＞  [${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]${selectDiscussion_BoardVo.b_title} 글</p>
-	
-	<p>${userVo }</p>
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">[${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]${selectDiscussion_BoardVo.b_title}</h1><br>
 	<!-- 공지사항 읽기 부분 시작 -->
@@ -156,9 +161,17 @@ $(document).ready(function() {
 	
 	<c:if test="${userVo.u_email == selectDiscussion_BoardVo.u_email}">
 		<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
+	</c:if>
+	<c:if test="${userVo.u_email == selectDiscussion_BoardVo.u_email || userVo.u_grade =='관리자'}">
 		<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
 	</c:if>
-
+	
+	<c:if test="${userVo.u_grade =='관리자' }">
+		<a href="#" class="btn btn-success btn-icon-split" id="btnSeletDiscussion" style="float: right;">
+			<span class="icon text-white-50"><i class="fas fa-check"></i></span>
+			<span class="text">토론 주제로 선정</span>
+		</a>
+	</c:if>
 	<!-- 하단 버튼 모음 끝 -->
 
 </div>

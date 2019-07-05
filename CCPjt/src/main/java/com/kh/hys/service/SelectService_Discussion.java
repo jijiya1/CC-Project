@@ -119,4 +119,12 @@ public class SelectService_Discussion implements ISelectService_Discussion {
 		List<SelectDiscussion_BoardVo> best3List = selectBoardDao.getBest3SelectBoard(a_no);
 		return best3List;
 	}
+	
+	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
+	@Transactional
+	@Override
+	public void insertSelectDiscussion(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		selectBoardDao.insertSelectDiscussion(selectDiscussion_BoardVo);
+		selectBoardDao.deleteSelectBoard(selectDiscussion_BoardVo.getB_no());
+	}
 }

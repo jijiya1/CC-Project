@@ -59,4 +59,16 @@
     order by ranking
 	</select>
 	
+	<!-- 자유게시판 글 목록 보이기 -->
+	<!-- 글목록 -->
+	<select id="suggest_list" resultType="Complaint_BoardVo">
+		select * from 
+			(select rownum rnum, a.* from 
+				(select * from complaint_board , area_data
+				where b_addinfo = a_no
+				order by b_no desc) a)
+		where rnum &gt;= 1 and rnum &lt;= 5
+		and b_addinfo= #{a_no}
+	</select>
+	
 </mapper>

@@ -35,9 +35,10 @@
 
 <!-- 글쓰기 -->
 <insert id="insert">
-	insert into complaint_board(b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, b_content)
-	values (seq_suggest_serialno.nextval, seq_suggest.nextval, #{b_addinfo},#{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
-</insert>
+	insert into complaint_board(b_serialno, b_no, u_id, b_addinfo, b_detailinfo, b_title, b_writer, b_content)
+	values ('co_'||seq_suggest_serialno.nextval, seq_suggest.nextval, #{u_id}, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
+	
+</insert>																						
 
 <!-- 글목록 -->
 <select id="suggest_list" resultType="Complaint_BoardVo">

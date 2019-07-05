@@ -1,7 +1,10 @@
 package com.kh.hys.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -9,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,6 +53,11 @@ public class SelectController_Discussion {
 		model.addAttribute("best3List", best3List);
 		model.addAttribute("pagingDto", pagingDto);
 		
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		Date currentTime = new Date ();
+		String todayTime = mSimpleDateFormat.format ( currentTime );
+		
+		model.addAttribute("todayTime", todayTime);
 		return "/discussion_board/discussion_select_board";
 	}
 	
@@ -85,7 +92,7 @@ public class SelectController_Discussion {
 	
 	// 토론 주제 추천 게시판 글 상세보기 페이지
 	@RequestMapping(value = "/discussion_select_read", method = RequestMethod.GET)
-	public String readSelectBoard(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no) throws Exception {
+	public String readSelectBoard(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no, @RequestParam("u_email") String u_email) throws Exception {
 //		System.out.println("readSelectBoard 실행");
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
@@ -93,10 +100,16 @@ public class SelectController_Discussion {
 		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
 		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
 		
-		
 		SelectResInfoDto_Discussion selectResInfoDto_Discussion = new SelectResInfoDto_Discussion();
-		selectResInfoDto_Discussion.setU_email(selectDiscussion_BoardVo.getU_email());
+		selectResInfoDto_Discussion.setU_email(u_email);
 		selectResInfoDto_Discussion.setB_no(b_no);
+		
+		// 해당 게시글 추천한 사람 정보 리스트 불러오기
+//		List<SelectResInfoDto_Discussion> resInfoList=  selectService.selectBoardResList(selectResInfoDto_Discussion);
+//		model.addAttribute("resInfoList", resInfoList);
+		
+		// 해당 게시글 추천 수 정보 가져오기
+		System.out.println("selectResInfoDto_Discussion : " + selectResInfoDto_Discussion);
 		
 		int resCountByEmail = selectService.selectBoardResCountById(selectResInfoDto_Discussion);
 		model.addAttribute("resCountByEmail", resCountByEmail);
@@ -175,5 +188,27 @@ public class SelectController_Discussion {
 		
 		return entity;
 	}
-
+	
+	// 토론 주제 추천 게시글 추천 버튼 작업
+	@RequestMapping(value="/seletDiscussion", method = RequestMethod.GET)
+	public String seletDiscussion (Model model, @RequestParam("a_no") int a_no, @RequestParam("b_no") int b_no, PagingDto pagingDto)  throws Exception{
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
+		selectService.insertSelectDiscussion(selectDiscussion_BoardVo);
+		
+		int totalBoardCount = selectService.totalSelectBoardCount(pagingDto, a_no);
+		pagingDto.setTotalData(totalBoardCount);
+		
+		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(pagingDto ,a_no);
+		List<SelectDiscussion_BoardVo> best3List = selectService.getBest3SelectBoard(a_no);
+		
+		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("selectBoardList", selectBoardList);
+		model.addAttribute("best3List", best3List);
+		model.addAttribute("pagingDto", pagingDto);
+		
+		return "/discussion_board/discussion_select_board";
+	}
 }

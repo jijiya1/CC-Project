@@ -135,7 +135,7 @@ $(document).ready(function() {
 	      
 		<!-- Nav Item - 박석환 -->
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/suggest_board/suggest_list?a_no=${ a_no }">
+	        <a class="nav-link" href="/suggest_board/suggest_list?a_no=${ areaDataVo.a_no }">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>자유게시판</span></a>
 	      </li>
@@ -156,7 +156,7 @@ $(document).ready(function() {
 		    관리자 전용
 		</div>
 		<li class="nav-item active">
-		    <a class="nav-link" href="/admin/user_list">
+		    <a class="nav-link" href="/admin/user_list?nowPage=1&perPage=10&searchType=&keyword=">
 		      <i class="fas fa-fw fa-user-alt"></i>
 		      <span>회원 관리</span></a>
 		</li>
@@ -342,7 +342,7 @@ $(document).ready(function() {
             		<c:when test="${userVo != null }">
 		              	<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                    <span class="mr-2 d-none d-lg-inline text-gray-600">${userVo.u_name }</span>
-		                    <img class="img-profile rounded-circle" src="/resources/img/preePoto.jpg">
+		                    <img class="img-profile rounded-circle" src="/resources/img/preePoto.png">
 	                    </a>
             		</c:when>
             		<c:otherwise>

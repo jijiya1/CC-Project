@@ -8,6 +8,7 @@
 	<select id="getSeletDiscussionList" resultType="SelectDiscussion_BoardVo">
 		select *
 		from (select ROWNUM rnum, a.*, (select a_name from area_data where a_no = b_addinfo) a_name, (select d_name from detail_data where a_no = b_addinfo and d_no= b_detailinfo) d_name
+				, (select to_char(b_createddate, 'yyyy-mm-dd') b_strcreateddate from dual) b_strcreateddate
 		      from (select * 
 		            from selectdiscussion_board
 		            where b_checkeddel = 0 and b_addinfo = #{areaDataVo.a_no}
@@ -128,8 +129,14 @@
             from (select rank() over (order by b_upcount desc) ranking , a.*
                   from (select *
                         from selectdiscussion_board
-                        where b_addinfo = #{a_no}) a) b
-            order by b_createddate desc)
+                        where b_addinfo = #{a_no} and b_checkeddel = 0 and b_upcount &gt; 0
+                        order by b_createddate desc) a) b)
        where rnum &lt;=3
 	</select>
+	
+	<!-- 토론 주제로 선정(관리자 권한 userVo.u_grade) -->
+	<insert id="insertSelectDiscussion">
+		insert into discussion_board (b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, u_email, b_content, b_createdDate)
+		values (#{b_serialno},#{b_no},#{b_addInfo},#{b_detailInfo},#{b_title},#{b_writer},#{u_email},#{b_content},sysdate)
+	</insert>
 </mapper>

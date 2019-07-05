@@ -19,6 +19,8 @@ public class NoPaginationDto {
 		if (contentCount % perPage > 0) {
 			paginationCount += 1;
 		}
+//		System.out.println("paginationCount : " + paginationCount);
+//		System.out.println("contentCount : " + contentCount);
 		
 		int page = noPagingDto.getNowPage();
 //		startPage = ((page - 1) / paginationButtonCount) * paginationButtonCount + 1;

@@ -6,9 +6,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.kh.domain.PagingDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.persistence.IAdminDao;
+import com.kh.shj.domain.NoPagingDto;
+import com.kh.shj.domain.NoSearchDto;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
@@ -17,8 +18,8 @@ public class AdminServiceImpl implements IAdminService {
 	IAdminDao adminDao;
 
 	@Override
-	public List<UserInfoVo> getUserList(PagingDto pagingDto) throws Exception {
-		List<UserInfoVo> getUserList = adminDao.getUserList(pagingDto);
+	public List<UserInfoVo> getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto) throws Exception {
+		List<UserInfoVo> getUserList = adminDao.getUserList(noPagingDto, noSearchDto);
 		return getUserList;
 	}
 
@@ -39,6 +40,12 @@ public class AdminServiceImpl implements IAdminService {
 	public UserInfoVo loadUserInfo(String u_email) throws Exception {
 		UserInfoVo userInfoVo = adminDao.loadUserInfo(u_email);
 		return userInfoVo;
+	}
+
+	@Override
+	public int userContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		int userContentCount = adminDao.userContentCount(noSearchDto, noPagingDto);
+		return userContentCount;
 	}
 
 }

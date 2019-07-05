@@ -126,5 +126,11 @@ public class SelectBoardDaoImpl_Discussion implements ISelectBoardDao_Discussion
 		List<SelectDiscussion_BoardVo> best3List = sqlSession.selectList(NAMESPACE+"getBest3SelectBoard", a_no);
 		return best3List;
 	}
+	
+	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
+	@Override
+	public void insertSelectDiscussion(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		sqlSession.insert(NAMESPACE+"insertSelectDiscussion", selectDiscussion_BoardVo);
+	}
 
 }
