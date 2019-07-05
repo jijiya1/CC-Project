@@ -74,7 +74,7 @@ $(document).ready(function(){
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
 	<input type="hidden" name="countRow" value="${pageDto.countRow}">
 	<input type="hidden" name="searchType" value="${pageDto.searchType}">
-	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}">	
+	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
 </form>
 
 <div class="container-fluid">
