@@ -8,6 +8,7 @@
 	<!-- 회원 목록 불러오기 -->
 	<select id="getUserList" resultType="userInfoVo">
 		select * from user_info
+			<include refid="search"></include>
 		order by u_createddate desc
 	</select>
 	
@@ -27,5 +28,20 @@
 		delete from user_info
 		where u_email = #{u_email}
 	</delete>
+	
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="(searchType != null and searchType != '') 
+				and (searchKeyword != null and searchKeyword != '')">
+			where 
+			<if test="searchType == 'u_name'">
+				u_name 
+			</if>
+			<if test="searchType == 'u_email'">
+				u_email 
+			</if> 
+				like '%' || #{searchKeyword} || '%'
+		</if>
+	</sql>
 	
 </mapper>

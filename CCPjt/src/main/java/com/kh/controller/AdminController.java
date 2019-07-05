@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.domain.LoginDto;
+import com.kh.domain.PagingDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.sbj.service.IUserJoinService;
 import com.kh.sbj.util.EmailCertifiedKey;
@@ -39,8 +40,8 @@ public class AdminController {
 	IUserJoinService userJoinService;
 	
 	@RequestMapping(value="/user_list", method=RequestMethod.GET)
-	public void getUserList(Model model) throws Exception {
-		List<UserInfoVo> getUserList = adminService.getUserList();
+	public void getUserList(PagingDto pagingDto, Model model) throws Exception {
+		List<UserInfoVo> getUserList = adminService.getUserList(pagingDto);
 		model.addAttribute("userinfoVo", getUserList);
 		
 		int getUserCount = adminService.getUserCount();
@@ -101,9 +102,5 @@ public class AdminController {
 		}
 		return entity;
 	}
-	
-	
-	
-	
 	
 }

@@ -109,7 +109,7 @@ $(document).ready(function() {
 		<c:otherwise>
 	      <!-- Heading -->
 	      <div class="sidebar-heading">
-	        ${areaDataVo.a_name }
+	        ${ areaDataVo.a_engname }
 	      </div>
 	      
      	<!-- Nav Item - 손병진 -->

@@ -5,7 +5,16 @@ public class AreaDataVo {
 	private int a_no;
 	private String a_name;
 	private int a_order;
+	private String a_engname;
 	
+	public String getA_engname() {
+		return a_engname;
+	}
+
+	public void setA_engname(String a_engname) {
+		this.a_engname = a_engname;
+	}
+
 	public int getA_order() {
 		return a_order;
 	}
@@ -32,7 +41,8 @@ public class AreaDataVo {
 
 	@Override
 	public String toString() {
-		return "AreaDataVo [a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order + "]";
+		return "AreaDataVo [a_no=" + a_no + ", a_name=" + a_name + ", a_order=" + a_order + ", a_engname=" + a_engname
+				+ "]";
 	}
 
 }

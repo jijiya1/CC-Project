@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function() {
 	
-	// 회원 정보 수정
+	// 회원 정보 조회
 	$(".user_update").click(function() {
 		var u_email = $(this).attr('data-u_email');
 		location.href = "/admin/user_detail?u_email=" + u_email;
@@ -31,6 +31,26 @@ $(document).ready(function() {
 		})
 	});
 	
+	// 검색 기능
+	 function setSearch() {
+		 $("#searchKeyword").keyup(function(e){
+			 if(e.keyCode == 13) {
+// 				setPage();
+				var searchType = $("#searchType").val();
+				$("input[name=searchType]").val(searchType);
+				
+				var searchKeyword = $("#searchKeyword").val();
+// 				console.log(searchKeyword);
+				$("input[name=searchKeyword]").val(searchKeyword);
+//				console.log(keyword);
+				$("#hiddenData").submit();
+			 }
+		 });
+	 }
+	 
+	 // 검색
+	 setSearch();
+	
 });
 </script>
 
@@ -54,13 +74,11 @@ $(document).ready(function() {
 	      <div class="table-responsive">
 	   
 		<!-- 히든 데이터 값 시작 -->
-		<form id="hiddenData" action="/notice_board/notice_list">
-			<input type="hidden" name="b_no">
-			<input type="hidden" name="a_no">
-			<input type="hidden" name="nowPage">
-			<input type="hidden" name="perPage">
+		<form id="hiddenData" action="/admin/user_list">
+<!-- 			<input type="hidden" name="nowPage"> -->
+<!-- 			<input type="hidden" name="perPage"> -->
 			<input type="hidden" name="searchType">
-			<input type="hidden" name="keyword">
+			<input type="hidden" name="searchKeyword">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
@@ -75,8 +93,24 @@ $(document).ready(function() {
 	      	<!-- 페이징 끝 -->
 	      	
 	      	<!-- 검색바 시작 -->
-	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right;">
-	      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right; height: 50px; margin-bottom: 20px;">
+	      		<div style="width: 32%; float: left;">
+		      		<select class="form-control form-control-sm" id="searchType">
+			      			<option value="u_name" 
+			      				<c:if test="${pagingDto.searchType == 'u_name'}"> selected="selected"</c:if>
+			      			>이름</option>
+			      			<option value="u_email"
+			      				<c:if test="${pagingDto.searchType == 'u_email'}"> selected="selected"</c:if>
+			      			>이메일</option>
+			      	</select>
+		      	</div>
+		      	<div style="width: 65%; float:right;">
+		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="searchKeyword"
+		      			<c:if test="${pagingDto.searchKeyword != null && pagingDto.searchKeyword != ''}">
+		      				value="${pagingDto.searchKeyword }"
+		      			</c:if>
+		      		>
+		      	</div>
 	      	</div>
 	      	<!-- 검색바 끝 -->
 
@@ -87,7 +121,7 @@ $(document).ready(function() {
 	              <th>회원 이름</th>
 	              <th>회원 이메일</th>
 	              <th>가입일자</th>
-	              <th>정보 수정</th>
+	              <th>정보 조회</th>
 	              <th>강제 탈퇴</th>
 	            </tr>
 	          </thead>

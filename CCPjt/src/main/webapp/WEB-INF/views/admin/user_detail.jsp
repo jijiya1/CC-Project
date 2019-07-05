@@ -54,11 +54,12 @@
 	<input type="hidden" id="hiddenPw" name="hiddenPw"/>
 </form>  
   <div class="container">
+    <div class="row justify-content-center">
+   <div class="col-xl-8 col-lg-12 col-md-9">
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <div class="row">
-		  <div class="col-lg-2"></div>
-          <div class="col-lg-8">
+          <div class="col-lg-12">
             <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">회원 정보 조회</h1>
@@ -110,13 +111,12 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-2"></div>
         </div>
       </div>
     </div>
-
   </div>
-
+  </div>
+</div>
 </body>
 
 <%@include file="../include/footer.jsp" %>
