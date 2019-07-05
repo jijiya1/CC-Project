@@ -21,6 +21,7 @@ public class SelectDiscussion_BoardVo {
 	private int b_upCount; 				// 토론주제선정 글 좋아요
 	private int b_downCount; 			// 토론주제선정 글 싫어요
 	private int b_checkedDel; 			// 게시글 삭제 여부
+	private int ranking; 				// 랭킹 정보(추천수 -> 최신순)
 
 	public String getB_serialno() {
 		return b_serialno;
@@ -158,6 +159,14 @@ public class SelectDiscussion_BoardVo {
 		this.b_checkedDel = b_checkedDel;
 	}
 
+	public int getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
+
 	@Override
 	public String toString() {
 		return "SelectDiscussion_BoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addInfo=" + b_addInfo
@@ -165,7 +174,7 @@ public class SelectDiscussion_BoardVo {
 				+ b_title + ", b_writer=" + b_writer + ", u_email=" + u_email + ", b_content=" + b_content
 				+ ", b_readCount=" + b_readCount + ", b_createdDate=" + b_createdDate + ", b_modifiedDate="
 				+ b_modifiedDate + ", b_recommendCount=" + b_recommendCount + ", b_upCount=" + b_upCount
-				+ ", b_downCount=" + b_downCount + ", b_checkedDel=" + b_checkedDel + "]";
+				+ ", b_downCount=" + b_downCount + ", b_checkedDel=" + b_checkedDel + ", ranking=" + ranking + "]";
 	}
 
 }

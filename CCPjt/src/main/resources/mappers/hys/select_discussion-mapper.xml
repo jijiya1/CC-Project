@@ -124,7 +124,7 @@
 	<!-- 추천수가 많은 게시판 3개 (추천수가 같으면 최신순으로) -->
 	<select id="getBest3SelectBoard" resultType="SelectDiscussion_BoardVo">
        select *
-       from (select rownum rnum, b.*
+       from (select rownum rnum, b.*, (select a_name from area_data where a_no = b_addinfo) a_name, (select d_name from detail_data where a_no = b_addinfo and d_no= b_detailinfo) d_name
             from (select rank() over (order by b_upcount desc) ranking , a.*
                   from (select *
                         from selectdiscussion_board

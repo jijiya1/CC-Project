@@ -64,9 +64,11 @@ $(document).ready(function() {
 				var strHtml = "";
 				
 				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center; ";
+				
 								if( resCountByEmail >= 1) {
 									strHtml +=	"border: solid 5px; border-color: #27AE60;";
-								};				
+								}
+								
 				strHtml += 	"'>"
 						+	"<span class='fas fa-thumbs-up'style='font-size: 40px;'>&nbsp;추천&nbsp;"+b_upCount+"</span>"
 						+	"</a>";
@@ -122,7 +124,6 @@ $(document).ready(function() {
 								[${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]지역 토론 주제 추천게시판
 							</td>
 						</tr>
-			
 						<!-- 첨부파일 -->
 						<tr style="text-align: center;">
 							<th scope="row">첨부파일</th>
