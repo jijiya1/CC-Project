@@ -1,6 +1,7 @@
 package com.kh.jhj.domain;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class PetitionVo {
 /*
@@ -34,6 +35,17 @@ public class PetitionVo {
 	private int rnum;
 	private int ranking;
 	
+
+	private String[] link;
+	
+	
+	
+	public String[] getLink() {
+		return link;
+	}
+	public void setLink(String[] link) {
+		this.link = link;
+	}
 	public int getRanking() {
 		return ranking;
 	}
@@ -158,7 +170,8 @@ public class PetitionVo {
 				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", b_replyer="
 				+ b_replyer + ", u_id=" + u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount
 				+ ", b_startdate=" + b_startdate + ", b_enddate=" + b_enddate + ", b_agree=" + b_agree + ", b_progress="
-				+ b_progress + ", b_delno=" + b_delno + "]";
+				+ b_progress + ", b_delno=" + b_delno + ", a_name=" + a_name + ", d_name=" + d_name + ", rnum=" + rnum
+				+ ", ranking=" + ranking + ", link=" + Arrays.toString(link) + "]";
 	}
 	
 	

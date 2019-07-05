@@ -7,6 +7,7 @@ $(document).ready(function () {
 	
 	var u_email = "${userVo.u_email}";
 	var b_writer = "${userVo.u_name}";
+	var todayTime = "${todayTime}";
 	
 	// 표시 게시글 갯수 변경
 	$("#dataTable_length").change(function () {
@@ -94,7 +95,6 @@ $(document).ready(function () {
 	<p class="mb-4">
 		<span>전체 ${pagingDto.totalData }건의 게시물이 있습니다.</span>
 	</p>
-	
 	<!-- 토론 주제 추천 Best3 list -->
 	  <div class="card shadow mb-4">
 	    <div class="card-body">
@@ -113,7 +113,7 @@ $(document).ready(function () {
 						<div class="col-md-2">
 							<div class="card  border-left-primary">
 				                <div class="card-body">
-				                  <span style="font-size:15px">추천수 : <span style="font-style: oblique;">${bestBoardVo.b_upCount}</span></span>
+				                  <span style="font-size:17px;">추천수 : <span style="font-style: oblique;">${bestBoardVo.b_upCount}</span></span>
 				                </div>
 							</div>
 						</div>
@@ -139,6 +139,7 @@ $(document).ready(function () {
 			<input type="hidden" name="searchType" value = "${pagingDto.searchType }">
 			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no">
+			<input type="hidden" name="u_email" value = "${userVo.u_email }">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
@@ -197,11 +198,29 @@ $(document).ready(function () {
 		          <c:forEach items="${selectBoardList }" var="selectBoardVo">
 		          	<tr>
 			          <td>${selectBoardVo.b_no}</td>
-	           		  <td><a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]&nbsp;${selectBoardVo.b_title}</a></td>
+	           		  <td>
+		           		  <a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]&nbsp;${selectBoardVo.b_title}
+		           		  	<c:if test="${selectBoardVo.b_upCount >= 10}">
+		           		  		<img src="/resources/img/hot.gif" width="12px">
+		           		  	</c:if>	
+		           		  	<c:if test="${selectBoardVo.b_strCreatedDate == todayTime}">
+		           		  		<img src="/resources/img/new.gif" width="12px">
+		           		  	</c:if>
+		           		  </a>
+	           		  </td>
 		              <td>${selectBoardVo.b_writer}(${selectBoardVo.u_email.substring(0,3)}***)</td>
 		              <td>${selectBoardVo.b_readCount}</td>
 		              <td>${selectBoardVo.b_upCount}</td>
-		              <td><fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+		              <td>
+		              	<c:choose>
+		              		<c:when test="${selectBoardVo.b_strCreatedDate == todayTime}">
+		              			<fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="HH:mm"/>
+		              		</c:when>
+		              		<c:otherwise>
+		              			<fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="yyyy-MM-dd"/>
+		              		</c:otherwise>
+		              	</c:choose>
+		              </td>
 		             </tr>
 		          </c:forEach>
 	          </tbody>
