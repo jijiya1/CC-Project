@@ -452,9 +452,13 @@ $(document).ready(function() {
 					<tbody>
 					<c:forEach items="${pMain}" var="peVo">
 						<tr>
-							<td><a href="/petition_board/petitionRead"
-									class="a_title" style="float: left;" data-bno="${peVo.b_no}">
-									<span style="font-size: 14px">[${peVo.d_name}] </span>${peVo.b_title}</a>
+							<td>
+								<a href="/petition_board/petitionRead" class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+								<c:if test="${ peVo.ranking == '1' || peVo.ranking == '2' || peVo.ranking == '3'}">
+									<img src="/resources/img/rank${ peVo.ranking }.png" style="width: 30px; height: auto;">
+								</c:if>
+									<span style="font-size: 14px"> [${peVo.d_name}] </span>${peVo.b_title}
+								</a>
 							</td>
 							<td><fmt:formatDate value="${peVo.b_enddate}"
 											pattern="yyyy-MM-dd"/> </td>
