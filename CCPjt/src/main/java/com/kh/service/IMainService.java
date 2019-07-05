@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
+import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 
@@ -21,4 +22,8 @@ public interface IMainService {
 	
 	// 서브페이지 청원 랭킹 5위까지 보이기 - SHJ
 	public List<PetitionVo> getPetitionRankingList(int a_no) throws Exception;
+	
+	// 서브페이지 자유게시판 목록 불러오기 - SHJ
+	public List<Complaint_BoardVo> getComplaintBoardList(PagingDto pagingDto, int a_no) throws Exception;
+	
 }

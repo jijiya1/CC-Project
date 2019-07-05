@@ -10,6 +10,7 @@ import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
+import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 
@@ -44,6 +45,12 @@ public class MainServiceImpl implements IMainService {
 	public List<PetitionVo> getPetitionRankingList(int a_no) throws Exception {
 		List<PetitionVo> getPetitionRankingList = mainDao.getPetitionRankingList(a_no);
 		return getPetitionRankingList;
+	}
+
+	@Override
+	public List<Complaint_BoardVo> getComplaintBoardList(PagingDto pagingDto, int a_no) throws Exception {
+		List<Complaint_BoardVo> getComplaintBoardList = mainDao.getComplaintBoardList(pagingDto, a_no);
+		return getComplaintBoardList;
 	}
 
 }

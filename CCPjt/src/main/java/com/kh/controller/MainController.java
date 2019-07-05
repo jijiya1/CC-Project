@@ -18,6 +18,7 @@ import com.kh.hys.service.IBoardService_Discussion;
 import com.kh.hys.service.ISelectService_Discussion;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
+import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.service.IMainService;
 import com.kh.service.MainServiceImpl;
 import com.kh.shj.domain.NoSearchDto;
@@ -71,6 +72,10 @@ public class MainController {
 		
 		List<PetitionVo> getPetitionRankingList = mainService.getPetitionRankingList(a_no);
 		model.addAttribute("pMain", getPetitionRankingList);
+		
+		List<Complaint_BoardVo> getComplaintBoardList = mainService.getComplaintBoardList(pagingDto, a_no);
+		model.addAttribute("boardList", getComplaintBoardList);
+//		System.out.println("getComplaintBoardList : " + getComplaintBoardList);
 		
 		model.addAttribute("a_no", a_no);
 		
