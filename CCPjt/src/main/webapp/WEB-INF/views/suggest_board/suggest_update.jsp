@@ -23,6 +23,7 @@ $(document).ready(function() {
 		
 			<form role="form" method="post" action="suggest_update-run" id="UpdateForm">
 				<input type="hidden" name="b_no" value="${vo.b_no}"/>
+				<input type="hidden" name="a_no" value="${vo.a_no}"/>
 				<div class="form-group">
 					<label for="b_title">글제목</label>
 					<input type="text" class="form-control" id="b_title"
