@@ -1,7 +1,6 @@
 package com.kh.psh.domain;
 
-import java.security.Timestamp;
-
+import java.sql.Timestamp;
 
 public class Complaint_BoardVo {
 
@@ -22,6 +21,7 @@ public class Complaint_BoardVo {
 	private int a_no;
 	private String a_name;
 	private int a_order;
+	
 	public String getB_serialno() {
 		return b_serialno;
 	}
@@ -124,6 +124,7 @@ public class Complaint_BoardVo {
 	public void setA_order(int a_order) {
 		this.a_order = a_order;
 	}
+	
 	@Override
 	public String toString() {
 		return "Complaint_BoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addinfo=" + b_addinfo
@@ -132,5 +133,6 @@ public class Complaint_BoardVo {
 				+ b_createddate + ", b_modifieddate=" + b_modifieddate + ", b_upcount=" + b_upcount + ", b_downcount="
 				+ b_downcount + ", b_checkeddel=" + b_checkeddel + ", a_no=" + a_no + ", a_name=" + a_name
 				+ ", a_order=" + a_order + "]";
-	}		
+	}
+	
 }

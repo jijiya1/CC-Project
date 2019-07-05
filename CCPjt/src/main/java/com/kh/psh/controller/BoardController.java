@@ -51,6 +51,7 @@ public class BoardController {
 	@RequestMapping(value="/suggest_list", method=RequestMethod.GET)
 	public void suggest_list(@RequestParam("a_no") int a_no, Complaint_PagingDto pagingDto, Model model) throws Exception {
 		List<Complaint_BoardVo> suggest_list = boardService.suggest_list(pagingDto, a_no);
+		System.out.println("suggest_list : " + suggest_list);
 		AreaDataVo areaDataVo = boardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("list", suggest_list);
