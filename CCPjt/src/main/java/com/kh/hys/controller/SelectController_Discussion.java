@@ -175,5 +175,27 @@ public class SelectController_Discussion {
 		
 		return entity;
 	}
-
+	
+	// 토론 주제 추천 게시글 추천 버튼 작업
+	@RequestMapping(value="/seletDiscussion", method = RequestMethod.GET)
+	public String seletDiscussion (Model model, @RequestParam("a_no") int a_no, @RequestParam("b_no") int b_no, PagingDto pagingDto)  throws Exception{
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
+		selectService.insertSelectDiscussion(selectDiscussion_BoardVo);
+		
+		int totalBoardCount = selectService.totalSelectBoardCount(pagingDto, a_no);
+		pagingDto.setTotalData(totalBoardCount);
+		
+		List<SelectDiscussion_BoardVo> selectBoardList = selectService.getSelectBoardList(pagingDto ,a_no);
+		List<SelectDiscussion_BoardVo> best3List = selectService.getBest3SelectBoard(a_no);
+		
+		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("selectBoardList", selectBoardList);
+		model.addAttribute("best3List", best3List);
+		model.addAttribute("pagingDto", pagingDto);
+		
+		return "/discussion_board/discussion_select_board";
+	}
 }

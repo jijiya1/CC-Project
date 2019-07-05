@@ -128,8 +128,14 @@
             from (select rank() over (order by b_upcount desc) ranking , a.*
                   from (select *
                         from selectdiscussion_board
-                        where b_addinfo = #{a_no}) a) b
+                        where b_addinfo = #{a_no} and b_checkeddel = 0) a) b
             order by b_createddate desc)
        where rnum &lt;=3
 	</select>
+	
+	<!-- 토론 주제로 선정(관리자 권한 userVo.u_grade) -->
+	<insert id="insertSelectDiscussion">
+		insert into discussion_board (b_serialno, b_no, b_addinfo, b_detailinfo, b_title, b_writer, u_email, b_content, b_createdDate)
+		values (#{b_serialno},#{b_no},#{b_addInfo},#{b_detailInfo},#{b_title},#{b_writer},#{u_email},#{b_content},sysdate)
+	</insert>
 </mapper>
