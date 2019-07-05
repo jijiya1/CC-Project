@@ -33,11 +33,7 @@ public class MainController_Discussion {
 	// 토론 메인 게시판으로 가기
 	@RequestMapping(value = "/discussion_main_board", method=RequestMethod.GET)
 	public void discussion_main_board(@RequestParam("a_no") int a_no, Model model) throws Exception {
-//		System.out.println("discussion_main_board get 실행");
-		
 		List<BoardVo_Discussion> discussionList =  boardService_Discussion.getDiscussionList(a_no);
-		
-//		System.out.println("MainController_Discussion,  discussionList : " + discussionList);
 		
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
@@ -78,5 +74,14 @@ public class MainController_Discussion {
 			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
+	}
+	
+	//관리자 권한 기능(토론 글 삭제)
+	@RequestMapping(value="/deleteDiscusssionBoard", method=RequestMethod.GET)
+	public String deleteDiscusssionBoard(String b_serialno, int a_no) throws Exception {
+//		System.out.println("deleteDiscusssionBoard, b_serialno : " + b_serialno);
+		boardService_Discussion.deleteDiscussionBySerialno(b_serialno);
+		
+		return "redirect:/discussion_board/discussion_main_board?a_no="+a_no;
 	}
 }
