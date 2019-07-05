@@ -1,10 +1,8 @@
 package com.kh.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +12,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.domain.LoginDto;
-import com.kh.domain.PagingDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.sbj.service.IUserJoinService;
 import com.kh.sbj.util.EmailCertifiedKey;
 import com.kh.sbj.util.MailHandler;
 import com.kh.service.IAdminService;
+import com.kh.shj.domain.NoPaginationDto;
+import com.kh.shj.domain.NoPagingDto;
+import com.kh.shj.domain.NoSearchDto;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -40,9 +38,20 @@ public class AdminController {
 	IUserJoinService userJoinService;
 	
 	@RequestMapping(value="/user_list", method=RequestMethod.GET)
-	public void getUserList(PagingDto pagingDto, Model model) throws Exception {
-		List<UserInfoVo> getUserList = adminService.getUserList(pagingDto);
+	public void getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto, Model model) throws Exception {
+		
+		List<UserInfoVo> getUserList = adminService.getUserList(noPagingDto, noSearchDto);
 		model.addAttribute("userinfoVo", getUserList);
+		
+		NoPaginationDto noPaginationDto = new NoPaginationDto();
+		noPaginationDto.setNoSearchDto(noSearchDto);
+		noPaginationDto.setNoPagingDto(noPagingDto);
+		
+		int contentCount = adminService.userContentCount(noSearchDto, noPagingDto);
+		noPaginationDto.setContentCount(contentCount);
+//		System.out.println("contentCount : " + contentCount);
+		
+		model.addAttribute("noPaginationDto", noPaginationDto);
 		
 		int getUserCount = adminService.getUserCount();
 		model.addAttribute("getUserCount", getUserCount);
