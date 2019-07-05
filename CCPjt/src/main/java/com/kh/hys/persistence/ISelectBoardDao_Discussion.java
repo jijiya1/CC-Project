@@ -50,4 +50,7 @@ public interface ISelectBoardDao_Discussion {
 	// 추천수가 많은 게시판 3개 (추천수가 같으면 최신순으로)
 	public List<SelectDiscussion_BoardVo> getBest3SelectBoard(int a_no) throws Exception;
 	
+	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
+	public void insertSelectDiscussion(SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception;
+	
 }

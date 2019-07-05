@@ -5,8 +5,6 @@
 <script>
 $(document).ready(function() {
 	
-	
-	
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 	
@@ -63,11 +61,11 @@ $(document).ready(function() {
 				
 				var strHtml = "";
 				
-				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center; ";
+				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center;";
 				
-								if( resCountByEmail >= 1) {
-									strHtml +=	"border: solid 5px; border-color: #27AE60;";
-								}
+				if( resCountByEmail >= 1 ) {
+					strHtml +=	"border: solid 5px; border-color: #27AE60;";
+				};
 								
 				strHtml += 	"'>"
 						+	"<span class='fas fa-thumbs-up'style='font-size: 40px;'>&nbsp;추천&nbsp;"+b_upCount+"</span>"
@@ -77,6 +75,15 @@ $(document).ready(function() {
 			});
 		}//if
 	});// $("#btnUpArea").on("click", ".btnUp"
+			
+	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
+	$("#btnSeletDiscussion").click(function (e) {
+		e.preventDefault();
+		var url = "/selectDiscussion/seletDiscussion";
+		
+		$("#hiddenData").attr("action", url);
+		$("#hiddenData").submit();
+	})
 	
 });
 </script>
@@ -97,8 +104,6 @@ $(document).ready(function() {
         
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞
 		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }">토론 주제 추천게시판</a> ＞  [${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]${selectDiscussion_BoardVo.b_title} 글</p>
-	
-	<p>${userVo }</p>
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">[${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]${selectDiscussion_BoardVo.b_title}</h1><br>
 	<!-- 공지사항 읽기 부분 시작 -->
@@ -156,9 +161,17 @@ $(document).ready(function() {
 	
 	<c:if test="${userVo.u_email == selectDiscussion_BoardVo.u_email}">
 		<button type="button" class="btn btn-warning" id="btnUpdate" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt"></span></button>
+	</c:if>
+	<c:if test="${userVo.u_email == selectDiscussion_BoardVo.u_email || userVo.u_grade =='관리자'}">
 		<button type="button" class="btn btn-danger" id="btnDelete" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
 	</c:if>
-
+	
+	<c:if test="${userVo.u_grade =='관리자' }">
+		<a href="#" class="btn btn-success btn-icon-split" id="btnSeletDiscussion" style="float: right;">
+			<span class="icon text-white-50"><i class="fas fa-check"></i></span>
+			<span class="text">토론 주제로 선정</span>
+		</a>
+	</c:if>
 	<!-- 하단 버튼 모음 끝 -->
 
 </div>
