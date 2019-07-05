@@ -48,7 +48,6 @@ $(document).ready(function() {
 		} else {
 			var url = "/selectDiscussion/selectUpcountUpdate";
 			var b_no = ${selectDiscussion_BoardVo.b_no};
-			var u_email = "${selectDiscussion_BoardVo.u_email}";
 			
 			var sendData = {
 					"b_no" : b_no,
@@ -62,7 +61,6 @@ $(document).ready(function() {
 				var strHtml = "";
 				
 				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center;";
-				
 				if( resCountByEmail >= 1 ) {
 					strHtml +=	"border: solid 5px; border-color: #27AE60;";
 				};
@@ -73,7 +71,7 @@ $(document).ready(function() {
 				
 				$("#btnUpArea").html(strHtml);
 			});
-		}//if
+		};//if
 	});// $("#btnUpArea").on("click", ".btnUp"
 			
 	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
@@ -100,8 +98,8 @@ $(document).ready(function() {
 			<input type="hidden" name="b_no" value = "${selectDiscussion_BoardVo.b_no}">
 			<input type="hidden" name="b_title" value = "${selectDiscussion_BoardVo.b_title}">
 			<input type="hidden" name="b_content" value = "${selectDiscussion_BoardVo.b_content}">
-			<input type="hidden" name="u_email" value = "${selectDiscussion_BoardVo.u_email}">
-			<input type="hidden" name="b_writer" value = "${selectDiscussion_BoardVo.b_writer}">
+			<input type="hidden" name="u_email" value = "${userVo.u_email}">
+			<input type="hidden" name="b_writer" value = "${userVo.u_name}">
 		</form>
         
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a>＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞<a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞

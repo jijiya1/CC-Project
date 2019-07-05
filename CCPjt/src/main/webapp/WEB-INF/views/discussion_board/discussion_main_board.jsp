@@ -161,7 +161,7 @@
 		<br>
 		
 		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
-			<label>토론 상세 내용</label>
+			<label style="font-weight: bold;">토론 상세 내용</label>
 			<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
 		</div>
 		
@@ -315,6 +315,7 @@
 		
 		if(b_contentArea.style.display == "none") {
 			b_contentArea.style.display = "block";
+			$(".b_content").focus();
 		} else {
 			b_contentArea.style.display = "none";
 		}
@@ -538,7 +539,7 @@
 					
 					strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 					 		+ 		"<div class='card-body'>"
-							+			"<p>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+							+			"<p  style='font-weight: bold;'>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
 							+			"<p>&nbsp;"+this.r_content+"</p>"
 							+			"<p style='text-align: right;' class='likeSelectArea'>"
 											// 좋아요 버튼

@@ -20,7 +20,6 @@ public class BoardVo_Discussion {
 	private int b_downcount;
 	private int b_checkeddel;
 	
-	
 	public String getB_serialno() {
 		return b_serialno;
 	}
