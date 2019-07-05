@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function() {
 	
-	// 회원 정보 수정
+	// 회원 정보 조회
 	$(".user_update").click(function() {
 		var u_email = $(this).attr('data-u_email');
 		location.href = "/admin/user_detail?u_email=" + u_email;
@@ -121,7 +121,7 @@ $(document).ready(function() {
 	              <th>회원 이름</th>
 	              <th>회원 이메일</th>
 	              <th>가입일자</th>
-	              <th>정보 수정</th>
+	              <th>정보 조회</th>
 	              <th>강제 탈퇴</th>
 	            </tr>
 	          </thead>
