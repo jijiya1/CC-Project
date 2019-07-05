@@ -5,10 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
-import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.persistence.IPeBoardDao;
 
@@ -64,6 +64,25 @@ public class PeBoardService implements IPeBoardService {
 	public List<DetailDataVo> detailArea(int a_no) throws Exception {
 		List<DetailDataVo> dArea = peBoardDao.detailArea(a_no);
 		return dArea;
+	}
+
+	@Transactional
+	@Override
+	public void writeUrl(PetitionVo peVo) throws Exception {
+		peBoardDao.write(peVo);
+		String[] links = peVo.getLink();
+		
+//		url(link) 정보 담기
+		if(links != null) {	
+		for(int i=0; i<links.length; i++) {
+				if(links[i] != null && links[i] != "") {
+//					System.out.println("links["+i+"] :" +links[i]);
+					peBoardDao.writeLink(links[i]);
+				}
+				
+			}
+		}
+		
 	}
 
 }

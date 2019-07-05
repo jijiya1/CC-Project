@@ -110,6 +110,9 @@ public class NoticeController {
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
+		List<DetailDataVo> getDetailAreaData = noticeBoardService.getDetailAreaData(a_no);
+		model.addAttribute("getDetailAreaData", getDetailAreaData);
+		
 		model.addAttribute("a_no", a_no);
 	}
 	

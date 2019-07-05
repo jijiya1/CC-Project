@@ -4,23 +4,23 @@ import java.sql.Timestamp;
 
 public class SelectDiscussion_BoardVo {
 	
-	String b_serialno; 			// 게시글 시리얼넘버
-	int b_no; 					// 토론주제선정 게시글번호
-	int b_addInfo; 				// 토론주제선정 게시글 정보 번호(지역)
-	String a_name;				// 토론주제선정 게시글 정보 이름(지역)
-	int b_detailInfo;			// 토론주제선정 게시글 정보 번호(상세정보)
-	String d_name;				// 토론주제선정 게시글 정보 이름(상세정보)
-	String b_title; 			// 토론주제선정 제목
-	String b_writer; 			// 토론주제선정 작성자
-	private String u_email; 	// 유저 아이디(email)
-	String b_content; 			// 토론주제선정 내용
-	int b_readCount; 			// 토론주제선정 조회수
-	Timestamp b_createdDate; 	// 토론주제선정 작성일
-	Timestamp b_modifiedDate; 	// 토론주제선정 수정일
-	int b_recommendCount; 		// 토론주제선정 추천수
-	int b_upCount; 				// 토론주제선정 글 좋아요
-	int b_downCount; 			// 토론주제선정 글 싫어요
-	int b_checkedDel; 			// 게시글 삭제 여부
+	private String b_serialno; 			// 게시글 시리얼넘버
+	private int b_no; 					// 토론주제선정 게시글번호
+	private int b_addInfo; 				// 토론주제선정 게시글 정보 번호(지역)
+	private String a_name;				// 토론주제선정 게시글 정보 이름(지역)
+	private int b_detailInfo;			// 토론주제선정 게시글 정보 번호(상세정보)
+	private String d_name;				// 토론주제선정 게시글 정보 이름(상세정보)
+	private String b_title; 			// 토론주제선정 제목
+	private String b_writer; 			// 토론주제선정 작성자
+	private String u_email; 			// 유저 아이디(email)
+	private String b_content; 			// 토론주제선정 내용
+	private int b_readCount; 			// 토론주제선정 조회수
+	private Timestamp b_createdDate; 	// 토론주제선정 작성일
+	private Timestamp b_modifiedDate; 	// 토론주제선정 수정일
+	private int b_recommendCount; 		// 토론주제선정 추천수
+	private int b_upCount; 				// 토론주제선정 글 좋아요
+	private int b_downCount; 			// 토론주제선정 글 싫어요
+	private int b_checkedDel; 			// 게시글 삭제 여부
 
 	public String getB_serialno() {
 		return b_serialno;

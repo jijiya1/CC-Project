@@ -18,7 +18,10 @@ $(document).ready(function() {
 	
 	// 글 수정
 	$("#btnUpdate").click(function() {
+		var url = "/selectDiscussion/discussion_select_modify";
 		
+		$("#hiddenData").attr("action", url);
+		$("#hiddenData").submit();
 	});
 	
 	// 글 삭제
@@ -30,10 +33,35 @@ $(document).ready(function() {
 			
 			$("#hiddenData").attr("action", url);
 			$("#hiddenData").submit();
-		} else {
-			
-		}
+		} 
 	});
+	
+	// 추천 버튼
+	$("#btnUp").click(function (e) {
+		
+		e.preventDefault()
+		var url = "/selectDiscussion/selectUpcountUpdate";
+		var b_no = ${selectDiscussion_BoardVo.b_no};
+		var u_email = ${selectDiscussion_BoardVo.b_no};
+		var sendData = {
+				"b_no" : b_no,
+				"u_email" : u_email
+		}
+		
+		$.ajax({
+			"type" : "post",
+			"url" : url ,
+			"headers" : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method_Override" : "post"
+			},
+        	"dataType" : "text",
+        	"data" : JSON.stringify(sendData),
+        	"success" : function (receviedData) {
+        		console.log("성공");
+        	}
+		})
+	})
 	
 });
 </script>
@@ -46,14 +74,17 @@ $(document).ready(function() {
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
 			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no" value = "${selectDiscussion_BoardVo.b_no}">
+			<input type="hidden" name="b_title" value = "${selectDiscussion_BoardVo.b_title}">
+			<input type="hidden" name="b_content" value = "${selectDiscussion_BoardVo.b_content}">
+			<input type="hidden" name="u_email" value = "${selectDiscussion_BoardVo.u_email}">
+			<input type="hidden" name="b_writer" value = "${selectDiscussion_BoardVo.b_writer}">
 		</form>
         
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ </p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞
+		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }">토론 주제 추천게시판</a> ＞  [${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]${selectDiscussion_BoardVo.b_title} 글</p>
 	
 	<!-- 페이지 헤더 -->
 	<h1 class="h3 mb-2 text-gray-800">[${selectDiscussion_BoardVo.a_name}/${selectDiscussion_BoardVo.d_name}]${selectDiscussion_BoardVo.b_title}</h1><br>
-	<p>데이터 확인: ${selectDiscussion_BoardVo}</p>
-	<p>데이터 확인: ${areaDataVo.a_no}</p>
 	<!-- 공지사항 읽기 부분 시작 -->
 	<div class="card shadow mb-4">
     	<div class="card-body">
@@ -92,6 +123,9 @@ $(document).ready(function() {
 						</tr>
 					</tbody>
 				</table>
+				<div style="text-align: center;">
+					<a href='#' class='btn btn-primary btn-sm' id="btnUp" style="text-align: center;"><span class='fas fa-thumbs-up'style="font-size: 40px;">&nbsp;추천&nbsp;${selectDiscussion_BoardVo.b_upCount}</span></a>
+				</div>
 			</div>
 		</div>
 	</div>

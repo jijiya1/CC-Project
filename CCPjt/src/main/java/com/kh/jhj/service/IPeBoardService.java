@@ -15,4 +15,5 @@ public interface IPeBoardService {
 	public List<PetitionVo> listRunOut(int a_no) throws Exception;
 	public void update(PetitionVo peVo) throws Exception;
 	public List<DetailDataVo> detailArea(int a_no) throws Exception;
+	public void writeUrl(PetitionVo peVo) throws Exception;
 }

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Pe_AjaxController {
 
 	
-	@RequestMapping(value="uploadLink", method=RequestMethod.POST)
+	@RequestMapping(value="uploadLink", method=RequestMethod.POST,
+			produces="text/plain; charset=utf-8")
 	public ResponseEntity<String> writeLink(@RequestBody String b_link) throws Exception{
 //			System.out.println("b_link :" + b_link);
 			ResponseEntity<String> entity = null;

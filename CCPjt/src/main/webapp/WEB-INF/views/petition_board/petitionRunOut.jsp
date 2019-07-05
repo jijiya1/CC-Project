@@ -61,14 +61,20 @@ $(document).ready(function(){
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action",href).submit();
 	});
+	
+	$("#btnPetition").click(function(){
+		var href = "/petition_board/petitionWrite";
+		console.log("href : " + href);
+		$("#pageForm").attr("action", href).submit();
+	});	
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="b_no" >
-	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
-	<input type="hidden" name="countRow" value="${pageDto.countRow} ">
-	<input type="hidden" name="searchType" value="${pageDto.searchType} ">
+	<input type="hidden" name="b_no"  value="${param.b_no}">
+	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
+	<input type="hidden" name="countRow" value="${pageDto.countRow}">
+	<input type="hidden" name="searchType" value="${pageDto.searchType}">
 	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
 </form>
 
@@ -83,6 +89,7 @@ $(document).ready(function(){
 	
 		<h1 class="h3 mb-2 text-gray-800"> 청원 만료 게시판</h1><p class="mb-4">
 		<span> 전체 ${count}건의 게시물이 있습니다.</span>
+		<input class="btn btn-primary" type="button" value="청원하기" id="btnPetition">
 	</p>
 
 	  <div class="card shadow mb-4">

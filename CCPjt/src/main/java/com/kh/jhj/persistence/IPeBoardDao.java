@@ -14,4 +14,6 @@ public interface IPeBoardDao {
 	public void petitionDel (String b_serialno) throws Exception;
 	public List<PetitionVo> listRunOut(int a_no) throws Exception;
 	public List<DetailDataVo> detailArea(int a_no) throws Exception;
+	public void write(PetitionVo peVo) throws Exception;
+	public void writeLink(String link) throws Exception;
 }

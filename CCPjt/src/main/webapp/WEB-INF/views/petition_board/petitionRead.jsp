@@ -64,9 +64,9 @@
 </div>
 <form id="pageForm" action="/petition_board/petitionList?a_no=${areaDataVo.a_no}">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="nowPage" value="${param.nowPage} ">
-	<input type="hidden" name="countRow" value="${param.countRow} ">
-	<input type="hidden" name="searchType" value="${param.searchType} ">
+	<input type="hidden" name="nowPage" value="${param.nowPage}">
+	<input type="hidden" name="countRow" value="${param.countRow}">
+	<input type="hidden" name="searchType" value="${param.searchType}">
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"> 	
 </form>
 <script>

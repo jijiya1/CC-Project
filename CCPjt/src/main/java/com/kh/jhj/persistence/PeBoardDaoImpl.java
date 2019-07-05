@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
-import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
 
 @Repository
@@ -77,6 +76,19 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 	public List<DetailDataVo> detailArea(int a_no) throws Exception {
 		List<DetailDataVo> dArea = sqlSession.selectList(NAMESPACE+ "detialData", a_no);
 		return dArea;
+	}
+
+	@Override
+	public void write(PetitionVo peVo) throws Exception {
+//		System.out.println("peVoDao :" + peVo);
+		sqlSession.insert(NAMESPACE+"write", peVo);
+		
+	}
+
+	@Override
+	public void writeLink(String link) throws Exception {
+		sqlSession.insert(NAMESPACE+"writeLink", link);
+		
 	}
 
 }

@@ -111,20 +111,12 @@ $(document).ready(function() {
 		<!-- 공지사항 작성 부분 시작 - form -->
 		<form role="form" method="post">
 			<input type="hidden" name="a_no" value="${ areaDataVo.a_no }">
+			<input type="hidden" name="u_email" value="${ userVo.u_email }">
+			<input type="hidden" name="u_name" value="${ userVo.u_name }">
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
 				<input type="text" class="form-control" name="b_title" required="required"/>
-			</div>
-			
-			<div class="form-group">
-				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" required="required" />
-			</div>
-			
-			<div class="form-group">
-				<label>ID</label>
-				<input type="text" class="form-control" name="u_id" required="required" />
 			</div>
 			
 			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>

@@ -3,6 +3,7 @@ package com.kh.jhj.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.xml.soap.Detail;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.service.IPeBoardService;
 import com.kh.shj.service.INoticeBoardService;
@@ -104,14 +106,39 @@ public class PetitionController {
 	
 	@RequestMapping(value="petitionWrite", method=RequestMethod.GET)
 	public void petitionWrite(@RequestParam("a_no") int a_no,
-								Model model,
-								PagingDto pageDto) throws Exception{
+								Model model) throws Exception{
 //		System.out.println("a_no : " + a_no);
 		List<DetailDataVo> dArea = peService.detailArea(a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
-		model.addAttribute("pageDto", pageDto);
+		model.addAttribute("a_no", a_no);
+//		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("dArea", dArea);
+	}
+	
+	@RequestMapping(value="petitionWrite", method=RequestMethod.POST)
+	public String petitionWriteRun(@RequestParam("a_no") int a_no,
+								Model model,HttpSession session,
+								PetitionVo peVo) throws Exception{
+		
+		List<DetailDataVo> dArea = peService.detailArea(a_no);
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		
+		UserInfoVo userVo = (UserInfoVo)session.getAttribute("userVo");
+		String u_id = userVo.getU_email();
+		String b_writer = userVo.getU_name()+"("+ u_id.substring(0,3)+"**)";
+		
+		peVo.setU_id(u_id);
+		peVo.setB_writer(b_writer);
+		
+		peService.writeUrl(peVo);
+		
+//		System.out.println("peVo :" + peVo);
+		
+		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("dArea", dArea);
+
+		return "redirect:/petition_board/petitionList?a_no="+a_no;
 	}
 
 }

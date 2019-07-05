@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.domain.PagingDto;
+import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 
@@ -39,6 +40,18 @@ public class MainDaoImpl implements IMainDao {
 		
 		List<NoticeBoardVo> getSubNoticeBoardList = sqlSession.selectList(NAMESPACE + "getSubnoticeBoardList", data);
 		return getSubNoticeBoardList;
+	}
+
+	@Override
+	public List<SelectDiscussion_BoardVo> getSubSelectDiscussionBoardList(PagingDto pagingDto, int a_no)
+			throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("pagingDto", pagingDto);
+		data.put("a_no", a_no);
+		
+		List<SelectDiscussion_BoardVo> getSubSelectDiscussionBoardList = sqlSession.selectList(NAMESPACE + "getSeletDiscussionList", data);
+		return getSubSelectDiscussionBoardList;
 	}
 
 }

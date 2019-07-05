@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.hys.domain.ReplyVo_Discussion" alias="ReplyVo_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.ReplyLikeInfoDto_Discussion" alias="ReplyLikeInfoDto_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.SelectDiscussion_BoardVo" alias="SelectDiscussion_BoardVo"/>
+		<typeAlias type="com.kh.hys.domain.SelectResInfoDto_Discussion" alias="SelectResInfoDto_Discussion"/>
 		
 		<typeAlias type="com.kh.shj.domain.NoticeBoardVo" alias="noticeBoardVo"/>
 		<typeAlias type="com.kh.shj.domain.NoSearchDto" alias="noSearchDto"/>

@@ -4,6 +4,7 @@
 <title>청원 하기</title>
 <script>
 $(document).ready(function(){
+	var i="0";
 	$("#btnLink").click(function(){
 		var links =$("input[name=b_link]").val();
 		var url ="/pe_ajax/uploadLink";
@@ -16,55 +17,98 @@ $(document).ready(function(){
 			data : JSON.stringify(links),
 			dataType : "text",
 			type : "post",
+			
 			"success":function(result){
+				
+// 				console.log(result);
 				$("input[name=b_link]").val("");
-				var linkadd = "<input type='text' class='form-control form-control-sm' name='b_linkGroup'"
-							+ "value= '"+result+"'>";
-				var linkDel = "<br><input type='button' id='btnLink' class='btn btn-danger' value='링크 삭제'>"	
-					$("#divLinkGruop").append(linkadd);
-					$("#btnDelGruop").append(linkDel);
+				var linkadd = "<tr class='"+i+"'>"
+								+ "<td colspan='2'>"
+									+ "<input type='text' class='form-control form-control-sm table-input'" 
+									+ " data-link='"+i+"' value ='"+result+"'/></td>"
+								+ "<td>"
+									+"<button type='button' class='btn btn-danger deleteLink'"
+									+" data-toggle='tooltip' data-placement='top' title='링크 삭제'"
+									+" data-link='"+i+"'>"
+										+ "<span class='fas fa-trash'></span>"
+									+"</button>"
+								+"</td>"
+								+ "</tr>";
+					$("#divLinkGroup").append(linkadd);
+// 					var hiddenLink = "<input type='hidden' name='link["+i+"]'"
+// 										+" value='"+result+"'>";
+// 					$("#registForm").append(hiddenLink);	
+
+					i++;
 			}
 			
-		});
+		});//ajax 링크 추가
+	});//btnLink function
+	
+	//링크 그룹 삭제하기
+	$("#divLinkGroup").on("click",".deleteLink", function(e){
+		e.preventDefault();
+		var that = $(this);
+		var result = $(this).attr("data-link");
+// 		console.log("that?" +that );
+// 		console.log("result?" +result );
+		that.parents("."+result).remove();
+// 		$("input[name=link["+result+"]").remove();
+		
 	});
+	
+	//글 작성 보내기
+	$("#btnSubmit").click(function(){
+		var linkGroup = $("#divLinkGroup .table-input");
+// 		console.log("linkGroup"+ linkGroup);
+			linkGroup.each(function(index){
+			var link =$(this).attr("data-link");
+			var result = $(this).attr("value");
+// 			console.log("result :"+ result);
+			var hiddenLink = "<input type='hidden' name='link["+link+"]'"
+							+" value='"+ result+"'>";
+// 			console.log("hiddenLink :"+ hiddenLink);
+				$("#registForm").append(hiddenLink);	
+				
+		});
+
+		$("#registForm").submit();
+// 		console.log($("#divLinkGroup .table-input"));
+	});
+	
 	
 });
 	
 </script>
-<form id="pageForm" action="/petition_board/petitionList?a_no=${areaDataVo.a_no}">
-	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="nowPage" value="${param.nowPage} ">
-	<input type="hidden" name="countRow" value="${param.countRow} ">
-	<input type="hidden" name="searchType" value="${param.searchType} ">
-	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"> 	
-</form>
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<form role="form">
+			<form role="form" method="post" id="registForm" action="/petition_board/petitionWrite">
+				<input type="hidden" name="a_no" value="${param.a_no}">
+				
 				<div class="form-group">
 					<div class="col-md-6">
 					<table class="table">
 						<tr>
 							<td colspan="3">
 								<label>청원 제목</label>
-								<input type="text" class="form-control form-control-sm" id="b_title" />
+								<input type="text" class="form-control form-control-sm" name="b_title" />
 							</td>
 						
 						</tr>
 						<tr>
 							<td>
 								<label>지역 분류</label>
-								<select class="form-control form-control-sm" id="selectAddInfo"
+								<select class="form-control form-control-sm"  name="b_addinfo"
 										style="width:150px;">
-		      							<option>${areaDataVo.a_name}</option>
+		      							<option value="${areaDataVo.a_no}">${areaDataVo.a_name}</option>
 		      					</select>
 	      					</td>
 	      					<td>
 		      					<label>지역 상세 분류</label>
-		      					<select class="form-control form-control-sm" id="selectAddInfo"
-								style="width:150px;">
+		      					<select class="form-control form-control-sm" name="b_detailinfo"
+									style="width:150px;">
 									<c:forEach items="${ dArea }" var="detailVo">
 										<option value="${detailVo.d_no}">${detailVo.d_name}</option>
 									</c:forEach>
@@ -76,28 +120,23 @@ $(document).ready(function(){
 						<tr>
 							<td colspan="3">
 								<label>청원 내용</label>
-								<textarea rows="20" cols="100" ></textarea>
+								<textarea rows="20" cols="100" name="b_content"></textarea>
 <!-- 								<input  type="text" class="form-control form-control-sm" id="b_content"  -->
 <!-- 										style ="weight:100px; height: 300px;"/> -->
 
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2">
+						<tr >
+							<td colspan="3">
 								<label>관련 링크</label>
-									<div class="form-group row" id="divLinkGruop">
-										<input type="text" class="form-control form-control-sm" name="b_link" />
-										
-									</div>
-							</td>
-								
-							<td style="vertical-align: top">
-								<label> &nbsp;</label>
-								<div id="btnDelGruop">
-									<button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="링크"><span class="fas fa-link"></span></button>
+								<table style="width:100%"  id="divLinkGroup">
+									<tr>
+										<td colspan="2"><input type="text" class="form-control form-control-sm" name="b_link" /></td>
+										<td><button type="button" class="btn btn-info" data-toggle="tooltip"
+										 data-placement="top" title="링크" id="btnLink"><span class="fas fa-link"></span></button></td>
+									</tr>
 									
-<!-- 									<input type="button" id="btnLink" class="btn btn-info" value="링크 추가"> -->
-								</div>
+								</table>
 							</td>
 						</tr>
 					</table>
@@ -105,7 +144,7 @@ $(document).ready(function(){
 						
 				</div>
 				
-				<button type="submit" class="btn btn-primary">
+				<button type="button" class="btn btn-primary" id="btnSubmit">
 					청원하기
 				</button>
 			</form>

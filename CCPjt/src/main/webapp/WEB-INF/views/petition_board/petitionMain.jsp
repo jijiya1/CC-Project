@@ -59,7 +59,9 @@ $(document).ready(function(){
 		$("#pageForm").attr("action",href).submit();
 	});
 	
-	$("#btnPetition").click(function(){
+	$("#btnPetition").click(function(e){
+		e.preventDefault();
+		
 		var href = "/petition_board/petitionWrite";
 		console.log("href : " + href);
 		$("#pageForm").attr("action", href).submit();
@@ -69,10 +71,10 @@ $(document).ready(function(){
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
 	<input type="hidden" name="b_no"  value="${param.b_no}">
-	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
-	<input type="hidden" name="countRow" value="${pageDto.countRow} ">
-	<input type="hidden" name="searchType" value="${pageDto.searchType} ">
-	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
+	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
+	<input type="hidden" name="countRow" value="${pageDto.countRow}">
+	<input type="hidden" name="searchType" value="${pageDto.searchType}">
+	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}">	
 </form>
 
 <div class="container-fluid">
@@ -86,7 +88,8 @@ $(document).ready(function(){
 	
 		<h1 class="h3 mb-2 text-gray-800"> 청원게시판(관심 청원 Best3)</h1><p class="mb-4">
 		<input class="btn btn-primary" type="button" value="청원하기" id="btnPetition">
-		<span> 전체 ${count}건의 게시물이 있습니다.</span>
+		
+<%-- 		<span> 전체 ${count}건의 게시물이 있습니다.</span> --%>
 	</p>
 
 	  <div class="card shadow mb-4">
