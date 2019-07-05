@@ -23,4 +23,7 @@ public interface IBoardService_Discussion {
 	
 	//특정 토론글 찬성 반대 갯수 가져오기
 	public BoardVo_Discussion getAgreeRatio(int b_no) throws Exception;
+	
+	//관리자 권한으로 토른 글 삭제 (b_checkeddel = 0 -> 1 로 업데이트)
+	public void deleteDiscussionBySerialno(String b_serialno) throws Exception;
 }
