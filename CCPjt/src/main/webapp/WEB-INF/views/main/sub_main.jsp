@@ -453,7 +453,7 @@ $(document).ready(function() {
 					<c:forEach items="${pMain}" var="peVo">
 						<tr>
 							<td>
-								<a href="/petition_board/petitionRead" class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+								<a href="/petition_board/petitionRead?a_no=${ a_no }&b_no=${ peVo.b_no }" class="a_title" style="float: left;" data-bno="${peVo.b_no}">
 								<c:if test="${ peVo.ranking == '1' || peVo.ranking == '2' || peVo.ranking == '3'}">
 									<img src="/resources/img/rank${ peVo.ranking }.png" style="width: 30px; height: auto;">
 								</c:if>

@@ -131,7 +131,7 @@ $(document).ready(function() {
 		              <td>${ userinfoVo.u_name }</td>
 		              <td>${ userinfoVo.u_email }</td>
 		              <td><fmt:formatDate value="${ userinfoVo.u_createdDate }" pattern="yyyy-MM-dd"/></td>
-		              <td><Button type="button" class="btn btn-sm btn-success user_update" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="정보 수정"><span class="fas fa fa-user-times"></span></Button></td>
+		              <td><Button type="button" class="btn btn-sm btn-success user_update" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="정보 수정"><span class="fas fa fas fa-address-card"></span></Button></td>
 		              <td><Button type="button" class="btn btn-sm btn-danger user_delete" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
 		            </tr>
            	  </c:forEach>
