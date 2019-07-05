@@ -134,7 +134,17 @@ $(document).ready(function() {
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
 	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 공지사항</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 
+	<c:choose>
+	<c:when test="${ areaDataVo.a_no ne 10 }">
+		<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a>
+	</c:when>
+	<c:otherwise>
+		<a href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">${ areaDataVo.a_name }</a>
+	</c:otherwise>
+	</c:choose>
+	
+	 ＞ 공지사항</p>
 	
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">공지사항</h1>
