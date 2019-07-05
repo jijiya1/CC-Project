@@ -18,6 +18,7 @@ import com.kh.domain.AreaDataVo;
 import com.kh.hys.domain.BoardAgreeInfoVo_Discussion;
 import com.kh.hys.domain.BoardVo_Discussion;
 import com.kh.hys.service.IBoardService_Discussion;
+import com.kh.shj.service.INoticeBoardService;
 
 @Controller
 @RequestMapping("/discussion_board/*")
@@ -25,6 +26,9 @@ public class MainController_Discussion {
 	
 	@Inject
 	IBoardService_Discussion boardService_Discussion;
+	
+	@Inject
+	INoticeBoardService noticeBoardService;
 	
 	// 토론 메인 게시판으로 가기
 	@RequestMapping(value = "/discussion_main_board", method=RequestMethod.GET)
@@ -35,9 +39,7 @@ public class MainController_Discussion {
 		
 //		System.out.println("MainController_Discussion,  discussionList : " + discussionList);
 		
-		AreaDataVo areaDataVo = new AreaDataVo();
-		areaDataVo.setA_no(a_no);
-		
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
 		// 리스트 안에 글이 하나라도 있을 경우
