@@ -53,20 +53,23 @@ public class MainController_Discussion {
 		model.addAttribute("discussionList", discussionList);
 	}
 	
+	
+	// 찬반 투표 처리
 	@RequestMapping(value = "/discussion_agreeSelect", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> selectAgreeMent(@RequestBody BoardAgreeInfoVo_Discussion AgreeInfoVo) throws Exception {
-//		System.out.println("AgreeInfoVo : " + AgreeInfoVo);
-		
+//		System.out.println("MainController_Discussion,  selectAgreeMent 실행");
 		ResponseEntity<String> entity  = null;
 		try {
-			boardService_Discussion.insertAgreeInfo(AgreeInfoVo);
+			if(!AgreeInfoVo.getU_email().equals("") && AgreeInfoVo != null) {
+				
+				boardService_Discussion.insertAgreeInfo(AgreeInfoVo);
+				
+			}  
 			BoardVo_Discussion boardVo_Discussion = boardService_Discussion.getAgreeRatio(AgreeInfoVo.getB_no());
 			int agreementcount = boardVo_Discussion.getB_agreementcount();
 			int oppositioncount = boardVo_Discussion.getB_oppositioncount();
-			
 			String message = agreementcount + "," + oppositioncount;
-			
 			entity = new ResponseEntity<>(message,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

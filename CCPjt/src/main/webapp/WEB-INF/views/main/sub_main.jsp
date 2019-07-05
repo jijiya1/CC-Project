@@ -205,9 +205,6 @@ q {font-style: italic;}
 <script>
 $(document).ready(function() {
 	
-	// 툴팁
-	$('[data-toggle="tooltip"]').tooltip();
-	
 	 // 공지사항 글 읽기
 	 $(".title").click(function(e) {
 		e.preventDefault();
@@ -420,7 +417,7 @@ $(document).ready(function() {
 		          <tbody>
 			          <c:forEach items="${ selectBoardList }" var="selectBoardVo">
 			          	<tr>
-		           		  <td><a href="#" style="float: left;" class="select_title" data-b_no="${ selectBoardVo.b_no }">[${ selectBoardVo.d_name }]${ selectBoardVo.b_title }</a></td>
+		           		  <td><a href="#" style="float: left;" class="select_title" data-b_no="${ selectBoardVo.b_no }">[${ selectBoardVo.d_name }] ${ selectBoardVo.b_title }</a></td>
 			              <td>${ selectBoardVo.b_writer }</td>
 			              <td>${ selectBoardVo.b_readCount }</td>
 			              <td>${ selectBoardVo.b_upCount }</td>
@@ -436,47 +433,68 @@ $(document).ready(function() {
   </div>
 <!-- 토론 주제 추천게시판 끝 -->
   
-<!-- 게시판03 시작 -->
+<!-- 청원게시판 시작 -->
   <div class="board03">
-  <!-- 공지사항 테이블 영역 시작 -->
+  <!-- 청원게시판 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+ 	  	
+ 	  	  <h6 class="m-0 font-weight-bold text-primary" style="float: right;" data-toggle="tooltip" data-placement="top" title="더보기">
+	      <a href="/petition_board/petitionMain?a_no=${ a_no }">+</a>
+	      </h6>
+ 	  	
+	      <h6 class="m-0 font-weight-bold text-primary">HOT한 청원</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">
+	      	
 		      	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
-			      <tbody>
-		          <c:forEach items="${ noticeList }" var="noticeList">
-		          
-		          <c:if test="${ noticeList.b_checkeddel == 0 }">
-		            <tr>
-		              <td>
-		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
-		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
-		              	[${ noticeList.a_name }] ${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
-		              	</a>
-	           		  </td>
-		              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
-		            </tr>
-				  </c:if>
-	           	  </c:forEach>
-		          </tbody>
+					<tbody>
+					<c:forEach items="${pMain}" var="peVo">
+						<tr>
+							<td>
+								<a href="/petition_board/petitionRead?a_no=${ a_no }&b_no=${ peVo.b_no }" class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+								<c:if test="${ peVo.ranking == '1' || peVo.ranking == '2' || peVo.ranking == '3'}">
+									<img src="/resources/img/rank${ peVo.ranking }.png" style="width: 30px; height: auto;">
+								</c:if>
+									<span style="font-size: 14px"> [${peVo.d_name}] </span>${peVo.b_title}
+								</a>
+							</td>
+							<td><fmt:formatDate value="${peVo.b_enddate}"
+											pattern="yyyy-MM-dd"/> </td>
+							<td>
+								<c:choose>
+									<c:when test="${peVo.b_progress == 1}" >사전 동의 진행중</c:when>
+									<c:when test="${peVo.b_progress == 2}">청원 시작</c:when>
+									<c:when test="${peVo.b_progress == 3}">청원 진행중</c:when>
+									<c:when test="${peVo.b_progress == 4}">청원 종료</c:when>
+									<c:otherwise>답변 완료</c:otherwise>
+								</c:choose>
+							</td>													
+							<td>${peVo.b_agree}</td>
+							<td>${peVo.b_readcount}</td>
+						</tr>
+					</c:forEach>
+					</tbody>
 				</table>
 	     	</div>
 	      </div>
  	</div>
- 	<!-- 공지사항 테이블 영역 끝 -->
+ 	<!-- 청원게시판 영역 끝 -->
   </div>
-<!-- 게시판03 끝 -->
+<!-- 청원게시판 끝 -->
   
 <!-- 게시판04 시작 -->
   <div class="board04">
   <!-- 공지사항 테이블 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+ 	  	
+ 	  	  <h6 class="m-0 font-weight-bold text-primary" style="float: right;" data-toggle="tooltip" data-placement="top" title="더보기">
+	      <a href="#">+</a>
+	      </h6>
+ 	  	
+	      <h6 class="m-0 font-weight-bold text-primary">자유게시판</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">

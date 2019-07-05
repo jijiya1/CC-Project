@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.domain.PagingDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.persistence.IAdminDao;
 
@@ -16,8 +17,8 @@ public class AdminServiceImpl implements IAdminService {
 	IAdminDao adminDao;
 
 	@Override
-	public List<UserInfoVo> getUserList() throws Exception {
-		List<UserInfoVo> getUserList = adminDao.getUserList();
+	public List<UserInfoVo> getUserList(PagingDto pagingDto) throws Exception {
+		List<UserInfoVo> getUserList = adminDao.getUserList(pagingDto);
 		return getUserList;
 	}
 
@@ -32,6 +33,12 @@ public class AdminServiceImpl implements IAdminService {
 	public void userDelete(String u_email) throws Exception {
 		adminDao.userDelete(u_email);
 		
+	}
+
+	@Override
+	public UserInfoVo loadUserInfo(String u_email) throws Exception {
+		UserInfoVo userInfoVo = adminDao.loadUserInfo(u_email);
+		return userInfoVo;
 	}
 
 }
