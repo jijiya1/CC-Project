@@ -97,38 +97,29 @@ $(document).ready(function () {
 	
 	<p>${best3List }</p>
 	
-	<!-- 토론 주제 추천 리스트 -->
+	<!-- 토론 주제 추천 Best3 list -->
 	  <div class="card shadow mb-4">
 	    <div class="card-body">
 		    <div class="container-fluid">
 				<div class="row">
-					<div class="col-md-12">
-						<div class="media">
-							<img class="mr-3" alt="Bootstrap Media Preview" src="/resources/img/rank1.JPG" width="50px" />
-							<div class="media-body">
-								<h5 class="mt-0">
-									1위 글제목
-								</h5> 글내용
+					<c:forEach items="${best3List }" var="bestBoardVo">
+						<div class="col-md-10">
+							<div class="media" style="width: 70%">
+								<img class="mr-3" alt="Bootstrap Media Preview" src="/resources/img/rank${bestBoardVo.ranking }.png" width="50px" />
+								<div class="media-body">
+									<h5 class="mt-0" ><a href="#" class="select_title" data-b_no = "${bestBoardVo.b_no}">[${bestBoardVo.a_name}/${bestBoardVo.d_name}]&nbsp;${bestBoardVo.b_title}</a></h5> 
+									<p>- ${bestBoardVo.b_writer}(${bestBoardVo.u_email.substring(0,3)}***)</p>
+								</div>
 							</div>
 						</div>
-						<div class="media">
-							 <a class="mr-3" href="#"><img alt="Bootstrap Media Another Preview" src="/resources/img/rank2.JPG" width="50px"/></a>
-							<div class="media-body">
-								<h5 class="mt-0">
-									2위 글제목
-								</h5> 글내용
-	
+						<div class="col-md-2">
+							<div class="card  border-left-primary">
+				                <div class="card-body">
+				                  <span style="font-size:15px">추천수 : <span style="font-style: oblique;">${bestBoardVo.b_upCount}</span></span>
+				                </div>
 							</div>
-						</div>							
-						<div class="media">
-							 <a class="mr-3" href="#"><img alt="Bootstrap Media Another Preview" src="/resources/img/rank3.JPG" width="50px"/></a>
-							<div class="media-body">
-								<h5 class="mt-0">
-									3위 글제목
-								</h5> 글내용
-							</div>
-						</div>	
-					</div>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -169,7 +160,7 @@ $(document).ready(function () {
 	      	<!-- 페이징 끝 -->
 	      	
 	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right; height: 50px; margin-bottom: 20px;">
-	      		<div style="width: 35%; float: left;">
+	      		<div style="width: 34%; float: left;">
 		      		<select class="form-control form-control-sm" id="searchType">
 			      			<option value="b_title" 
 			      				<c:if test="${pagingDto.searchType == 'b_title'}"> selected="selected"</c:if>

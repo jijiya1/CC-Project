@@ -149,7 +149,7 @@
 		
 		<div class="dot-container">
 			<c:forEach begin="1" end="${discussionListSize }" var= "i" >
-				<span class="dot" onclick="currentSlide(${i})"></span> 
+				<span class="dot" onclick="currentSlide(${i})"></span>
 			</c:forEach>
 		</div>
 		<br>
