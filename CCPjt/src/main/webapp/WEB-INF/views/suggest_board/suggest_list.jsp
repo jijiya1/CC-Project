@@ -1,39 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../include/head.jsp" %>
 <script>
 $(document).ready(function() {
 	
 	$(".a_title").click(function(e) {
 		e.preventDefault();
+// 		var a_no = "${a_no}";
 		var b_no = $(this).attr("data-b_no");
-		$("input[name=b_no]").val(b_no);		
+		$("input[name=b_no]").val(b_no);	
+// 		$("input[name=a_no]").val(a_no);
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action", href).submit();
 	});
 	
 	$("#btnWrite").click(function() {
-		location.href="suggest_write";
+		location.href="/suggest_board/suggest_write?a_no=${a_no}";
 	});
 	
 	function setPage() {
 		var page = "${pagingDto.page}";
+		var a_no = "${areaDataVo.a_no}"
 		if (page == "") {
 			page = 1;
 		}
 		var perPage = $("select[name=perPage]").val(); // ?
 
 		$("input[name=page]").val(page);
+		$("input[name=a_no]").val(a_no);
 		$("input[name=perPage]").val(10);
 	}
 	
 	function setSearch() {
 		var searchType = $("#searchType").val();
 		var keyword = $("#keyword").val();
+		var a_no = $("#a_no").val();
 		$("input[name=searchType]").val(searchType);
 		$("input[name=keyword]").val(keyword);
+		$("input[name=a_no]").val(a_no);
 	}
 	
 	$(".a_pagination").click(function(e) {
@@ -55,6 +59,8 @@ $(document).ready(function() {
 <form id="pageForm" action="/suggest_board/suggest_list">
 	<input type="hidden" name="b_no" 
 		value="${param.b_no}">
+	<input type="hidden" name="a_no"
+		value="${param.a_no}">
 	<input type="hidden" name="page"
 		value="${paginationDto.pagingDto.page}">
 	<input type="hidden" name="perPage"
@@ -77,8 +83,8 @@ $(document).ready(function() {
 				제목</option>
 				<option value="b_writer"<c:if test="${paginationDto.pagingDto.searchType == 'b_writer'}">selected</c:if>>
 				작성자</option>
-				<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_addinfo'}">selected</c:if>>
-				지역</option>
+				<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_detailinfo'}">selected</c:if>>
+				구</option>
 			</select>
 			<input type="text" id="keyword"placeholder="검색어를 입력하세요"
 				value="${pagingDto.keyword}"/>
@@ -89,7 +95,6 @@ $(document).ready(function() {
 				<thead>
 					<tr>
 						<th>글번호</th>
-						<th>지역</th>
 						<th>구</th>
 						<th>글제목</th>
 						<th>작성자</th>
@@ -103,11 +108,11 @@ $(document).ready(function() {
 				<c:forEach items="${list}" var="complaint_boardVo">
 					<tr>
 						<td>${complaint_boardVo.b_no}</td>
-						<td>${complaint_boardVo.b_addinfo}</td>
 						<td>${complaint_boardVo.b_detailinfo}</td>
-						<td><a href="/suggest_board/suggest_read" class="a_title"
-								data-b_no="${complaint_boardVo.b_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.b_writer}</td>
+						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
+								data-b_no="${complaint_boardVo.b_no}"
+								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>
+						<td>${complaint_boardVo.b_writer} (${complaint_boardVo.u_id})</td>
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>

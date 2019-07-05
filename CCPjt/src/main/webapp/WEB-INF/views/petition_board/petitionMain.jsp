@@ -52,7 +52,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		var bno = $(this).attr("data-bno");
 		var ano = "${areaDataVo.a_no}";
-		$("input[name=b_no]").val(bno);
+		$("input[name=b_serialno]").val(bno);
 		$("input[name=a_no]").val(ano);
 		console.log("bno :" + bno);
 		var href = $(this).attr("href");
@@ -61,16 +61,19 @@ $(document).ready(function(){
 	
 	$("#btnPetition").click(function(e){
 		e.preventDefault();
+		if("${userVo}" != null && "${userVo}" != ""){
+			var href = "/petition_board/petitionWrite";
+			$("#pageForm").attr("action", href).submit();
+		} else {
+			alert("로그인이 필요한 기능입니다.");
+		}
 		
-		var href = "/petition_board/petitionWrite";
-		console.log("href : " + href);
-		$("#pageForm").attr("action", href).submit();
 	});
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="b_no"  value="${param.b_no}">
+	<input type="hidden" name="b_serialno"  value="${param.b_serialno}">
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
 	<input type="hidden" name="countRow" value="${pageDto.countRow}">
 	<input type="hidden" name="searchType" value="${pageDto.searchType}">
@@ -114,7 +117,8 @@ $(document).ready(function(){
 		      	</div>
 		      	<!-- 검색바 시작 -->
 		      	<div id="dataTable_filter" class="dataTables_filter">
-		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+		      		<input type="search" class="form-control form-control-sm" placeholder="검색" 
+		      		aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
 		      	</div>
 	      	</div>
 	      	<!-- 검색바 끝 -->
@@ -148,12 +152,21 @@ $(document).ready(function(){
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"
-											class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+											class="a_title" style="float: left;" data-bno="${peVo.b_serialno}">
 											<span style="font-size: 14px">[${peVo.a_name}/${peVo.d_name}] </span>
 											&nbsp; ${peVo.b_title}</a>
 									</td>
-									<td><fmt:formatDate value="${peVo.b_enddate}"
-													pattern="yyyy-MM-dd"/> </td>
+									<td>
+										<fmt:formatDate value="${peVo.b_enddate}" pattern="yyyy-MM-dd" var="peDate"/>
+            								<c:choose> 
+		            							<c:when test="${formTime == peDate}">
+		            								만료(<fmt:formatDate value="${peVo.b_enddate}" pattern="HH:mm"/>)
+		            							</c:when>
+		            							<c:otherwise>
+		            								${peDate}
+		            							</c:otherwise>
+            							</c:choose> 
+									</td>
 									<td>
 										<c:choose>
 											<c:when test="${peVo.b_progress == 1}" >사전 동의 진행중</c:when>

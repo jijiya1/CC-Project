@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	
+
 <%@include file="../include/head.jsp" %>
 
 <title>국민 청원</title>
 <script>
 $(document).ready(function(){
+	var date = new Date();
+	console.log("날짜당 :"+date);
+	
 	var a_no = "${areaDataVo.a_no}";
 	$("input[name=a_no]").val(a_no);
 	function setPage(){
@@ -54,26 +59,31 @@ $(document).ready(function(){
 	$(".a_title").click(function(e){
 		e.preventDefault();
 		setPage();
-		var bno = $(this).attr("data-bno");
+		var b_serialno = $(this).attr("data-bno");
 		var ano = ${areaDataVo.a_no};
-		$("input[name=b_no]").val(bno);
+		$("input[name=b_serialno]").val(b_serialno);
 		$("input[name=a_no]").val(ano);
-		console.log("bno :" + bno);
+// 		console.log("b_serialno :" + bno);
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action",href).submit();
 	});
 	
-	$("#btnPetition").click(function(){
-		var href = "/petition_board/petitionWrite";
-		console.log("href : " + href);
-		$("#pageForm").attr("action", href).submit();
-	});	
+	$("#btnPetition").click(function(e){
+		e.preventDefault();
+		if("${userVo}" != null && "${userVo}" != ""){
+			var href = "/petition_board/petitionWrite";
+			$("#pageForm").attr("action", href).submit();
+		} else {
+			alert("로그인이 필요한 기능입니다.");
+		}
+		
+	});
 });
 </script>
 <%-- ${pageDto } --%>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="b_no"  value="${param.b_no}">
+	<input type="hidden" name="b_serialno"  value="${param.b_serialno}">
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
 	<input type="hidden" name="countRow" value="${pageDto.countRow}">
 	<input type="hidden" name="searchType" value="${pageDto.searchType}">
@@ -150,12 +160,22 @@ $(document).ready(function(){
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"
-											class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+											class="a_title" style="float: left;" data-bno="${peVo.b_serialno}">
 											<span style="font-size: 14px">[${peVo.a_name}/${peVo.d_name}] </span>
 											&nbsp; ${peVo.b_title}</a>
 									</td>
-									<td><fmt:formatDate value="${peVo.b_enddate}"
-													pattern="yyyy-MM-dd"/> </td>
+									
+									<td>
+            							<fmt:formatDate value="${peVo.b_enddate}" pattern="yyyy-MM-dd" var="peDate"/>
+            							<c:choose> 
+	            							<c:when test="${formTime == peDate}">
+	            								만료(<fmt:formatDate value="${peVo.b_enddate}" pattern="HH:mm"/>)
+	            							</c:when>
+	            							<c:otherwise>
+	            								${peDate}
+	            							</c:otherwise>
+            							</c:choose> 
+            						</td>
 									<td>
 										<c:choose>
 											<c:when test="${peVo.b_progress == 1}" >사전 동의 진행중</c:when>

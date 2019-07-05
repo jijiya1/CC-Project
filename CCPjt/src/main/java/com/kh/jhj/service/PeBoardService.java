@@ -38,8 +38,8 @@ public class PeBoardService implements IPeBoardService {
 	}
 
 	@Override
-	public PetitionVo petitionRead(int b_no) throws Exception {
-		PetitionVo peVo = peBoardDao.petitionRead(b_no);
+	public PetitionVo petitionRead(String b_serialno) throws Exception {
+		PetitionVo peVo = peBoardDao.petitionRead(b_serialno);
 		return peVo;
 	}
 
@@ -82,6 +82,24 @@ public class PeBoardService implements IPeBoardService {
 				
 			}
 		}
+		
+	}
+
+	@Override
+	public int runOutCount(PagingDto pageDto, int a_no) throws Exception {
+		int count = peBoardDao.runOutCount(pageDto, a_no);
+		return count;
+	}
+
+	@Override
+	public List<String> readLink(String b_serialno) throws Exception {
+		List<String> links = peBoardDao.readLink(b_serialno);
+		return links;
+	}
+
+	@Override
+	public void readCount(String b_serialno) throws Exception {
+		peBoardDao.readCount(b_serialno);
 		
 	}
 

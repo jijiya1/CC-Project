@@ -74,14 +74,14 @@ $(document).ready(function() {
       	<c:when test="${ areaDataVo.a_no == null }">
     	 <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">
-	          <i class="fas fa-fw fa-list-alt"></i>
+	          <i class="fas fa-fw fas fas fa-exclamation-circle"></i>
 	          <span>공지사항</span></a>
 	    </li>
 	    </c:when>
 	    <c:otherwise>
        	 <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">
-	          <i class="fas fa-fw fa-list-alt"></i>
+	          <i class="fas fa-fw fas fas fa-exclamation-circle"></i>
 	          <span>공지사항</span></a>
 	    </li>
 	    </c:otherwise>
@@ -101,7 +101,7 @@ $(document).ready(function() {
 	      </div>
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_location">
-	          <i class="fas fa-fw fa-list-alt"></i>
+	          <i class="fas fa-fw fas fa-globe-americas"></i>
 	          <span>지역선택</span></a>
 	      </li>
 		</c:when>
@@ -109,33 +109,33 @@ $(document).ready(function() {
 		<c:otherwise>
 	      <!-- Heading -->
 	      <div class="sidebar-heading">
-	        ${areaDataVo.a_name }
+	        ${ areaDataVo.a_engname }
 	      </div>
+	      
+     	<!-- Nav Item - 손병진 -->
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/person_board/person_list?a_no=${ areaDataVo.a_no }">
+	          <i class="fas fa-fw fas fa-user-tie"></i>
+	          <span>의원 정보</span></a>
+	      </li>
 	
 		<!-- Nav Item - 정혜지 -->
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/petition_board/petitionMain?a_no=${ areaDataVo.a_no }">
-	          <i class="fas fa-fw fa-list-alt"></i>
+	          <i class="fas fa-fw fas fa-comment-dots"></i>
 	          <span>청원게시판</span></a>
-	      </li>
-	      
-		<!-- Nav Item - 손병진 -->
-	      <li class="nav-item active">
-	        <a class="nav-link" href="/person_board/person_list?a_no=${ areaDataVo.a_no }">
-	          <i class="fas fa-fw fa-list-alt"></i>
-	          <span>의원 정보</span></a>
 	      </li>
 	      
 		<!-- Nav Item - 황용석 -->
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/discussion_board/discussion_main_board?a_no=${ areaDataVo.a_no }">
-	          <i class="fas fa-fw fa-list-alt"></i>
+	          <i class="fas fa-fw far fa-comments"></i>
 	          <span>토론게시판</span></a>
 	      </li>
 	      
 		<!-- Nav Item - 박석환 -->
 	      <li class="nav-item active">
-	        <a class="nav-link" href="/suggest_board/suggest_list">
+	        <a class="nav-link" href="/suggest_board/suggest_list?a_no=${ a_no }">
 	          <i class="fas fa-fw fa-list-alt"></i>
 	          <span>자유게시판</span></a>
 	      </li>
@@ -364,6 +364,10 @@ $(document).ready(function() {
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   내 게시글
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-envelope fa-fw mr-2 text-gray-400"></i>
+                  메시지
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/logout" >

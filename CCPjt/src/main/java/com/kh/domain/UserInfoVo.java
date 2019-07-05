@@ -1,5 +1,7 @@
 package com.kh.domain;
 
+import java.sql.Timestamp;
+
 public class UserInfoVo {
 	
 	private String u_email;
@@ -8,20 +10,22 @@ public class UserInfoVo {
     private String u_address;
     private String u_detail;
     private String u_local;
+    private String u_localextra;
     private String u_grade;
-    private String u_activity_rate;
-    private String u_withdrawDate;
-    private String u_createdDate;
+    private int u_activity_rate;
+    private Timestamp u_withdrawDate;
+    private Timestamp u_createdDate;
     private String u_party;
-    private String u_position;
+    private int u_position;
+    private int u_postcode;
     
 	public UserInfoVo() {
 		super();
 	}
 
 	public UserInfoVo(String u_email, String u_pw, String u_name, String u_address, String u_detail, String u_local,
-			String u_grade, String u_activity_rate, String u_withdrawDate, String u_createdDate, String u_party,
-			String u_position) {
+			String u_localextra, String u_grade, int u_activity_rate, Timestamp u_withdrawDate, Timestamp u_createdDate,
+			String u_party, int u_position, int u_postcode) {
 		super();
 		this.u_email = u_email;
 		this.u_pw = u_pw;
@@ -29,12 +33,14 @@ public class UserInfoVo {
 		this.u_address = u_address;
 		this.u_detail = u_detail;
 		this.u_local = u_local;
+		this.u_localextra = u_localextra;
 		this.u_grade = u_grade;
 		this.u_activity_rate = u_activity_rate;
 		this.u_withdrawDate = u_withdrawDate;
 		this.u_createdDate = u_createdDate;
 		this.u_party = u_party;
 		this.u_position = u_position;
+		this.u_postcode = u_postcode;
 	}
 
 	public String getU_email() {
@@ -85,6 +91,14 @@ public class UserInfoVo {
 		this.u_local = u_local;
 	}
 
+	public String getU_localextra() {
+		return u_localextra;
+	}
+
+	public void setU_localextra(String u_localextra) {
+		this.u_localextra = u_localextra;
+	}
+
 	public String getU_grade() {
 		return u_grade;
 	}
@@ -93,27 +107,27 @@ public class UserInfoVo {
 		this.u_grade = u_grade;
 	}
 
-	public String getU_activity_rate() {
+	public int getU_activity_rate() {
 		return u_activity_rate;
 	}
 
-	public void setU_activity_rate(String u_activity_rate) {
+	public void setU_activity_rate(int u_activity_rate) {
 		this.u_activity_rate = u_activity_rate;
 	}
 
-	public String getU_withdrawDate() {
+	public Timestamp getU_withdrawDate() {
 		return u_withdrawDate;
 	}
 
-	public void setU_withdrawDate(String u_withdrawDate) {
+	public void setU_withdrawDate(Timestamp u_withdrawDate) {
 		this.u_withdrawDate = u_withdrawDate;
 	}
 
-	public String getU_createdDate() {
+	public Timestamp getU_createdDate() {
 		return u_createdDate;
 	}
 
-	public void setU_createdDate(String u_createdDate) {
+	public void setU_createdDate(Timestamp u_createdDate) {
 		this.u_createdDate = u_createdDate;
 	}
 
@@ -125,15 +139,30 @@ public class UserInfoVo {
 		this.u_party = u_party;
 	}
 
-	public String getU_position() {
+	public int getU_position() {
 		return u_position;
 	}
 
-	public void setU_position(String u_position) {
+	public void setU_position(int u_position) {
 		this.u_position = u_position;
 	}
+
+	public int getU_postcode() {
+		return u_postcode;
+	}
+
+	public void setU_postcode(int u_postcode) {
+		this.u_postcode = u_postcode;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfoVo [u_email=" + u_email + ", u_pw=" + u_pw + ", u_name=" + u_name + ", u_address=" + u_address
+				+ ", u_detail=" + u_detail + ", u_local=" + u_local + ", u_localextra=" + u_localextra + ", u_grade="
+				+ u_grade + ", u_activity_rate=" + u_activity_rate + ", u_withdrawDate=" + u_withdrawDate
+				+ ", u_createdDate=" + u_createdDate + ", u_party=" + u_party + ", u_position=" + u_position
+				+ ", u_postcode=" + u_postcode + "]";
+	}
+
 	
-    
-    
-   
 }

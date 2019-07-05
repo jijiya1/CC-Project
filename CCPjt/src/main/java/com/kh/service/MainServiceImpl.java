@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.domain.PagingDto;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
+import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -37,6 +38,12 @@ public class MainServiceImpl implements IMainService {
 			throws Exception {
 		List<SelectDiscussion_BoardVo> getSubSelectDiscussionBoardList = mainDao.getSubSelectDiscussionBoardList(pagingDto, a_no);
 		return getSubSelectDiscussionBoardList;
+	}
+
+	@Override
+	public List<PetitionVo> getPetitionRankingList(int a_no) throws Exception {
+		List<PetitionVo> getPetitionRankingList = mainDao.getPetitionRankingList(a_no);
+		return getPetitionRankingList;
 	}
 
 }

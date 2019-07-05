@@ -5,17 +5,28 @@
   	
 <mapper namespace ="user_join">
 	<insert id="insertUser">
-		insert into user_info(u_email, u_pw, u_name, u_address, u_detail, u_local)
-		values(#{u_email}, #{u_pw}, #{u_name}, #{u_address}, #{u_detail}, #{u_local})
+		insert into user_info(u_email, u_pw, u_name, u_address, u_detail, u_local, u_localextra, u_postcode)
+		values(#{u_email}, #{u_pw}, #{u_name}, #{u_address}, #{u_detail}, #{u_local}, #{u_localextra}, #{u_postcode})
 	</insert>
 	<update id="updateUser">
 		update user_info set
 		u_address = #{u_address}, u_detail = #{u_detail}, u_local = #{u_local}
 		where u_email = #{u_email}
 	</update>
+	<update id="updatePw">
+		update user_info set
+		u_pw = #{u_pw}
+		where u_email = #{u_email}
+	</update>
 	<update id="deleteUser">
 		update user_info set
 		u_withdrawdate = sysdate
+		where u_email = #{u_email}
+	</update>
+	
+	<update id="initWithdrawDate">
+		update user_info set
+		u_withdrawdate = null
 		where u_email = #{u_email}
 	</update>
 	
@@ -32,5 +43,10 @@
 	<select id="searchPw" resultType="String">
 		select u_pw from user_info
 		where u_email = #{u_email}
+	</select>
+	
+	<select id="checkEmailName" resultType="Integer">
+		select count(*) from user_info
+		where u_email = #{u_email} and u_name = #{u_name}
 	</select>
 </mapper>  	

@@ -14,6 +14,7 @@ public class Complaint_ReplyVo {
 	private int r_step;//리플 삭제여부
 	private int r_level;
 	private int r_checkeddel;
+	private int b_no;
 	
 	public String getB_serialno() {
 		return b_serialno;
@@ -81,11 +82,19 @@ public class Complaint_ReplyVo {
 	public void setR_checkeddel(int r_checkeddel) {
 		this.r_checkeddel = r_checkeddel;
 	}
+	
+	public int getB_no() {
+		return b_no;
+	}
+	public void setB_no(int b_no) {
+		this.b_no = b_no;
+	}
 	@Override
 	public String toString() {
 		return "Complaint_ReplyVo [b_serialno=" + b_serialno + ", r_no=" + r_no + ", r_writer=" + r_writer
 				+ ", r_content=" + r_content + ", r_createddate=" + r_createddate + ", r_modifieddate=" + r_modifieddate
 				+ ", b_upcount=" + b_upcount + ", b_downcount=" + b_downcount + ", r_step=" + r_step + ", r_level="
-				+ r_level + ", r_checkeddel=" + r_checkeddel + "]";
+				+ r_level + ", r_checkeddel=" + r_checkeddel + ", b_no=" + b_no + "]";
 	}
+	
 }

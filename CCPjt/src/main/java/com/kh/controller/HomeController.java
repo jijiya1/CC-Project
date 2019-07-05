@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.domain.LoginDto;
 import com.kh.domain.PagingDto;
@@ -75,12 +76,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/login_run", method = RequestMethod.POST)
-	public String loginRun(LoginDto loginDto, HttpSession session) throws Exception{
+	public String loginRun(LoginDto loginDto, HttpSession session, RedirectAttributes rttr) throws Exception{
 		UserInfoVo userInfoVo = userJoinService.userLogin(loginDto);
+		rttr.addFlashAttribute("message", "login");
 		String page = "redirect:";
 		if(userInfoVo==null) {
 			page+="/login?inputEmail="+loginDto.getU_email();
 		}else {
+//			System.out.println("loginDto.getU_email() : " + loginDto.getU_email());
 			session.setAttribute("userVo", userInfoVo);
 			page+="/";
 		}

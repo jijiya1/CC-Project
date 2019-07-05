@@ -16,6 +16,7 @@ $(document).ready(function() {
 
 	// 글 작성 취소
 	$("#btnCancel").click(function() {
+		history.back();
 	});	
 
 });
@@ -40,12 +41,12 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" required="required" />
+				<input type="text" class="form-control" name="b_writer" value = "${userVo.u_name}" readonly="readonly"/>
 			</div>
 			
 			<div class="form-group">
 				<label>ID</label>
-				<input type="text" class="form-control" name="u_email" required="required" />
+				<input type="text" class="form-control" name="u_email" 	value = "${userVo.u_email}" readonly="readonly"/>
 			</div>
 			
 			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>

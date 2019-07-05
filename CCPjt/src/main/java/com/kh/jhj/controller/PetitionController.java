@@ -1,10 +1,11 @@
 package com.kh.jhj.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-import javax.xml.soap.Detail;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +43,11 @@ public class PetitionController {
 			int listCount = peService.listCount(pageDto, a_no);
 			pageDto.setTotalData(listCount);
 
+			SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
+			Date time = new Date();
 			
-//			System.out.println("controller PageDto"+ pageDto);
+			String formTime = form1.format(time);
+//		System.out.println("controller formTime :"+ formTime);
 //			System.out.println("pageDto:" + pageDto);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		
@@ -56,33 +60,44 @@ public class PetitionController {
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("count", listCount);
 		model.addAttribute("pageDto", pageDto);
+		model.addAttribute("formTime", formTime);
 	}
 	
 	@RequestMapping(value="petitionMain", method=RequestMethod.GET)
 	public void petitionMain(@RequestParam("a_no") int a_no, Model model,
 							PagingDto pageDto) throws Exception{
-		List<PetitionVo> pMain = peService.listMain(a_no);
-		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date time = new Date();
+		
+		String formTime = form1.format(time);
 		
 		int listCount = peService.listCount(pageDto, a_no);
+		List<PetitionVo> pMain = peService.listMain(a_no);
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		pageDto.setTotalData(listCount);
 		
 		model.addAttribute("pMain", pMain);
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("count", listCount);
 		model.addAttribute("pageDto", pageDto);
+		model.addAttribute("formTime", formTime);
 	}
 	
 	@RequestMapping(value="petitionRead", method=RequestMethod.GET)
-	public void petitionRead(@RequestParam("b_no") int b_no, Model model,
+	public void petitionRead(@RequestParam("b_serialno") String b_serialno, Model model,
 							@RequestParam("a_no") int a_no,
 							PagingDto pageDto) throws Exception{
 //		System.out.println("bno :" + b_no);
+		peService.readCount(b_serialno);
+		
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
-		PetitionVo peVo = peService.petitionRead(b_no);
+		PetitionVo peVo = peService.petitionRead(b_serialno);
+		List<String> links = peService.readLink(b_serialno);
+		
 		model.addAttribute("peVo", peVo);
 		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("links", links);
 	}
 	
 	@RequestMapping(value="petitionDel", method=RequestMethod.GET)
@@ -97,11 +112,28 @@ public class PetitionController {
 	@RequestMapping(value="petitionRunOut", method=RequestMethod.GET)
 	public void petitionRunOut(@RequestParam("a_no") int a_no,
 								Model model, PagingDto pageDto) throws Exception{
+		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date time = new Date();
+		
+		String formTime = form1.format(time);
+		
+		if(pageDto.getCountRow() == 5) {
+			pageDto.setCountRow(10);
+		}
+		
+		int runOutCount = peService.runOutCount(pageDto, a_no);
+		pageDto.setTotalData(runOutCount);
+		
 		List<PetitionVo> pRunOut = peService.listRunOut(a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		
+			
+		
 		model.addAttribute("pRunOut",pRunOut);
 		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("areaDataVo",areaDataVo);
+		model.addAttribute("count",runOutCount);
+		model.addAttribute("formTime",formTime);
 	}
 	
 	@RequestMapping(value="petitionWrite", method=RequestMethod.GET)

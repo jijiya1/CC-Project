@@ -55,23 +55,27 @@ $(document).ready(function(){
 		e.preventDefault();
 		var bno = $(this).attr("data-bno");
 		var ano = ${areaDataVo.a_no};
-		$("input[name=b_no]").val(bno);
+		$("input[name=b_serialno]").val(bno);
 		$("input[name=a_no]").val(ano);
 		console.log("bno :" + bno);
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action",href).submit();
 	});
 	
-	$("#btnPetition").click(function(){
-		var href = "/petition_board/petitionWrite";
-		console.log("href : " + href);
-		$("#pageForm").attr("action", href).submit();
-	});	
+	$("#btnPetition").click(function(e){
+		e.preventDefault();
+		if("${userVo}" != null && "${userVo}" != ""){
+			var href = "/petition_board/petitionWrite";
+			$("#pageForm").attr("action", href).submit();
+		} else {
+			alert("로그인이 필요한 기능입니다.");
+		}
+	});
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="b_no"  value="${param.b_no}">
+	<input type="hidden" name="b_serialno"  value="${param.b_serialno}">
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
 	<input type="hidden" name="countRow" value="${pageDto.countRow}">
 	<input type="hidden" name="searchType" value="${pageDto.searchType}">
@@ -87,7 +91,7 @@ $(document).ready(function(){
 	
 		<!-- 페이지 헤더 -->	
 	
-		<h1 class="h3 mb-2 text-gray-800"> 청원 만료 게시판</h1><p class="mb-4">
+		<h1 class="h3 mb-2 text-gray-800"> 청원 만료 게시판(만료)</h1><p class="mb-4">
 		<span> 전체 ${count}건의 게시물이 있습니다.</span>
 		<input class="btn btn-primary" type="button" value="청원하기" id="btnPetition">
 	</p>
@@ -148,12 +152,21 @@ $(document).ready(function(){
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"
-											class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+											class="a_title" style="float: left;" data-bno="${peVo.b_serialno}">
 											<span style="font-size: 14px">[${peVo.a_name}/${peVo.d_name}] </span>
 											&nbsp; ${peVo.b_title}</a>
 									</td>
-									<td><fmt:formatDate value="${peVo.b_enddate}"
-													pattern="yyyy-MM-dd"/> </td>
+									<td>
+										<fmt:formatDate value="${peVo.b_enddate}" pattern="yyyy-MM-dd" var="peDate"/>
+            								<c:choose> 
+		            							<c:when test="${formTime == peDate}">
+		            								만료(<fmt:formatDate value="${peVo.b_enddate}" pattern="HH:mm"/>)
+		            							</c:when>
+		            							<c:otherwise>
+		            								${peDate}
+		            							</c:otherwise>
+            							</c:choose> 
+									</td>
 									<td>
 										<c:choose>
 											<c:when test="${peVo.b_progress == 1}" >사전 동의 진행중</c:when>
