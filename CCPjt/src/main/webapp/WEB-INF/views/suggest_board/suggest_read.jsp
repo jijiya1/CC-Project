@@ -6,15 +6,15 @@ $(document).ready(function() {
 	
 	//수정
 	$("#btnUpt").click(function() {
-		location.href="/suggest_board/suggest_update?b_no=${vo.b_no}";
+		location.href="/suggest_board/suggest_update?b_no=${vo.b_no}&a_no=${a_no}";
 	});
 	//삭제
 	$("#btnDel").click(function() {
-		location.href = "/suggest_board/suggest_delete?b_no=${vo.b_no}";
+		location.href = "/suggest_board/suggest_delete?b_no=${vo.b_no}&a_no=${a_no}";
 	});
 	//목록
 	$("#btnList").click(function() {
-		location.href="/suggest_board/suggest_list";
+		location.href="/suggest_board/suggest_list?a_no=${a_no}";
 	});
 	
 	
@@ -154,6 +154,7 @@ $(document).ready(function() {
 </script>
 <!-- 댓글 수정모달 -->
 <div class="container-fluid">
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ <a href="/suggest_board/suggest_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ vo.a_no}">자유게시판</a> ＞ ${ vo.b_title }</p>
 	<div class="row">
 		<div class="col-md-12">
 		<a style="display:none;"
@@ -195,7 +196,7 @@ $(document).ready(function() {
 </div>
 <!-- 댓글 수정모달 끝 -->
 
-<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="suggest_list">자유게시판</a> ＞ ${vo.b_title}</p>
+
 <h1>글조회</h1>
 <!-- 읽기 -->
 <div class="card shadow mb-4">
