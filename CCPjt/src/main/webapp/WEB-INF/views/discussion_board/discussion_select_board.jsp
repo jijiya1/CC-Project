@@ -4,6 +4,11 @@
 
 <script>
 $(document).ready(function () {
+	
+	var u_email = "${userVo.u_email}";
+	var b_writer = "${userVo.u_name}";
+	var todayTime = "${todayTime}";
+	
 	// 표시 게시글 갯수 변경
 	$("#dataTable_length").change(function () {
 		var url = "/selectDiscussion/discussion_select_board";
@@ -24,14 +29,17 @@ $(document).ready(function () {
 			var url = "/selectDiscussion/discussion_select_board";
 			$("#hiddenData").attr("action",url);
 			
-			var searchKeyword =  $(this).val();
-			$("input[name=searchKeyword]").val(searchKeyword);
-			
 			var nowPage = 1;
 			$("input[name=nowPage]").val(nowPage);
 			
 			var countRow = $("select[name=dataTable_length]").val();
 			$("input[name=countRow]").val(countRow);
+			
+			var searchKeyword =  $(this).val();
+			$("input[name=searchKeyword]").val(searchKeyword);
+			
+			var searchType =  $("#searchType").val();
+			$("input[name=searchType]").val(searchType);
 			
 			$("#hiddenData").submit();
 		}
@@ -68,14 +76,18 @@ $(document).ready(function () {
 	
 	// 글 작성 페이지로 이동
 	$("#btnWrite").click(function () {
-		location.href = "/selectDiscussion/discussion_select_write?a_no="+${areaDataVo.a_no };
-	})
+		if (u_email != null && u_email != "") {
+			location.href = "/selectDiscussion/discussion_select_write?a_no="+${areaDataVo.a_no };
+		} else {
+			alert("로그인이 필요한 기능입니다.")
+		}//if
+	})//$("#btnWrite").click
 });
 </script>
 
 	<!-- 토론 주제 추천게시판 시작 -->
 	<div class="container-fluid">
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a>＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">토론 주제 추천게시판</h1>
 
@@ -83,8 +95,37 @@ $(document).ready(function () {
 	<p class="mb-4">
 		<span>전체 ${pagingDto.totalData }건의 게시물이 있습니다.</span>
 	</p>
-
-	<!-- 공지사항 리스트 -->
+	<!-- 토론 주제 추천 Best3 list -->
+	  <div class="card shadow mb-4">
+	    <div class="card-body">
+		    <div class="container-fluid">
+				<div class="row">
+					<c:forEach items="${best3List }" var="bestBoardVo">
+						<div class="col-md-10">
+							<div class="media" style="width: 70%">
+								<img class="mr-3" alt="Bootstrap Media Preview" src="/resources/img/rank${bestBoardVo.ranking }.png" width="50px" />
+								<div class="media-body">
+									<h5 class="mt-0" ><a href="#" class="select_title" data-b_no = "${bestBoardVo.b_no}">[${bestBoardVo.a_name}/${bestBoardVo.d_name}]&nbsp;${bestBoardVo.b_title}</a></h5> 
+									<p>- ${bestBoardVo.b_writer}(${bestBoardVo.u_email.substring(0,3)}***)</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="card  border-left-primary">
+				                <div class="card-body">
+				                  <span style="font-size:17px;">추천수 : <span style="font-style: oblique;">${bestBoardVo.b_upCount}</span></span>
+				                </div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 각종 버튼 및 유틸 끝 -->
+	
+	
+	<!-- 토론 주제 추천 리스트 -->
 	  <div class="card shadow mb-4">
 	    
 	    <div class="card-body">
@@ -95,8 +136,10 @@ $(document).ready(function () {
 			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
 			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
+			<input type="hidden" name="searchType" value = "${pagingDto.searchType }">
 			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no">
+			<input type="hidden" name="u_email" value = "${userVo.u_email }">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
@@ -115,9 +158,27 @@ $(document).ready(function () {
 	      	</div>
 	      	<!-- 페이징 끝 -->
 	      	
-	      	<!-- 검색바 시작 -->
-	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right;">
-	      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right; height: 50px; margin-bottom: 20px;">
+	      		<div style="width: 34%; float: left;">
+		      		<select class="form-control form-control-sm" id="searchType">
+			      			<option value="b_title" 
+			      				<c:if test="${pagingDto.searchType == 'b_title'}"> selected="selected"</c:if>
+			      			>제목</option>
+			      			<option value="b_content"
+			      				<c:if test="${pagingDto.searchType == 'b_content'}"> selected="selected"</c:if>
+			      			>내용</option>
+			      			<option value="b_writer"
+			      				<c:if test="${pagingDto.searchType == 'b_writer'}"> selected="selected"</c:if>
+			      			>작성자</option>
+			      	</select>
+		      	</div>
+		      	<div style="width: 65%; float:right;">
+		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword"
+		      			<c:if test="${pagingDto.searchKeyword != null && pagingDto.searchKeyword != ''}">
+		      				value="${pagingDto.searchKeyword }"
+		      			</c:if>
+		      		>
+		      	</div>
 	      	</div>
 	      	<!-- 검색바 끝 -->
 
@@ -137,26 +198,41 @@ $(document).ready(function () {
 		          <c:forEach items="${selectBoardList }" var="selectBoardVo">
 		          	<tr>
 			          <td>${selectBoardVo.b_no}</td>
-	           		  <td><a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]&nbsp;${selectBoardVo.b_title}</a></td>
+	           		  <td>
+		           		  <a href="#" style="float: left;" class="select_title" data-b_no = "${selectBoardVo.b_no}">[${selectBoardVo.a_name}/${selectBoardVo.d_name}]&nbsp;${selectBoardVo.b_title}
+		           		  	<c:if test="${selectBoardVo.b_upCount >= 10}">
+		           		  		<img src="/resources/img/hot.gif" width="12px">
+		           		  	</c:if>	
+		           		  	<c:if test="${selectBoardVo.b_strCreatedDate == todayTime}">
+		           		  		<img src="/resources/img/new.gif" width="12px">
+		           		  	</c:if>
+		           		  </a>
+	           		  </td>
 		              <td>${selectBoardVo.b_writer}(${selectBoardVo.u_email.substring(0,3)}***)</td>
 		              <td>${selectBoardVo.b_readCount}</td>
 		              <td>${selectBoardVo.b_upCount}</td>
-		              <td><fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+		              <td>
+		              	<c:choose>
+		              		<c:when test="${selectBoardVo.b_strCreatedDate == todayTime}">
+		              			<fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="HH:mm"/>
+		              		</c:when>
+		              		<c:otherwise>
+		              			<fmt:formatDate value="${selectBoardVo.b_createdDate}" pattern="yyyy-MM-dd"/>
+		              		</c:otherwise>
+		              	</c:choose>
+		              </td>
 		             </tr>
 		          </c:forEach>
 	          </tbody>
 	        </table>
 	      </div>
-	    </div>
-	  </div>
-	  <!-- 테이블 끝 -->
-	  
-	  <!-- 각종 버튼 및 유틸 모음 시작 -->
+	      
+	      	  <!-- 각종 버튼 및 유틸 모음 시작 -->
 	<div>
-		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }"><button type="button" class="btn btn-success" style="float: left;">
-		<span class="fas fa-list"></span></button></a>
+		<a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }"><button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="목록" style="float: left; margin-right: 10px">
+		<span class="fas fa-list" ></span></button></a>
 		
-		<button class="btn btn-danger" id = "btnWrite">글작성 작성</button>
+		<button type="button" class="btn btn-primary" id="btnWrite" data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-pencil-alt"></span></button>
 		
 	  	<!-- 페이지네이션 시작 -->
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
@@ -205,6 +281,12 @@ $(document).ready(function () {
 			</ul>
 		</div>
 		<!-- 페이지네이션 끝 -->
+	      
+	    </div>
+	  </div>
+	  <!-- 테이블 끝 -->
+	  
+
 
 	</div>
 	<!-- 각종 버튼 및 유틸 끝 -->

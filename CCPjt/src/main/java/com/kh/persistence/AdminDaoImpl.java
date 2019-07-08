@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.domain.DetailDataVo;
 import com.kh.domain.UserInfoVo;
+import com.kh.shj.domain.NoPagingDto;
+import com.kh.shj.domain.NoSearchDto;
 
 @Repository
 public class AdminDaoImpl implements IAdminDao {
@@ -20,8 +22,13 @@ public class AdminDaoImpl implements IAdminDao {
 	SqlSession sqlSession;
 
 	@Override
-	public List<UserInfoVo> getUserList() throws Exception {
-		List<UserInfoVo> getUserList = sqlSession.selectList(NAMESPACE + "getUserList");
+	public List<UserInfoVo> getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("noPagingDto", noPagingDto);
+		data.put("noSearchDto", noSearchDto);
+		
+		List<UserInfoVo> getUserList = sqlSession.selectList(NAMESPACE + "getUserList", data);
 		return getUserList;
 	}
 
@@ -63,6 +70,17 @@ public class AdminDaoImpl implements IAdminDao {
 	public String selectAname(int a_no) throws Exception {
 		String a_name = sqlSession.selectOne(NAMESPACE + "selectAname", a_no);
 		return a_name;
+	}
+	
+	@Override
+	public int userContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("noSearchDto", noSearchDto);
+		data.put("noPagingDto", noPagingDto);
+		
+		int userContentCount = sqlSession.selectOne(NAMESPACE + "userContentCount", data);
+		return userContentCount;
 	}
 
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.kh.domain.DetailDataVo;
 import com.kh.domain.UserInfoVo;
 import com.kh.persistence.IAdminDao;
+import com.kh.shj.domain.NoPagingDto;
+import com.kh.shj.domain.NoSearchDto;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
@@ -17,8 +19,8 @@ public class AdminServiceImpl implements IAdminService {
 	IAdminDao adminDao;
 
 	@Override
-	public List<UserInfoVo> getUserList() throws Exception {
-		List<UserInfoVo> getUserList = adminDao.getUserList();
+	public List<UserInfoVo> getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto) throws Exception {
+		List<UserInfoVo> getUserList = adminDao.getUserList(noPagingDto, noSearchDto);
 		return getUserList;
 	}
 
@@ -57,6 +59,12 @@ public class AdminServiceImpl implements IAdminService {
 	public String selectAname(int a_no) throws Exception {
 		String a_name = adminDao.selectAname(a_no);
 		return a_name;
+	}
+	
+	@Override	
+	public int userContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		int userContentCount = adminDao.userContentCount(noSearchDto, noPagingDto);
+		return userContentCount;
 	}
 
 }

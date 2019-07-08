@@ -16,6 +16,7 @@ $(document).ready(function() {
 
 	// 글 작성 취소
 	$("#btnCancel").click(function() {
+		history.back();
 	});	
 
 });
@@ -24,7 +25,7 @@ $(document).ready(function() {
 <!-- 토론 주제 추천 작성 시작 -->
 	<div class="container-fluid">
 	       
-		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞</p>
+		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a>＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a>＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
 		
 		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">토론 주제 추천 글작성</h1><br>
@@ -40,12 +41,12 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" required="required" />
+				<input type="text" class="form-control" name="b_writer" value = "${userVo.u_name}" readonly="readonly"/>
 			</div>
 			
 			<div class="form-group">
 				<label>ID</label>
-				<input type="text" class="form-control" name="u_email" required="required" />
+				<input type="text" class="form-control" name="u_email" 	value = "${userVo.u_email}" readonly="readonly"/>
 			</div>
 			
 			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>

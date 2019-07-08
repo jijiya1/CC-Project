@@ -26,6 +26,9 @@ import com.kh.sbj.util.EmailCertifiedKey;
 import com.kh.sbj.util.FileUploadUtil;
 import com.kh.sbj.util.MailHandler;
 import com.kh.service.IAdminService;
+import com.kh.shj.domain.NoPaginationDto;
+import com.kh.shj.domain.NoPagingDto;
+import com.kh.shj.domain.NoSearchDto;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -44,9 +47,20 @@ public class AdminController {
 	private String uploadPath;
 	
 	@RequestMapping(value="/user_list", method=RequestMethod.GET)
-	public void getUserList(Model model) throws Exception {
-		List<UserInfoVo> getUserList = adminService.getUserList();
+	public void getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto, Model model) throws Exception {
+		
+		List<UserInfoVo> getUserList = adminService.getUserList(noPagingDto, noSearchDto);
 		model.addAttribute("userinfoVo", getUserList);
+		
+		NoPaginationDto noPaginationDto = new NoPaginationDto();
+		noPaginationDto.setNoSearchDto(noSearchDto);
+		noPaginationDto.setNoPagingDto(noPagingDto);
+		
+		int contentCount = adminService.userContentCount(noSearchDto, noPagingDto);
+		noPaginationDto.setContentCount(contentCount);
+//		System.out.println("contentCount : " + contentCount);
+		
+		model.addAttribute("noPaginationDto", noPaginationDto);
 		
 		int getUserCount = adminService.getUserCount();
 		model.addAttribute("getUserCount", getUserCount);
@@ -188,5 +202,11 @@ public class AdminController {
 		}
 		return entity;
 	}	
+	
+	// 테스트 게시판
+	@RequestMapping(value="/test_board", method=RequestMethod.GET)
+	public void testBoard() throws Exception {
+		
+	}
 	
 }

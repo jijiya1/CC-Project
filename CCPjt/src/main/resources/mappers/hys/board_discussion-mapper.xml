@@ -47,4 +47,11 @@
         from discussion_board 
         where b_no = #{b_no}
 	</select>
+	
+	<!-- 관리자 권한으로 토른 글 삭제 (b_checkeddel = 0 -> 1 로 업데이트) -->
+	<update id="deleteDiscussionBySerialno">
+		update discussion_board
+		set b_checkeddel = 1
+		where b_serialno = #{b_serialno}
+	</update>
 </mapper>

@@ -1,7 +1,6 @@
 package com.kh.psh.domain;
 
-import java.security.Timestamp;
-
+import java.sql.Timestamp;
 
 public class Complaint_BoardVo {
 
@@ -19,7 +18,9 @@ public class Complaint_BoardVo {
 	private int b_upcount;//좋아요갯수
 	private int b_downcount;//싫어요 갯수
 	private int b_checkeddel;//삭제체크
-	
+	private int a_no;
+	private String a_name;
+	private int a_order;
 	
 	public String getB_serialno() {
 		return b_serialno;
@@ -105,12 +106,33 @@ public class Complaint_BoardVo {
 	public void setB_checkeddel(int b_checkeddel) {
 		this.b_checkeddel = b_checkeddel;
 	}
+	public int getA_no() {
+		return a_no;
+	}
+	public void setA_no(int a_no) {
+		this.a_no = a_no;
+	}
+	public String getA_name() {
+		return a_name;
+	}
+	public void setA_name(String a_name) {
+		this.a_name = a_name;
+	}
+	public int getA_order() {
+		return a_order;
+	}
+	public void setA_order(int a_order) {
+		this.a_order = a_order;
+	}
+	
 	@Override
 	public String toString() {
 		return "Complaint_BoardVo [b_serialno=" + b_serialno + ", b_no=" + b_no + ", b_addinfo=" + b_addinfo
 				+ ", b_detailinfo=" + b_detailinfo + ", b_title=" + b_title + ", b_writer=" + b_writer + ", u_id="
 				+ u_id + ", b_content=" + b_content + ", b_readcount=" + b_readcount + ", b_createddate="
 				+ b_createddate + ", b_modifieddate=" + b_modifieddate + ", b_upcount=" + b_upcount + ", b_downcount="
-				+ b_downcount + ", b_checkeddel=" + b_checkeddel + "]";
-	}		
+				+ b_downcount + ", b_checkeddel=" + b_checkeddel + ", a_no=" + a_no + ", a_name=" + a_name
+				+ ", a_order=" + a_order + "]";
+	}
+	
 }

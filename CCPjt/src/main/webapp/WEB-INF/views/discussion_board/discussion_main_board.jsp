@@ -90,8 +90,7 @@
 </style>
 
 <div class="container-fluid">
-	<p style="font: strong;">데이터 확인 :${areaDataVo.a_no }</p>
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ 토론 게시판</p>
 </div>
 
 <c:choose>
@@ -103,7 +102,6 @@
 						<h4>
 							정해진 토론 주제가 없습니다.!
 						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }" class="alert-link">토론 주제 게시판</a>
-
 					</div>
 				</div>
 			</div>
@@ -112,7 +110,12 @@
 	<c:otherwise>
 		<div class="slideshow-container">
 			<div>
-				<input type="button" id="btn_Discussion_rec" value="토론주제 추천게시판" style="float: right;" >
+				<a href="#" class="btn btn-info btn-icon-split" id="btn_Discussion_rec" style="float: right; margin-right: 10px;">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-info-circle"></i>
+                    </span>
+                   <span class="text">토론주제 추천게시판</span>
+                 </a>
 			</div>
 		
 			<c:forEach items="${discussionList }" var="boardVo_discussion" >
@@ -134,6 +137,15 @@
 							<label id ="oppositionRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: right;">${boardVo_discussion.b_oppositioncount}&nbsp;</label>
 						</div>
 					</div>	
+					<c:if test="${userVo.u_grade == '관리자' }">
+						<br>
+						<div style="text-align: center;">
+							<a href="#" class="btn btn-danger btn-icon-split btnDeleteDiscussion" data-b_serialno="${boardVo_discussion.b_serialno }">
+								<span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+								<span class="text">해당 토론 삭제하기</span>
+					        </a>	
+						</div>
+					</c:if>
 				</div>
 			</c:forEach>
 			
@@ -141,17 +153,15 @@
 			<a class="next" onclick="plusSlides(1)">❯</a>
 		</div>
 		
-		
-		
 		<div class="dot-container">
 			<c:forEach begin="1" end="${discussionListSize }" var= "i" >
-				<span class="dot" onclick="currentSlide(${i})"></span> 
+				<span class="dot" onclick="currentSlide(${i})"></span>
 			</c:forEach>
 		</div>
 		<br>
 		
 		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
-			<label>토론 상세 내용</label>
+			<label style="font-weight: bold;">토론 상세 내용</label>
 			<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
 		</div>
 		
@@ -185,7 +195,10 @@
 	</c:otherwise>
 </c:choose>
 
-
+<form id="hiddenDiscussionBoard" action="">
+	<input type="hidden" name ="b_serialno">
+	<input type="hidden" name ="a_no" value="${areaDataVo.a_no }">
+</form>
 
 <!-----------------------------------  스크립트 ----------------------------------->
 <script>
@@ -195,14 +208,28 @@
 	// 현재 보고 있는 댓글 페이지 번호
 	var nowReplyPage = 1;
 	
-	//임시 로그인 중인 사용자 -------------------------------------------
-	var r_writer = "시민1";
-	var u_email = "ahems2005@naver.com";
-	// --------------------------------------------------------------------
+	//로그인 중인 사용자 -------------------------------------------
+	var r_writer = "${userVo.u_name }";
+	var u_email = "${userVo.u_email }";
+	// -------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
 	var replyListShow = false;
 	
+	//----------관리자 권한 기능(토론 글 삭제) --------
+	$(".btnDeleteDiscussion").click(function (e) {
+		e.preventDefault();
+		if(confirm("해당 토론 글을 삭제 하시겠습니까?") == true){
+			var url = "/discussion_board/deleteDiscusssionBoard"
+				var b_serialno = $(this).attr("data-b_serialno");
+				console.log(b_serialno + "글 번호 삭제 버튼");
+
+				$("input[name=b_serialno]").val(b_serialno);
+				$("#hiddenDiscussionBoard").attr("action", url);
+				$("#hiddenDiscussionBoard").submit();
+		}//if
+	})
+	//------------------------------------------------
 	var slideIndex = 1;
 	showSlides(slideIndex);
 	
@@ -224,6 +251,8 @@
 	  } else {
 		  addReplyListButton();
 	  }
+	  
+	  b_contentArea.style.display = "none";
 	}
 	
 	function currentSlide(n) {
@@ -271,7 +300,8 @@
 	
 	
 	// 토론 주제선정 게시판으로 이동버튼
-	$("#btn_Discussion_rec").click(function () {
+	$("#btn_Discussion_rec").click(function (e) {
+		e.preventDefault();
 		location.href = "/selectDiscussion/discussion_select_board?a_no="+${areaDataVo.a_no};
 	});//("#btn_Discussion_rec").click
 	
@@ -285,6 +315,7 @@
 		
 		if(b_contentArea.style.display == "none") {
 			b_contentArea.style.display = "block";
+			$(".b_content").focus();
 		} else {
 			b_contentArea.style.display = "none";
 		}
@@ -339,65 +370,73 @@
 	
 	// 토론 찬성 또는 반대(radio 버튼)에 따른 기능구분
 	$(".radioYorN").click(function () {
-		var YorN = $(this).attr("data-YorN");
-		var agreenum = 0;
-		
-		if(YorN == "Y") {
-			agreenum = 1;
-		} else if (YorN == "N") {
-			agreenum = 2;
-		}
-		
-		var b_no = $(this).attr("data-b_no");
-// 		console.log("글번호 "+b_no+" "+ YorN_Select+"체크함");
-		var url = "/discussion_board/discussion_agreeSelect"
-		var sendData = {
-				"b_no" : b_no,
-				"u_email" : u_email,
-				"agreenum" : agreenum
-		}
-		
-		$.ajax({
-			"type" : "post",
-			"url" : url,
-			"headers" : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method_Override" : "post" 
-			},
-			"dataType" : "text",
-			"data" : JSON.stringify(sendData),
-			"success" : function (receivedData) {
-// 				console.log("성공 " + receivedData)
-				var commaIndex = receivedData.lastIndexOf(",");
-				var strLength = receivedData.length;
-				var agreeCount = receivedData.substring(0,commaIndex);
-				var oppositionCount = receivedData.substring(commaIndex+1, strLength);
-				
-				$("#agreeRatio"+b_no).html("&nbsp;"+agreeCount);
-				$("#oppositionRatio"+b_no).html(oppositionCount+"&nbsp;");
-				
-				var totalCount = parseInt(agreeCount) + parseInt(oppositionCount);
-// 				console.log("totalCount : " + totalCount);
-				
-				var agreeRatio = (parseInt(agreeCount) / totalCount *90) + 5;
-				var oppositionRatio = (parseInt(oppositionCount) / totalCount *90) + 5;
-				
-// 				console.log(agreeRatio + " / " + oppositionRatio);
 
-				
-				var agreeRatioArea = document.getElementById("agreeRatioArea"+b_no);
-				var oppositionRatioArea = document.getElementById("oppositionRatioArea"+b_no);
-				
-				agreeRatioArea.style.width = agreeRatio+"%";
-				oppositionRatioArea.style.width = oppositionRatio+"%";
-				
-				var ratioArea = document.getElementById("ratioArea"+b_no);
-				ratioArea.style.display = "block";
+			var YorN = $(this).attr("data-YorN");
+			var agreenum = 0;
+			
+			if(YorN == "Y") {
+				agreenum = 1;
+			} else if (YorN == "N") {
+				agreenum = 2;
 			}
-		});
-		
-		$(".mySlides").eq(slideIndex-1).attr("data-YorNSelect", YorN);
-		addReplyTextarea(YorN);
+			
+			var b_no = $(this).attr("data-b_no");
+//	 		console.log("글번호 "+b_no+" "+ YorN_Select+"체크함");
+			var url = "/discussion_board/discussion_agreeSelect"
+			var sendData = {
+					"b_no" : b_no,
+					"u_email" : u_email,
+					"agreenum" : agreenum
+			}
+			console.log("ajax 요청 전");
+			$.ajax({
+				"type" : "post",
+				"url" : url,
+				"headers" : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method_Override" : "post" 
+				},
+				"dataType" : "text",
+				"data" : JSON.stringify(sendData),
+				"success" : function (receivedData) {
+					console.log("ajax 요청 받음");
+//	 				console.log("성공 " + receivedData)
+					var commaIndex = receivedData.lastIndexOf(",");
+					var strLength = receivedData.length;
+					var agreeCount = receivedData.substring(0,commaIndex);
+					var oppositionCount = receivedData.substring(commaIndex+1, strLength);
+					
+					$("#agreeRatio"+b_no).html("&nbsp;"+agreeCount);
+					$("#oppositionRatio"+b_no).html(oppositionCount+"&nbsp;");
+					
+					var totalCount = parseInt(agreeCount) + parseInt(oppositionCount);
+//	 				console.log("totalCount : " + totalCount);
+					
+					var agreeRatio = (parseInt(agreeCount) / totalCount *90) + 5;
+					var oppositionRatio = (parseInt(oppositionCount) / totalCount *90) + 5;
+					
+//	 				console.log(agreeRatio + " / " + oppositionRatio);
+
+					
+					var agreeRatioArea = document.getElementById("agreeRatioArea"+b_no);
+					var oppositionRatioArea = document.getElementById("oppositionRatioArea"+b_no);
+					
+					agreeRatioArea.style.width = agreeRatio+"%";
+					oppositionRatioArea.style.width = oppositionRatio+"%";
+					
+					var ratioArea = document.getElementById("ratioArea"+b_no);
+					ratioArea.style.display = "block";
+					
+					console.log("ajax 요청후 처리");
+				}
+			});
+			
+			if(u_email == "" || u_email == null) {
+				alert("로그인이 필요한 기능입니다. (투표에 반영되진 않습니다.)");
+			}  else {
+				$(".mySlides").eq(slideIndex-1).attr("data-YorNSelect", YorN);
+				addReplyTextarea(YorN);
+			}
 	});// $(".radioYorN").click
 
 	// 댓글 작성(쓰기)완료 버튼
@@ -456,20 +495,18 @@
 	function getReplyList() {
 		console.log("버튼 클릭");
 		var url = "/discussion_reply/list/";
-// 		var url = "/discussion_reply/list/"+nowDiscussion_b_serialno+"/"+nowReplyPage+"/"+u_email;
 		var data = {
 				"b_serialno" : nowDiscussion_b_serialno,
 				"nowReplyPage" : nowReplyPage,
 				"u_email" : u_email
 		};
 		$.get(url, data, function (receivedData) {
-			console.log("데이터 받기");
-			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
+// 			console.log("데이터 받기");
+// 			console.log("getDiscussionRepiyList, receivedData11 : ", receivedData);
 			var discussionReplyList = receivedData.discussionReplyList;
 		
-			console.log("receivedData : " ,  receivedData);
-			console.log("discussionReplyList : " ,  discussionReplyList);
-			
+// 			console.log("receivedData : " ,  receivedData);
+// 			console.log("discussionReplyList : " ,  discussionReplyList);
 			if(discussionReplyList == "") {
 				alert("해당 글에 대한 댓글이 아직 없습니다.")
 			} else {
@@ -500,13 +537,9 @@
 					
 					var listR_no = this.r_no;
 					
-	// 				console.log("r_no " + listR_no);
-	// 				console.log("this " , this);
-	// 				console.log("this.r_no " + this.r_no);
-					
 					strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 					 		+ 		"<div class='card-body'>"
-							+			"<p>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+							+			"<p  style='font-weight: bold;'>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
 							+			"<p>&nbsp;"+this.r_content+"</p>"
 							+			"<p style='text-align: right;' class='likeSelectArea'>"
 											// 좋아요 버튼
@@ -565,8 +598,6 @@
 					endPage = replyPaging;
 				}; // if
 				
-	// 			console.log("startPage :" + startPage )
-				
 				if(strHtml != ""){
 					strHtml += 	"<div class='container-fluid'>"
 								+	"<div class='row'>"
@@ -615,36 +646,40 @@
 	// 댓글 좋아요 또는 싫어요 버튼
 	$("#discussion_ReplyList").on("click",".btnLikeSelect", function (e) {
 		e.preventDefault();
-// 		console.log(r_no +" 좋아요 버튼");
-		var r_no = $(this).attr("data-r_no");
-		var r_likenum = $(this).attr("data-r_likenum");
-		
-		var selected = $(this).attr("data-selected");
-// 		console.log("selected : " + selected);
-		if(selected == "Yes") {
-			r_likenum = 0;
-		}
-
-        var url = "/discussion_reply/likeOrDislikeSelect";
-        var sendData = {
-        	"u_email" : u_email,
-        	"r_no" : r_no,
-        	"r_likenum" : r_likenum
-        };
-        
-        $.ajax ({
-        	"type" : "post",
-        	"url" : url,
-        	"headers" : {
-        		"Content-Type" : "application/json",
-        		"X-HTTP-Method_Override" : "post"
-        	},
-        	"dataType" : "text",
-        	"data" : JSON.stringify(sendData),
-        	"success" : function (receivedData) {
-        		getReplyList()
+		if(u_email == "" || u_email == null) {
+			alert("로그인이 필요한 기능입니다. ");
+		}  else {
+	// 		console.log(r_no +" 좋아요 버튼");
+			var r_no = $(this).attr("data-r_no");
+			var r_likenum = $(this).attr("data-r_likenum");
+			
+			var selected = $(this).attr("data-selected");
+	// 		console.log("selected : " + selected);
+			if(selected == "Yes") {
+				r_likenum = 0;
 			}
-        });//$.ajax
+	
+	        var url = "/discussion_reply/likeOrDislikeSelect";
+	        var sendData = {
+	        	"u_email" : u_email,
+	        	"r_no" : r_no,
+	        	"r_likenum" : r_likenum
+	        };
+	        
+	        $.ajax ({
+	        	"type" : "post",
+	        	"url" : url,
+	        	"headers" : {
+	        		"Content-Type" : "application/json",
+	        		"X-HTTP-Method_Override" : "post"
+	        	},
+	        	"dataType" : "text",
+	        	"data" : JSON.stringify(sendData),
+	        	"success" : function (receivedData) {
+	        		getReplyList()
+				}
+	        });//$.ajax
+		}//if
 	});//$("#discussion_ReplyList").on("click",".btnLikeSelect"
 			
 	
@@ -655,40 +690,44 @@
 		
 		nowReplyPage = reply_page;
 		getReplyList();
-// 		console.log(reply_page+" 페이지 버튼")
 	})
 	
 	// 댓글에 답글 달기 버튼
 	$("#discussion_ReplyList").on("click",".replyComent", function (e) {
 		e.preventDefault();
-		var r_no = $(this).attr("data-r_no");
-		var r_coment_count = $(this).attr("data-r_coment_count");
-// 		console.log(r_no + "답글 버튼");
-// 		console.log(r_coment_count + " / "+ r_no + "답글 버튼");
-		var comentTextAreaHtml = "<textarea class='form-control replyComent_content' style = padding: 10px;'></textarea>";
-		$(".replyComentTextarea"+r_no).html(comentTextAreaHtml);
 		
-		var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
-// 		console.log(nowComentShow + " / "+ r_no + "보이는지 상태");
-// 		console.log(r_coment_count + " 개");
-		var strHtml = "";
-		
-	 	if (r_coment_count >= 1) {
-			if(nowComentShow == "false") {
-				strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기["+r_coment_count+"]</a></span>";
-			} else {
-				strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>";
+		if(u_email == "" || u_email == null) {
+			alert("로그인이 필요한 기능입니다.");
+		}  else {
+			var r_no = $(this).attr("data-r_no");
+			var r_coment_count = $(this).attr("data-r_coment_count");
+	// 		console.log(r_no + "답글 버튼");
+	// 		console.log(r_coment_count + " / "+ r_no + "답글 버튼");
+			var comentTextAreaHtml = "<textarea class='form-control replyComent_content' style = padding: 10px;'></textarea>";
+			$(".replyComentTextarea"+r_no).html(comentTextAreaHtml);
+			
+			var nowComentShow = $(".replyComentButtonArea"+r_no).attr("data-nowComentShow");
+	// 		console.log(nowComentShow + " / "+ r_no + "보이는지 상태");
+	// 		console.log(r_coment_count + " 개");
+			var strHtml = "";
+			
+		 	if (r_coment_count >= 1) {
+				if(nowComentShow == "false") {
+					strHtml +=	"<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentList' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>↓답글 보기["+r_coment_count+"]</a></span>";
+				} else {
+					strHtml +=  "<span class='replyContentShowArea"+r_no+"'><a href='#' class='btnReplyComentDismiss' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' >↑답글 숨기기</a></span>";
+				}
 			}
-		}
-	 	
-		strHtml += 	"<p style='float: right;  margin-top: 10px;'>"
-						// 답글 등록버튼(체크 모양)
-				+  		"<a href='#' class='btn btn-success btn-circle btn-sm btnReplyComentWrite' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
-						// 답글 취소 버튼(휴지통)
-				+  		"<a href='#' class='btn btn-danger btn-circle btn-sm btnReplyComentCancel' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>"
-				+		"<i class='fas fa-trash'></i></a>"
-				+ 	"</p>";
-		$(".replyComentButtonArea"+r_no).html(strHtml);
+		 	
+			strHtml += 	"<p style='float: right;  margin-top: 10px;'>"
+							// 답글 등록버튼(체크 모양)
+					+  		"<a href='#' class='btn btn-success btn-circle btn-sm btnReplyComentWrite' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
+							// 답글 취소 버튼(휴지통)
+					+  		"<a href='#' class='btn btn-danger btn-circle btn-sm btnReplyComentCancel' data-r_no='"+r_no+"' data-r_coment_count='"+r_coment_count+"'>"
+					+		"<i class='fas fa-trash'></i></a>"
+					+ 	"</p>";
+			$(".replyComentButtonArea"+r_no).html(strHtml);
+		}//if
 	});
 	
 	// 답글 달기 등록 버튼 (체크모양)
@@ -747,7 +786,7 @@
 							var frontId = this.u_email.substring(0,3);
 							renameId = frontId + "***";
 							
-							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_email='"+this.u_email+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
+							strHtml2 += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px; cursor: pointer;' class='comentUserId' data-r_no='"+r_no+"' data-u_email='"+this.u_email+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
 									 +  this.r_writer+"("+renameId+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 							
 						})
@@ -800,8 +839,7 @@
 				
 				var frontId = this.u_email.substring(0,3);
 				renameId = frontId + "***";
-				
-				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px' class='comentUserId' data-r_no='"+r_no+"' data-u_email='"+this.u_email+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
+				strHtml += "<br><span style = 'background-color: white;'>⤷ <span style ='font-size:12px; cursor: pointer;' class='comentUserId' data-r_no='"+r_no+"' data-u_email='"+this.u_email+"' data-r_writer='"+this.r_writer+"' data-r_coment_count='"+this.r_coment_count+"'>"
 						+this.r_writer+"("+renameId+")"+"</span><br> &nbsp;&nbsp;&nbsp;"+this.r_content+"<br></span>";
 			})
 

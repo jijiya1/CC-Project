@@ -43,4 +43,32 @@
 		and b_addinfo= #{a_no}
 	</select>
 	
+	<!-- 서브페이지 청원글 랭킹 5위까지 보이기 -->
+	<select id="getPetitionRankingList" resultType="PetitionVo">
+		select * from (
+		        select rownum rnum, allList.*, rank() over(order by b_agree desc) as ranking
+		            from (select ad.a_name,dd.d_name, pb.* 
+		                        from petition_board pb,area_data ad, detail_data dd
+		                        where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+		                        	and b_addinfo=ad.a_no
+				                    and b_agree &gt;= 5 and b_addinfo=#{a_no} 
+				                    and b_delno='N' and b_enddate &gt;=sysdate
+				                order by b_enddate desc) allList
+		                )
+    where ranking &lt;= 5 and rownum &lt;= 5
+    order by ranking
+	</select>
+	
+	<!-- 자유게시판 글 목록 보이기 -->
+	<!-- 글목록 -->
+	<select id="suggest_list" resultType="Complaint_BoardVo">
+		select * from 
+			(select rownum rnum, a.* from 
+				(select * from complaint_board , area_data
+				where b_addinfo = a_no
+				order by b_no desc) a)
+		where rnum &gt;= 1 and rnum &lt;= 5
+		and b_addinfo= #{a_no}
+	</select>
+	
 </mapper>

@@ -19,7 +19,7 @@ $(document).ready(function() {
 	});
 	// 글 작성 취소
 	$("#btnCancel").click(function() {
-		location.href="/suggest_board/suggest_list";
+		location.href="/suggest_board/suggest_list?a_no=${a_no}";
 	});	
 });
 </script>
@@ -29,11 +29,10 @@ $(document).ready(function() {
 	       
 		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> > 자유게시판</p>
 		
-		<!-- 페이지 헤더 -->
 		<h1 class="h3 mb-2 text-gray-800">자유게시판 글쓰기</h1><br>
 		
 		<!-- 공지사항 작성 부분 시작 - form -->
-		<form role="form" method="post">
+		<form role="form" method="post" id="WriteForm">
 			<input type="hidden" name="a_no" value="${areaDataVo.a_no}">
 			<input type="hidden" name="u_email" value="${userVo.u_email}">
 			<input type="hidden" name="u_name" value="${userVo.u_name}">
@@ -53,18 +52,18 @@ $(document).ready(function() {
 				<input type="text" class="form-control" name="u_id" required="required" />
 			</div>
 			
-			<div class="form-group" <c:if test="${areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>
+			<div class="form-group" <c:if test="${areaDataVo.a_no eq a_no}">style="display: none;"</c:if>>
 				<label>시/도</label>
-				<select class="form-control" name="b_addInfo" id="b_addinfo" required="required">
-					<c:forEach items="${ areaData }" var="areaData">
-						<option value="${ areaData.a_no }" <c:if test='${ areaData.a_no eq a_no }'>selected</c:if>>${ areaData.a_name }</option>
+				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
+					<c:forEach items="${areaData}" var="areaData">
+						<option value="${areaData.a_no}" <c:if test='${areaData.a_no eq a_no}'>selected</c:if>>${ areaData.a_name }</option>
 					</c:forEach>
 				</select>
 			</div>
 			
 			<div class="form-group">
 				<label>구</label>
-				<select class='form-control' name='b_detailInfo' id='b_detailinfo' required='required'>
+				<select class='form-control' name='b_detailinfo' id='b_detailinfo' required='required'>
 					<c:forEach items='${getDetailAreaData}' var='detailAreaData'>
 						<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>
 					</c:forEach>

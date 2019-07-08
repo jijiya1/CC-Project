@@ -54,8 +54,8 @@ public class ReplyController_Discussion {
 	// 토론 메인 게시판 댓글 쓰기
 	@RequestMapping(value="/writeReply/{YorNSelect}", method = RequestMethod.POST)
 	public ResponseEntity<String> writeReply(@RequestBody ReplyVo_Discussion replyVo_Discussion, @PathVariable("YorNSelect") String YorNSelect ) throws Exception {
-		System.out.println("replyWrite 실행");
-		System.out.println("ReplyController_Discussion, replyWrite, replyVo_Discussion : " + replyVo_Discussion);
+//		System.out.println("replyWrite 실행");
+//		System.out.println("ReplyController_Discussion, replyWrite, replyVo_Discussion : " + replyVo_Discussion);
 		
 		ResponseEntity<String> entity = null;
 		try {

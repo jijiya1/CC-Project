@@ -9,8 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
-import com.kh.jhj.domain.DoSearchDto;
 import com.kh.jhj.domain.PetitionVo;
 
 @Repository
@@ -20,6 +20,7 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 	
 	@Inject
 	private SqlSession sqlSession;
+
 	
 	@Override
 	public List<PetitionVo> listAll(PagingDto pageDto, int a_no) throws Exception {
@@ -53,8 +54,8 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 	}
 
 	@Override
-	public PetitionVo petitionRead(int b_no) throws Exception {
-		PetitionVo peVo = sqlSession.selectOne(NAMESPACE + "petitionRead", b_no);
+	public PetitionVo petitionRead(String b_serialno) throws Exception {
+		PetitionVo peVo = sqlSession.selectOne(NAMESPACE + "petitionRead", b_serialno);
 		return peVo;
 	}
 
@@ -70,6 +71,49 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 		List<PetitionVo> peVo = sqlSession.selectList(NAMESPACE + "listRunOut", a_no);
 //		System.out.println("peVo" + peVo);
 		return peVo;
+	}
+
+	@Override
+	public List<DetailDataVo> detailArea(int a_no) throws Exception {
+		List<DetailDataVo> dArea = sqlSession.selectList(NAMESPACE+ "detialData", a_no);
+		return dArea;
+	}
+
+	@Override
+	public void write(PetitionVo peVo) throws Exception {
+//		System.out.println("peVoDao :" + peVo);
+		sqlSession.insert(NAMESPACE+"write", peVo);
+		
+	}
+
+	@Override
+	public void writeLink(String link) throws Exception {
+		sqlSession.insert(NAMESPACE+"writeLink", link);
+		
+	}
+
+	@Override
+	public int runOutCount(PagingDto pageDto, int a_no) throws Exception {
+			AreaDataVo areaDataVo = new AreaDataVo();
+			areaDataVo.setA_no(a_no);
+	
+			HashMap<String, Object> countMap = new HashMap<>();
+				countMap.put("pagingDto", pageDto);
+				countMap.put("areaDataVo", areaDataVo);
+		int count = sqlSession.selectOne(NAMESPACE+"runOutCount", countMap);
+		return count;
+	}
+
+	@Override
+	public List<String> readLink(String b_serialno) throws Exception {
+		List<String> listLink = sqlSession.selectList(NAMESPACE+ "readLink", b_serialno);
+		return listLink;
+	}
+
+	@Override
+	public void readCount(String b_serialno) throws Exception {
+		sqlSession.update(NAMESPACE + "readCount", b_serialno);
+		
 	}
 
 }

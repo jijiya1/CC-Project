@@ -5,7 +5,7 @@
   	
 <mapper namespace ="suggest_board">
 
-<!-- 지역 정보 불러오기 -->
+	<!-- 지역 정보 불러오기 -->
 	<select id="getAreaDataList" resultType="areaDataVo">
 		select * from area_data
 	</select>
@@ -35,27 +35,37 @@
 
 <!-- 글쓰기 -->
 <insert id="insert">
-	insert into complaint_board(b_serialno, b_no, u_id, b_detailinfo, b_title, b_writer, b_content)
-	values (seq_suggest_serialno.nextval, seq_suggest.nextval, #{u_id}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
-</insert>
+	insert into complaint_board(b_serialno, b_no, u_id, b_addinfo, b_detailinfo, b_title, b_writer, b_content)
+	values ('co_'||seq_suggest_serialno.nextval, seq_suggest.nextval, #{u_id}, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
+	
+</insert>																						
 
 <!-- 글목록 -->
-<select id="suggest_list" resultType="complaint_BoardVo">
-<!--   	select * from complaint_board -->
-<!--  	order by b_no desc  -->
+<select id="suggest_list" resultType="Complaint_BoardVo">
 
-	select * from (select rownum rnum, a.* from 
-		(select * from complaint_board
+select * from (select rownum rnum, a.* from 
+		(select * from complaint_board , area_data
+		where b_addinfo = a_no
 		<include refid="search"></include> 
 			order by b_no desc) a)
-		where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
+		where rnum &gt;= 1 and rnum &lt;= 10
+		and b_addinfo= #{a_no}
+		
 </select>
 
 <!-- 글읽기 -->
 <select id="suggest_read" resultType="complaint_BoardVo">
-	select * from complaint_board
+	select * from complaint_board, area_data
 	where b_no = #{b_no}
+	and b_addinfo = a_no
 </select>
+
+<!-- 해당 게시글 클릭시 조회수 +1 업데이트 -->
+	<update id="suggest_ReadCountUpdate">
+		update complaint_board set
+			b_readcount = b_readcount + 1
+		where b_no = #{b_no}
+	</update>
 
 <!-- 글 수정 -->
 <update id="suggest_update">
@@ -76,30 +86,19 @@
 	<include refid="search"></include>
 </select>
 
-
-	<!-- 댓글 갯수 갱신 -->
-<!-- 	<update id="updateReplycnt"> -->
-<!-- 		update complaint_board set -->
-<!-- 			replycnt = (select count(*) -->
-<!-- 						from testreply -->
-<!-- 						where b_no = #{b_no}) -->
-<!-- 		where b_no = #{b_no} -->
-<!-- 	</update> -->
-	
-<!-- 첨부파일 경로 추가 -->
-<!-- <insert id="attach"> -->
-
-<!-- </insert> -->
 <sql id="search">
 		<if test="searchType != null">
       		<if test="searchType == 'b_title'">
-      			where b_title like '%' || #{keyword} || '%'
+      			where b_title like '%' || #{keyword} || '%' 
       		</if>
       		<if test="searchType == 'b_content'">
-      			where b_content like '%' || #{keyword} || '%'
+      			where b_content like '%' || #{keyword} || '%' 
       		</if>
       		<if test="searchType == 'b_writer'">
-      			where b_writer like '%' || #{keyword} || '%'
+      			where b_writer like '%' || #{keyword} || '%' 
+      		</if>
+      		<if test="searchType == 'b_addinfo'">
+      			where b_addinfo like '%' || #{keyword} || '%' 
       		</if>
       		
          </if>

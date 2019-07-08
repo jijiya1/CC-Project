@@ -7,8 +7,11 @@
 
 	<!-- 회원 목록 불러오기 -->
 	<select id="getUserList" resultType="userInfoVo">
-		select * from user_info
-		order by u_createddate desc
+		select * from
+		(select rownum rnum, a.* from (select * from user_info
+			<include refid="search"></include>
+		order by u_createddate desc)a)
+		where rnum &gt;= #{noPagingDto.startRow} and rnum &lt;= #{noPagingDto.endRow}
 	</select>
 	
 	<!-- 회원 수 불러오기 -->
@@ -45,4 +48,26 @@
 		select a_name from area_data
 		where a_no = #{a_no}
 	</select>
+	
+	<!-- 페이지네이션에 필요한 회원 수 -->
+	<select id="userContentCount" resultType="int">
+		select count(*) from user_info
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="(noSearchDto.searchType != null and noSearchDto.searchType != '') 
+				and (noSearchDto.keyword != null and noSearchDto.keyword != '')">
+			where 
+			<if test="noSearchDto.searchType == 'u_name'">
+				u_name 
+			</if>
+			<if test="noSearchDto.searchType == 'u_email'">
+				u_email 
+			</if> 
+				like '%' || #{noSearchDto.keyword} || '%'
+		</if>
+	</sql>
+	
 </mapper>
