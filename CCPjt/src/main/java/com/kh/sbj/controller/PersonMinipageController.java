@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.domain.UserInfoVo;
 import com.kh.sbj.domain.PersonPromiseDeleteDto;
 import com.kh.sbj.domain.PersonPromiseVo;
 import com.kh.sbj.service.IPersonMinipageService;
+import com.kh.sbj.service.IPersonService;
 import com.kh.sbj.util.FileUploadUtil;
 
 
@@ -34,25 +37,46 @@ public class PersonMinipageController {
 	@Inject
 	private IPersonMinipageService personMinipageService;
 	
+	@Inject
+	private IPersonService personService;
+	
+	
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
-	@RequestMapping(value = "/promise_list/{u_id}", method = RequestMethod.GET)
-	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@PathVariable("u_id") String u_id) throws Exception {
+//	@RequestMapping(value = "/promise_list", method=RequestMethod.GET)
+//	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@RequestParam("u_email") String u_email) throws Exception {
+//		ResponseEntity<List<PersonPromiseVo>> entity = null;
+//		System.out.println("1");
+//		u_email = u_email + ".com";
+//		try {
+//			List<PersonPromiseVo> list = personMinipageService.selectAllPromise(u_email);
+//			entity = new ResponseEntity<List<PersonPromiseVo>>(list, HttpStatus.OK);
+//		}catch(Exception e)	{
+//			e.printStackTrace();
+//			entity = new ResponseEntity<List<PersonPromiseVo>>(HttpStatus.BAD_REQUEST);
+//		}
+//		return entity;
+//	}
+	
+	@RequestMapping(value = "/promise_list", method=RequestMethod.GET)
+	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@RequestParam("u_email") String u_email) throws Exception {
 		ResponseEntity<List<PersonPromiseVo>> entity = null;
 		try {
-			List<PersonPromiseVo> list = personMinipageService.selectAllPromise(u_id);
+			List<PersonPromiseVo> list = personMinipageService.selectAllPromise(u_email);
 			entity = new ResponseEntity<List<PersonPromiseVo>>(list, HttpStatus.OK);
 		}catch(Exception e)	{
 			e.printStackTrace();
 			entity = new ResponseEntity<List<PersonPromiseVo>>(HttpStatus.BAD_REQUEST);
 		}
+
 		return entity;
 	}
-	// 공약 추가
+	
+//	 공약 추가
 	@RequestMapping(value="/promise_insert", method=RequestMethod.POST)
 	public ResponseEntity<String> insert(@RequestParam("file") MultipartFile file, 
-			@RequestParam("u_id") String u_id, @RequestParam("p_name") String p_name, @RequestParam("p_progress") int p_progress) throws Exception{
+			@RequestParam("u_email") String u_email, @RequestParam("p_name") String p_name, @RequestParam("p_progress") int p_progress) throws Exception{
 		PersonPromiseVo personPromiseVo = new PersonPromiseVo();
 		String originalName = file.getOriginalFilename();
 		ResponseEntity<String> entity = null;
@@ -60,10 +84,10 @@ public class PersonMinipageController {
 		try {
 			String dirPath = FileUploadUtil.uploadFile(uploadPath, originalName, file.getBytes());
 			String path = dirPath.replace("\\", "/");
-			personPromiseVo.setU_id(u_id);
+			personPromiseVo.setU_email(u_email);
 			personPromiseVo.setP_name(p_name);
 			personPromiseVo.setP_progress(p_progress);
-			personPromiseVo.setP_filePath(path);
+			personPromiseVo.setP_filepath(path);
 			personMinipageService.insertPromise(personPromiseVo);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		}catch(Exception e){
@@ -89,28 +113,24 @@ public class PersonMinipageController {
 	}
 	
 	//삭제
-	@RequestMapping(value="/promise_delete/{u_id}/{p_no}", method=RequestMethod.DELETE)
-	public  ResponseEntity<String> delete(@PathVariable("u_id") String u_id, @PathVariable("p_no") int p_no){
+	@RequestMapping(value="/promise_delete/{u_email}/{p_no}", method=RequestMethod.DELETE)
+	public  ResponseEntity<String> delete(@PathVariable("u_email") String u_email, @PathVariable("p_no") int p_no){
 		ResponseEntity<String> entity = null;
 		try {
-			PersonPromiseDeleteDto deleteDto = new PersonPromiseDeleteDto(p_no, u_id);
+			PersonPromiseDeleteDto deleteDto = new PersonPromiseDeleteDto(p_no, u_email);
 			personMinipageService.deletePromise(deleteDto);
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
 	
 	//파일출력
-	@RequestMapping(value="/displayFile")
+	@RequestMapping(value="/downloadFile")
 	public ResponseEntity<byte[]> displayFile(@RequestParam("fileName") String fileName) throws Exception{
-		System.out.println("fileName = "+ fileName);
-		System.out.println("uploadPath = "+ uploadPath);
 		
 		String realPath = uploadPath + File.separator + fileName;
-		System.out.println("realPath = "+ realPath);
 		String formatName = FileUploadUtil.getFormatName(fileName).toUpperCase();
 		
 		MediaType mediaType = null;

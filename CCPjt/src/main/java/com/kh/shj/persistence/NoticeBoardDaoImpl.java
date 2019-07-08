@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.DetailDataVo;
+import com.kh.domain.UserInfoVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
