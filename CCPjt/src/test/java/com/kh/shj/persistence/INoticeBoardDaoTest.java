@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kh.persistence.IMainDao;
+import com.kh.service.IMainService;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 
@@ -16,6 +18,9 @@ public class INoticeBoardDaoTest {
 	
 	@Inject
 	private INoticeBoardDao boardDao;
+	
+	@Inject
+	private IMainDao mainDao;
 	
 	@Test
 	public void testSearchTest() throws Exception {
@@ -34,5 +39,11 @@ public class INoticeBoardDaoTest {
 		noSearchDto.setSearchType("b_title");
 		noSearchDto.setKeyword("수정");
 		boardDao.noticeBoardCount(noSearchDto);
+	}
+	
+	@Test
+	public void testMemberCount() throws Exception {
+		String a_name = "울산";
+		mainDao.getMemberCount(a_name);
 	}
 }

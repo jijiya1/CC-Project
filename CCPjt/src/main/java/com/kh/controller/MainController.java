@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.PagingDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.BoardVo_Discussion;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.hys.service.IBoardService_Discussion;
@@ -75,6 +76,16 @@ public class MainController {
 		List<Complaint_BoardVo> getComplaintBoardList = mainService.getComplaintBoardList(pagingDto, a_no);
 		model.addAttribute("boardList", getComplaintBoardList);
 //		System.out.println("getComplaintBoardList : " + getComplaintBoardList);
+		
+		String a_name = areaDataVo.getA_name();
+//		System.out.println("a_name : " + a_name);
+		
+		List<UserInfoVo> getMemberList = mainService.getMemberList(a_name);
+		model.addAttribute("memberVo", getMemberList);
+		
+		int getMemberCount = mainService.getMemberCount(a_name);
+		model.addAttribute("memberCount", getMemberCount);
+//		System.out.println("Control / getMemberCount : " + getMemberCount);
 		
 		model.addAttribute("a_no", a_no);
 		
