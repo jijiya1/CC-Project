@@ -26,6 +26,17 @@
 $(document).ready(function() {
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
+	
+	// 전체 검색
+	$("#btnSearchAll").click(function() {
+		var a_no = "${areaDataVo.a_no}";
+		console.log(a_no);
+		$("input[name=a_no]").val(a_no);
+		
+		$("input[name=searchType]").val("title");
+		
+		var keyword = "";
+	});
 });
 </script>
 
@@ -199,17 +210,22 @@ $(document).ready(function() {
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- 전체 검색바 -->
+          <c:if test="${ areaDataVo != null && areaDataVo.a_no ne 10}">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/main/searchAll">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="hidden" name="a_no">
+              <input type="hidden" name="searchType">
+              <input type="hidden" name="keyword">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" id="btnSearchAll">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
             </div>
           </form>
+          </c:if>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">

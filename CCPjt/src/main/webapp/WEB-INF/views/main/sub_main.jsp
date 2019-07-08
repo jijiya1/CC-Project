@@ -289,7 +289,8 @@ img {vertical-align: middle;}
   width: 60%;
   opacity: 0;
   transition: .1s ease;
-  background-color: #4e73df;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
 }
 
 .container-test:hover .overlay-test {
@@ -336,7 +337,6 @@ img {vertical-align: middle;}
   background-color: rgba(0,0,0,0.8);
   color: white;
 }
-
 
 </style>
 
