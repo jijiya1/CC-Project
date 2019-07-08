@@ -248,7 +248,7 @@ img {vertical-align: middle;}
 /* Fading animation */
 .fade-test {
   -webkit-animation-name: fade;
-  -webkit-animation-duration: 5.0s;
+  -webkit-animation-duration: 1.0s;
   animation-name: fade;
   animation-duration: 5.0s;
 }
