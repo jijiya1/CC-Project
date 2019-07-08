@@ -296,7 +296,7 @@ img {vertical-align: middle;}
   opacity: 1;
 }
 
-.text-test {
+.text-test #link_member {
   color: white;
   font-size: 17px;
   position: absolute;
@@ -370,7 +370,7 @@ $(document).ready(function() {
 		$("#hiddenData").attr("action",url);
 		
 		$("#hiddenData").submit();
-	})
+	});
 
 });
 </script>
@@ -455,11 +455,14 @@ $(document).ready(function() {
 			<c:forEach items="${ memberVo }" var="memberVo">
 				<div class="mySlides fade mySlides-test fade-test">
 				  <img src="/person_board/displayFile?fileName=${ memberVo.u_photo }" class="image-test">
-				  	<div class="overlay overlay-test">
+				  	<div class="overlay overlay-test divPerson" >
 				  	<div class="text text-test">
-					  	${ memberVo.u_name }<br><br>
-					  	${ memberVo.u_party }<br><br>
-					  	${ memberVo.u_detail }
+				  	<a href="/person_board/person_minipage?m_email=${ memberVo.u_email}" id="link_member" style="text-decoration:none">
+				  	<input type="hidden" name="m_eamil" value="${ memberVo.u_email}">
+						  	${ memberVo.u_name }<br><br>
+						  	${ memberVo.u_party }<br><br>
+						  	${ memberVo.u_detail }
+				  	</a>
 				  	</div>
 				  	</div>
 				  </div>
@@ -496,9 +499,13 @@ $(document).ready(function() {
 	function showSlidesTest() {
 	  var i;
 	  var slidesTest = document.getElementsByClassName("mySlides-test");
+// 	  console.log(slidesTest);
 	  var dotsTest = document.getElementsByClassName("dot-test");
 	  for (i = 0; i < slidesTest.length; i++) {
 	    slidesTest[i].style.display = "none";
+// 	    console.log(slidesTest[i]);
+// 		var m_email = $("input[name=m_email]").val();
+// 		console.log(m_email);
 	  }
 	  slideIndexTest++;
 	  if (slideIndexTest > slidesTest.length) {slideIndexTest = 1}    
@@ -509,6 +516,21 @@ $(document).ready(function() {
 	  dotsTest[slideIndexTest-1].className += " active-test";
 	  setTimeout(showSlidesTest, 5000); // Change image every 2 seconds
 	}
+	
+	// 의원 오버레이 클릭 시 해당 의원 정보 이동
+// 	$(".divPerson").click(function(e) {
+// 		e.preventDefault();
+// 		console.log("클릭됨");
+// 		var m_email = $("input[name=m_email]").val();
+// 		console.log(m_email);
+// 		location.href="/person_board/person_minipage?m_email=" + m_email;
+// 	});
+	
+// 	$("#link_member").click(function(e) {
+// 		e.preventDefault();
+// 		console.log("클릭됨");
+// 	});
+	
 	</script>
 <!-- 의원 정보 끝 -->
   
