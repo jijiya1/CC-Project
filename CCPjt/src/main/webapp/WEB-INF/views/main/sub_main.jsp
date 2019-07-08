@@ -248,7 +248,7 @@ img {vertical-align: middle;}
 /* Fading animation */
 .fade-test {
   -webkit-animation-name: fade;
-  -webkit-animation-duration: 5.0s;
+  -webkit-animation-duration: 1.0s;
   animation-name: fade;
   animation-duration: 5.0s;
 }
@@ -273,12 +273,14 @@ img {vertical-align: middle;}
 
 .image-test {
   display: block;
-  width: 60%;
+  margin: auto;
+  width: 57.8%;
   height: auto;
 }
 
 .overlay-test {
   position: absolute;
+  margin : auto;
   top: 0;
   bottom: 0;
   left: 0;
@@ -420,49 +422,32 @@ $(document).ready(function() {
 			<div class="slideshow-container slideshow-container-test">
 			
 			<div class="container container-test">
-			<div class="mySlides fade mySlides-test fade-test">
-			  <img src="/resources/img/test1.jpg" class="image-test">
-			  	<div class="overlay overlay-test">
-			  	<div class="text text-test">
-				  	My Name is John
-				  	테스트01
-			  	</div>
-			  	</div>
-			  </div>
-			  </div>
 			
-			<div class="container container-test text-center">
-			<div class="mySlides fade mySlides-test fade-test text-center">
-			  <img src="/resources/img/test1.jpg" class="image-test">
-			  	<div class="overlay overlay-test">
-			  	<div class="text text-test">
-				  	My Name is John
-				  	테스트02
-			  	</div>
-			  	</div>
+			<c:forEach items="${ memberVo }" var="memberVo">
+				<div class="mySlides fade mySlides-test fade-test">
+				  <img src="/person_board/displayFile?fileName=${ memberVo.u_photo }" class="image-test">
+				  	<div class="overlay overlay-test">
+				  	<div class="text text-test">
+					  	${ memberVo.u_name }<br><br>
+					  	${ memberVo.u_party }<br><br>
+					  	${ memberVo.u_detail }
+				  	</div>
+				  	</div>
+				  </div>
+			  </c:forEach>
+			  
 			  </div>
-			  </div>
-			
-			<div class="container container-test">
-			<div class="mySlides fade mySlides-test fade-test text-center">
-			  <img src="/resources/img/test1.jpg" class="image-test">
-				<div class="overlay overlay-test">
-				<div class="text text-test">
-					My Name is John
-					테스트03
-				</div>
-				</div>
-			</div>
-			</div>
 			
 			</div>
 			<br>
 			
+
 			<div style="text-align:center">
-			  <span class="dot-test"></span> 
-			  <span class="dot-test"></span> 
-			  <span class="dot-test"></span> 
+				<c:forEach var="j" begin="1" end="${ memberCount }">
+					<span class="dot-test"></span>
+				</c:forEach>
 			</div>
+			
 	      </div>
  	</div>
   </div>
