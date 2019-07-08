@@ -27,7 +27,6 @@ $(document).ready(function(){
 		setPage();
 		var searchType = $("#searchType").val();
 		var keyword = $("#keyword").val();
-
 		$("input[name=searchType]").val(searchType);
 		$("input[name=searchKeyword]").val(keyword);
 	}
@@ -47,7 +46,6 @@ $(document).ready(function(){
 			$("#pageForm").submit();
 		 }
 	 });
-
 	
 	$(".a_page").click(function(e){
 		e.preventDefault();

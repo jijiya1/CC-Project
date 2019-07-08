@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,5 +90,19 @@ public class MainController {
 		
 		model.addAttribute("a_no", a_no);
 		
+	}
+	
+	@RequestMapping(value="/search_all", method=RequestMethod.GET)
+	public void searchAll(@RequestParam("a_no") int a_no, Model model) throws Exception {
+		
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		String a_name = areaDataVo.getA_name();
+		
+		List<UserInfoVo> getMemberList = mainService.getMemberList(a_name);
+		model.addAttribute("memberVo", getMemberList);
+		
+		model.addAttribute("a_no", a_no);
 	}
 }

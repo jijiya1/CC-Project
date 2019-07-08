@@ -47,7 +47,7 @@ public class PetitionController {
 			Date time = new Date();
 			
 			String formTime = form1.format(time);
-//		System.out.println("controller formTime :"+ formTime);
+//			System.out.println("controller formTime :"+ formTime);
 //			System.out.println("pageDto:" + pageDto);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		
@@ -89,6 +89,7 @@ public class PetitionController {
 							PagingDto pageDto) throws Exception{
 //		System.out.println("bno :" + b_no);
 		peService.readCount(b_serialno);
+//		UserInfoVo userVo= (UserInfoVo)session.getAttribute("userVo");
 		
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		PetitionVo peVo = peService.petitionRead(b_serialno);
@@ -98,6 +99,7 @@ public class PetitionController {
 		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("links", links);
+//		model.addAttribute("userVo", userVo);
 	}
 	
 	@RequestMapping(value="petitionDel", method=RequestMethod.GET)

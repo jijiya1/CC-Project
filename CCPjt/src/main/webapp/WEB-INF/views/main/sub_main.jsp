@@ -289,7 +289,8 @@ img {vertical-align: middle;}
   width: 60%;
   opacity: 0;
   transition: .1s ease;
-  background-color: #4e73df;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
 }
 
 .container-test:hover .overlay-test {
@@ -336,7 +337,6 @@ img {vertical-align: middle;}
   background-color: rgba(0,0,0,0.8);
   color: white;
 }
-
 
 </style>
 
@@ -457,7 +457,7 @@ $(document).ready(function() {
 				  <img src="/person_board/displayFile?fileName=${ memberVo.u_photo }" class="image-test">
 				  	<div class="overlay overlay-test divPerson" >
 				  	<div class="text text-test">
-				  	<a href="/person_board/person_minipage?m_email=${ memberVo.u_email}" id="link_member" style="text-decoration:none">
+				  	<a href="/person_board/person_minipage?m_email=${ memberVo.u_email}&a_no=${ a_no }" id="link_member" style="text-decoration:none">
 				  	<input type="hidden" name="m_eamil" value="${ memberVo.u_email}">
 						  	${ memberVo.u_name }<br><br>
 						  	${ memberVo.u_party }<br><br>

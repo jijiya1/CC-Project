@@ -1,16 +1,27 @@
 package com.kh.jhj.controller;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.jhj.domain.Pe_AgreeVo;
+import com.kh.jhj.domain.Pe_ReplyVo;
+import com.kh.jhj.service.IPe_ReadService;
+
 @RestController
 @RequestMapping("/pe_ajax/*")
 public class Pe_AjaxController {
 
+	@Inject
+	private IPe_ReadService peReadService;
 	
 	@RequestMapping(value="uploadLink", method=RequestMethod.POST,
 			produces="text/plain; charset=utf-8")
@@ -25,6 +36,47 @@ public class Pe_AjaxController {
 				e.printStackTrace();
 				entity = new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 			}
+		return entity;
+	}
+	
+	@RequestMapping(value="upAgree", method=RequestMethod.POST,
+					produces="text/plain; charset=utf-8")
+	public ResponseEntity<String> upAgree(@RequestBody Pe_AgreeVo peAgreeVo) throws Exception{
+//			System.out.println("b_link :" + b_link);
+			ResponseEntity<String> entity = null;
+			try {
+//				System.out.println(peAgreeVo);
+				int confirm= peReadService.confirmAgree(peAgreeVo);
+				String result ="";
+				if(confirm == 0) {
+					peReadService.addAgree(peAgreeVo);
+					result ="동의하셨습니다.";
+					
+				}else {
+					result = "이미 동의하셨습니다.";
+				}
+//				System.out.println(" result :" + result);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+			}
+		return entity;
+	}
+	
+	@RequestMapping(value="listReply/{b_serialno}", method=RequestMethod.GET)
+	public ResponseEntity<List<Pe_ReplyVo>> listReply
+					(@PathVariable("b_serialno") String b_serialno) throws Exception{
+		
+		ResponseEntity<List<Pe_ReplyVo>> entity = null;
+		try {
+			List<Pe_ReplyVo> list = peReadService.listReply(b_serialno);
+			entity = new ResponseEntity<List<Pe_ReplyVo>>(list, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<Pe_ReplyVo>>(HttpStatus.BAD_REQUEST);
+		}
+		
 		return entity;
 	}
 }

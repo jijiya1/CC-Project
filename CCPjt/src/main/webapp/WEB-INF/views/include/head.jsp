@@ -26,6 +26,49 @@
 $(document).ready(function() {
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
+	
+	// 검색 -> 지역 선택시 페이지 이동
+	function searchLocal() {
+		$("#searchType").change(function(e) {
+			var sendData = $("#searchType").val();
+// 			console.log(sendData);
+			if (sendData == 'u_local') {
+				location.href="/admin/member_selectArea";
+			}
+		});
+	}
+	searchLocal();
+	
+	// 전체 검색(버튼 클릭)
+	$("#btnSearchAll").click(function() {
+		$("input[name=a_no]").val(10);
+		
+		$("input[name=searchType]").val("u_name");
+		
+		var keyword = $("#keyword").val();
+// 		console.log(keyword);
+		$("input[name=keyword]").val(keyword);
+		
+		$("#searchAllData").submit();
+	});
+	
+	// 전체 검색(엔터키 사용)
+	$("#keyword").keyup(function(e) {
+		if (e.keyCode == 13) {
+			var a_no = "${areaDataVo.a_no}";
+	 		console.log(a_no);
+			$("input[name=a_no]").val(a_no);
+			
+			$("input[name=searchType]").val("b_title");
+			
+			var keyword = $("#keyword").val();
+	 		console.log(keyword);
+			$("input[name=keyword]").val(keyword);
+			
+// 			$("#searchAllData").submit();
+		};
+	});
+	
 });
 </script>
 
@@ -199,12 +242,19 @@ $(document).ready(function() {
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- 전체 검색바 -->
+          <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/main/search_all" id="searchAllData">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <select class="form-control-sm bg-light border-0" id="searchType">
+              	<option value="u_name">이름</option>
+              	<option value="u_local">지역</option>
+              </select>
+              <input type="text" class="form-control bg-light border-0 small"  id="keyword" placeholder="의원 검색" aria-label="Search" aria-describedby="basic-addon2">
+              <input type="hidden" name="a_no">
+              <input type="hidden" name="searchType">
+              <input type="hidden" name="keyword">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" id="btnSearchAll">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
