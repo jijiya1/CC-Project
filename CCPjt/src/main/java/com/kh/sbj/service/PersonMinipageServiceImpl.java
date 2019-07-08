@@ -17,8 +17,8 @@ public class PersonMinipageServiceImpl implements IPersonMinipageService {
 	private IPersonMinipageDao personMinipageDao;
 	
 	@Override
-	public List<PersonPromiseVo> selectAllPromise(String u_id) throws Exception {
-		List<PersonPromiseVo> list = personMinipageDao.selectAllPromise(u_id);
+	public List<PersonPromiseVo> selectAllPromise(String u_email) throws Exception {
+		List<PersonPromiseVo> list = personMinipageDao.selectAllPromise(u_email);
 		return list;
 	}
 

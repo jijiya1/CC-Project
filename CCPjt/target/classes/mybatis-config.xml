@@ -31,8 +31,8 @@
 		
 		<typeAlias type="com.kh.jhj.domain.PetitionVo" alias="PetitionVo"/>
 		
-		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="PersonVo"/>
-		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="PersonPromiseVo"/>
+		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="personVo"/>
+		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="personPromiseVo"/>
 		
 		<typeAlias type="com.kh.psh.domain.Complaint_BoardVo" alias="Complaint_BoardVo"/>
 		<typeAlias type="com.kh.psh.domain.Complaint_PaginationDto" alias="Complaint_PaginationDto"/>
