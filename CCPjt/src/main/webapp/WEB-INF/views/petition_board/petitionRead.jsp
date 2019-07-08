@@ -39,7 +39,7 @@
 	      					</td>
 						</tr>
 						<tr>
-							<td colspan="1">
+							<td colspan="3">
 							<label style="font-weight : bold">청원 진행도 | </label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<progress id="myProgress"<c:choose>		
@@ -104,7 +104,7 @@
 <!-- 댓글 입력	 -->
 	<div class="row">
 		<div class="col-md-12" id="writeReply">
-			<input type="text" name="replyVal" class="col-md-8"
+			<input type="text" name="replyVal" class="col-md-6"
 				 value=<c:if test='${userVo.u_email !=null}'>'${userVo.u_email}'</c:if>
 				 	<c:if test='${userVo.u_email == null}'>'로그인을 해야 합니다.'</c:if>
 				 >

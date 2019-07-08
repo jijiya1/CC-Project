@@ -71,4 +71,28 @@
 		and b_addinfo= #{a_no}
 	</select>
 	
+	<!-- 서브페이지 의원 정보 불러오기 -->
+	<select id="selectAll" resultType="userInfoVo">
+		select * from user_info
+		where u_address = #{a_name} and u_position = 1
+	</select>
+	
+	<!-- 서브페이지 의원 수 구하기 -->
+	<select id="getMemberCount" resultType="int">
+		select count(*) from user_info
+		where u_address = #{a_name} and u_position = 1
+	</select>
+	
+	<!-- 의원 검색하기 -->
+	<select id="searchAll" resultType="userInfoVo">
+		select * from user_info
+		<if test="noSearchDto.searchType != null">
+			<if test="noSearchDto.searchType == 'u_name'">
+				and u_name like '%' || #{noSearchDto.keyword} || '%' 
+			</if>
+		</if>
+		where u_name = #{u_name} and u_position = 1
+	</select>
+
+	
 </mapper>

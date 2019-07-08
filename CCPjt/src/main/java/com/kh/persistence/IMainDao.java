@@ -3,6 +3,7 @@ package com.kh.persistence;
 import java.util.List;
 
 import com.kh.domain.PagingDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.psh.domain.Complaint_BoardVo;
@@ -25,5 +26,11 @@ public interface IMainDao {
 	
 	// 서브페이지 자유게시판 목록 불러오기 - SHJ
 	public List<Complaint_BoardVo> getComplaintBoardList(PagingDto pagingDto, int a_no) throws Exception;
+	
+	// 서브페이지 의원 정보 불러오기 - SHJ
+	public List<UserInfoVo> getMemberList(String a_name) throws Exception;
+	
+	// 서브페이지 의원 수 구하기 - SHJ
+	public int getMemberCount(String a_name) throws Exception;
 	
 }

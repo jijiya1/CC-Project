@@ -196,9 +196,12 @@ $(document).ready(function(){
 </script>
 
 
-
 <!--  입력 다이얼로그 -->
 <div class="container-fluid">
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a>
+	 ＞ <a href="/person_board/person_list?a_no=${areaDataVo.a_no}">의원정보</a> ＞ ${memberSelectedVo.u_name} </p>
+		
+
 	<div class="row">
 		<div class="col-md-12">
 			 <a style="display:none" id="modal-562648" href="#modal-container-562648" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
@@ -354,12 +357,12 @@ $(document).ready(function(){
 		<div class="col-md-3">
 			<div id="memberDiv">
 				<div class="card" >
-				  <img src="/resources/img/test1.jpg"  alt="Avatar" style="width:70%; margin-top:20px; margin-left:auto; margin-right:auto;"/>
+				  <img src="/person_board/displayFile?fileName=${memberSelectedVo.u_photo }"  alt="Avatar" style="width:70%; margin-top:20px; margin-left:auto; margin-right:auto;"/>
 				 	<div class="col-md-12" >
-				   		<a class="text-margin" id="memberName" >${personVo.u_name } (${personVo.m_party })</a>
+				   		<a class="text-margin" id="memberName" >${memberSelectedVo.u_name } (${memberSelectedVo.u_party })</a>
 				  	</div>
 				  	<div class="col-md-12" >
-				  		<a class="text-margin"> ${personVo.m_area }(울산 중구갑)/ 재선 </a>
+				  		<a class="text-margin"> ${memberSelectedVo.u_address } ${memberSelectedVo.u_detail }</a>
 				  	</div>
 				  	<div class="col-md-12">
 					  	<input type="button" class="btn btn-link" value="건의 글 보기" id="member_com"/>
@@ -375,9 +378,6 @@ $(document).ready(function(){
 	        		<div class="col">
 	            		<ul class="nav nav-tabs">
 	              			<li class="nav-item">
-	                			<a class="nav-link" data-toggle="tab" href="#tabs_main" id="menu_main">메인</a>
-	              			</li>
-	              			<li class="nav-item">
 	                			<a class="nav-link active" data-toggle="tab" href="#tabs_promise" id="menu_promise">공약</a>
 	              			</li>
 	              			<li class="nav-item">
@@ -388,47 +388,12 @@ $(document).ready(function(){
  <!-- TAB 내용  	 -->
   	
 	           		 <div class="tab-content">
-<!-- 	           		 TAB 내용1 -->
-	           		 	<div class="tab-pane fade " id="tabs_main">
-	                		<div class="row">
-								<div class="col-md-12">
-									<div class="container-fluid">
-										<a></a>
-										<input type="button" class="btn btn-link" id="btn1" value="바로가기"/>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<input type="text" class="text" id="txtUserName" >
-									<input type="text"  class="text" id="txtMessage" placeholder="응원 메시지를 입력해 주세요." width="300"/>
-									<input type="button" class="btn-warning" id="btnMessage" value="입력"/>					
-								</div>
-								<div class="col-md-12">
-									<div class="container-fluid">
-										<table class="table">										
-											<tbody>
-												<tr>
-													<td>김철수</td>
-													<td>응원합니다.</td>
-													<td width="100">
-														<input type="button" class="btn-xs btn-danger" id="dtnDel" value="X">
-													</td>
-													<td width="100">
-														<input type="button" class="btn-xs btn-secondary" id="dtnReport" value="신고">
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-	              		</div>
 <!-- 	           			TAB 내용2 -->
 	              		<div class="tab-pane fade show active" id="tabs_promise">
 	               			 <div class="row">
 								<div class="col-md-12">
 									<div class="container-fluid">
+<%-- 										<c:if test=""> --%>
 										<table class="table">
 											<thead>
 												<tr>
@@ -450,9 +415,6 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</div>
-<!-- 	           		 	TAB 내용3 -->
-	              		
-	             		
 <!-- 	           		 	TAB 내용4 -->
 	              		<div class="tab-pane fade" id="tabs_donation">
 	              			<div class="col-md-12">
@@ -473,7 +435,7 @@ $(document).ready(function(){
 	              			<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
 	              				<input type="button" class="btn btn-primary" id="btnAddAcc" value="후원계좌 추가하기" />
 	              			</div>
-	              			
+	              			</div>
 	             		</div>
 	            	</div>
 	        	</div>

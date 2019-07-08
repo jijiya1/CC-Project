@@ -93,6 +93,27 @@ public class UserJoinController {
 		session.setAttribute("userVo", userInfoVo);
 		return "redirect:/user_join/update_form";
 	}
+	
+	@RequestMapping(value = "/update_member_form", method = RequestMethod.GET)
+	public void updateMemberForm(UserInfoVo userInfoVo, Model model) throws Exception{
+		model.addAttribute("memberVo", userInfoVo);
+	}
+	
+	@RequestMapping(value = "/update_member_run", method = RequestMethod.POST)
+	public String updateRun(HttpSession session, UserInfoVo userVo, RedirectAttributes rttr) throws Exception{
+		boolean checkDuplicate = userJoinService.duplicateCheck(userVo.getU_email());
+		userVo.setU_position(1);
+		userVo.setU_local(" ");
+		userVo.setU_localextra(" ");
+		userVo.setU_postcode(0);
+		
+		if(checkDuplicate) { //중복(원래가입된회원)
+			userJoinService.updateUser(userVo);
+		}else {//신규
+			userJoinService.insertUser(userVo);
+		}
+		return "redirect:/login";
+	}
 
 	@RequestMapping(value = "/update_pw", method = RequestMethod.GET)
 	public String updatePassword(HttpSession session, @RequestParam("hiddenPw") String hiddenPw, RedirectAttributes rttr) throws Exception{
