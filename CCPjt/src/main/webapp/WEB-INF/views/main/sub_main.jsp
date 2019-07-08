@@ -273,12 +273,14 @@ img {vertical-align: middle;}
 
 .image-test {
   display: block;
-  width: 60%;
+  margin: auto;
+  width: 54%;
   height: auto;
 }
 
 .overlay-test {
   position: absolute;
+  margin : auto;
   top: 0;
   bottom: 0;
   left: 0;
