@@ -308,6 +308,35 @@ img {vertical-align: middle;}
   text-align: center;
 }
 
+/* Next & previous buttons */
+.prev-test, .next-test {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  margin-left: -25px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 3px 0 0 3px;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next-test {
+  position: absolute;
+  right: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev-test:hover, .next-test:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+
 
 </style>
 
@@ -436,6 +465,9 @@ $(document).ready(function() {
 				  </div>
 			  </c:forEach>
 			  
+  			<a class="prev prev-test" onclick="plusSlidesTest(1)">❮</a>
+			<a class="next next-test" onclick="plusSlidesTest(0)">❯</a>
+			  
 			  </div>
 			
 			</div>
@@ -456,6 +488,10 @@ $(document).ready(function() {
 	<script>
 	var slideIndexTest = 0;
 	showSlidesTest();
+	
+	function plusSlidesTest(n) {
+	  showSlidesTest(slideIndexTest += n);
+	}
 	
 	function showSlidesTest() {
 	  var i;
