@@ -296,7 +296,7 @@ img {vertical-align: middle;}
   opacity: 1;
 }
 
-.text-test {
+.text-test #link_member {
   color: white;
   font-size: 17px;
   position: absolute;
@@ -306,6 +306,35 @@ img {vertical-align: middle;}
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+/* Next & previous buttons */
+.prev-test, .next-test {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  margin-left: -25px;
+  padding: 16px;
+  color: #888;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 3px 0 0 3px;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next-test {
+  position: absolute;
+  right: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev-test:hover, .next-test:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
 }
 
 
@@ -341,7 +370,7 @@ $(document).ready(function() {
 		$("#hiddenData").attr("action",url);
 		
 		$("#hiddenData").submit();
-	})
+	});
 
 });
 </script>
@@ -426,15 +455,21 @@ $(document).ready(function() {
 			<c:forEach items="${ memberVo }" var="memberVo">
 				<div class="mySlides fade mySlides-test fade-test">
 				  <img src="/person_board/displayFile?fileName=${ memberVo.u_photo }" class="image-test">
-				  	<div class="overlay overlay-test">
+				  	<div class="overlay overlay-test divPerson" >
 				  	<div class="text text-test">
-					  	${ memberVo.u_name }<br><br>
-					  	${ memberVo.u_party }<br><br>
-					  	${ memberVo.u_detail }
+				  	<a href="/person_board/person_minipage?m_email=${ memberVo.u_email}" id="link_member" style="text-decoration:none">
+				  	<input type="hidden" name="m_eamil" value="${ memberVo.u_email}">
+						  	${ memberVo.u_name }<br><br>
+						  	${ memberVo.u_party }<br><br>
+						  	${ memberVo.u_detail }
+				  	</a>
 				  	</div>
 				  	</div>
 				  </div>
 			  </c:forEach>
+			  
+  			<a class="prev prev-test" onclick="plusSlidesTest(1)">❮</a>
+			<a class="next next-test" onclick="plusSlidesTest(0)">❯</a>
 			  
 			  </div>
 			
@@ -457,12 +492,20 @@ $(document).ready(function() {
 	var slideIndexTest = 0;
 	showSlidesTest();
 	
+	function plusSlidesTest(n) {
+	  showSlidesTest(slideIndexTest += n);
+	}
+	
 	function showSlidesTest() {
 	  var i;
 	  var slidesTest = document.getElementsByClassName("mySlides-test");
+// 	  console.log(slidesTest);
 	  var dotsTest = document.getElementsByClassName("dot-test");
 	  for (i = 0; i < slidesTest.length; i++) {
 	    slidesTest[i].style.display = "none";
+// 	    console.log(slidesTest[i]);
+// 		var m_email = $("input[name=m_email]").val();
+// 		console.log(m_email);
 	  }
 	  slideIndexTest++;
 	  if (slideIndexTest > slidesTest.length) {slideIndexTest = 1}    
@@ -473,6 +516,21 @@ $(document).ready(function() {
 	  dotsTest[slideIndexTest-1].className += " active-test";
 	  setTimeout(showSlidesTest, 5000); // Change image every 2 seconds
 	}
+	
+	// 의원 오버레이 클릭 시 해당 의원 정보 이동
+// 	$(".divPerson").click(function(e) {
+// 		e.preventDefault();
+// 		console.log("클릭됨");
+// 		var m_email = $("input[name=m_email]").val();
+// 		console.log(m_email);
+// 		location.href="/person_board/person_minipage?m_email=" + m_email;
+// 	});
+	
+// 	$("#link_member").click(function(e) {
+// 		e.preventDefault();
+// 		console.log("클릭됨");
+// 	});
+	
 	</script>
 <!-- 의원 정보 끝 -->
   
