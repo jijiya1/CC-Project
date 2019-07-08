@@ -13,7 +13,7 @@ import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.persistence.IPeBoardDao;
 
 @Service
-public class PeBoardService implements IPeBoardService {
+public class PeBoardServiceImpl implements IPeBoardService {
 
 	@Inject
 	private IPeBoardDao peBoardDao;

@@ -16,8 +16,8 @@ public class PersonMinipageDaoImpl implements IPersonMinipageDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<PersonPromiseVo> selectAllPromise(String u_id) throws Exception {
-		List<PersonPromiseVo> list = sqlSession.selectList("person_promise.selectAllPromise", u_id);
+	public List<PersonPromiseVo> selectAllPromise(String u_email) throws Exception {
+		List<PersonPromiseVo> list = sqlSession.selectList("person_promise.selectAllPromise", u_email);
 		return list;
 	}
 

@@ -7,7 +7,7 @@ div {
 	position:relative;
 }
 
-.card-body{
+.member-data{
 	cursor:pointer;
 }
 
@@ -32,9 +32,9 @@ div {
 
 <script >
 $(document).ready(function(){
-	$("#memberDiv").on("click", ".card-body", function(){
-		var m_email = $(this).attr("data-m_email");
-		$("input[name=m_email]").val(m_email);
+	$("#memberDiv").on("click", ".member-data", function(){
+		var u_email = $(this).attr("data-m_email");
+		$("input[name=u_email]").val(u_email);
 		$("#personForm").submit();
 	});
 });
@@ -42,7 +42,7 @@ $(document).ready(function(){
 </script>
 
 <form id="personForm" action="/person_board/person_minipage">
-	<input type="hidden" name="m_email" >
+	<input type="hidden" name="u_email" >
 	<input type="hidden" name="a_no" value="${areaDataVo.a_no }"/>
 </form>
 
@@ -68,11 +68,11 @@ $(document).ready(function(){
 <!-- 	</div> -->
 <!-- </div> -->
 <h1 class="h3 mb-2 text-gray-800">의원정보</h1><br>
-	<div class="row">
+	<div class="row" id="memberDiv" >
 		<c:forEach items="${memberVoList }" var="memberVo">
-			<div class="card" style="width:200px" id="memberDiv" >
+			<div class="card member-data" style="width:200px" data-m_email="${memberVo.u_email}">
 				<img class="card-img-top" src="/person_board/displayFile?fileName=${memberVo.u_photo }" alt="member_image" style="witdh:100%">
-				<div class="card-body" data-m_email="${memberVo.u_email}">
+				<div class="card-body" >
 					<h4 class="card-title"> ${memberVo.u_name } </h4>
 					<span style="font-size:1em;">${memberVo.u_party } / 재선</span><br>
 					<span style="font-size:1em;">${memberVo.u_address } ${memberVo.u_detail }</span><br>
