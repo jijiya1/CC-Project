@@ -162,7 +162,7 @@ $(document).ready(function() {
 		</li>
 		<li class="nav-item active">
 		    <a class="nav-link" href="/admin/member_selectArea">
-		      <i class="fas fa-fw fa-user-insert"></i>
+		      <i class="fas fa-fw fa fa-address-book"></i>
 		      <span>의원 입력</span></a>
 		</li>
 		<li class="nav-item active">

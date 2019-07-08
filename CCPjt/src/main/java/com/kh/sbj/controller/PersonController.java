@@ -49,8 +49,10 @@ public class PersonController {
 	}
 	
 	@RequestMapping(value = "/person_minipage", method = RequestMethod.GET)
-	public void personMinipage(@RequestParam("m_email") String m_email, Model model) throws Exception {
+	public void personMinipage(@RequestParam("m_email") String m_email, @RequestParam("a_no") int a_no, Model model) throws Exception {
 		UserInfoVo userInfoVo = personService.selectPerson(m_email);
+		AreaDataVo areaDataVo = personService.selectArea(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("memberSelectedVo", userInfoVo);
 	}
 	
