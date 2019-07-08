@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.UserInfoVo;
 import com.kh.sbj.domain.PersonVo;
 import com.kh.sbj.persistence.IPersonDao;
 
@@ -17,15 +18,15 @@ public class PersonServiceImpl implements IPersonService {
 	private IPersonDao personDao;
 	
 	@Override
-	public List<PersonVo> selectAll() throws Exception {
-		List<PersonVo> list = personDao.selectAll();
+	public List<UserInfoVo> selectAll(String a_name) throws Exception {
+		List<UserInfoVo> list = personDao.selectAll(a_name);
 		return list;
 	}
 
 	@Override
-	public PersonVo selectPerson(String u_id) throws Exception {
-		PersonVo personVo = personDao.selectPerson(u_id);
-		return personVo;
+	public UserInfoVo selectPerson(String u_id) throws Exception {
+		UserInfoVo userInfoVo = personDao.selectPerson(u_id);
+		return userInfoVo;
 	}
 
 	@Override

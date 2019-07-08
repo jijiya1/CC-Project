@@ -4,13 +4,14 @@
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	
 <mapper namespace ="person">
-	<select id="selectAll" resultType="PersonVo">
-		select * from person_data
+	<select id="selectAll" resultType="userInfoVo">
+		select * from user_info
+		where u_address = #{a_name} and u_position = 1
 	</select>
 	
-	<select id="selectPerson" resultType="PersonVo">
-		select * from person_data
-		where u_id = #{u_id}
+	<select id="selectPerson" resultType="userInfoVo">
+		select * from user_info
+		where u_email = #{u_email}
 	</select>
 
 	<select id="selectArea" resultType="AreaDataVo">

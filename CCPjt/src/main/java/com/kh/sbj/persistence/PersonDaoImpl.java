@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.UserInfoVo;
 import com.kh.sbj.domain.PersonVo;
 
 
@@ -19,15 +20,15 @@ public class PersonDaoImpl implements IPersonDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<PersonVo> selectAll() throws Exception {
-		List<PersonVo> list = sqlSession.selectList("person.selectAll");
+	public List<UserInfoVo> selectAll(String a_name) throws Exception {
+		List<UserInfoVo> list = sqlSession.selectList("person.selectAll", a_name);
 		return list;
 	}
 
 	@Override
-	public PersonVo selectPerson(String u_id) throws Exception {
-		PersonVo personVo = sqlSession.selectOne("person.selectPerson", u_id);
-		return personVo;
+	public UserInfoVo selectPerson(String u_id) throws Exception {
+		UserInfoVo userInfoVo = sqlSession.selectOne("person.selectPerson", u_id);
+		return userInfoVo;
 	}
 
 	@Override

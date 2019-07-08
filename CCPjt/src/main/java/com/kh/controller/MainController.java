@@ -20,7 +20,6 @@ import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
 import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.service.IMainService;
-import com.kh.service.MainServiceImpl;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 import com.kh.shj.service.INoticeBoardService;

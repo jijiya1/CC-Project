@@ -29,13 +29,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(userVo !=null) {
 			if(keepLogin != null) {
 				// 쿠키 생성
-				Cookie loginCookie = new Cookie("loginCookie", "true");
+//				Cookie loginCookie = new Cookie("loginCookie", "true");
 				Cookie idCookie = new Cookie("u_email", userVo.getU_email());
 				// 쿠키의 유효기간 (second-초단위)
 				int maxAge = 60*60*24*7;
-				loginCookie.setMaxAge(maxAge); //일주일
+//				loginCookie.setMaxAge(maxAge); //일주일
 				idCookie.setMaxAge(maxAge);
-				response.addCookie(loginCookie);
+//				response.addCookie(loginCookie);
 				response.addCookie(idCookie);
 				
 			}else {
@@ -44,7 +44,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				for(Cookie cookie : cookies) {
 					String cookieName = cookie.getName();
 					if(cookieName.equals("loginCookie") || cookieName.equals("u_email")) {
-						System.out.println("삭제");
 						cookie.setMaxAge(0);
 						response.addCookie(cookie);
 						

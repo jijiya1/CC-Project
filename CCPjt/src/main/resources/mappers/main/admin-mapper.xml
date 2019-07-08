@@ -31,6 +31,24 @@
 		where u_email = #{u_email}
 	</delete>
 	
+	<!-- 해당지역 선거구 리스트 불러오기 -->
+	<select id="selectDetail" resultType="DetailDataVo">
+		select * from detail_data
+		where a_no = #{a_no}
+	</select>
+	
+	<!-- 선거구 정보 불러오기 -->
+	<select id="selectDetailData" resultType="DetailDataVo">
+		select * from detail_data
+		where a_no = #{a_no} and d_no = #{d_no}
+	</select>
+	
+	<!-- 지역이름 불러오기 -->
+	<select id="selectAname" resultType="String">
+		select a_name from area_data
+		where a_no = #{a_no}
+	</select>
+	
 	<!-- 페이지네이션에 필요한 회원 수 -->
 	<select id="userContentCount" resultType="int">
 		select count(*) from user_info
