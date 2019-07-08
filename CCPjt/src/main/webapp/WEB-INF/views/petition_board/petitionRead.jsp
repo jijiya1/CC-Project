@@ -3,11 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
-<script>
-$(document).ready(function(){
-// 	console.log("${links}")
-});
-</script>
+<!-- <script src="/resources/js/jhjScript.js"></script> -->
+
+
 <title>청원 게시판 읽기</title>
 
 <div class="container-fluid">
@@ -43,8 +41,7 @@ $(document).ready(function(){
 						<tr>
 							<td colspan="1">
 							<label style="font-weight : bold">청원 진행도 | </label>
-							</td>
-							<td colspan="2" style="align-items: center;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<progress id="myProgress"<c:choose>		
 										<c:when test="${peVo.b_progress == 1}" >value= "0"</c:when>
 										<c:when test="${peVo.b_progress == 2}">value= "25"</c:when>
@@ -60,6 +57,12 @@ $(document).ready(function(){
 										<c:when test="${peVo.b_progress == 4}">청원 종료</c:when>
 										<c:otherwise>답변 완료</c:otherwise>
 									</c:choose>	
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<label style="font-weight : bold">참여인원 | </label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${peVo.b_agree} 명
 							</td>
 						</tr>
 						<tr>
@@ -84,47 +87,37 @@ $(document).ready(function(){
 							</div>
 							</c:forEach>
 						</div>
-						<!-- <tr >
-							<td colspan="3">
-								<label style="font-weight : bold">관련 링크</label>
-								<table style="width:100%"  id="divLinkGroup">
-									
-									<tr height= "20">
-										<td>
-										<label style="font-weight : bold">첨부 1:</label>
-										<a href="#">안녕</a>
-										</td>
-									</tr>
-									<tr height= "50">
-										<td>
-										<label style="font-weight : bold">첨부 2:</label>
-										<a href="#">안녕</a>
-										</td>
-									</tr>
-									<tr style="height: 30%">
-										<td>
-										<label style="font-weight : bold">첨부 3:</label>
-										<a href="#">안녕</a>
-										</td>
-									</tr>
-									
-									
-								</table>
-							</td>
-						</tr>
-					</table> -->
+						
 					</div>
 						
 				</div>
 				<button  type="button" class="btn btn-primary" data-toggle="tooltip"
-					 data-placement="top" title="동의하기"><i style='font-size:20px' class='fas fa-child'></i> &nbsp;동의하기</button>
+					 data-placement="top" title="동의하기" id="btnAgree"><i style='font-size:20px' class='fas fa-child'></i> &nbsp;동의하기</button>
 				<button type="button" class="btn btn-success" data-toggle="tooltip"
-					 data-placement="top" title="댓글목록"><span style='font-size:20px' class="fas fa-list"></span></button>
-				<input type="button" value="게시판" class="btn btn-warning" id="btnList">
-<input type="button" value="삭제하기" class="btn btn-danger" id="btnDel">
-					 
+					 data-placement="top" title="댓글" id="btnReply"><span style='font-size:20px' class="fas fas fa-comment"></span></button>
+				 <button type="button" class="btn btn-warning" data-toggle="tooltip"
+					 data-placement="top" title="목록" id="btnList"><span style='font-size:20px' class="fas fa-list"></span></button>
+				<button type="button" class="btn btn-danger" data-toggle="tooltip"
+					 data-placement="top" title="삭제" id="btnDel"><span class="fas fa-trash"></span></button>
 		</div>
+	</div><!-- 전체 글 div class= row -->	
+<!-- 댓글 입력	 -->
+	<div class="row">
+		<div class="col-md-12" id="writeReply">
+			<input type="text" name="replyVal" class="col-md-8"
+				 value=<c:if test='${userVo.u_email !=null}'>'${userVo.u_email}'</c:if>
+				 	<c:if test='${userVo.u_email == null}'>'로그인을 해야 합니다.'</c:if>
+				 >
+			<input type="button" value="댓글작성" class="btn btn-primary">
+		</div>
+	</div>	
+<!-- 		댓글목록 -->
+<div class="row">
+	<div class="col-md-12" id="listReply">
+	
+	<br>
 	</div>
+</div>	
 </div>
 <form id="pageForm" action="/petition_board/petitionList?a_no=${areaDataVo.a_no}">			
 	<input type="hidden" name="a_no" value="${param.a_no}">		
@@ -134,13 +127,82 @@ $(document).ready(function(){
 	<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"> 		
 </form>			
 <script>			
-$(document).ready(function(){			
-	$("#btnAgree").click(function(){		
+$(document).ready(function(){	
+	function getListReply(){
+		var url = "/pe_ajax/listReply/${peVo.b_serialno}";
+		$.getJSON(url, function(receivedData){
+// 			console.log(receivedData);
+			var nowUser = "${userVo.u_email}";
 			
+			var str = "<br><div class='card shadow mb-4'>"
+					+ '<div class="card-body">'
+					+ '<div class="table-responsive">' 
+					+ '<table class="table table-bordered">'
+					+ "<thead>"
+					+ "<tr>"
+					+ "	<td>번호</td>"
+					+ "	<td>댓글 내용</td>"
+					+ "	<td>작성자</td>"
+					+ "	<td>작성날짜</td>"
+					+ "</tr>"
+					+ "</thead>"
+					+ "<tbody>";
+			$(receivedData).each(function(){
+// 				var d = new Date(this.r_createddate).format("yyyy-MM-dd");
+				
+// 				var date = dateString(this.r_createddate);
+// 				console.log(date);
+				str += "<tr>"
+					+ " <td>" + this.rnum + "</td>"
+					+ " <td>" + this.r_content + "</td>"
+					+ " <td>" + this.r_writer + "</td>"
+// 					+ "<td>" + dateString(this.r_createddate) + "</td>";
+					+ "<td>" + this.r_createddate + "</td>";
+					
+			});//receivedData
+				str += "</tbody>"
+					+ "</table>"
+					+" </div></div></div>";
+			$("#listReply").html(str);		
+		});//getJSON(listReply)
+	}
+	
+	$("#btnAgree").click(function(){		
+// 			e.preventDefault();
+		var userInfo = '${userVo.u_email}';
+			if((userInfo != null) && (userInfo != "")){
+				var conAgree = confirm("동의하시겠습니까?");
+				if(conAgree == true){
+					var url = "/pe_ajax/upAgree";
+					var b_serialno = '${peVo.b_serialno}';
+					var data={
+							"b_serialno" : b_serialno,
+							"u_email" : userInfo
+							}
+					$.ajax({
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "post"
+						},
+						url : url,
+						type : "post",
+						data : JSON.stringify(data),
+						dataType : "text",
+						"success":function(result){
+// 							console.log(result);
+							alert(result);
+						}//success시 function
+					});//ajax 괄호
+				}//동의했던 이력이 있는지 파악
+				
+			}else{
+				alert("로그인을 해야 동의하실 수 있습니다.");
+			}//userInfo null 판단
 	});		
 			
 	$("#btnReply").click(function(){		
-			
+		
+		getListReply()
 	});		
 			
 	$("#btnList").click(function(){		
