@@ -5,12 +5,12 @@
   	
 <mapper namespace ="user_join">
 	<insert id="insertUser">
-		insert into user_info(u_email, u_pw, u_name, u_address, u_detail, u_local, u_localextra, u_postcode)
-		values(#{u_email}, #{u_pw}, #{u_name}, #{u_address}, #{u_detail}, #{u_local}, #{u_localextra}, #{u_postcode})
+		insert into user_info(u_email, u_pw, u_name, u_address, u_detail, u_local, u_localextra, u_postcode, u_position, u_party, u_photo)
+		values(#{u_email}, #{u_pw}, #{u_name}, #{u_address}, #{u_detail}, #{u_local}, #{u_localextra}, #{u_postcode}, #{u_position}, #{u_party}, #{u_photo})
 	</insert>
 	<update id="updateUser">
 		update user_info set
-		u_address = #{u_address}, u_detail = #{u_detail}, u_local = #{u_local}
+		u_address = #{u_address}, u_detail = #{u_detail}, u_local = #{u_local}, u_position = #{u_position}, u_party = #{u_party}, u_photo = #{u_photo}
 		where u_email = #{u_email}
 	</update>
 	<update id="updatePw">

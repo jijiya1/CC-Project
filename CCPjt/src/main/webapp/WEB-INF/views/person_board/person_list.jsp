@@ -7,7 +7,7 @@ div {
 	position:relative;
 }
 
-.text-name{
+.txt_member{
 	cursor:pointer;
 }
 
@@ -32,21 +32,20 @@ div {
 
 <script >
 $(document).ready(function(){
-	$("#memberDiv").on("click", ".text-name", function(){
+	$("#memberDiv").on("click", ".txt_member", function(){
 // 		$("#modal-614588").trigger("click");
-		var u_id = $(this).attr("data-u_id");
-		console.log("u_id"+u_id);
-		$("input[name=u_id]").val(u_id);
-		var temp=$("input[name=u_id]").val();
+		var m_email = $(this).attr("data-m_email");
+		$("input[name=m_email]").val(m_email);
+		var temp=$("input[name=m_email]").val();
 		console.log("temp = "+temp);
-		$("#personForm").submit();
+// 		$("#personForm").submit();
 	});
 });
 
 </script>
 
 <form id="personForm" action="/person_board/person_minipage">
-	<input type="hidden" name="u_id" >
+	<input type="hidden" name="m_email" >
 </form>
 
 	<div class="container-fluid">
@@ -55,57 +54,21 @@ $(document).ready(function(){
 	
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">의원정보</h1>
-	
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<a style="display:none;" id="modal-614588" href="#modal-container-614588" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
-			
-			<div class="modal fade" id="modal-container-614588" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">
-								상세정보(홍길동)
-							</h5> 
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<img src="/resources/img/test1.jpg"  alt="Avatar" style="width:100%">
-							홍길동(무소속)
-							울산 남구청장 (G*)
-						</div>
-						<div class="modal-footer">
-							 
-							<button type="button" class="btn btn-primary">
-								Save changes
-							</button> 
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
-								Close
-							</button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
-			
-		</div>
+
+	<div id="memberDiv">
+		<c:forEach items="${memberVoList }" var="memberVo">
+			<div class="card" >
+<%-- 		  	<img src="\\192.168.0.127/upload_team3/${memberVo.u_photo }"  alt="Avatar" style="width:100%"/> --%>
+		  	<img src="/person_board/displayFile?fileName=${memberVo.u_photo }"  alt="Avatar" style="width:100%"/>
+		 		<div class="container txt_member" >
+		   			<a class="text-name" id="memberName" data-m_email="${memberVo.u_email}" style="font-size:1em;">${memberVo.u_name } </a><br>	   			
+		  			<span style="font-size:1em;">${memberVo.u_address } ${memberVo.u_detail }</span><br>
+		  			<span style="font-size:1em;">(${memberVo.u_party })</span>
+		  		</div>
+			</div>	
+		</c:forEach>
 	</div>
-</div>
-<div id="memberDiv">
-	<c:forEach items="${personList }" var="personVo">
-		<div class="card" >
-	  	<img src="/resources/img/test1.jpg"  alt="Avatar" style="width:100%"/>
-	 		<div class="container" >
-	   			<a class="text-name" id="memberName" data-u_id="${personVo.u_id}">${personVo.u_name } (${personVo.m_party })</a>
-	  			<span>${personVo.m_position } / ${personVo.m_area }</span> 
-	  		</div>
-		</div>	
-	</c:forEach>
-</div>
+	</div>
 
 
 <%@include file="../include/footer.jsp" %>

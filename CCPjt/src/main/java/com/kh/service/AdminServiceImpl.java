@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.UserInfoVo;
 import com.kh.persistence.IAdminDao;
 
@@ -38,6 +39,24 @@ public class AdminServiceImpl implements IAdminService {
 	public UserInfoVo loadUserInfo(String u_email) throws Exception {
 		UserInfoVo userInfoVo = adminDao.loadUserInfo(u_email);
 		return userInfoVo;
+	}
+
+	@Override
+	public List<DetailDataVo> selectDetailList(int a_no) throws Exception {
+		List<DetailDataVo> list = adminDao.selectDetailList(a_no);
+		return list;
+	}
+
+	@Override
+	public DetailDataVo selectDetailData(int a_no, int d_no) throws Exception {
+		DetailDataVo detailDataVo = adminDao.selectDetailData(a_no, d_no);
+		return detailDataVo;
+	}
+
+	@Override
+	public String selectAname(int a_no) throws Exception {
+		String a_name = adminDao.selectAname(a_no);
+		return a_name;
 	}
 
 }

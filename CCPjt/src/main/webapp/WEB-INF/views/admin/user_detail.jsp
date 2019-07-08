@@ -41,7 +41,7 @@
     	});
     	
     	$("#btnMain").click(function(){
-    		location.href="/";
+    		location.href="/admin/user_list";
     	});
     });
 </script>
@@ -106,7 +106,7 @@
               </form>
               <hr>
               <div class="col-sm-12 mb-3 mb-sm-0">
-				<input type="button" class="btn btn-success btn-user btn-block" id="btnMain" value="메인">
+				<input type="button" class="btn btn-success btn-user btn-block" id="btnMain" value="목록">
               </div>
             </div>
           </div>

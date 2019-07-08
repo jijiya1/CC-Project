@@ -161,6 +161,11 @@ $(document).ready(function() {
 		      <span>회원 관리</span></a>
 		</li>
 		<li class="nav-item active">
+		    <a class="nav-link" href="/admin/member_selectArea">
+		      <i class="fas fa-fw fa-user-insert"></i>
+		      <span>의원 입력</span></a>
+		</li>
+		<li class="nav-item active">
 		    <a class="nav-link" href="#">
 		      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
 		      <span>신고 게시물</span></a>
