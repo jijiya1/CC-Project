@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.domain.UserInfoVo;
 import com.kh.sbj.domain.PersonPromiseDeleteDto;
 import com.kh.sbj.domain.PersonPromiseVo;
 import com.kh.sbj.service.IPersonMinipageService;
+import com.kh.sbj.service.IPersonService;
 import com.kh.sbj.util.FileUploadUtil;
 
 
@@ -34,14 +37,18 @@ public class PersonMinipageController {
 	@Inject
 	private IPersonMinipageService personMinipageService;
 	
+	@Inject
+	private IPersonService personService;
+	
+	
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
 	@RequestMapping(value = "/promise_list/{u_id}", method = RequestMethod.GET)
-	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@PathVariable("u_id") String u_id) throws Exception {
+	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@PathVariable("m_email") String m_email) throws Exception {
 		ResponseEntity<List<PersonPromiseVo>> entity = null;
 		try {
-			List<PersonPromiseVo> list = personMinipageService.selectAllPromise(u_id);
+			List<PersonPromiseVo> list = personMinipageService.selectAllPromise(m_email);
 			entity = new ResponseEntity<List<PersonPromiseVo>>(list, HttpStatus.OK);
 		}catch(Exception e)	{
 			e.printStackTrace();
@@ -49,6 +56,8 @@ public class PersonMinipageController {
 		}
 		return entity;
 	}
+
+	
 	// 공약 추가
 	@RequestMapping(value="/promise_insert", method=RequestMethod.POST)
 	public ResponseEntity<String> insert(@RequestParam("file") MultipartFile file, 

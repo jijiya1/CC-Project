@@ -354,12 +354,12 @@ $(document).ready(function(){
 		<div class="col-md-3">
 			<div id="memberDiv">
 				<div class="card" >
-				  <img src="/resources/img/test1.jpg"  alt="Avatar" style="width:70%; margin-top:20px; margin-left:auto; margin-right:auto;"/>
+				  <img src="/person_board/displayFile?fileName=${memberSelectedVo.u_photo }"  alt="Avatar" style="width:70%; margin-top:20px; margin-left:auto; margin-right:auto;"/>
 				 	<div class="col-md-12" >
-				   		<a class="text-margin" id="memberName" >${personVo.u_name } (${personVo.m_party })</a>
+				   		<a class="text-margin" id="memberName" >${memberSelectedVo.u_name } (${memberSelectedVo.u_party })</a>
 				  	</div>
 				  	<div class="col-md-12" >
-				  		<a class="text-margin"> ${personVo.m_area }(울산 중구갑)/ 재선 </a>
+				  		<a class="text-margin"> ${memberSelectedVo.u_address } ${memberSelectedVo.u_detail }</a>
 				  	</div>
 				  	<div class="col-md-12">
 					  	<input type="button" class="btn btn-link" value="건의 글 보기" id="member_com"/>
@@ -473,7 +473,7 @@ $(document).ready(function(){
 	              			<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
 	              				<input type="button" class="btn btn-primary" id="btnAddAcc" value="후원계좌 추가하기" />
 	              			</div>
-	              			
+	              			</div>
 	             		</div>
 	            	</div>
 	        	</div>
