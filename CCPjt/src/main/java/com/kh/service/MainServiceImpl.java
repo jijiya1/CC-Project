@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.domain.PagingDto;
+import com.kh.domain.SearchMemberDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
@@ -71,6 +72,12 @@ public class MainServiceImpl implements IMainService {
 	public List<UserInfoVo> getSearchMemberList(NoSearchDto noSearchDto) throws Exception {
 		List<UserInfoVo> getSearchMemberList = mainDao.getSearchMemberList(noSearchDto);
 		return getSearchMemberList;
+	}
+
+	@Override
+	public UserInfoVo searchMember(SearchMemberDto searchMemberDto) throws Exception {
+		UserInfoVo userInfoVo = mainDao.searchMember(searchMemberDto);
+		return userInfoVo;
 	}
 
 }

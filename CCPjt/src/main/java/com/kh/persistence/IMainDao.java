@@ -3,6 +3,7 @@ package com.kh.persistence;
 import java.util.List;
 
 import com.kh.domain.PagingDto;
+import com.kh.domain.SearchMemberDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
@@ -35,5 +36,8 @@ public interface IMainDao {
 	
 	// 서브페이지 의원 수 구하기 - SHJ
 	public int getMemberCount(String a_name) throws Exception;
+
+	// 의원찾기
+	public UserInfoVo searchMember(SearchMemberDto searchMemberDto) throws Exception;
 	
 }

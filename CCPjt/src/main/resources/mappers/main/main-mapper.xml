@@ -83,7 +83,7 @@
 		where u_address = #{a_name} and u_position = 1
 	</select>
 	
-	<!-- 의원 검색하기 -->
+	<!-- 의원목록 검색하기 -->
 	<select id="getSearchMemberList" resultType="userInfoVo">
 		select * from user_info
 		<if test="searchType != null">
@@ -91,6 +91,13 @@
 				where u_name like '%' || #{keywordAll} || '%' 
 			</if>
 		</if>
+		and u_position = 1
+	</select>
+	
+<!-- 	의원(1명) 검색 -->
+	<select id="searchMember" resultType="userInfoVo">
+		select * from user_info
+		where u_detail = (select d_name from detail_data where d_no=#{d_no} and a_no=#{a_no})
 		and u_position = 1
 	</select>
 

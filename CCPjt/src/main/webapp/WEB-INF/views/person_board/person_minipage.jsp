@@ -31,6 +31,8 @@
 
 <script>
 $(document).ready(function(){
+	var assem_name = '20대';
+	var assem_no = 20;
 	function getPromiseList() {
 		var u_email = "${memberSelectedVo.u_email}";
 		var url = "/person_mini/promise_list";
@@ -48,8 +50,9 @@ $(document).ready(function(){
 			"success" : function(receivedData){
 				var strHtml = "";
 				$(receivedData).each(function(i) {
+					if(assem_no==this.assem_no){
 					strHtml += "<tr>"
-							+	"<td>" + (i+1) + "</td>"
+							+	"<td></td>"
 							+	"<td>" + this.p_name + "</td>"
 							+	"<td>"
 							+	"<div class='progress'>"
@@ -64,7 +67,7 @@ $(document).ready(function(){
 							+	"<td>"
 							+	"<a href='/person_mini/downloadFile?fileName="+this.p_filepath+"'><button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='center' title='다운로드'><span class='fas fa-file'></span></button></a><br>"
 							+	"</td>"
-							if("${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email }"){
+							if(${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email}){
 								strHtml+=	"<td>"
 							+		"<button style='margin-right:5px;' type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='top' title='수정'"
 							+		"data-p_no='"+this.p_no+"'"
@@ -79,6 +82,7 @@ $(document).ready(function(){
 							+	"</td>"
 							}
 							+ "</tr>"
+					}
 				});
 				$("#promiseList").html(strHtml);
 			}
@@ -101,38 +105,25 @@ $(document).ready(function(){
 			"success" : function(receivedData){
 				var strHtml = "";
 				$(receivedData).each(function(i) {
-// 					strHtml += "<a href='"+this.acc_page+"' style='margin:5px;'>"
-// 							+ "<div class='card'>"
-// // 							+ "<div class='card_body'>"
-// // 							+ "<div class='card-body-header'>"
-// 							+ "<h4>"+this.bank+"</h4>"
-// 							+ "<br>"
-// 							+ "<h5>"+this.acc_num+"</h5><br>"
-// // 							+ "<hr>"
-// 							+ "예금주 : <br><p style='font-size:100%'>"+this.acc_name+"</p>"
-// // 							+ "</div>"
-// // 							+ "</div>"
-// 							+ "</div>"
-// 							+ "</a>"
 					strHtml += "<div class='row' style='margin:10px'>"
 							+ "<a href='"+this.acc_page+"'>" 
-							+ "<div class='col-xl-12 col-md-12 mb-12'>"
-						    + "<div class='card border-left-primary shadow h-100 py-2'>"
-						    + "<div class='card-body'>"
-						    + "<div class='row no-gutters align-items-center'>"
-					        + "<div class='col mr-12'>"
-					        + "<div class='text font-weight-bold text-primary text-uppercase mb-1'>"+this.bank+"</div>"
-					        + "<div class='h5 mb-0 font-weight-bold text-gray-800'>"+this.acc_num+"</div>"
-					        + "<br>"
-					        + "<div class='text font-weight-bold text-gray-800 text-uppercase mb-1'>"+this.acc_name+"</div>"
-					        + "</div>"
-					        + "</div>"
-					        + "</div>"
-					        + "</div>"
-					        + "</div>"
+// 							+ "<div class='col-xl-3 col-md-3 mb-3'>"
+// 						    + "<div class='card border-left-primary shadow h-100 py-2'>"
+// 						    + "<div class='card-body'>"
+// 						    + "<div class='row no-gutters align-items-center'>"
+// 					        + "<div class='col mr-12'>"
+					        + "<p class='text font-weight-bold text-primary text-uppercase mb-1'>"+this.bank+"</p>"
+					        + "<p class='h5 mb-0 font-weight-bold text-gray-800'>"+this.acc_num+"</p>"
+					        + "<p class='text font-weight-bold text-gray-800 text-uppercase mb-1'>"+this.acc_name+"</p>"
+// 					        + "</div>"
+// 					        + "</div>"
+// 					        + "</div>"
+// 					        + "</div>"
+// 					        + "</div>"
 					        + "</a>"
 					        + "</div>"
-							if("${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email }"){
+					        + "<hr>"
+							if(${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email }){
 								strHtml+=	"<button type='button'  style='margin:5px' class='btn btn-danger' data-toggle='tooltip' data-placement='top' title='삭제'"
 										+	"data-acc_num='"+this.acc_num+"'"
 										+	"data-u_email='"+this.u_email+"'"
@@ -148,6 +139,13 @@ $(document).ready(function(){
 	
 	getPromiseList();
 	getAccountList();
+	
+	$("#divPromiseAll").on("click", ".assem-list", function(){
+		assem_name = $(this).val();
+		assem_no = $(this).attr("data-assemno");
+		getPromiseList()
+	});
+	
 	
 	$("#promiseList").on("click", ".btn-warning", function(){
 		$("#modal-218300").trigger("click");
@@ -555,13 +553,12 @@ $(document).ready(function(){
 				   		<a class="text-margin" id="memberName" >${memberSelectedVo.u_name } (${memberSelectedVo.u_party })</a>
 				  	</div>
 				  	<div class="col-md-12" >
-				  		<a class="text-margin"> ${memberSelectedVo.u_address } ${memberSelectedVo.u_detail }</a>
+				  		<a class="text-margin"> ${memberSelectedVo.u_address } ${memberSelectedVo.u_detail } / ${election_name} </a>
 				  	</div>
-				  	<div class="col-md-12">
-					  	<input type="button" class="btn btn-link" value="건의 글 보기" id="member_com"/>
-						<input type="button" class="btn btn-link" value="토론 글 보기" id="member_dicussion"/>
-						<input type="button" class="btn btn-link" value="후원/모금 글 보기" id="member_donation"/>
-				  	</div>
+<!-- 				  	<div class="col-md-12"> -->
+<!-- 					  	<input type="button" class="btn btn-link" value="건의 글 보기" id="member_com"/> -->
+<!-- 						<input type="button" class="btn btn-link" value="토론 글 보기" id="member_dicussion"/> -->
+<!-- 				  	</div> -->
 				</div>	
 			</div>
 		</div>
@@ -584,9 +581,11 @@ $(document).ready(function(){
 <!-- 	           			TAB 내용2 -->
 	              		<div class="tab-pane fade show active" id="tabs_promise">
 	               			 <div class="row">
-								<div class="col-md-12">
+								<div class="col-md-12" id="divPromiseAll">
+									<c:forEach items="${assemVoList}" var="assemVo" varStatus="i" >
+										<input type="button" class="btn btn-link assem-list" data-assemno="${assemVo.assem_no }" value="${assemVo.assem_name }"/>
+									</c:forEach>
 									<div class="container-fluid">
-<%-- 										<c:if test=""> --%>
 										<table class="table">
 											<thead>
 												<tr>
@@ -602,9 +601,11 @@ $(document).ready(function(){
 											</tbody>
 										</table>
 									</div>
-									<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
-		              					<input type="button" class="btn btn-primary" id="btnAddPromise" value="공약 추가하기" />
-		              				</div>	
+	              					<c:if test="${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email}">
+										<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
+			              					<input style="margin:10px;" type="button" class="btn btn-primary" id="btnAddPromise" value="공약 추가하기" />
+			              				</div>	
+			              			</c:if>
 								</div>
 							</div>
 						</div>
@@ -614,10 +615,12 @@ $(document).ready(function(){
 	              				<div class="col-md-3" id="accList">
 							  	</div>
 	              			</div>
-	              			<hr>
-	              			<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
-		              			<input type="button" class="btn btn-primary" id="btnAddAccount" value="계좌 추가하기" />
-		              		</div>
+	              			<c:if test="${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email}">
+		              			<hr>
+		              			<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
+			              			<input type="button" class="btn btn-primary" id="btnAddAccount" value="계좌 추가하기" />
+			              		</div>
+		              		</c:if>
 	             		</div>
 							
 	            	</div>

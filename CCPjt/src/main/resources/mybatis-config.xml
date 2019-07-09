@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.domain.PagingDto" alias="pagingDto"/>
 		<typeAlias type="com.kh.domain.UserInfoVo" alias="userInfoVo"/>
 		<typeAlias type="com.kh.domain.LoginDto" alias="loginDto"/>
+		<typeAlias type="com.kh.domain.SearchMemberDto" alias="searchMemberDto"/>
 		
 		<typeAlias type="com.kh.hys.domain.BoardVo_Discussion" alias="BoardVo_Discussion"/>
 		<typeAlias type="com.kh.hys.domain.ReplyVo_Discussion" alias="ReplyVo_Discussion"/>
@@ -37,6 +38,7 @@
 		<typeAlias type="com.kh.sbj.domain.PersonVo" alias="personVo"/>
 		<typeAlias type="com.kh.sbj.domain.PersonPromiseVo" alias="personPromiseVo"/>
 		<typeAlias type="com.kh.sbj.domain.AccountVo" alias="accountVo"/>
+		<typeAlias type="com.kh.sbj.domain.AssemblyVo" alias="assemblyVo"/>
 		
 		<typeAlias type="com.kh.psh.domain.Complaint_BoardVo" alias="Complaint_BoardVo"/>
 		<typeAlias type="com.kh.psh.domain.Complaint_PaginationDto" alias="Complaint_PaginationDto"/>
