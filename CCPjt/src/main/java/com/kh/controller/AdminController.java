@@ -64,6 +64,23 @@ public class AdminController {
 		
 		int getUserCount = adminService.getUserCount();
 		model.addAttribute("getUserCount", getUserCount);
+		
+	}
+	
+	// 회원 등급 변경 기능
+	@ResponseBody
+	@RequestMapping(value="/user_update", method=RequestMethod.GET)
+	public ResponseEntity<String> updateUserGrade(int u_position, String u_email) throws Exception {
+		ResponseEntity<String> entity = null;
+		try {
+			adminService.updateUserGrade(u_position, u_email);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 	
 	// 회원 관리 버튼 중 탈퇴 기능
@@ -78,7 +95,7 @@ public class AdminController {
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(HttpStatus.BAD_GATEWAY);
+			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

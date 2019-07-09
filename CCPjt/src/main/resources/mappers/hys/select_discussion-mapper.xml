@@ -70,7 +70,8 @@
 	<update id="selectBoardModify">
 		update selectdiscussion_board 
 		set b_title = #{b_title},
-			b_content = #{b_content}
+			b_content = #{b_content},
+			b_modifieddate = sysdate
 		where b_no = #{b_no}	
 	</update>
 	

@@ -5,6 +5,29 @@
 <script>
 $(document).ready(function() {
 	
+	// 회원 등급 변경
+	$(".u_position").change(function() {
+// 		var u_position = $("#u_position").val();
+// 		console.log(u_position);
+		var u_email = $(this).attr("data-u_email");
+// 		console.log(u_email);
+		var u_name = $(this).attr("data-u_name");
+		var u_position = $("#u_position" + u_name).val();
+// 		console.log(u_position);
+		var url = "/admin/user_update";
+		var sendData = {
+				"u_position" : u_position,
+				"u_email" : u_email
+		};
+		$.get(url, sendData, function(rData) {
+// 			console.log(rData);
+			if (rData.trim() == "success") {
+// 				console.log("실행함");
+				alert("정보가 수정되었습니다.");
+			}
+		});
+	});
+	
 	// 회원 정보 조회
 	$(".user_update").click(function() {
 		var u_email = $(this).attr('data-u_email');
@@ -164,6 +187,7 @@ $(document).ready(function() {
 	              <th>회원 이름</th>
 	              <th>회원 이메일</th>
 	              <th>가입일자</th>
+	              <th>등급 변경</th>
 	              <th>정보 조회</th>
 	              <th>강제 탈퇴</th>
 	            </tr>
@@ -174,6 +198,12 @@ $(document).ready(function() {
 		              <td>${ userinfoVo.u_name }</td>
 		              <td>${ userinfoVo.u_email }</td>
 		              <td><fmt:formatDate value="${ userinfoVo.u_createdDate }" pattern="yyyy-MM-dd"/></td>
+		              <td>
+		              	<select class="form-control-sm u_position" id="u_position${ userinfoVo.u_name }" data-u_email="${ userinfoVo.u_email }" data-u_name="${ userinfoVo.u_name }">
+		              		<option value="0" <c:if test="${ userinfoVo.u_position == 0 }">selected</c:if>>시민</option>
+		              		<option value="1" <c:if test="${ userinfoVo.u_position == 1 }">selected</c:if>>의원</option>
+	              		</select>
+              		  </td>
 		              <td><Button type="button" class="btn btn-sm btn-success user_update" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="정보 수정"><span class="fas fa fas fa-address-card"></span></Button></td>
 		              <td><Button type="button" class="btn btn-sm btn-danger user_delete" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
 		            </tr>

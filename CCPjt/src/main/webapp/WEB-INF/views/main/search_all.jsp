@@ -30,7 +30,7 @@ div {
 	<h1 class="h3 mb-2 text-gray-800">의원 검색</h1>
 	
 	<p class="mb-4">
-		<span>전체 ${ count }명의 의원이 있습니다.</span>
+		<span>전체 ${ getSearchMemberCount }명의 의원이 있습니다.</span>
 	</p>
 	
 	<div class="row">

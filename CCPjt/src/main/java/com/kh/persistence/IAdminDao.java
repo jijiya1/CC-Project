@@ -12,6 +12,9 @@ public interface IAdminDao {
 	// 회원 목록 불러오기
 	public List<UserInfoVo> getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto) throws Exception;
 	
+	// 회원 등급 조정
+	public void updateUserGrade(int u_position, String u_email) throws Exception;
+	
 	// 회원 수 불러오기
 	public int getUserCount() throws Exception;
 	
@@ -24,10 +27,10 @@ public interface IAdminDao {
 	// 해당 지역 선거구 리스트 불러오기
 	public List<DetailDataVo> selectDetailList(int a_no) throws Exception;
 
-	//선거구 정보 불러오기
+	// 선거구 정보 불러오기
 	public DetailDataVo selectDetailData(int a_no, int d_no) throws Exception;
 
-	//지역 이름 불러오기
+	// 지역 이름 불러오기
 	public String selectAname(int a_no) throws Exception;
 	
 	// 페이지네이션에 필요한 회원 수

@@ -67,4 +67,10 @@ public class AdminServiceImpl implements IAdminService {
 		return userContentCount;
 	}
 
+	@Override
+	public void updateUserGrade(int u_position, String u_email) throws Exception {
+		adminDao.updateUserGrade(u_position, u_email);
+		
+	}
+
 }

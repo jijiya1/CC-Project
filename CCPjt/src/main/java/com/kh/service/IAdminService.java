@@ -12,6 +12,9 @@ public interface IAdminService {
 	// 회원 목록 불러오기
 	public List<UserInfoVo> getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto) throws Exception;
 	
+	// 회원 등급 조정
+	public void updateUserGrade(int u_position, String u_email) throws Exception;
+	
 	// 회원 수 불러오기
 	public int getUserCount() throws Exception;
 	

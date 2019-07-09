@@ -111,6 +111,9 @@ public class MainController {
 		List<UserInfoVo> getSearchMemberList = mainService.getSearchMemberList(noSearchDto);
 		model.addAttribute("SearchMemberList", getSearchMemberList);
 		
+		int getSearchMemberCount = mainService.getSearchMemberCount(noSearchDto);
+		model.addAttribute("getSearchMemberCount", getSearchMemberCount);
+		
 		model.addAttribute("a_no", a_no);
 	}
 	

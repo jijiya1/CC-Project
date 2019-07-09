@@ -98,7 +98,16 @@
 	<select id="searchMember" resultType="userInfoVo">
 		select * from user_info
 		where u_detail = (select d_name from detail_data where d_no=#{d_no} and a_no=#{a_no})
-		and u_position = 1
+	</select>
+	
+	<!-- 의원 검색 수 구하기 -->
+	<select id="getSearchMemberCount" resultType="int">
+		select count(*) from user_info
+		<if test="searchType != null">
+			<if test="searchType == 'u_name'">
+				where u_name like '%' || #{keywordAll} || '%' 
+			</if>
+		</if>
 	</select>
 
 </mapper>

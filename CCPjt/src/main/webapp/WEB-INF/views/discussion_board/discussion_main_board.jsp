@@ -121,11 +121,11 @@
 			<c:forEach items="${discussionList }" var="boardVo_discussion" >
 				<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
 					<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
-						${boardVo_discussion.b_title } / ${boardVo_discussion.b_serialno}
+						${boardVo_discussion.b_title }
 					</q>
 					<p></p>
-					<p> 토론에 대해서 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
-					<p> 토론에 대해서 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
+					<p> 위 의견에 대해 찬성 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "Y" data-b_no ="${boardVo_discussion.b_no}"  data-selected="no" style= "cursor:pointer;"></p>
+					<p> 위 의견에 대해 반대 <input type="radio" name = "radioSelect${boardVo_discussion.b_no }" class="radioYorN" data-YorN = "N" data-b_no ="${boardVo_discussion.b_no}" data-selected="no" style="cursor:pointer;"></p>
 					
 					<!-- 찬반 비율 표시 줄 -->
 					<div id= "ratioArea${boardVo_discussion.b_no }" style="height: 50px; border-radius: 20em; display: none;">
@@ -142,7 +142,7 @@
 						<div style="text-align: center;">
 							<a href="#" class="btn btn-danger btn-icon-split btnDeleteDiscussion" data-b_serialno="${boardVo_discussion.b_serialno }">
 								<span class="icon text-white-50"><i class="fas fa-trash"></i></span>
-								<span class="text">해당 토론 삭제하기</span>
+								<span class="text">해당 토론 종료하기</span>
 					        </a>	
 						</div>
 					</c:if>
@@ -160,9 +160,10 @@
 		</div>
 		<br>
 		
+		<!-- 토론 상세 보기 -->
 		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
 			<label style="font-weight: bold;">토론 상세 내용</label>
-			<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
+			<textarea class='form-control b_content' rows="5" readonly="readonly"></textarea>
 		</div>
 		
 		
@@ -388,7 +389,7 @@
 					"u_email" : u_email,
 					"agreenum" : agreenum
 			}
-			console.log("ajax 요청 전");
+// 			console.log("ajax 요청 전");
 			$.ajax({
 				"type" : "post",
 				"url" : url,
@@ -399,7 +400,7 @@
 				"dataType" : "text",
 				"data" : JSON.stringify(sendData),
 				"success" : function (receivedData) {
-					console.log("ajax 요청 받음");
+// 					console.log("ajax 요청 받음");
 //	 				console.log("성공 " + receivedData)
 					var commaIndex = receivedData.lastIndexOf(",");
 					var strLength = receivedData.length;
@@ -427,7 +428,7 @@
 					var ratioArea = document.getElementById("ratioArea"+b_no);
 					ratioArea.style.display = "block";
 					
-					console.log("ajax 요청후 처리");
+// 					console.log("ajax 요청후 처리");
 				}
 			});
 			
@@ -493,7 +494,7 @@
 	
 	// getJSON 댓글 리스트 가져오기 기능
 	function getReplyList() {
-		console.log("버튼 클릭");
+// 		console.log("버튼 클릭");
 		var url = "/discussion_reply/list/";
 		var data = {
 				"b_serialno" : nowDiscussion_b_serialno,
@@ -538,27 +539,41 @@
 					var listR_no = this.r_no;
 					
 					strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
-					 		+ 		"<div class='card-body'>"
-							+			"<p  style='font-weight: bold;'>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
-							+			"<p>&nbsp;"+this.r_content+"</p>"
+					 		+ 		"<div class='card-body replyMainCard"+this.r_no+"' style='display: block;'>"
+							+			"<p  style='font-weight: bold;'>"
+							+				this.r_no+". "+this.r_writer+"("+renameId+")";
+											// 로그인 유저와 댓글 유저가 같고 답글이 달리지 않았을때 또는 관리자 일때
+											if (this.u_email == u_email && this.r_coment_count == 0 && this.r_upcount == 0 && this.r_downcount == 0){
+											strHtml += "&nbsp;"
+														// 댓글 수정 버튼
+													+	"<button type='button' class='btn btn-warning btn-sm btnReplyModify' data-r_no = '"+this.r_no+"' data-r_writer = '"+this.r_writer+"' data-renameId = '"+renameId+"' data-r_content = '"+this.r_content+"' title='수정'><span class='fas fa-pencil-alt'></span></button>&nbsp;"
+														// 댓글 삭제 버튼
+													+	"<button type='button' class='btn btn-danger btn-sm btnReplydelete' data-r_no = '"+this.r_no+"' title='삭제'><span class='fas fa-trash'></span></button>";
+											} else if (${userVo.u_grade == "관리자"}) {
+													// 댓글 삭제 버튼
+											strHtml +=	"<button type='button' class='btn btn-danger btn-sm btnReplydelete' data-r_no = '"+this.r_no+"' title='삭제'><span class='fas fa-trash'></span></button>";												
+											}//if
+					strHtml += 			"<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"
+							+			"</p>"
+							+			"<p id='replyContentArea'>&nbsp;"+this.r_content+"</p>"
 							+			"<p style='text-align: right;' class='likeSelectArea'>"
 											// 좋아요 버튼
-							+				"<a href='#' class='btn btn-primary btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
+							+				"<a href='#' class='btn btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '1'";
 												$(replyLikeInfoList).each(function (i) {
 													if(this.r_no == listR_no && this.r_likenum == 1 && this.u_email == u_email) {
-														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #3498DB; background:#5DADE2; color:white;' ";
 													}//if
 												})
-					strHtml +=				">"
+					strHtml +=				" style='background:#5DADE2; color:white;'>"
 							+				"<span class='fas fa-thumbs-up'>&nbsp;"+this.r_upcount+"</span></a>&nbsp;"
 											// 싫어요 버튼
-							+				"<a href='#' class='btn btn-danger btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
+							+				"<a href='#' class='btn btn-sm btnLikeSelect' data-r_no='"+this.r_no+"' data-r_likenum= '2'";
 												$(replyLikeInfoList).each(function (i) {
 													if(this.r_no == listR_no && this.r_likenum == 2 && this.u_email == u_email) {
-														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #27AE60;' ";
+														strHtml += "data-selected='Yes' style='border: solid 5px; border-color: #E74C3C; background:#EC7063; color:white;' ";
 													}//if
 												})
-					strHtml +=				">"
+					strHtml +=				" style='background:#EC7063; color:white;'>"
 							+				"<span class='fas fa-thumbs-down'>&nbsp;"+this.r_downcount+"</span></a>"
 							+			"</p> "
 							+			"<div class='replyComentTextarea"+this.r_no+"'>"
@@ -575,7 +590,16 @@
 							+			"</div>"
 							+			"<div class='replyComentList"+this.r_no+"'>"
 							+			"</div>"
-							+ 		"</div>"	
+							+ 		"</div>"
+									// 댓글 수정 버튼 클릭 후 보일 textarea부분
+							+		"<div class='card-body replyModifyCard"+this.r_no+"' style='display: none;'>"
+							+ 			"<p style='font-weight: bold;'>"+this.r_no+". "+this.r_writer+"("+renameId+")</p>"
+							+			"<textarea class='form-control replyModify"+this.r_no+"' rows='4' style = padding: 10px;'>"+this.r_content+"</textarea>"
+							+			"<p class = 'replyModifyArea' style='float: right;  margin-top: 10px;'>"
+							+  				"<a href='#' class='btn btn-success btn-circle btnReplyModifyCheck' data-r_no='"+this.r_no+"' style='margin-right: 5px;'><i class='fas fa-check'></i></a>"
+							+  				"<a href='#' class='btn btn-danger btn-circle btnReplyModifyCancel' data-r_no='"+this.r_no+"'><i class='fas fa-trash'></i></a>"
+							+   		"</p>"
+							+		"</div>"
 							+  "</div>";
 				});//$(receivedData).each
 				
@@ -641,8 +665,73 @@
 				$("#discussion_ReplyList").html(strHtml);
 			}	
 		});//$.getJSON(url, function (receivedData)
-	}//getReplyList()
+				
+	} //getReplyList()
 	
+	// 댓글 수정 버튼
+	$("#discussion_ReplyList").on("click",".btnReplyModify", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		
+		
+		$(".replyMainCard" + r_no).css('display', 'none');
+		$(".replyModifyCard" + r_no).css('display', 'block').find('.replyModify' + r_no).focus();
+	});2
+	
+	// 댓글 수정 확인 버튼(체크모양)
+	$("#discussion_ReplyList").on("click",".btnReplyModifyCheck", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		console.log(r_no+"번 댓글 수정 확인 버튼");
+		
+		var modifyReplyContent = $(".replyModifyCard" + r_no).find(".replyModify"+r_no).val();
+		
+		var url = "/discussion_reply/modifyReply/"+r_no+"/"+modifyReplyContent;
+        $.ajax ({
+        	"type" : "put",
+        	"url" : url,
+        	"headers" : {
+        		"Content-Type" : "application/json",
+        		"X-HTTP-Method_Override" : "put"
+        	},
+        	"success" : function (receivedData) {
+        		$(".replyMainCard" + r_no).css('display', 'block');
+        		$(".replyModifyCard" + r_no).css('display', 'none');
+        		$(".replyMainCard" + r_no).find("#replyContentArea").text(modifyReplyContent);
+			}
+        });//$.ajax
+	});
+	
+	// 댓글 수정 취소 버튼(휴지통 모양)
+	$("#discussion_ReplyList").on("click",".btnReplyModifyCancel", function (e) {
+		e.preventDefault();
+		var r_no = $(this).attr("data-r_no");
+		$(".replyMainCard" + r_no).css('display', 'block');
+		$(".replyModifyCard" + r_no).css('display', 'none');
+	});
+	
+	// 댓글 삭제 버튼
+	$("#discussion_ReplyList").on("click",".btnReplydelete", function (e) {
+		var r_no = $(this).attr("data-r_no");
+		console.log(r_no +"/ 댓글 삭제 버튼");
+		
+		if(confirm("댓글 삭제 하시겠습니까?") == true) {
+			var url = "/discussion_reply/deleteReply/"+r_no;
+	        $.ajax ({
+	        	"type" : "put",
+	        	"url" : url,
+	        	"headers" : {
+	        		"Content-Type" : "application/json",
+	        		"X-HTTP-Method_Override" : "put"
+	        	},
+	        	"success" : function (receivedData) {
+	        		getReplyList()
+				}
+	        });//$.ajax
+			
+		}//if
+		
+	});
 	// 댓글 좋아요 또는 싫어요 버튼
 	$("#discussion_ReplyList").on("click",".btnLikeSelect", function (e) {
 		e.preventDefault();
