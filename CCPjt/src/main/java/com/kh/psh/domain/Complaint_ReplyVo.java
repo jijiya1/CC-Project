@@ -1,6 +1,6 @@
 package com.kh.psh.domain;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class Complaint_ReplyVo {
 	private String b_serialno;//게시글 시리얼 넘버

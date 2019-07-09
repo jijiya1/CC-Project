@@ -1,18 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/head.jsp" %>
-
-<!-- summernote 필수!! - SHJ4359 -->
-<!-- include summernote css/js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-<script src="/summernote/dist/lang/summernote-ko-KR.js"></script>
-
 <script>
 $(document).ready(function() {
-	// 툴팁
-	$('[data-toggle="tooltip"]').tooltip();
 	//글쓰기
 	$("#btnWrite").click(function() {
 		$("#WriteForm").submit();
@@ -20,7 +10,8 @@ $(document).ready(function() {
 	// 글 작성 취소
 	$("#btnCancel").click(function() {
 		location.href="/suggest_board/suggest_list?a_no=${a_no}";
-	});	
+	});
+
 });
 </script>
 
@@ -32,7 +23,7 @@ $(document).ready(function() {
 		<h1 class="h3 mb-2 text-gray-800">자유게시판 글쓰기</h1><br>
 		
 		<!-- 공지사항 작성 부분 시작 - form -->
-		<form role="form" method="post" id="WriteForm">
+		<form role="form" method="post" id="WriteForm" enctype="multipart/form-data">
 			<input type="hidden" name="a_no" value="${areaDataVo.a_no}">
 			<input type="hidden" name="u_email" value="${userVo.u_email}">
 			<input type="hidden" name="u_name" value="${userVo.u_name}">
@@ -71,29 +62,16 @@ $(document).ready(function() {
 			</div>
 			
 			<div class="form-group">
-				<label>글내용</label><br>
-				  <textarea id="summernote" name="b_content" required="required"></textarea>
-				  <script>
-				        $('#summernote').summernote({
-							lang: 'ko-KR',
-				            height: 350,
-				            minHeight: null,
-				            maxHeight: null,
-				            focus: true,
-				            onImageUpload : function(files, editor, welEditable) {
-				                sendFile(files[0], editor, welEditable);
-				            }
-				        });
-				        var postForm = function() {
-				        	var content = $('textarea[name="b_content"]').html($('#summernote').code());
-				        }
-
-				  </script>
-			</div>
+					<label for="b_content">글내용</label>
+					<textarea rows="10" cols="80" id="b_content"
+						class="form-control" name="b_content"></textarea>
+				</div>
+				
 		
-			<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="작성"
+	
+			<button type="button" class="btn btn-primary" data-placement="top" title="작성"
 				id="btnWrite"><span class="fas fa-check"></span></button>
-			<button type="button" class="btn btn-danger" id="btnCancel" data-toggle="tooltip" data-placement="top" title="취소"><span class="fas fa-times"></span></button>
+			<button type="button" class="btn btn-danger" id="btnCancel"  data-placement="top" title="취소"><span class="fas fa-times"></span></button>
 		</form>
 	</div>
 <%@include file="../include/footer.jsp" %>
