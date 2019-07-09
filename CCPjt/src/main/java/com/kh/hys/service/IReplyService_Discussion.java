@@ -19,6 +19,12 @@ public interface IReplyService_Discussion {
 	// 각 토론별 댓글입력
 	public void writeReply(ReplyVo_Discussion replyVo_Discussion) throws Exception;
 	
+	// 댓글 수정 하기
+	public void modifyReply(ReplyVo_Discussion replyVo_Discussion) throws Exception;
+	
+	// 댓글 삭제하기 b_checkeddel = 0 -> 1 로 업데이트
+	public void deleteReply(int r_no) throws Exception;
+	
 	// 댓글에 대해 좋아요 싫어요 추가
 	public void replylikeInfoAdd(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception;
 	

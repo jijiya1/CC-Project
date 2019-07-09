@@ -61,6 +61,7 @@ $(document).ready(function() {
 				var strHtml = "";
 				
 				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center;";
+				
 				if( resCountByEmail >= 1 ) {
 					strHtml +=	"border: solid 5px; border-color: #27AE60;";
 				};

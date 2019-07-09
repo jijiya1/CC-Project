@@ -40,6 +40,18 @@ public class ReplyDaoImpl_Discussion implements IReplyDao_Discussion {
 		sqlSession.insert(NAMESPACE+"writeReply", replyVo_Discussion);
 	}
 	
+	// 댓글 수정 하기
+	@Override
+	public void modifyReply(ReplyVo_Discussion replyVo_Discussion) throws Exception {
+		sqlSession.update(NAMESPACE+"modifyReply", replyVo_Discussion);
+	}
+	
+	// 댓글 삭제하기 b_checkeddel = 0 -> 1 로 업데이트
+	@Override
+	public void deleteReply(int r_no) throws Exception {
+		sqlSession.update(NAMESPACE+"deleteReply", r_no);
+	}
+	
 	// 댓글에 대해 좋아요 싫어요 추가
 	@Override
 	public void replylikeInfoAdd(ReplyLikeInfoDto_Discussion replyLikeInfoDto_Discussion) throws Exception {
@@ -91,6 +103,5 @@ public class ReplyDaoImpl_Discussion implements IReplyDao_Discussion {
 	public void replyComentCountModify(int r_no) throws Exception {
 		sqlSession.update(NAMESPACE+"replyComentCountModify", r_no);
 	}
-	
 
 }

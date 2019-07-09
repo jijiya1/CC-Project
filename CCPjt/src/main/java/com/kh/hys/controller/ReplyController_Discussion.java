@@ -46,7 +46,7 @@ public class ReplyController_Discussion {
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}// try
 		
-		System.out.println(entity);
+//		System.out.println(entity);
 		return entity;
 	}
 	
@@ -74,6 +74,46 @@ public class ReplyController_Discussion {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("success", HttpStatus.BAD_REQUEST);
 		}//try
+		
+		return entity;
+	}
+	
+	// 토론 댓글 수정
+	@RequestMapping(value="/modifyReply/{r_no}/{modifyReplyContent}",method=RequestMethod.PUT)
+	public ResponseEntity<String> modifyReply(@PathVariable("r_no") int r_no, @PathVariable("modifyReplyContent")String modifyReplyContent) {
+//		System.out.println("modifyReply 실행");
+		
+		ReplyVo_Discussion replyVo_Discussion = new ReplyVo_Discussion();
+		replyVo_Discussion.setR_no(r_no);
+		replyVo_Discussion.setR_content(modifyReplyContent);
+
+		ResponseEntity<String> entity = null;
+		
+		try {
+//			System.out.println(r_no +" 번 댓글 "+modifyReplyContent+"로 수정 하기" );
+			replyService_Discussion.modifyReply(replyVo_Discussion);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	// 토론 댓글 삭제
+	@RequestMapping(value="/deleteReply/{r_no}",method=RequestMethod.PUT)
+	public ResponseEntity<String> deleteReply(@PathVariable("r_no") int r_no) {
+		ResponseEntity<String> entity = null;
+		System.out.println("deleteReply 실행");
+		
+		try {
+			replyService_Discussion.deleteReply(r_no);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 		
 		return entity;
 	}
