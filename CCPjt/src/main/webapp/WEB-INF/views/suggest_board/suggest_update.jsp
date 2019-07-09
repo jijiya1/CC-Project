@@ -1,17 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/head.jsp" %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-<script src="/summernote/dist/lang/summernote-ko-KR.js"></script>
 <script>
 $(document).ready(function() {
 	$("#btnUdt").click(function() {
 		$("#UpdateForm").submit();
 	});
 	$("#btnReadList").click(function() {
-		location.href="/suggest_board/suggest_read?b_no=${vo.b_no}";;
+		location.href="/suggest_board/suggest_read?b_no=${vo.b_no}&a_no=${a_no}";
 	});
 });
 </script>
@@ -36,22 +32,11 @@ $(document).ready(function() {
 						name="b_writer" value="${vo.b_writer}" readonly="readonly"/>
 				</div>
 
-					<div class="form-group">
-				<label>글 내용</label><br>
-				  <textarea id="summernote" name="b_content">${vo.b_content}</textarea>
-				  <script>
-				        $('#summernote').summernote({
-							lang: 'ko-KR',
-				            height: 350,
-				            minHeight: null,
-				            maxHeight: null,
-				            focus: true  
-				        });
-				        var postForm = function() {
-				        	var content = $('textarea[name="b_content"]').html($('#summernote').code());
-				        }
-				  </script>
-			</div>
+				<div class="form-group">
+					<label for="b_content">글내용</label>
+					<textarea rows="10" cols="80" id="b_content"
+						class="form-control" name="b_content" >${vo.b_content}</textarea>
+				</div>
 
 				<div class="row">
 					<div class="col-md-12">

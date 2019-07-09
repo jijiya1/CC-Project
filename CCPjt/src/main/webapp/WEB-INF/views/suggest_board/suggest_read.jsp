@@ -3,7 +3,6 @@
 <%@ include file="../include/head.jsp" %>
 <script>
 $(document).ready(function() {
-	
 	//수정
 	$("#btnUpt").click(function() {
 		location.href="/suggest_board/suggest_update?b_no=${vo.b_no}&a_no=${a_no}";
@@ -23,6 +22,7 @@ $(document).ready(function() {
 		$.getJSON(url, function(receivedData) {
 			var strHtml = "";
 			$(receivedData).each(function(i) {
+				var u_email = "${userinfoVo.e_mail}"; 
 				
 			  strHtml +=    "<tr>"
 					  +  	"<td>" + this.r_no + "</td>" 					  
@@ -32,7 +32,7 @@ $(document).ready(function() {
 					  +		"<td>" + this.b_downcount + "</td>"
 					  +		"<td>" + this.r_createddate + "</td>"
 					  +     "<td>" + this.r_modifieddate + "</td>"
-			  strHtml +=  "<td>" 
+			  strHtml +=  "<td>" 			  			  			  			  
 					  + 	"<input type='button' value='수정' class='btn btn-warning'"
 					  +     " data-r_content='" + this.r_content + "'"
 					  +     " data-r_writer='" + this.r_writer + "'"
@@ -77,7 +77,7 @@ $(document).ready(function() {
 			},
 			"dataType" : "text",
 			"data" : JSON.stringify(data),
-			"success" : function(receivedData) {
+			"success" : function(receivedData) {				
 				getReplyList();
 			}
 		});
@@ -126,7 +126,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
 
 	//댓글 삭제
 	$("#replyList").on("click", ".btn-danger", function() {
@@ -222,8 +221,14 @@ $(document).ready(function() {
 					<label for="b_readcount">조회수</label>
 					<input type="text" class="form-control" id="b_readcount"
 						value="${vo.b_readcount}" readonly/>
-				</div>											
-				</form>
+				</div>
+				<div class="form-group">
+					<label for="b_readcount">작성일</label>
+					<input type="text" class="form-control" id="b_createddate"
+						value='<fmt:formatDate value="${vo.b_createddate}" 
+									pattern="yyyy-MM-dd HH:mm:ss"/>' readonly/>
+				</div>
+			</form>
 			</div>	
 		</div>
 		
@@ -232,12 +237,12 @@ $(document).ready(function() {
 		<!-- 읽기 버튼 -->
 		<div class="row">
 		<div class="col-md-12">
-				<!-- 수정 -->
+				<!-- 수정 -->				
 				<button type="button" class="btn btn-warning" value="수정"
 					id="btnUpt"><span class="fas fa-pencil-alt" style="float: right;"></span></button>
 				<!-- 삭제 -->
 				<button type="button" class="btn btn-danger" value="삭제"
-					id="btnDel"><span class="fas fa-trash" style="float: right;"></span></button>
+					id="btnDel"><span class="fas fa-trash" style="float: right;"></span></button>				
 				<!-- 목록 -->
 				<button type="button" class="btn btn-success" value="목록"
 					id="btnList"><span class="fas fa-list" style="float: right;"></span></button>
@@ -264,7 +269,7 @@ $(document).ready(function() {
 				<input type="text" class="form-control" id="r_content"/>
 			</div>
 						
-			<div class="form-group">
+				<div class="form-group">
 				<label for="title">작성자</label>
 				<input type="text" class="form-control" id="r_writer"/>
 			</div>
@@ -289,38 +294,13 @@ $(document).ready(function() {
 	</div>
 </div>
 <!-- 댓글 목록 -->
-<hr>
-<!-- <div class="row"> -->
-<!-- 	<div class="col-md-12"> -->
-<!-- 		<p><input type="button" value="댓글목록" id="btnReplyList" -->
-<!-- 			class="btn btn-primary"></p> -->
-<!-- 		<table class="table"> -->
-<!-- 			<thead> -->
-<!-- 				<tr>				 -->
-<!-- 					<th>댓글번호</th> -->
-<!-- 					<th>글내용</th> -->
-<!-- 					<th>작성자</th> -->
-<!-- 					<th>좋아요</th> -->
-<!-- 					<th>싫어요</th> -->
-<!-- 					<th>작성날짜</th> -->
-<!-- 					<th>수정날짜</th> -->
-<!-- 					<th>수정</th> -->
-<!-- 					<th>삭제</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody id="replyList"> -->
-			
-<!-- 			</tbody> -->
-<!-- 		</table> -->
-<!-- 	</div> -->
-<!-- </div> -->
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			 <a id="modal-867549" href="#modal-container-867549" role="button" class="btn btn-success" data-toggle="modal">댓글목록</a>
 			
 			<div class="modal fade" id="modal-container-867549" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog" role="document" style="max-width: 100%; width: auto; display: table;">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabel">
