@@ -147,7 +147,7 @@
 /* Slides */
 .mySlides-dis {
   display: none;
-  padding: 67.5px;
+  padding: 64.8px;
   text-align: center;
 }
 
@@ -577,8 +577,8 @@ $(document).ready(function() {
 					
 						<c:forEach items="${ discussionList }" var="boardVo_discussion" >
 							<div class="mySlides mySlides-dis">
-								<q style="cursor:pointer;" class="discussionTitle">
-									${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
+								<q style="cursor:pointer; font-size: 20px; font: bold;" class="discussionTitle">
+									${ boardVo_discussion.b_title }
 								</q>
 							  <p class="author author-dis">- ${ boardVo_discussion.b_writer }(${ boardVo_discussion.u_email.substring(0, 3)}***)</p>
 							</div>

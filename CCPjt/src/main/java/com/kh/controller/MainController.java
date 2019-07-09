@@ -93,7 +93,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/search_all", method=RequestMethod.GET)
-	public void searchAll(@RequestParam("a_no") int a_no, Model model) throws Exception {
+	public void searchAll(@RequestParam("a_no") int a_no, NoSearchDto noSearchDto, Model model) throws Exception {
 		
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
@@ -103,6 +103,14 @@ public class MainController {
 		List<UserInfoVo> getMemberList = mainService.getMemberList(a_name);
 		model.addAttribute("memberVo", getMemberList);
 		
+		List<UserInfoVo> getSearchMemberList = mainService.getSearchMemberList(noSearchDto);
+		model.addAttribute("SearchMemberList", getSearchMemberList);
+		
 		model.addAttribute("a_no", a_no);
+	}
+	
+	@RequestMapping(value="/member_search_area", method=RequestMethod.GET)
+	public void searchArea(Model model) throws Exception {
+		
 	}
 }
