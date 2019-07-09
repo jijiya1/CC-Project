@@ -457,7 +457,7 @@ $(document).ready(function() {
 				  <img src="/person_board/displayFile?fileName=${ memberVo.u_photo }" class="image-test">
 				  	<div class="overlay overlay-test divPerson" >
 				  	<div class="text text-test">
-				  	<a href="/person_board/person_minipage?m_email=${ memberVo.u_email}&a_no=${ a_no }" id="link_member" style="text-decoration:none">
+				  	<a href="/person_board/person_minipage?u_email=${ memberVo.u_email}&a_no=${ a_no }" id="link_member" style="text-decoration:none">
 				  	<input type="hidden" name="m_eamil" value="${ memberVo.u_email}">
 						  	${ memberVo.u_name }<br><br>
 						  	${ memberVo.u_party }<br><br>
