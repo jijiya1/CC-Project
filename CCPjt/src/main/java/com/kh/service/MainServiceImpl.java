@@ -7,9 +7,11 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.domain.PagingDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
+import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 
@@ -44,6 +46,25 @@ public class MainServiceImpl implements IMainService {
 	public List<PetitionVo> getPetitionRankingList(int a_no) throws Exception {
 		List<PetitionVo> getPetitionRankingList = mainDao.getPetitionRankingList(a_no);
 		return getPetitionRankingList;
+	}
+
+	@Override
+	public List<Complaint_BoardVo> getComplaintBoardList(PagingDto pagingDto, int a_no) throws Exception {
+		List<Complaint_BoardVo> getComplaintBoardList = mainDao.getComplaintBoardList(pagingDto, a_no);
+		return getComplaintBoardList;
+	}
+
+	@Override
+	public List<UserInfoVo> getMemberList(String a_name) throws Exception {
+		List<UserInfoVo> getMemberList = mainDao.getMemberList(a_name);
+		return getMemberList;
+	}
+
+	@Override
+	public int getMemberCount(String a_name) throws Exception {
+		int getMemberCount = mainDao.getMemberCount(a_name);
+//		System.out.println("Service / getMemberCount : " + getMemberCount);
+		return getMemberCount;
 	}
 
 }

@@ -51,26 +51,32 @@ $(document).ready(function(){
 	$(".a_title").click(function(e){
 		e.preventDefault();
 		var bno = $(this).attr("data-bno");
-		var ano = ${areaDataVo.a_no};
-		$("input[name=b_no]").val(bno);
+		var ano = "${areaDataVo.a_no}";
+		$("input[name=b_serialno]").val(bno);
 		$("input[name=a_no]").val(ano);
 		console.log("bno :" + bno);
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action",href).submit();
 	});
 	
-	$("#btnPetition").click(function(){
-		var href = "/petition_board/petitionWrite";
-// 		$("#pageForm").attr("action", href).submit();
+	$("#btnPetition").click(function(e){
+		e.preventDefault();
+		if("${userVo}" != null && "${userVo}" != ""){
+			var href = "/petition_board/petitionWrite";
+			$("#pageForm").attr("action", href).submit();
+		} else {
+			alert("로그인이 필요한 기능입니다.");
+		}
+		
 	});
 });
 </script>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
-	<input type="hidden" name="b_no" >
-	<input type="hidden" name="nowPage" value="${pageDto.nowPage} ">
-	<input type="hidden" name="countRow" value="${pageDto.countRow} ">
-	<input type="hidden" name="searchType" value="${pageDto.searchType} ">
+	<input type="hidden" name="b_serialno"  value="${param.b_serialno}">
+	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">
+	<input type="hidden" name="countRow" value="${pageDto.countRow}">
+	<input type="hidden" name="searchType" value="${pageDto.searchType}">
 	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
 </form>
 
@@ -85,7 +91,8 @@ $(document).ready(function(){
 	
 		<h1 class="h3 mb-2 text-gray-800"> 청원게시판(관심 청원 Best3)</h1><p class="mb-4">
 		<input class="btn btn-primary" type="button" value="청원하기" id="btnPetition">
-		<span> 전체 ${count}건의 게시물이 있습니다.</span>
+		
+<%-- 		<span> 전체 ${count}건의 게시물이 있습니다.</span> --%>
 	</p>
 
 	  <div class="card shadow mb-4">
@@ -110,7 +117,8 @@ $(document).ready(function(){
 		      	</div>
 		      	<!-- 검색바 시작 -->
 		      	<div id="dataTable_filter" class="dataTables_filter">
-		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+		      		<input type="search" class="form-control form-control-sm" placeholder="검색" 
+		      		aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
 		      	</div>
 	      	</div>
 	      	<!-- 검색바 끝 -->
@@ -144,12 +152,21 @@ $(document).ready(function(){
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"
-											class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+											class="a_title" style="float: left;" data-bno="${peVo.b_serialno}">
 											<span style="font-size: 14px">[${peVo.a_name}/${peVo.d_name}] </span>
 											&nbsp; ${peVo.b_title}</a>
 									</td>
-									<td><fmt:formatDate value="${peVo.b_enddate}"
-													pattern="yyyy-MM-dd"/> </td>
+									<td>
+										<fmt:formatDate value="${peVo.b_enddate}" pattern="yyyy-MM-dd" var="peDate"/>
+            								<c:choose> 
+		            							<c:when test="${formTime == peDate}">
+		            								만료(<fmt:formatDate value="${peVo.b_enddate}" pattern="HH:mm"/>)
+		            							</c:when>
+		            							<c:otherwise>
+		            								${peDate}
+		            							</c:otherwise>
+            							</c:choose> 
+									</td>
 									<td>
 										<c:choose>
 											<c:when test="${peVo.b_progress == 1}" >사전 동의 진행중</c:when>
@@ -165,30 +182,6 @@ $(document).ready(function(){
 							</c:forEach>
 							</tbody>
 						</table>
-						${pageDto.startPage}
-			<c:if test="${pageDto.startPage != 0 && pageDto.startPage != null}">
-				<ul class="pagination" style="float: right;">
-					<c:if test="${pageDto.prev == true}">
-						<li class="page-item">
-							<a class="page-link a_page" href="#"
-								data-page="${pageDto.startPage- pageDto.countPage+1}">＜</a>
-						</li>
-					</c:if>
-					<c:forEach var="i" begin="${pageDto.startPage}" end="${pageDto.endPage}">
-						<li class="page-item <c:if test="${pageDto.nowPage == i }">active</c:if>">
-							<a class="page-link a_page" href="#"
-								
-								data-page="${i}">${i}</a>
-						</li>
-					</c:forEach>
-					<c:if test="${pageDto.next == true }">
-						<li class="page-item">
-							<a class="page-link a_page" href="#"
-								data-page="${pageDto.endPage+1 }">＞</a>
-						</li>
-					</c:if>
-				</ul>
-			</c:if>	
 					</div>
 				</div> 
 			</div>

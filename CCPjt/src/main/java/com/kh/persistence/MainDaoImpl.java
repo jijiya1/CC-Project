@@ -9,8 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.domain.PagingDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
+import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 
@@ -59,6 +61,30 @@ public class MainDaoImpl implements IMainDao {
 	public List<PetitionVo> getPetitionRankingList(int a_no) throws Exception {
 		List<PetitionVo> getPetitionRankingList = sqlSession.selectList(NAMESPACE + "getPetitionRankingList", a_no);
 		return getPetitionRankingList;
+	}
+
+	@Override
+	public List<Complaint_BoardVo> getComplaintBoardList(PagingDto pagingDto, int a_no) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("pagingDto", pagingDto);
+		data.put("a_no", a_no);
+		
+		List<Complaint_BoardVo> getComplaintBoardList = sqlSession.selectList(NAMESPACE + "suggest_list", data);
+		return getComplaintBoardList;
+	}
+	
+	@Override
+	public List<UserInfoVo> getMemberList(String a_name) throws Exception {
+		List<UserInfoVo> getMemberList = sqlSession.selectList(NAMESPACE + "selectAll", a_name);
+		return getMemberList;
+	}
+
+	@Override
+	public int getMemberCount(String a_name) throws Exception {
+		int getMemberCount = sqlSession.selectOne(NAMESPACE + "getMemberCount", a_name);
+//		System.out.println("Dao / getMemberCount : " + getMemberCount);
+		return getMemberCount;
 	}
 
 }

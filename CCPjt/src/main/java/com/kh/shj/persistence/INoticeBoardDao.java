@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.DetailDataVo;
+import com.kh.domain.UserInfoVo;
 import com.kh.shj.domain.NoPagingDto;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
@@ -48,6 +49,5 @@ public interface INoticeBoardDao {
 	
 	// 해당지역 세부정보 불러오기
 	public List<DetailDataVo> getDetailAreaData(int a_no) throws Exception;
-
 	
 }

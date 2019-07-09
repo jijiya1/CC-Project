@@ -30,18 +30,30 @@ $(document).ready(function() {
 			}
 		})
 	});
-	
-	// 검색 기능
+	 
+	 // 페이징 기능
+	 function setPage() {
+		 var nowPage = "${ noPagingDto.nowPage }";
+		 if (nowPage == "") {
+			 nowPage = 1;
+		 }
+		 var perPage = $("select[name=dataTable_length]").val();
+		 $("input[name=nowPage]").val(nowPage);
+		 $("input[name=perPage]").val(perPage);
+		 
+	 }
+	 
+	 // 검색 기능
 	 function setSearch() {
-		 $("#searchKeyword").keyup(function(e){
+		 $("#keyword").keyup(function(e){
 			 if(e.keyCode == 13) {
-// 				setPage();
+				setPage();
 				var searchType = $("#searchType").val();
 				$("input[name=searchType]").val(searchType);
 				
-				var searchKeyword = $("#searchKeyword").val();
-// 				console.log(searchKeyword);
-				$("input[name=searchKeyword]").val(searchKeyword);
+				var keyword = $("#keyword").val();
+// 				console.log(keyword);
+				$("input[name=keyword]").val(keyword);
 //				console.log(keyword);
 				$("#hiddenData").submit();
 			 }
@@ -50,6 +62,37 @@ $(document).ready(function() {
 	 
 	 // 검색
 	 setSearch();
+
+	 // n줄씩 보기
+	 $("select[name=dataTable_length]").change(function() {
+		 setPage();
+		 
+		 var searchType = $("#searchType").val();
+		 $("input[name=searchType]").val(searchType);
+			
+		 var keyword = $("#keyword").val();
+//			console.log(keyword);
+		 $("input[name=keyword]").val(keyword);
+//			console.log(keyword);
+		 
+		 $("#hiddenData").submit();
+	 });
+	 
+	 // 페이지네이션
+	 $(".page-link").click(function(e) {
+		 e.preventDefault();
+		 
+		 var searchType = $("#searchType").val();
+		 $("input[name=searchType]").val(searchType);
+
+		 var nowPage = $(this).attr("data-page");
+		 $("input[name=nowPage]").val(nowPage);
+		 
+		 var perPage = $("select[name=dataTable_length]").val();
+		 $("input[name=perPage]").val(perPage);
+		 
+		 $("#hiddenData").submit();
+	 });
 	
 });
 </script>
@@ -75,10 +118,10 @@ $(document).ready(function() {
 	   
 		<!-- 히든 데이터 값 시작 -->
 		<form id="hiddenData" action="/admin/user_list">
-<!-- 			<input type="hidden" name="nowPage"> -->
-<!-- 			<input type="hidden" name="perPage"> -->
+			<input type="hidden" name="nowPage">
+			<input type="hidden" name="perPage">
 			<input type="hidden" name="searchType">
-			<input type="hidden" name="searchKeyword">
+			<input type="hidden" name="keyword">
 		</form>
 		<!-- 히든 데이터 값 끝 -->
 	      
@@ -97,17 +140,17 @@ $(document).ready(function() {
 	      		<div style="width: 32%; float: left;">
 		      		<select class="form-control form-control-sm" id="searchType">
 			      			<option value="u_name" 
-			      				<c:if test="${pagingDto.searchType == 'u_name'}"> selected="selected"</c:if>
+			      				<c:if test="${noSearchDto.searchType == 'u_name'}"> selected="selected"</c:if>
 			      			>이름</option>
 			      			<option value="u_email"
-			      				<c:if test="${pagingDto.searchType == 'u_email'}"> selected="selected"</c:if>
+			      				<c:if test="${noSearchDto.searchType == 'u_email'}"> selected="selected"</c:if>
 			      			>이메일</option>
 			      	</select>
 		      	</div>
 		      	<div style="width: 65%; float:right;">
-		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="searchKeyword"
-		      			<c:if test="${pagingDto.searchKeyword != null && pagingDto.searchKeyword != ''}">
-		      				value="${pagingDto.searchKeyword }"
+		      		<input type="search" class="form-control form-control-sm" placeholder="검색" aria-controls="dataTable" id="keyword"
+		      			<c:if test="${noSearchDto.keyword != null && noSearchDto.keyword != ''}">
+		      				value="${noSearchDto.keyword }"
 		      			</c:if>
 		      		>
 		      	</div>
@@ -143,34 +186,36 @@ $(document).ready(function() {
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 			<ul class="pagination">
 			
-			<c:if test="${ noPaginationDto.prevTen != true }">
-				<li class="paginate_button page-item previous" id="dataTable_previous">
-					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage - 10 }">≪</a>
-				</li>
-			</c:if>
-			
-			<c:if test="${ noPaginationDto.prev != true }">
-				<li class="paginate_button page-item previous" id="dataTable_previous">
-					<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage - 1 }">＜</a>
-				</li>
-			</c:if>
-			
-			<c:forEach var="i" begin="${ noPaginationDto.startPage }" end="${ noPaginationDto.endPage }">
-				<li class="paginate_button page-item <c:if test="${ noPaginationDto.noPagingDto.nowPage == i }">active</c:if>">
-					<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" data-page="${ i }">${ i }</a>
-				</li>
-			</c:forEach>
-			
-			<c:if test="${ noPaginationDto.next != true }">
-				<li class="paginate_button page-item next" id="dataTable_next">
-					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage + 1 }">＞</a>
-				</li>
-			</c:if>
-			
-			<c:if test="${ noPaginationDto.nextTen != true }">
+			<c:if test="${ noPaginationDto.startPage != 0 && noPaginationDto.startPage != null}">
+				<c:if test="${ noPaginationDto.prevTen != true }">
+					<li class="paginate_button page-item previous" id="dataTable_previous">
+						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage - 10 }">≪</a>
+					</li>
+				</c:if>
+				
+				<c:if test="${ noPaginationDto.prev != true }">
+					<li class="paginate_button page-item previous" id="dataTable_previous">
+						<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage - 1 }">＜</a>
+					</li>
+				</c:if>
+				
+				<c:forEach var="i" begin="${ noPaginationDto.startPage }" end="${ noPaginationDto.endPage }">
+					<li class="paginate_button page-item <c:if test="${ noPaginationDto.noPagingDto.nowPage == i }">active</c:if>">
+						<a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link" data-page="${ i }">${ i }</a>
+					</li>
+				</c:forEach>
+				
+				<c:if test="${ noPaginationDto.next != true }">
+					<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage + 1 }">＞</a>
+					</li>
+				</c:if>
+				
+				<c:if test="${ noPaginationDto.nextTen != true }">
 				<li class="paginate_button page-item next" id="dataTable_next">
 					<a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link" data-page="${ noPaginationDto.noPagingDto.nowPage + 10 }">≫</a>
 				</li>
+			</c:if>
 			</c:if>
 				
 			</ul>

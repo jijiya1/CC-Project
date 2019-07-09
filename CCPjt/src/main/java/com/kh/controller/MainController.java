@@ -6,20 +6,22 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.PagingDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.BoardVo_Discussion;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.hys.service.IBoardService_Discussion;
 import com.kh.hys.service.ISelectService_Discussion;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.persistence.IMainDao;
+import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.service.IMainService;
-import com.kh.service.MainServiceImpl;
 import com.kh.shj.domain.NoSearchDto;
 import com.kh.shj.domain.NoticeBoardVo;
 import com.kh.shj.service.INoticeBoardService;
@@ -72,7 +74,35 @@ public class MainController {
 		List<PetitionVo> getPetitionRankingList = mainService.getPetitionRankingList(a_no);
 		model.addAttribute("pMain", getPetitionRankingList);
 		
+		List<Complaint_BoardVo> getComplaintBoardList = mainService.getComplaintBoardList(pagingDto, a_no);
+		model.addAttribute("boardList", getComplaintBoardList);
+//		System.out.println("getComplaintBoardList : " + getComplaintBoardList);
+		
+		String a_name = areaDataVo.getA_name();
+//		System.out.println("a_name : " + a_name);
+		
+		List<UserInfoVo> getMemberList = mainService.getMemberList(a_name);
+		model.addAttribute("memberVo", getMemberList);
+		
+		int getMemberCount = mainService.getMemberCount(a_name);
+		model.addAttribute("memberCount", getMemberCount);
+//		System.out.println("Control / getMemberCount : " + getMemberCount);
+		
 		model.addAttribute("a_no", a_no);
 		
+	}
+	
+	@RequestMapping(value="/search_all", method=RequestMethod.GET)
+	public void searchAll(@RequestParam("a_no") int a_no, Model model) throws Exception {
+		
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		String a_name = areaDataVo.getA_name();
+		
+		List<UserInfoVo> getMemberList = mainService.getMemberList(a_name);
+		model.addAttribute("memberVo", getMemberList);
+		
+		model.addAttribute("a_no", a_no);
 	}
 }

@@ -6,9 +6,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.kh.domain.PagingDto;
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.UserInfoVo;
 import com.kh.persistence.IAdminDao;
+import com.kh.shj.domain.NoPagingDto;
+import com.kh.shj.domain.NoSearchDto;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
@@ -17,8 +19,8 @@ public class AdminServiceImpl implements IAdminService {
 	IAdminDao adminDao;
 
 	@Override
-	public List<UserInfoVo> getUserList(PagingDto pagingDto) throws Exception {
-		List<UserInfoVo> getUserList = adminDao.getUserList(pagingDto);
+	public List<UserInfoVo> getUserList(NoPagingDto noPagingDto, NoSearchDto noSearchDto) throws Exception {
+		List<UserInfoVo> getUserList = adminDao.getUserList(noPagingDto, noSearchDto);
 		return getUserList;
 	}
 
@@ -39,6 +41,30 @@ public class AdminServiceImpl implements IAdminService {
 	public UserInfoVo loadUserInfo(String u_email) throws Exception {
 		UserInfoVo userInfoVo = adminDao.loadUserInfo(u_email);
 		return userInfoVo;
+	}
+
+	@Override
+	public List<DetailDataVo> selectDetailList(int a_no) throws Exception {
+		List<DetailDataVo> list = adminDao.selectDetailList(a_no);
+		return list;
+	}
+
+	@Override
+	public DetailDataVo selectDetailData(int a_no, int d_no) throws Exception {
+		DetailDataVo detailDataVo = adminDao.selectDetailData(a_no, d_no);
+		return detailDataVo;
+	}
+
+	@Override
+	public String selectAname(int a_no) throws Exception {
+		String a_name = adminDao.selectAname(a_no);
+		return a_name;
+	}
+	
+	@Override	
+	public int userContentCount(NoSearchDto noSearchDto, NoPagingDto noPagingDto) throws Exception {
+		int userContentCount = adminDao.userContentCount(noSearchDto, noPagingDto);
+		return userContentCount;
 	}
 
 }

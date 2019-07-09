@@ -58,5 +58,11 @@ public class BoardDaoImpl_Discussion implements IBoardDao_Discussion {
 		BoardVo_Discussion boardVo_Discussion = sqlSession.selectOne(NAMESPACE+"getAgreeRatio", b_no);
 		return boardVo_Discussion;
 	}
+	
+	//관리자 권한으로 토른 글 삭제 (b_checkeddel = 0 -> 1 로 업데이트)
+	@Override
+	public void deleteDiscussionBySerialno(String b_serialno) throws Exception {
+		sqlSession.update(NAMESPACE+"deleteDiscussionBySerialno", b_serialno);
+	}
 
 }

@@ -32,71 +32,86 @@
 <script>
 $(document).ready(function(){
 	function getPromiseList() {
-		var url = "/person_mini/promise_list/${personVo.u_id}";
-		$.getJSON(url, function(receivedData) {
-			var strHtml = "";
-			$(receivedData).each(function(i) {
-				// 여기 세션 사용자 아이디로 바까야함 personVo -> 해당 의원정보 session -> 로그인(사용자정보)
-				// 여기 세션 사용자 아이디로 바까야함 personVo -> 해당 의원정보 session -> 로그인(사용자정보)
-				// 여기 세션 사용자 아이디로 바까야함 personVo -> 해당 의원정보 session -> 로그인(사용자정보)
-				// 여기 세션 사용자 아이디로 바까야함 personVo -> 해당 의원정보 session -> 로그인(사용자정보)
-				
-// 				var u_id = "${personVo.u_id}";
-				strHtml += "<tr>"
-						+	"<td>" + (i+1) + "</td>"
-						+	"<td>" + this.p_name + "</td>"
-						+	"<td>"
-						+	 "<div class='progress'>"
-						+		"<div class='progress-bar w-"+ this.p_progress + "'>"
-						+			""+this.p_progress
-						+		"</div>"
-						+	 "</div>"
-						+	"</td>"
-						+	"<td>"
-						+	"<a href='/person_mini/displayFile?fileName="+this.p_filePath+"'><img src='/resources/img/file_image.png' width='30'></a><br>"
-						+	"</td>"
-						+	"<td>"
-						+		"<input type='button' class='btn-xs btn-warning' id='btnPromiseModify' value='수정'"
-						+		"data-p_no='"+this.p_no+"'"
-						+		"data-p_name='"+this.p_name+"' "
-						+		"data-p_progress='"+this.p_progress+"' "
-						+		"data_p_filePath='"+this.p_filePath+"' "
-						+		"data-index='"+i+"'>"
-						+		"<input type='button' class='btn-xs btn-danger' id='btnPromiseDelete' value='삭제'"
-						+		"data-p_no='"+this.p_no+"'"
-						+		"data-u_id='"+this.u_id+"'"
-						+		">"
-						+	"</td>"
-						+ "</tr>"
-			});
-			$("#promiseList").html(strHtml);
+		var u_email = "${memberSelectedVo.u_email}";
+		var url = "/person_mini/promise_list";
+		var data = {
+				"u_email" : u_email
+		};
+		$.ajax({
+			"type" : 'get',
+			"url" : url,
+			"data" : data,
+			"headers" : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Overried" : "get"
+			},
+			"success" : function(receivedData){
+				var strHtml = "";
+				console.log('${userVo.u_email}');
+				$(receivedData).each(function(i) {
+					strHtml += "<tr>"
+							+	"<td>" + (i+1) + "</td>"
+							+	"<td>" + this.p_name + "</td>"
+							+	"<td>"
+							+	 "<div class='progress'>"
+							+		"<div class='progress-bar w-"+ this.p_progress + "'>"
+							+			""+this.p_progress
+							+		"</div>"
+							+	 "</div>"
+							+	"</td>"
+							+	"<td>"
+							+	"<a href='/person_mini/downloadFile?fileName="+this.p_filepath+"'><button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='center' title='다운로드'><span class='fas fa-file'></span></button></a><br>"
+							+	"</td>"
+							if("${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email }"){
+								strHtml+=	"<td>"
+							+		"<button style='margin-right:5px;' type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='top' title='수정'"
+							+		"data-p_no='"+this.p_no+"'"
+							+		"data-p_name='"+this.p_name+"' "
+							+		"data-p_progress='"+this.p_progress+"' "
+							+		"data_p_filepath='"+this.p_filepath+"' "
+							+		"data-index='"+i+"'><span class='fas fa-pencil-alt'></span></button>"
+							+		"<button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='top' title='삭제'"
+							+		"data-p_no='"+this.p_no+"'"
+							+		"data-u_email='"+this.u_email+"'"
+							+		"><span class='fas fa-trash'></span></button>"
+							+	"</td>"
+							}
+							+ "</tr>"
+				});
+				$("#promiseList").html(strHtml);
+			}
 		}); 
 	}
-	getPromiseList();
 	
-	$("#btn1").click(function(){
-		console.log("btn1클릭");
-		$("#ASD").click();
-	});
+	getPromiseList();
 	
 	$("#promiseList").on("click", ".btn-warning", function(){
 		$("#modal-218300").trigger("click");
+		
 		var p_no = $(this).attr("data-p_no");
 		var p_name = $(this).attr("data-p_name");
 		var p_progress = $(this).attr("data-p_progress");
-		var p_filePath = $(this).attr("data-p_filePath");
+		var p_filepath = $(this).attr("data_p_filepath");
 		var index = $(this).attr("data-index");
+		
+		var underbar = p_filepath.lastIndexOf('_')+1;
+		var filename = p_filepath.substring(underbar);
+		
+		$("#txtModalFile").text(filename);
+		
 		$("#modal_p_no").val(p_no);
 		$("#modal_p_name").val(p_name);
-		var test = $("[name=modal_p_progress]:checked").val();
-		console.log("test 첫번쨰 = " + test);
+// 		var test = $("[name=modal_p_progress]:checked").val();
+// 		console.log("test 첫번쨰 = " + test);
 		$('input:radio[name=modal_p_progress]').attr("checked", false);
 		$('input:radio[name=modal_p_progress]:input[value=' + p_progress + ']').attr("checked", true);
 // 		$("[name=modal_p_progress][value="+p_progress+"]").attr('checked', true);
-		test = $("[name=modal_p_progress]:checked").val();
-		console.log("test = " + test);
-		$("#modal_p_filePath").val(p_filePath);
+// 		test = $("[name=modal_p_progress]:checked").val();
+// 		console.log("test = " + test);
+// 		$("#modal_p_filePath").val(p_filepath);
+// 		var filename = $("#modal_p_filePath").val();
 		$("#modal_index").val(index);
+		$("#file_path").val(p_filepath);
 	});
 	
 	$("#btnAddPromise").click(function(){
@@ -105,6 +120,12 @@ $(document).ready(function(){
 	
 	$("#btnAddFile").click(function(){
 		$("#addFilePath").trigger("click");
+	});
+	$("#btnAddAcc").click(function(){
+		$("#modal-56727").trigger("click");
+	})
+	$("#btnModalFile").click(function(){
+		$("#modalFilePath").trigger("click");
 	});
 	
 	$("#addFilePath").change(function() {
@@ -115,15 +136,14 @@ $(document).ready(function(){
 		var filename = this.files[0].name;
 		$("#txtModalFile").text(filename);
 	});
-	
 	$("#btnModalAdd").click(function(){
-		var u_id = "${personVo.u_id}"; 
+		var u_email = "${memberSelectedVo.u_email}"; 
 		var p_name = $("#add_name").val();
 		var p_progress = $("[name=add_progress]:checked").val();
 		var filePath = $("input[name=addFilePath]")[0].files[0];
 		console.log("filePath :" +filePath);
 		var formData = new FormData();
-		formData.append("u_id", u_id);
+		formData.append("u_email", u_email);
 		formData.append("p_name", p_name);
 		formData.append("p_progress", p_progress);
 		formData.append("file", filePath);
@@ -143,9 +163,9 @@ $(document).ready(function(){
 	
 
 	$("#promiseList").on("click", ".btn-danger", function(){
-		var u_id = $(this).attr("data-u_id");
+		var u_email = $(this).attr("data-u_email");
 		var p_no = $(this).attr("data-p_no");
-		var url = "/person_mini/promise_delete/" + u_id + "/" + p_no;
+		var url = "/person_mini/promise_delete/" + u_email + "/" + p_no;
 		$.ajax({
 			"type" : 'delete',
 			"url" : url,
@@ -154,11 +174,9 @@ $(document).ready(function(){
 				"X-HTTP-Method-Overried" : "delete"
 			},
 			"success" : function(receivedData) {
-				console.log(receivedData);
 				if (receivedData == "success") {
 	 				getPromiseList();
-
-// 					$("#replyList > tr").eq(index).fadeOut("1000");
+					$("#replyList > tr").eq(index).fadeOut("1000");
 				}
 			}
 		});
@@ -168,12 +186,19 @@ $(document).ready(function(){
 		var u_id = "${personVo.u_id}"; 
 		var p_name = $("#modal_name").val();
 		var p_progress = $("[name=modal_progress]:checked").val();
-		var p_filePath = $("#modalFilePath").val();
+		var checkFile = $("#modalFilePath").val();
+		var p_filepath ="";
+		if(checkFile=="" || checkFile==null){
+			p_filepath = $("#file_path").val();
+		}else{
+			p_filepath = checkFile;
+		}
+		console.log("p_filepath"+p_filepath);
 		var data = {
 			"u_id" : u_id,
 			"p_name" : p_name,
 			"p_progress" : p_progress,
-			"p_filePath" : p_filePath
+			"p_filepath" : p_filepath
 		};
 		var url = "/person_mini/promise_update";
 		$.ajax({
@@ -196,9 +221,12 @@ $(document).ready(function(){
 </script>
 
 
-
 <!--  입력 다이얼로그 -->
 <div class="container-fluid">
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a>
+	 ＞ <a href="/person_board/person_list?a_no=${areaDataVo.a_no}">의원정보</a> ＞ ${memberSelectedVo.u_name} </p>
+		
+
 	<div class="row">
 		<div class="col-md-12">
 			 <a style="display:none" id="modal-562648" href="#modal-container-562648" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
@@ -253,7 +281,6 @@ $(document).ready(function(){
 							</div>
 						</div>
 						<div class="modal-footer">
-							 
 							<button type="button" class="btn btn-info" id="btnModalAdd" data-dismiss="modal">
 								추가하기
 							</button> 
@@ -269,11 +296,9 @@ $(document).ready(function(){
 			
 		</div>
 	</div>
-</div>
 
 
 <!-- 수정 다이얼로그 -->
-<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
 			 <a style="display:none" id="modal-218300" href="#modal-container-218300" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
@@ -292,6 +317,7 @@ $(document).ready(function(){
 						<div class="modal-body">
 							<input type="hidden" id="modal_index">
 							<input type="hidden" id="modal_p_no">
+							<input type="hidden" id="file_path">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="content">공약명</label>
@@ -324,8 +350,8 @@ $(document).ready(function(){
 									<form id="FileForm" method="post" enctype="multipart/form-data">
 										<input style="display:none;" type="file" class="form-control" id="modalFilePath" />
 										<input type="button" class="btn btn-success" id="btnModalFile" value="파일찾기">
+										<span id="txtModalFile"></span>
 									</form>
-									<span id="txtModalFile"></span>
 								</div>
 							</div>
 						</div>
@@ -345,21 +371,74 @@ $(document).ready(function(){
 			
 		</div>
 	</div>
-</div>
+
+<!-- 계좌입력 다이얼로그 -->
+	<div class="row">
+		<div class="col-md-12">
+			 <a id="modal-56727" href="#modal-container-56727" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
+			
+			<div class="modal fade" id="modal-container-56727" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								계좌 입력
+							</h5> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="content">은행</label>
+		                    	<select id="modal_bank" class="form-control form-control-user">
+					 				<option value='은행' selected>은행</option>
+									<option value='신한은행'>신한은행</option>
+								    <option value='KB국민은행'>KB국민은행</option>
+								    <option value='우리은행'>우리은행</option>
+								    <option value='KEB하나은행'>KEB하나은행</option>
+								    <option value='NH농협은행'>NH농협은행</option>
+								    <option value='카카오뱅크'>'카카오뱅크'</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="content">계좌번호</label>
+								<input type="text" class="form-control" id="modal_accnum"/>
+							</div>
+							<div class="form-group">
+								<label for="content">계좌주</label>
+								<input type="text" class="form-control" id="modal_accname"/>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="btnModalAcc" data-dismiss="modal">
+								추가하기
+							</button> 
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								닫기
+							</button>
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
 
 
-<body>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3">
 			<div id="memberDiv">
 				<div class="card" >
-				  <img src="/resources/img/test1.jpg"  alt="Avatar" style="width:70%; margin-top:20px; margin-left:auto; margin-right:auto;"/>
+				  <img src="/person_board/displayFile?fileName=${memberSelectedVo.u_photo }"  alt="Avatar" style="width:70%; margin-top:20px; margin-left:auto; margin-right:auto;"/>
 				 	<div class="col-md-12" >
-				   		<a class="text-margin" id="memberName" >${personVo.u_name } (${personVo.m_party })</a>
+				   		<a class="text-margin" id="memberName" >${memberSelectedVo.u_name } (${memberSelectedVo.u_party })</a>
 				  	</div>
 				  	<div class="col-md-12" >
-				  		<a class="text-margin"> ${personVo.m_area }(울산 중구갑)/ 재선 </a>
+				  		<a class="text-margin"> ${memberSelectedVo.u_address } ${memberSelectedVo.u_detail }</a>
 				  	</div>
 				  	<div class="col-md-12">
 					  	<input type="button" class="btn btn-link" value="건의 글 보기" id="member_com"/>
@@ -375,9 +454,6 @@ $(document).ready(function(){
 	        		<div class="col">
 	            		<ul class="nav nav-tabs">
 	              			<li class="nav-item">
-	                			<a class="nav-link" data-toggle="tab" href="#tabs_main" id="menu_main">메인</a>
-	              			</li>
-	              			<li class="nav-item">
 	                			<a class="nav-link active" data-toggle="tab" href="#tabs_promise" id="menu_promise">공약</a>
 	              			</li>
 	              			<li class="nav-item">
@@ -388,54 +464,19 @@ $(document).ready(function(){
  <!-- TAB 내용  	 -->
   	
 	           		 <div class="tab-content">
-<!-- 	           		 TAB 내용1 -->
-	           		 	<div class="tab-pane fade " id="tabs_main">
-	                		<div class="row">
-								<div class="col-md-12">
-									<div class="container-fluid">
-										<a></a>
-										<input type="button" class="btn btn-link" id="btn1" value="바로가기"/>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<input type="text" class="text" id="txtUserName" >
-									<input type="text"  class="text" id="txtMessage" placeholder="응원 메시지를 입력해 주세요." width="300"/>
-									<input type="button" class="btn-warning" id="btnMessage" value="입력"/>					
-								</div>
-								<div class="col-md-12">
-									<div class="container-fluid">
-										<table class="table">										
-											<tbody>
-												<tr>
-													<td>김철수</td>
-													<td>응원합니다.</td>
-													<td width="100">
-														<input type="button" class="btn-xs btn-danger" id="dtnDel" value="X">
-													</td>
-													<td width="100">
-														<input type="button" class="btn-xs btn-secondary" id="dtnReport" value="신고">
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-	              		</div>
 <!-- 	           			TAB 내용2 -->
 	              		<div class="tab-pane fade show active" id="tabs_promise">
 	               			 <div class="row">
 								<div class="col-md-12">
 									<div class="container-fluid">
+<%-- 										<c:if test=""> --%>
 										<table class="table">
 											<thead>
 												<tr>
 													<th></th>
 													<th>공약명</th>
 													<th>진행상황</th>
-													<th>상세내용</th>
+													<th>내용</th>
 													<th></th>
 													<th></th>
 												</tr>
@@ -450,22 +491,36 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</div>
-<!-- 	           		 	TAB 내용3 -->
-	              		
-	             		
 <!-- 	           		 	TAB 내용4 -->
 	              		<div class="tab-pane fade" id="tabs_donation">
 	              			<div class="col-md-12">
-	              				<div class="page-header">
-									<h1>
-										신한 <small>110-1111-33333</small> 김똘똘
-									</h1>
-								</div>
+	              				<div class="col-md-3">
+								<a href="#" style="margin:5px;"> <!-- 클릭 시 링크 설정 -->
+									<div class="card">
+										<div class="card-body">
+											<!--  카드 바디 헤더 -->
+											<div class="card-body-header">
+												<h4>신한은행 </h4>
+												<br>
+												 <h5>  110-324-234234234</h5> <br>
+												<hr>
+												예금주  : <br><p style="font-size:100%">의원후원회장 박후원</p>
+											</div>
+										</div>
+									</div>
+							  	</a>
+							  	<button type="button"  style="margin:5px" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash"></span></button>
+							  	</div>
 	              			</div>
 	              			<hr>
+	              			
+	              			
 	              			<div class="col-md-12" style="margin-top:20px;">
 	              				<select>
 	              					<option>신한</option>
+	              					<option>우리</option>
+	              					<option>국민</option>
+	              					<option>농협</option>
 	              				</select>
 	              				<input type="text" class="text" id="txtAccNum" placeholder="계좌번호"/>
 	              				<input type="text" class="text" id="txtAccName" placeholder="예금주"/>
@@ -473,13 +528,14 @@ $(document).ready(function(){
 	              			<div class="col-md-12" style="display: inline-block; text-align:center; margin-top:20px;" >
 	              				<input type="button" class="btn btn-primary" id="btnAddAcc" value="후원계좌 추가하기" />
 	              			</div>
-	              			
+	              			</div>
 	             		</div>
 	            	</div>
 	        	</div>
 	      	</div> 
 	    </div>
 	</div>
+</div>
 </div>
 </body>
 

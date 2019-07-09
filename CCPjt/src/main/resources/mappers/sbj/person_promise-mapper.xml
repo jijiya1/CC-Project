@@ -4,14 +4,14 @@
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	
 <mapper namespace ="person_promise">
-	<select id="selectAllPromise" resultType="PersonPromiseVo">
+	<select id="selectAllPromise" resultType="personPromiseVo">
 		select * from person_promise
-		where u_id = #{u_id}
+		where u_email = #{u_email}
 	</select>
 	
 	<insert id="insertPromise">
-		insert into person_promise(u_id, p_no, p_name, p_progress, p_filePath)
-		values(#{u_id}, seq_person_promise.nextval, #{p_name}, #{p_progress}, #{p_filePath})
+		insert into person_promise(u_email, p_no, p_name, p_progress, p_filepath, assem_no)
+		values(#{u_email}, seq_person_promise.nextval, #{p_name}, #{p_progress}, #{p_filepath}, 20)
 	</insert>
 	
 	<update id="updatePromise">
@@ -22,6 +22,6 @@
 
 	<delete id="deletePromise">
 		delete person_promise
-		where u_id = #{u_id} and p_no = #{p_no}
+		where u_email = #{u_email} and p_no = #{p_no}
 	</delete>
 </mapper>  	

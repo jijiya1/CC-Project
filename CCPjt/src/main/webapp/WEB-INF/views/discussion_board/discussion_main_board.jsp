@@ -90,8 +90,7 @@
 </style>
 
 <div class="container-fluid">
-	<p style="font: strong;">데이터 확인 :${areaDataVo.a_no }</p>
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 토론 게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ 토론 게시판</p>
 </div>
 
 <c:choose>
@@ -138,14 +137,21 @@
 							<label id ="oppositionRatio${boardVo_discussion.b_no }" style="color: white; font-size: 20px; margin-top: 10px; margin-bottom: 10px; float: right;">${boardVo_discussion.b_oppositioncount}&nbsp;</label>
 						</div>
 					</div>	
+					<c:if test="${userVo.u_grade == '관리자' }">
+						<br>
+						<div style="text-align: center;">
+							<a href="#" class="btn btn-danger btn-icon-split btnDeleteDiscussion" data-b_serialno="${boardVo_discussion.b_serialno }">
+								<span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+								<span class="text">해당 토론 삭제하기</span>
+					        </a>	
+						</div>
+					</c:if>
 				</div>
 			</c:forEach>
 			
 			<a class="prev" onclick="plusSlides(-1)">❮</a>
 			<a class="next" onclick="plusSlides(1)">❯</a>
 		</div>
-		
-		
 		
 		<div class="dot-container">
 			<c:forEach begin="1" end="${discussionListSize }" var= "i" >
@@ -155,7 +161,7 @@
 		<br>
 		
 		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
-			<label>토론 상세 내용</label>
+			<label style="font-weight: bold;">토론 상세 내용</label>
 			<textarea class='form-control b_content' rows="" cols="" readonly="readonly"></textarea>
 		</div>
 		
@@ -189,7 +195,10 @@
 	</c:otherwise>
 </c:choose>
 
-
+<form id="hiddenDiscussionBoard" action="">
+	<input type="hidden" name ="b_serialno">
+	<input type="hidden" name ="a_no" value="${areaDataVo.a_no }">
+</form>
 
 <!-----------------------------------  스크립트 ----------------------------------->
 <script>
@@ -202,11 +211,25 @@
 	//로그인 중인 사용자 -------------------------------------------
 	var r_writer = "${userVo.u_name }";
 	var u_email = "${userVo.u_email }";
-	// --------------------------------------------------------------------
+	// -------------------------------------------------------------
 	
 	// 현재 댓글이 표시 되고 있는지
 	var replyListShow = false;
 	
+	//----------관리자 권한 기능(토론 글 삭제) --------
+	$(".btnDeleteDiscussion").click(function (e) {
+		e.preventDefault();
+		if(confirm("해당 토론 글을 삭제 하시겠습니까?") == true){
+			var url = "/discussion_board/deleteDiscusssionBoard"
+				var b_serialno = $(this).attr("data-b_serialno");
+				console.log(b_serialno + "글 번호 삭제 버튼");
+
+				$("input[name=b_serialno]").val(b_serialno);
+				$("#hiddenDiscussionBoard").attr("action", url);
+				$("#hiddenDiscussionBoard").submit();
+		}//if
+	})
+	//------------------------------------------------
 	var slideIndex = 1;
 	showSlides(slideIndex);
 	
@@ -228,6 +251,8 @@
 	  } else {
 		  addReplyListButton();
 	  }
+	  
+	  b_contentArea.style.display = "none";
 	}
 	
 	function currentSlide(n) {
@@ -290,6 +315,7 @@
 		
 		if(b_contentArea.style.display == "none") {
 			b_contentArea.style.display = "block";
+			$(".b_content").focus();
 		} else {
 			b_contentArea.style.display = "none";
 		}
@@ -513,7 +539,7 @@
 					
 					strHtml += "<div class='card mb-1 py-0.1 border-left-"+borderColor+"'>"
 					 		+ 		"<div class='card-body'>"
-							+			"<p>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
+							+			"<p  style='font-weight: bold;'>"+this.r_no+". "+this.r_writer+"("+renameId+")"+ "<span style='float: right; color:"+YorNColor+";'>"+YorN+"</span>"+"</p>"
 							+			"<p>&nbsp;"+this.r_content+"</p>"
 							+			"<p style='text-align: right;' class='likeSelectArea'>"
 											// 좋아요 버튼

@@ -15,9 +15,10 @@ public class UserInfoVo {
     private int u_activity_rate;
     private Timestamp u_withdrawDate;
     private Timestamp u_createdDate;
-    private String u_party;
-    private int u_position;
+    private String u_party = " ";
+    private int u_position = 0;
     private int u_postcode;
+    private String u_photo;
     
 	public UserInfoVo() {
 		super();
@@ -25,7 +26,7 @@ public class UserInfoVo {
 
 	public UserInfoVo(String u_email, String u_pw, String u_name, String u_address, String u_detail, String u_local,
 			String u_localextra, String u_grade, int u_activity_rate, Timestamp u_withdrawDate, Timestamp u_createdDate,
-			String u_party, int u_position, int u_postcode) {
+			String u_party, int u_position, int u_postcode, String u_photo) {
 		super();
 		this.u_email = u_email;
 		this.u_pw = u_pw;
@@ -41,6 +42,7 @@ public class UserInfoVo {
 		this.u_party = u_party;
 		this.u_position = u_position;
 		this.u_postcode = u_postcode;
+		this.u_photo = u_photo;
 	}
 
 	public String getU_email() {
@@ -155,13 +157,21 @@ public class UserInfoVo {
 		this.u_postcode = u_postcode;
 	}
 
+	public String getU_photo() {
+		return u_photo;
+	}
+
+	public void setU_photo(String u_photo) {
+		this.u_photo = u_photo;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfoVo [u_email=" + u_email + ", u_pw=" + u_pw + ", u_name=" + u_name + ", u_address=" + u_address
 				+ ", u_detail=" + u_detail + ", u_local=" + u_local + ", u_localextra=" + u_localextra + ", u_grade="
 				+ u_grade + ", u_activity_rate=" + u_activity_rate + ", u_withdrawDate=" + u_withdrawDate
 				+ ", u_createdDate=" + u_createdDate + ", u_party=" + u_party + ", u_position=" + u_position
-				+ ", u_postcode=" + u_postcode + "]";
+				+ ", u_postcode=" + u_postcode + ", u_photo=" + u_photo + "]";
 	}
 
 	

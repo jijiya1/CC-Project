@@ -14,13 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.domain.LoginDto;
 import com.kh.domain.PagingDto;
 import com.kh.domain.UserInfoVo;
-import com.kh.persistence.IMainDao;
 import com.kh.sbj.service.IUserJoinService;
 import com.kh.service.IMainService;
 import com.kh.shj.domain.NoPagingDto;
@@ -57,18 +55,14 @@ public class HomeController {
 		
 		Cookie[] cookies = request.getCookies();
 		String u_email = null;
-		String loginCookie = null;
 		for(Cookie cookie : cookies) {
 			String cookieName = cookie.getName();
 			String cookieValue = cookie.getValue();
-			if(cookieName.equals("loginCookie")) {
-				loginCookie = cookieValue;
-			}else if(cookieName.equals("u_email")) {
+			if(cookieName.equals("u_email")) {
 				u_email = cookieValue;
 			}
 		}
-		
-		if(loginCookie != null && loginCookie.equals("true") && u_email != null) {
+		if(u_email != null) {
 			String u_pw = userJoinService.searchPw(u_email);
 			model.addAttribute("u_email", u_email);
 			model.addAttribute("u_pw", u_pw);
