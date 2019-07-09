@@ -93,4 +93,10 @@ public class MainDaoImpl implements IMainDao {
 		return getSearchMemberList;
 	}
 
+	@Override
+	public int getSearchMemberCount(NoSearchDto noSearchDto) throws Exception {
+		int getSearchMemberCount = sqlSession.selectOne(NAMESPACE + "getSearchMemberCount", noSearchDto);
+		return getSearchMemberCount;
+	}
+
 }
