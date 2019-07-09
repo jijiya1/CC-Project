@@ -76,11 +76,11 @@ $(document).ready(function() {
 				setPage();
 				$("input[name=searchType]").val("b_title");
 				var a_no = "${ areaDataVo.a_no }";
-// 				console.log(a_no);
+				console.log(a_no);
 				$("input[name=a_no]").val(a_no);
 				var keyword = $("#keyword").val();
 				$("input[name=keyword]").val(keyword);
-// 				console.log(keyword);
+				console.log(keyword);
 				$("#hiddenData").submit();
 			 }
 		 });
@@ -196,25 +196,38 @@ $(document).ready(function() {
 	            </tr>
 	          </thead>
 	          <tbody>
-	          <c:forEach items="${ list }" var="noticeBoardVo">
+	          <c:choose>
 	          
-	          <c:if test="${ noticeBoardVo.b_checkeddel == 0 }">
-	            <tr>
-	              <td>${ noticeBoardVo.b_no }</td>
-	              <td>
-	              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
-	              	data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">
-	              	[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }&nbsp;
-	              	<c:if test="${ noticeBoardVo.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
-	              	</a>
-           		  </td>
-           		  <td>N</td>
-	              <td>${ noticeBoardVo.u_name }</td>
-	              <td>${ noticeBoardVo.b_readcount }</td>
-	              <td><fmt:formatDate value="${ noticeBoardVo.b_createddate }" pattern="yyyy-MM-dd"/></td>
-	            </tr>
-			  </c:if>
-           	  </c:forEach>
+		         <c:when test="${ list == '[]' }">
+			        <tr>
+			        	<td colspan="6">검색된 글이 없습니다.</td>
+			        </tr>
+		         </c:when>
+		          
+		         <c:otherwise>
+			          <c:forEach items="${ list }" var="noticeBoardVo">
+			          
+			          <c:if test="${ noticeBoardVo.b_checkeddel == 0 }">
+			            <tr>
+			              <td>${ noticeBoardVo.b_no }</td>
+			              <td>
+			              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
+			              	data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">
+			              	[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }&nbsp;
+			              	<c:if test="${ noticeBoardVo.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+			              	</a>
+		           		  </td>
+		           		  <td>N</td>
+			              <td>${ noticeBoardVo.u_name }</td>
+			              <td>${ noticeBoardVo.b_readcount }</td>
+			              <td><fmt:formatDate value="${ noticeBoardVo.b_createddate }" pattern="yyyy-MM-dd"/></td>
+			            </tr>
+					  </c:if>
+		           	  </c:forEach>
+	           	  </c:otherwise>
+           	  
+           	  </c:choose>
+           	   
 	          </tbody>
 	        </table>
 	      </div>

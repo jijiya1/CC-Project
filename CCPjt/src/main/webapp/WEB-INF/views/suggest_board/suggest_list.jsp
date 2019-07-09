@@ -116,7 +116,8 @@ $(document).ready(function() {
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>
-						<td>${complaint_boardVo.b_createddate}</td>
+						<td><fmt:formatDate value="${complaint_boardVo.b_createddate}"
+								pattern="yyyy/MM/dd HH:mm:ss"/></td>
 					</tr>
 				</c:forEach>	
 				</tbody>
