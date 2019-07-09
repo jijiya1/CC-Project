@@ -1,16 +1,20 @@
 package com.kh.psh.controller;
 
 
+
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.DetailDataVo;
@@ -35,15 +39,31 @@ public class BoardController {
 		AreaDataVo getAreaDataANo = boardService.getAreaDataANo(a_no);
 		model.addAttribute("getAreaDataANo", getAreaDataANo);
 		List<DetailDataVo> getDetailAreaData = boardService.getDetailAreaData(a_no);
-		model.addAttribute("getDetailAreaData", getDetailAreaData);
-		
+		model.addAttribute("getDetailAreaData", getDetailAreaData);	
 		model.addAttribute("a_no", a_no);
+		
+		
 	}
 		
 	@RequestMapping(value="/suggest_write",method=RequestMethod.POST)
 	public String writePost(@RequestParam("a_no")int a_no, Complaint_BoardVo vo, Model model) throws Exception {
 		boardService.suggest_insert(vo);
-		model.addAttribute("a_no", a_no);			
+//		MultipartHttpServletRequest multipartHttpServletRequest = 
+//				(MultipartHttpServletRequest)request; 
+//		Iterator<String> iterator = multipartHttpServletRequest.getFileNames(); 
+//		MultipartFile multipartFile = null; 
+//		while(iterator.hasNext()){ 
+//			multipartFile = multipartHttpServletRequest.getFile(iterator.next()); 
+//			if(multipartFile.isEmpty() == false){ 
+//				System.out.println("------------- file start -------------");
+//				System.out.println("name : "+multipartFile.getName());
+//				System.out.println("filename : "+multipartFile.getOriginalFilename());
+//				System.out.println("size : "+multipartFile.getSize());
+//				System.out.println("-------------- file end --------------\n");
+//				}
+//			}
+		model.addAttribute("a_no", a_no);
+		
 		return "redirect:/suggest_board/suggest_list?a_no="+ a_no;
 	}
 	

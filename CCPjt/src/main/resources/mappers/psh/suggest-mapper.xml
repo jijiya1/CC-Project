@@ -86,6 +86,7 @@ select * from (select rownum rnum, a.* from
 	<include refid="search"></include>
 </select>
 
+
 <sql id="search">
 		<if test="searchType != null">
       		<if test="searchType == 'b_title'">

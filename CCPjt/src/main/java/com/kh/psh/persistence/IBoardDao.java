@@ -1,7 +1,9 @@
 package com.kh.psh.persistence;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 
 import com.kh.domain.AreaDataVo;
 import com.kh.domain.DetailDataVo;
@@ -33,5 +35,5 @@ public interface IBoardDao {
 	// 글 작성시 지역 카테고리 불러오기
 	public List<AreaDataVo> getAreaDataList() throws Exception;	
 	// 해당지역 세부정보 불러오기
-	public List<DetailDataVo> getDetailAreaData(int a_no) throws Exception;
+	public List<DetailDataVo> getDetailAreaData(int a_no) throws Exception;	
 }

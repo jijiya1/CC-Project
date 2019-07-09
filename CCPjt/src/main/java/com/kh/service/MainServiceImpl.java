@@ -67,4 +67,16 @@ public class MainServiceImpl implements IMainService {
 		return getMemberCount;
 	}
 
+	@Override
+	public List<UserInfoVo> getSearchMemberList(NoSearchDto noSearchDto) throws Exception {
+		List<UserInfoVo> getSearchMemberList = mainDao.getSearchMemberList(noSearchDto);
+		return getSearchMemberList;
+	}
+
+	@Override
+	public int getSearchMemberCount(NoSearchDto noSearchDto) throws Exception {
+		int getSearchMemberCount = mainDao.getSearchMemberCount(noSearchDto);
+		return getSearchMemberCount;
+	}
+
 }

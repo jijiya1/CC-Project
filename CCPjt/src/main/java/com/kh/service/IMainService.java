@@ -15,6 +15,12 @@ public interface IMainService {
 	// 메인페이지 공지사항 목록 불러오기 - SHJ
 	public List<NoticeBoardVo> getNoticeBoardList(PagingDto pagingDto) throws Exception;
 	
+	// 의원 검색시 의원 목록 불러오기 - SHJ
+	public List<UserInfoVo> getSearchMemberList(NoSearchDto noSearchDto) throws Exception;
+	
+	// 의원 검색시 수 구하기 - SHJ
+	public int getSearchMemberCount(NoSearchDto noSearchDto) throws Exception;
+	
 	// 서브페이지 공지사항 목록 불러오기 - SHJ
 	public List<NoticeBoardVo> getSubNoticeBoardList(PagingDto pagingDto, NoSearchDto noSearchDto, int a_no) throws Exception;
 	

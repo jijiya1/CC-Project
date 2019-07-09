@@ -86,5 +86,17 @@ public class MainDaoImpl implements IMainDao {
 //		System.out.println("Dao / getMemberCount : " + getMemberCount);
 		return getMemberCount;
 	}
+	
+	@Override
+	public List<UserInfoVo> getSearchMemberList(NoSearchDto noSearchDto) throws Exception {
+		List<UserInfoVo> getSearchMemberList = sqlSession.selectList(NAMESPACE + "getSearchMemberList", noSearchDto);
+		return getSearchMemberList;
+	}
+
+	@Override
+	public int getSearchMemberCount(NoSearchDto noSearchDto) throws Exception {
+		int getSearchMemberCount = sqlSession.selectOne(NAMESPACE + "getSearchMemberCount", noSearchDto);
+		return getSearchMemberCount;
+	}
 
 }

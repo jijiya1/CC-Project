@@ -1,9 +1,11 @@
 package com.kh.psh.service;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,15 +15,27 @@ import com.kh.domain.DetailDataVo;
 import com.kh.psh.domain.Complaint_BoardVo;
 import com.kh.psh.domain.Complaint_PagingDto;
 import com.kh.psh.persistence.IBoardDao;
+
+
+
+
 @Service
 public class BoardServiceImpl implements IBoardService {
+	
+	
 	@Inject
 	private IBoardDao boardDao;
+
+	
 
 	//글쓰기
 	@Override
 	public void suggest_insert(Complaint_BoardVo vo) throws Exception {
-		boardDao.suggest_insert(vo);			
+		boardDao.suggest_insert(vo);
+		
+		
+		
+
 	}
 	//글목록
 
@@ -45,10 +59,10 @@ public class BoardServiceImpl implements IBoardService {
 		boardDao.suggest_update(vo);		
 	}
 	//글 삭제
+	@Transactional
 	@Override
 	public void suggest_delete(int b_no, int a_no) throws Exception {
 		boardDao.suggest_delete(b_no, a_no);
-		
 	}
 	//글 갯수
 	@Override

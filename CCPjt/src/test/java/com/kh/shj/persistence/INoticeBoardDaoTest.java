@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kh.persistence.IAdminDao;
 import com.kh.persistence.IMainDao;
 import com.kh.service.IMainService;
 import com.kh.shj.domain.NoPagingDto;
@@ -21,6 +22,9 @@ public class INoticeBoardDaoTest {
 	
 	@Inject
 	private IMainDao mainDao;
+	
+	@Inject
+	private IAdminDao adminDao;
 	
 	@Test
 	public void testSearchTest() throws Exception {
@@ -45,5 +49,12 @@ public class INoticeBoardDaoTest {
 	public void testMemberCount() throws Exception {
 		String a_name = "울산";
 		mainDao.getMemberCount(a_name);
+	}
+	
+	@Test
+	public void testUpdateUserGrade() throws Exception {
+		int u_position = 0;
+		String u_email = "ulsanuljugun@naver.com";
+		adminDao.updateUserGrade(u_position, u_email);
 	}
 }

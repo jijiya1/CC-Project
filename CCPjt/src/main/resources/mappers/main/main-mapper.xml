@@ -84,15 +84,25 @@
 	</select>
 	
 	<!-- 의원 검색하기 -->
-	<select id="searchAll" resultType="userInfoVo">
+	<select id="getSearchMemberList" resultType="userInfoVo">
 		select * from user_info
-		<if test="noSearchDto.searchType != null">
-			<if test="noSearchDto.searchType == 'u_name'">
-				and u_name like '%' || #{noSearchDto.keyword} || '%' 
+		<if test="searchType != null">
+			<if test="searchType == 'u_name'">
+				where u_name like '%' || #{keywordAll} || '%' 
 			</if>
 		</if>
-		where u_name = #{u_name} and u_position = 1
+		and u_position = 1
+	</select>
+	
+	<!-- 의원 검색 수 구하기 -->
+	<select id="getSearchMemberCount" resultType="int">
+		select count(*) from user_info
+		<if test="searchType != null">
+			<if test="searchType == 'u_name'">
+				where u_name like '%' || #{keywordAll} || '%' 
+			</if>
+		</if>
+		and u_position = 1
 	</select>
 
-	
 </mapper>
