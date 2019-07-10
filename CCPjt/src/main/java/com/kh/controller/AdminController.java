@@ -170,7 +170,7 @@ public class AdminController {
 	        			+ "'>'지역구를 부탁해' 바로가기.</a><br>")
 	       		.append("</span><br>")
 	            .toString());
-	    sendMail.setFrom("bernardSon91@gmail.com","son");
+	    sendMail.setFrom("bernardSon91@gmail.com","지역구를 부탁해");
 	    sendMail.setTo(u_email);
 	    sendMail.send();
 		return "redirect:/";
