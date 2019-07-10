@@ -14,28 +14,52 @@ $(document).ready(function() {
 	// 툴팁
 	$('[data-toggle="tooltip"]').tooltip();
 
-	// 글 작성 취소
+	$("#btnMod").click(function(){
+		var b_title =$("#b_title").val();
+		$("input[name=b_title]").val(b_title);
+		var b_content =$("#summernote").val();
+		$("input[name=b_content]").val(b_content);
+		var b_detailInfo =$("select[name=b_detailinfo]").val();
+		$("input[name=b_detailInfo]").val(b_detailInfo);
+		
+		$("#modifySelectDiscussion").submit();
+	});	
+	// 글 수정 취소
 	$("#btnCancel").click(function() {
+		history.back();
 	});	
 
 });
 </script>
 
-<!-- 토론 주제 추천 작성 시작 -->
+<!-- 토론 주제 추천 수정 시작 -->
+	<title>토론 주제 추천 게시판 - ${areaDataVo.a_name } 지역</title>
 	<div class="container-fluid">
-	       
+	   
 		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞</p>
-		
+		<p>데이터 확인: ${areaDataVo }</p>
 		<!-- 페이지 헤더 -->
-		<h1 class="h3 mb-2 text-gray-800">토론 주제 추천 글작성</h1><br>
+		<h1 class="h3 mb-2 text-gray-800">토론 주제 추천 글수정</h1><br>
+		
+		<form id="modifySelectDiscussion" method="post" action="/selectDiscussion/discussion_select_modify">
+			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
+			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
+			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
+			<input type="hidden" name="a_no" value="${ areaDataVo.a_no }">
+			<input type="hidden" name="b_no" value="${selectDiscussion_BoardVo.b_no }">
+			<input type="hidden" name="b_title">
+			<input type="hidden" name="b_content">
+			<input type="hidden" name="b_detailInfo">
+			<input type="hidden" name="u_email" value = "${userVo.u_email}">
+		</form>
 		
 		<!-- 공지사항 작성 부분 시작 - form -->
-		<form role="form" method="post">
 			<input type="hidden" name="a_no" value="${ areaDataVo.a_no }">
+
 		
 			<div class="form-group">
 				<label>공지사항 제목</label>
-				<input type="text" class="form-control" name="b_title" required="required" value="${selectDiscussion_BoardVo.b_title }"/>
+				<input type="text" class="form-control" id="b_title" required="required" value="${selectDiscussion_BoardVo.b_title }"/>
 			</div>
 			
 			<div class="form-group">
@@ -48,18 +72,9 @@ $(document).ready(function() {
 				<input type="text" class="form-control" name="u_email" required="required" value = "${selectDiscussion_BoardVo.u_email}" readonly="readonly"/>
 			</div>
 			
-			<div class="form-group" <c:if test="${ areaDataVo.a_no eq a_no }">style="display: none;"</c:if>>
-				<label>시/도</label>
-				<select class="form-control" name="b_addInfo" id="b_addinfo" required="required">
-					<c:forEach items="${ areaData }" var="areaData">
-						<option value="${ areaData.a_no }" <c:if test='${ areaData.a_no eq a_no }'>selected</c:if>>${ areaData.a_name }</option>
-					</c:forEach>
-				</select>
-			</div>
-			
 			<div class="form-group">
 				<label>구</label>
-				<select class='form-control' name='b_detailInfo' id='b_detailinfo' required='required'>
+				<select class='form-control'  name='b_detailinfo' required='required'>
 					<c:forEach items='${getDetailAreaData}' var='detailAreaData'>
 						<option value='${detailAreaData.d_no}'>${detailAreaData.d_name}</option>
 					</c:forEach>
@@ -68,7 +83,7 @@ $(document).ready(function() {
 			
 			<div class="form-group">
 				<label>토론 주제 추천 내용</label><br>
-				  <textarea id="summernote" name="b_content" required="required"> ${selectDiscussion_BoardVo.b_content } </textarea>
+				  <textarea id="summernote" required="required"> ${selectDiscussion_BoardVo.b_content } </textarea>
 				  <script>
 				        $('#summernote').summernote({
 							lang: 'ko-KR',
@@ -87,10 +102,8 @@ $(document).ready(function() {
 				  </script>
 			</div>
 
-			<button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-check"></span></button>
+			<button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="작성" id="btnMod"><span class="fas fa-check"></span></button>
 			<button type="button" class="btn btn-danger" id="btnCancel" data-toggle="tooltip" data-placement="top" title="취소"><span class="fas fa-times"></span></button>
-<!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
-		</form>
 		<!-- 토론 주제 추천 작성 부분 끝 - form -->
 
 	</div>
