@@ -38,7 +38,7 @@ $(document).ready(function () {
 			var searchKeyword =  $(this).val();
 			$("input[name=searchKeyword]").val(searchKeyword);
 			
-			var searchType =  $("#searchType").val();
+			var searchType =  $("select[name=searchType]").val();
 			$("input[name=searchType]").val(searchType);
 			
 			$("#hiddenData").submit();
@@ -85,9 +85,11 @@ $(document).ready(function () {
 });
 </script>
 
+	<title>토론 주제 추천 게시판 - ${areaDataVo.a_name } 지역</title>
+
 	<!-- 토론 주제 추천게시판 시작 -->
 	<div class="container-fluid">
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a>＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a>＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=&b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ <a href="/discussion_board/discussion_main_board?a_no=${areaDataVo.a_no }">토론 게시판</a> ＞토론 주제 추천게시판</p>
 	<!-- 페이지 헤더 -->	
 	<h1 class="h3 mb-2 text-gray-800">토론 주제 추천게시판</h1>
 
@@ -160,7 +162,7 @@ $(document).ready(function () {
 	      	
 	      	<div id="dataTable_filter" class="dataTables_filter" style="float:right; height: 50px; margin-bottom: 20px;">
 	      		<div style="width: 34%; float: left;">
-		      		<select class="form-control form-control-sm" id="searchType">
+		      		<select class="form-control form-control-sm" name="searchType">
 			      			<option value="b_title" 
 			      				<c:if test="${pagingDto.searchType == 'b_title'}"> selected="selected"</c:if>
 			      			>제목</option>
