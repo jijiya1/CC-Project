@@ -122,6 +122,8 @@ $(document).ready(function(){
 		      	</div>
 	      	</div>
 	      	<!-- 검색바 끝 -->
+	      	
+			<!-- 탭 시작! -->
 	      <div class="table-responsive">
 			
 				<ul class="nav nav-tabs">
@@ -134,9 +136,14 @@ $(document).ready(function(){
 					<li class="nav-item">
 						<a class="nav-link active show" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
+					<c:if test="${userVo != null }">
+					<li class="nav-item">
+						<a class="nav-link" href="/petition_board/myPetition?a_no=${areaDataVo.a_no}&u_id=${userVo.u_email}">나의 청원글보기</a>
+					</li>
+					</c:if>
 				</ul>
 				<div class="tab-content">
-					
+				<!-- 탭 끝! -->	
 				<div class="tab-pane active" id="tab2">
 						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 						<thead><tr>
