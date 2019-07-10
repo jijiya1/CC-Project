@@ -22,10 +22,6 @@ $(document).ready(function() {
 		var b_detailInfo =$("select[name=b_detailinfo]").val();
 		$("input[name=b_detailInfo]").val(b_detailInfo);
 		
-// 		console.log(b_title);
-// 		console.log(b_content);
-// 		console.log(b_detailInfo);
-		
 		$("#modifySelectDiscussion").submit();
 	});	
 	// 글 수정 취소
