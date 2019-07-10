@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kh.domain.LoginDto;
+import com.kh.domain.UserInfoVo;
 import com.kh.psh.domain.Complaint_ReplyVo;
 import com.kh.psh.service.IReplyService;
 
@@ -24,10 +28,15 @@ public class ReplyController {
 	
 	//댓글 쓰기
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
-	public ResponseEntity<String> insert(@RequestBody Complaint_ReplyVo replyVo, HttpSession session) throws Exception {
+	public ResponseEntity<String> insert(@RequestBody Complaint_ReplyVo replyVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 		ResponseEntity<String> entity = null;
 		try {
+//			UserInfoVo userinfoVo = (UserInfoVo)session.getAttribute("userinfoVo");
+//			LoginDto loginDto = (LoginDto)session.getAttribute("loginDto");
+//			replyVo.setR_writer(loginDto.getU_email());
+//			replyVo.setR_writer(userinfoVo.getU_email());
 			replyService.insert(replyVo);
+			rttr.addFlashAttribute("message", "success_insert");
 			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();

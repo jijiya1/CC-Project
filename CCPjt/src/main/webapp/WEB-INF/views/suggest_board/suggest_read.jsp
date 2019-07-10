@@ -1,20 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/head.jsp" %>
+<script src="/resources/js/pshScript.js"></script>
+<style>
+	#main {
+	float : left ;
+	width : 950px;
+	height : 600px;
+	text-align : center;
+	vartical-align : middle;
+	overflow:auto;
+	}
+</style>
 <script>
 $(document).ready(function() {
 	//수정
 	$("#btnUpt").click(function() {
 		location.href="/suggest_board/suggest_update?b_no=${vo.b_no}&a_no=${a_no}";
 	});
+	
 	//삭제
 	$("#btnDel").click(function() {
 		location.href = "/suggest_board/suggest_delete?b_no=${vo.b_no}&a_no=${a_no}";
 	});
+	
 	//목록
 	$("#btnList").click(function() {
 		location.href="/suggest_board/suggest_list?a_no=${a_no}";
 	});
+	
+	
+	var message = "${message}"
+	if (message == "success_insert") {
+		alert("글을 등록하였습니다.");
+	}
 	
 	
 	function getReplyList() {
@@ -22,17 +41,13 @@ $(document).ready(function() {
 		$.getJSON(url, function(receivedData) {
 			var strHtml = "";
 			$(receivedData).each(function(i) {
-				var u_email = "${userinfoVo.e_mail}"; 
-				
+				var u_email = "${userinfoVo.e_mail}";
 			  strHtml +=    "<tr>"
 					  +  	"<td>" + this.r_no + "</td>" 					  
 					  +  	"<td>" + this.r_content + "</td>" 
-					  +  	"<td>" + this.r_writer + "</td>"					  
-					  +		"<td>" + this.b_upcount + "</td>"
-					  +		"<td>" + this.b_downcount + "</td>"
-					  +		"<td>" + this.r_createddate + "</td>"
-					  +     "<td>" + this.r_modifieddate + "</td>"
-			  strHtml +=  "<td>" 			  			  			  			  
+					  +  	"<td>" + this.r_writer + "</td>"
+					  +  	"<td>" + dateString(this.r_createddate) + "</td>";
+			  strHtml +=    "<td>" 			  			  			  			  
 					  + 	"<input type='button' value='수정' class='btn btn-warning'"
 					  +     " data-r_content='" + this.r_content + "'"
 					  +     " data-r_writer='" + this.r_writer + "'"
@@ -44,8 +59,8 @@ $(document).ready(function() {
 					  +     " data-r_no='" + this.r_no + "'"
 					  +		" data-b_no='" + this.b_no + "'"
 					  +		" data-index='" + i + "'>"
-					  +	    "</td>";
-			 strHtml  +=    "</tr>";
+					  +	    "</td>";			
+			strHtml  +=    "</tr>";
 			});
 			$("#replyList").html(strHtml);
 		}); 
@@ -129,25 +144,31 @@ $(document).ready(function() {
 
 	//댓글 삭제
 	$("#replyList").on("click", ".btn-danger", function() {
-		var r_no = $(this).attr("data-r_no");
-		var b_no = $(this).attr("data-b_no");
-		console.log("r_no = " + r_no);
-		console.log("b_no111 = " + b_no);
-		var index = $(this).attr("data-index");
-		var url = "/reply/delete/" + r_no + "/" + b_no;
-		$.ajax({
-			"type" : 'delete',
-			"url" : url,
-			"headers" : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Overried" : "delete"
-			},
-			"success" : function(receivedData) {
-				if (receivedData == "success") {
-					$("#replyList > tr").eq(index).fadeOut("1000");
+		var result = confirm("게시글을 삭제하시겠습니까?");
+		if(result = true) {
+			var r_no = $(this).attr("data-r_no");
+			var b_no = $(this).attr("data-b_no");
+			console.log("r_no = " + r_no);
+			console.log("b_no111 = " + b_no);
+			var index = $(this).attr("data-index");
+			var url = "/reply/delete/" + r_no + "/" + b_no;
+			$.ajax({
+				"type" : 'delete',
+				"url" : url,
+				"headers" : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Overried" : "delete"
+				},
+				"success" : function(receivedData) {
+					if (receivedData == "success") {
+						$("#replyList > tr").eq(index).fadeOut("1000");
+					}
 				}
-			}
-		});
+			});
+		}else {
+			return false;
+		}
+		
 	});
 });
 </script>
@@ -237,12 +258,12 @@ $(document).ready(function() {
 		<!-- 읽기 버튼 -->
 		<div class="row">
 		<div class="col-md-12">
-				<!-- 수정 -->				
+				<!-- 수정 -->							
 				<button type="button" class="btn btn-warning" value="수정"
 					id="btnUpt"><span class="fas fa-pencil-alt" style="float: right;"></span></button>
 				<!-- 삭제 -->
 				<button type="button" class="btn btn-danger" value="삭제"
-					id="btnDel"><span class="fas fa-trash" style="float: right;"></span></button>				
+					id="btnDel"><span class="fas fa-trash" style="float: right;"></span></button>								
 				<!-- 목록 -->
 				<button type="button" class="btn btn-success" value="목록"
 					id="btnList"><span class="fas fa-list" style="float: right;"></span></button>
@@ -271,7 +292,7 @@ $(document).ready(function() {
 						
 				<div class="form-group">
 				<label for="title">작성자</label>
-				<input type="text" class="form-control" id="r_writer"/>
+				<input type="text" class="form-control" id="r_writer"/> 
 			</div>
 						
 			<div class="modal-footer">							 
@@ -294,45 +315,26 @@ $(document).ready(function() {
 	</div>
 </div>
 <!-- 댓글 목록 -->
-<div class="container-fluid">
-	<div class="row">
+<div class="row">
 		<div class="col-md-12">
-			 <a id="modal-867549" href="#modal-container-867549" role="button" class="btn btn-success" data-toggle="modal">댓글목록</a>
-			
-			<div class="modal fade" id="modal-container-867549" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document" style="max-width: 100%; width: auto; display: table;">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">
-								댓글목록
-							</h5> 
-							<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fas fa-times"></span></button>
-						</div>
-						<div class="modal-body">
-							<table class="table">
-			<thead>
-				<tr>				
-					<th>번호</th>
-					<th>댓글내용</th>
-					<th>작성자</th>
-					<th>좋아요</th>
-					<th>싫어요</th>
-					<th>작성날짜</th>
-					<th>수정날짜</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
-			<tbody id="replyList">
-			
-			</tbody>
-		</table>
-						</div>						
-					</div>					
-				</div>				
-			</div>			
+			<p><input type="button" id="btnReplyList" value="댓글목록"
+				class="btn btn-primary"></p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>댓글내용</th>
+						<th>작성자</th>
+						<th>작성날짜</th>
+						<th>수정</th>
+						<th>삭제</th>
+					</tr>
+				</thead>
+				<tbody id="replyList">
+					
+				</tbody>
+			</table>
 		</div>
 	</div>
-</div>
 <!--  댓글목록 끝 -->
 <%@ include file="../include/footer.jsp"%>
