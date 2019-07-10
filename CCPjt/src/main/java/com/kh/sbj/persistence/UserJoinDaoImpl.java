@@ -19,6 +19,8 @@ public class UserJoinDaoImpl implements IUserJoinDao {
 	
 	@Override
 	public void insertUser(UserInfoVo userInfoVo) throws Exception {
+
+		System.out.println(userInfoVo);
 		sqlSession.insert("user_join.insertUser", userInfoVo);
 	}
 

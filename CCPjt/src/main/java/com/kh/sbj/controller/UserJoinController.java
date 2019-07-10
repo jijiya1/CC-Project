@@ -57,6 +57,7 @@ public class UserJoinController {
 		userInfoVo.setU_localextra(joinDetailAddress);
 		userInfoVo.setU_postcode(joinPostcode);
 		
+		System.out.println(userInfoVo);
 		userJoinService.insertUser(userInfoVo);
 		
 		return "redirect:/login/";
