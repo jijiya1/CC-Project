@@ -85,7 +85,7 @@ $(document).ready(function () {
 });
 </script>
 
-	<title>토론 주제 추천 게시판 - ${areaDataVo.a_name } 지역</title>
+	<title>CCPJT - 토론 주제 추천 게시판 - ${areaDataVo.a_name }</title>
 
 	<!-- 토론 주제 추천게시판 시작 -->
 	<div class="container-fluid">

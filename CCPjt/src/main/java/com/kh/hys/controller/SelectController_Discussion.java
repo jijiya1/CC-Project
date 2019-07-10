@@ -117,7 +117,7 @@ public class SelectController_Discussion {
 	
 	// 토론 주제 추천 게시판 글 수정 폼 으로 이동
 	@RequestMapping(value = "/discussion_select_modify", method = RequestMethod.GET)
-	public String selectBoardModifyForm(Model model, PagingDto pagingDto, @RequestParam("a_no") int a_no, SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+	public String selectBoardModifyForm(Model model, PagingDto pagingDto, @RequestParam("a_no") int a_no , @RequestParam("b_no") int b_no) throws Exception {
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
@@ -127,6 +127,7 @@ public class SelectController_Discussion {
 		List<DetailDataVo> getDetailAreaData = noticeBoardService.getDetailAreaData(a_no);
 		model.addAttribute("getDetailAreaData", getDetailAreaData);
 		
+		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
 		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
 		
 		model.addAttribute("a_no", a_no);
