@@ -15,10 +15,10 @@ public class UserInfoVo {
     private int u_activity_rate;
     private Timestamp u_withdrawDate;
     private Timestamp u_createdDate;
-    private String u_party = " ";
+    private String u_party = "정당";
     private int u_position = 0;
     private int u_postcode;
-    private String u_photo;
+    private String u_photo = "#";
     
 	public UserInfoVo() {
 		super();

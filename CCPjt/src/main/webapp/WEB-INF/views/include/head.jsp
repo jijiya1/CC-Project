@@ -29,8 +29,8 @@ $(document).ready(function() {
 	
 	// 검색 -> 지역 선택시 페이지 이동
 	function searchLocal() {
-		$("#searchType").change(function(e) {
-			var sendData = $("#searchType").val();
+		$("#searchTypeAll").change(function(e) {
+			var sendData = $("#searchTypeAll").val();
 // 			console.log(sendData);
 			if (sendData == 'u_local') {
 				location.href="/main/member_search_area";
@@ -43,7 +43,7 @@ $(document).ready(function() {
 	$("#btnSearchAll").click(function() {
 		$("input[name=a_no]").val(10);
 		
-		$("input[name=searchType]").val("u_name");
+		$("input[name=searchTypeAll]").val("u_name");
 		
 		var keywordAll = $("#keywordAll").val();
 // 		console.log(keyword);
@@ -228,13 +228,13 @@ $(document).ready(function() {
           <!-- 전체 검색바 -->
           <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/main/search_all" id="searchAllData">
             <div class="input-group">
-              <select class="form-control-sm bg-light border-0" id="searchType">
+              <select class="form-control-sm bg-light border-0" id="searchTypeAll">
               	<option value="u_name">이름</option>
               	<option value="u_local">지역</option>
               </select>
               <input type="text" class="form-control bg-light border-0 small"  id="keywordAll" placeholder="의원 검색" aria-label="Search" aria-describedby="basic-addon2">
               <input type="hidden" name="a_no">
-              <input type="hidden" name="searchType">
+              <input type="hidden" name="searchTypeAll">
               <input type="hidden" name="keywordAll">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button" id="btnSearchAll">

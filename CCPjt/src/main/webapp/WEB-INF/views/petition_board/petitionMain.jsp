@@ -134,6 +134,11 @@ $(document).ready(function(){
 					<li class="nav-item">
 						<a class="nav-link" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
+					<c:if test="${userVo != null }">
+					<li class="nav-item">
+						<a class="nav-link" href="/petition_board/myPetition?a_no=${areaDataVo.a_no}&u_id=${userVo.u_email}">나의 청원글보기</a>
+					</li>
+					</c:if>
 				</ul>
 				<div class="tab-content">
 					

@@ -84,113 +84,61 @@ window.onload = function () {
 			{
 				st[0].onmouseover();
 			}
-			
-//			function getDetailList(no){
-//				var url = "/admin/select_detail/"+no;
-//				$.getJSON(url, function(receivedData) {
-//					var strHtml = "";
-//					$(receivedData).each(function(i) {
-//						strHtml += "<button type='button' style='margin-top:7px;' class='btn btn-outline-primary btn-detail' data-ano='"+this.a_no+"' value='"+this.d_no+"'id='btn"+i+"'>"+this.d_name+"</button>&nbsp;&nbsp;"
-//					});
-//					$("#divHr").attr("style", "");
-//					$("#divDetail").html(strHtml);
-//				}); 
-//			}
-//			
-//			$("#divDetail").on("click", ".btn-detail", function(){
-////				a_no = $(this).attr("data-ano");
-//				var d_no = $(this).val();
-//				location.href="/admin/member_insert_form?d_no="+d_no+"&a_no="+a_no;
-//			});
-			
+
 
 			st[0].onclick = function () {
 
 				switch(state) {
 					case "seoul":
-						var a_no = $("#btnSeoul").val();
-						getDetailList(20);
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "gygg":
-						a_no = $("#btnGygg").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "incheon":
-						a_no = $("#btnIncheon").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "gangwon":
-						a_no = $("#btnGangwon").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "chungbuk":
-						a_no = $("#btnChungbuk").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "chungnam":
-						a_no = $("#btnChungnam").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "daejeon":
-						a_no = $("#btnDaejeon").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "sejong":
-						a_no = $("#btnSejong").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "jeonbuk":
-						a_no = $("#btnJeonbuk").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "gwangju":
-						a_no = $("#btnGwangju").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "jeonnam":
-						a_no = $("#btnJeonnam").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "gyeongbuk":
-						a_no = $("#btnGyeongbuk").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "daegu":
-						a_no = $("#btnDaegu").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "gyeongnam":
-						a_no = $("#btnGyeongnam").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "ulsan":
-						a_no = $("#btnUlsan").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "busan":
-						a_no = $("#btnBusan").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 					case "jeju":
-						a_no = $("#btnJeju").val();
-						getDetailList();
-						current = state;
+						$("#btnSeoul").trigger("click");
 						break;
 
 					default:
