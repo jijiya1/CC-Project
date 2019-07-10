@@ -661,7 +661,14 @@ $(document).ready(function() {
 		          <tbody>
 			          <c:forEach items="${ selectBoardList }" var="selectBoardVo">
 			          	<tr>
-		           		  <td><a href="#" style="float: left;" class="select_title" data-b_no="${ selectBoardVo.b_no }">[${ selectBoardVo.d_name }] ${ selectBoardVo.b_title }</a></td>
+		           		  <td>
+		           		  	<a href="#" style="float: left;" class="select_title" data-b_no="${ selectBoardVo.b_no }">[${ selectBoardVo.d_name }]
+		           		  	<c:choose>
+		           		  	<c:when test="${ fn:length(selectBoardVo.b_title) > 21 }">${ selectBoardVo.b_title.substring(0, 21) }...</c:when>
+		           		  	<c:otherwise>${ selectBoardVo.b_title }</c:otherwise>
+		           		  	</c:choose> 
+		           		  	</a>
+		           		  </td>
 			              <td>${ selectBoardVo.b_writer }</td>
 			              <td>${ selectBoardVo.b_readCount }</td>
 			              <td>${ selectBoardVo.b_upCount }</td>
