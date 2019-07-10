@@ -74,7 +74,7 @@ $(document).ready(function(){
 				<img class="card-img-top" src="/person_board/displayFile?fileName=${memberVo.u_photo }" alt="member_image" style="witdh:100%">
 				<div class="card-body" >
 					<h4 class="card-title"> ${memberVo.u_name } </h4>
-					<span style="font-size:1em;">${memberVo.u_party } / 재선</span><br>
+					<span style="font-size:1em;">${memberVo.u_party } </span><br>
 					<span style="font-size:1em;">${memberVo.u_address } ${memberVo.u_detail }</span><br>
 				</div>
 			</div>

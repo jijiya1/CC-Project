@@ -85,23 +85,23 @@ window.onload = function () {
 				st[0].onmouseover();
 			}
 			
-			function getDetailList(){
-				var url = "/admin/select_detail/"+a_no;
-				$.getJSON(url, function(receivedData) {
-					var strHtml = "";
-					$(receivedData).each(function(i) {
-						strHtml += "<button type='button' style='margin-top:7px;' class='btn btn-outline-primary btn-detail' data-ano='"+this.a_no+"' value='"+this.d_no+"'id='btn"+i+"'>"+this.d_name+"</button>&nbsp;&nbsp;"
-					});
-					$("#divHr").attr("style", "");
-					$("#divDetail").html(strHtml);
-				}); 
-			}
-			
-			$("#divDetail").on("click", ".btn-detail", function(){
-//				a_no = $(this).attr("data-ano");
-				var d_no = $(this).val();
-				location.href="/admin/member_insert_form?d_no="+d_no+"&a_no="+a_no;
-			});
+//			function getDetailList(no){
+//				var url = "/admin/select_detail/"+no;
+//				$.getJSON(url, function(receivedData) {
+//					var strHtml = "";
+//					$(receivedData).each(function(i) {
+//						strHtml += "<button type='button' style='margin-top:7px;' class='btn btn-outline-primary btn-detail' data-ano='"+this.a_no+"' value='"+this.d_no+"'id='btn"+i+"'>"+this.d_name+"</button>&nbsp;&nbsp;"
+//					});
+//					$("#divHr").attr("style", "");
+//					$("#divDetail").html(strHtml);
+//				}); 
+//			}
+//			
+//			$("#divDetail").on("click", ".btn-detail", function(){
+////				a_no = $(this).attr("data-ano");
+//				var d_no = $(this).val();
+//				location.href="/admin/member_insert_form?d_no="+d_no+"&a_no="+a_no;
+//			});
 			
 
 			st[0].onclick = function () {
@@ -109,7 +109,7 @@ window.onload = function () {
 				switch(state) {
 					case "seoul":
 						var a_no = $("#btnSeoul").val();
-						getDetailList();
+						getDetailList(20);
 						current = state;
 						break;
 					case "gygg":
