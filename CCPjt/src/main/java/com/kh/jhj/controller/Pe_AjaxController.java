@@ -79,4 +79,24 @@ public class Pe_AjaxController {
 		
 		return entity;
 	}
+	
+	@RequestMapping(value="writeReply", method=RequestMethod.POST)
+	public ResponseEntity<String> writeReply
+							(@RequestBody Pe_ReplyVo peReplyVo) throws Exception{
+//			System.out.println("에이작! 컨트롤러:" + peReplyVo);
+			ResponseEntity<String> entity = null;
+			try {
+				String writer = peReplyVo.getR_writer();
+				String email = peReplyVo.getU_email();
+					writer = writer +"("+  email.substring(0, 3)+"**)";
+					peReplyVo.setR_writer(writer);
+					System.out.println(peReplyVo);
+					peReadService.writeReply(peReplyVo);
+				entity = new ResponseEntity<>("success", HttpStatus.OK);
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+			}
+		return entity;
+	}
 }

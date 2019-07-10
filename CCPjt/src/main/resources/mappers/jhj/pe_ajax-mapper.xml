@@ -27,17 +27,16 @@
 	<select id="listReply" resultType="peReplyVo">
 		select * from (select rownum rnum, pe.*
 						from petition_reply pe
-						where b_serialno = #{b_serialno}) 
+						where b_serialno = #{b_serialno}
+						order by r_no) 
 		order by rnum desc						
 		
 	</select>
 	
 <!-- 댓글 입력하기 -->
 	<insert id="writeReply">
-		insert into petition_reply(b_serialno, r_no, r_writer
-									, r_content, r_step)
-		values(#{b_serialno},seq_petition_reply.nextval,#{r_writer}
-				, ${r_content}, #{r_step})															
+		insert into petition_reply(b_serialno, r_no, r_writer, r_content, u_email)
+		values(#{b_serialno}, seq_petition_reply.nextval ,#{r_writer}, #{r_content},#{u_email})															
 	</insert>
 
 </mapper>

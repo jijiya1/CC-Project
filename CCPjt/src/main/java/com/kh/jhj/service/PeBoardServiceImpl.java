@@ -103,4 +103,16 @@ public class PeBoardServiceImpl implements IPeBoardService {
 		
 	}
 
+	@Override
+	public PetitionVo confirm() throws Exception {
+		PetitionVo peVo = peBoardDao.confirm();
+		return peVo;
+	}
+
+	@Override
+	public List<PetitionVo> myList(String u_email) throws Exception {
+		List<PetitionVo> myList = peBoardDao.myList(u_email);
+		return myList;
+	}
+
 }

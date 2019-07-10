@@ -106,7 +106,7 @@
               <form class="user" action="/user_join/update_member_run" method="post" id="updateForm">
                 <div class="form-group row">
                   <div class="col-sm-12 mb-3 mb-sm-0" >
-                    <input type="email" class="form-control form-control-user" id="joinEmail" name="u_email" placeholder="이메일 주소"  value="${memberVo.u_email }" >
+                    <input type="email" class="form-control form-control-user" id="joinEmail" name="u_email" placeholder="이메일 주소"  value="${memberVo.u_email }" readonly="readonly">
                   </div>
                 </div>
                 <div class="form-group row" id="divUpdatePw">

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace ="petition_progress">
+	<update id="prevAgree">
+		update petition_board set b_progress=1
+		where b_agree &lt; 5 and b_enddate  &gt;= sysdate
+	</update>
+	<update id="startAgree">
+		update petition_board set b_progress=2
+		where b_agree = 5 and b_enddate  &gt;= sysdate
+	</update>
+	<update id="ingAgree">
+		update petition_board set b_progress=3
+		where b_agree &gt; 5 and b_enddate  &gt;= sysdate
+	</update>
+	
+	<update id="rouOutAgree">
+		update petition_board set b_progress=4
+		where b_enddate  &lt; sysdate
+	</update>
+
+</mapper>
