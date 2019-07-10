@@ -15,7 +15,16 @@ public class Pe_ReplyVo {
 	private int r_level;
 	private int r_checkeddel;
 	private int rnum;
+	private String u_email;
 	
+	
+	
+	public String getU_email() {
+		return u_email;
+	}
+	public void setU_email(String u_email) {
+		this.u_email = u_email;
+	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -94,7 +103,7 @@ public class Pe_ReplyVo {
 		return "Pe_ReplyVo [b_serialno=" + b_serialno + ", r_no=" + r_no + ", r_writer=" + r_writer + ", r_content="
 				+ r_content + ", r_createddate=" + r_createddate + ", r_modifieddate=" + r_modifieddate + ", b_upcount="
 				+ b_upcount + ", b_downcount=" + b_downcount + ", r_step=" + r_step + ", r_level=" + r_level
-				+ ", r_checkeddel=" + r_checkeddel + "]";
+				+ ", r_checkeddel=" + r_checkeddel + ", rnum=" + rnum + ", u_email=" + u_email + "]";
 	}
 	
 	

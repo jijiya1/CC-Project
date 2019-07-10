@@ -116,4 +116,16 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 		
 	}
 
+	@Override
+	public PetitionVo confirm() throws Exception {
+		PetitionVo peVo = sqlSession.selectOne(NAMESPACE + "confirm");
+		return peVo;
+	}
+
+	@Override
+	public List<PetitionVo> myList(String u_email) throws Exception {
+		List<PetitionVo> myList = sqlSession.selectList(NAMESPACE+"myPetition", u_email);
+		return myList;
+	}
+
 }

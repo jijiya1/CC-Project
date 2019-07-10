@@ -5,7 +5,7 @@
 
 <%@include file="../include/head.jsp" %>
 
-<title>국민 청원</title>
+<title>나의 청원글</title>
 <script>
 $(document).ready(function(){
 	var date = new Date();
@@ -135,14 +135,14 @@ $(document).ready(function(){
 						<a class="nav-link" href="/petition_board/petitionMain?a_no=${areaDataVo.a_no}">청원메인</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
+						<a class="nav-link" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
 					<c:if test="${userVo != null }">
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/myPetition?a_no=${areaDataVo.a_no}&u_id=${userVo.u_email}">나의 청원글보기</a>
+						<a class="nav-link active show" href="/petition_board/myPetition?a_no=${areaDataVo.a_no}&u_id=${userVo.u_email}">나의 청원글보기</a>
 					</li>
 					</c:if>
 				</ul>
@@ -159,7 +159,7 @@ $(document).ready(function(){
 									<th width="200">조회수</th>
 								</tr></thead>
 							<tbody>
-							<c:forEach items="${pList}" var="peVo">
+							<c:forEach items="${myList}" var="peVo">
 								<tr>
 									<td>${peVo.rnum}</td>
 									<td><a href="/petition_board/petitionRead"
