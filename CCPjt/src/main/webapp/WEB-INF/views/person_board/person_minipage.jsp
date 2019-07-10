@@ -61,11 +61,11 @@ $(document).ready(function(){
 							}else{
 								strHtml+=   "<div class='progress-bar w-"+ this.p_progress + "'> "+this.p_progress+"%"
 							}	
-							+	"</div>"
+							strHtml+=	"</div>"
 							+	"</div>"
 							+	"</td>"
 							+	"<td>"
-							+	"<a href='/person_mini/downloadFile?fileName="+this.p_filepath+"'><button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='center' title='다운로드'><span class='fas fa-file'></span></button></a><br>"
+							+	"<a href='/person_mini/displayFile?fileName="+this.p_filepath+"'><button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='center' title='다운로드'><span class='fas fa-file'></span></button></a><br>"
 							+	"</td>"
 							if(${userVo.u_email=='admin' || memberSelectedVo.u_email==userVo.u_email}){
 								strHtml+=	"<td>"

@@ -106,8 +106,7 @@ public class PersonMinipageController {
 	}
 	
 	//파일출력
-	@SuppressWarnings("static-access")
-	@RequestMapping(value="/downloadFile")
+	@RequestMapping(value="/displayFile")
 	public ResponseEntity<byte[]> displayFile(@RequestParam("fileName") String fileName) throws Exception{
 		
 		String realPath = uploadPath + File.separator + fileName;

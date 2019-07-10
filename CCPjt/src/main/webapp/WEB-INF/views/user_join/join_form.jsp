@@ -254,7 +254,7 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-8 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="joinPostcode" readonly="readonly" placeholder="우편번호" required="required">
+                    <input type="text" class="form-control form-control-user" id="joinPostcode" name="joinPostcode" readonly="readonly" placeholder="우편번호" required="required">
                   </div>
                   <div class="col-sm-4">
                 	<a href="#" onclick="searchAddress()" class="btn btn-primary btn-user btn-block">우편번호 찾기</a>

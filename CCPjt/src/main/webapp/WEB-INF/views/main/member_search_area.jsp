@@ -15,11 +15,12 @@
 $(document).ready(function() {
 	var a_no = "";
 	function getDetailList(no) {
+		console.log("디테일리스트 실행");
 		var url = "/admin/select_detail/"+no;
 		$.getJSON(url, function(receivedData) {
 			var strHtml = "";
 			$(receivedData).each(function(i) {
-				strHtml += "<button type='button' style='margin-top:7px;' class='btn btn-outline-primary btn-detail member-bridge' data-ano='"+this.a_no+"' value='"+this.d_no+"'id='btn"+i+"'>"+this.d_name+"</button>&nbsp;&nbsp;"
+				strHtml += "<button type='button' style='margin-top:7px;' class='btn btn-outline-primary member-bridge' data-ano='"+this.a_no+"' value='"+this.d_no+"'id='btn"+i+"'>"+this.d_name+"</button>&nbsp;&nbsp;"
 			});
 			$("#divHr").attr("style", "");
 			$("#divDetail").html(strHtml);
@@ -34,21 +35,21 @@ $(document).ready(function() {
 		
 		$("#a_no").val(a_no);
 		
-// 		$.getJSON(url, function(receivedData) {
-// 			var photo = receivedData.u_photo;
-// 			var name = receivedData.u_name;
-// 			var party = receivedData.u_party;
-// 			var address = receivedData.u_address;
-// 			var detail = receivedData.u_detail;
+		$.getJSON(url, function(receivedData) {
+			var photo = receivedData.u_photo;
+			var name = receivedData.u_name;
+			var party = receivedData.u_party;
+			var address = receivedData.u_address;
+			var detail = receivedData.u_detail;
 			
-// 			$("#u_email").val(receivedData.u_email);
+			$("#u_email").val(receivedData.u_email);
 			
-// 			$("#modalTitle").text(address + " " + detail);
-// 			$("#modalName").text(name);
-// 			$("#modalParty").text(party);
-// 			$("#modalAdd").text(address + " " + detail);
-// 			$("#modalPhoto").attr("src", "/person_board/displayFile?fileName="+photo);
-// 		}); 
+			$("#modalTitle").text(address + " " + detail);
+			$("#modalName").text(name);
+			$("#modalParty").text(party);
+			$("#modalAdd").text(address + " " + detail);
+			$("#modalPhoto").attr("src", "/person_board/displayFile?fileName="+photo);
+		}); 
 	});
 	
 	$("#btnSeoul").click(function() {
