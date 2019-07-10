@@ -61,6 +61,7 @@ $(document).ready(function() {
 				var strHtml = "";
 				
 				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center;";
+				
 				if( resCountByEmail >= 1 ) {
 					strHtml +=	"border: solid 5px; border-color: #27AE60;";
 				};
@@ -87,6 +88,9 @@ $(document).ready(function() {
 	})
 });
 </script>
+
+	<title>토론 주제 추천 게시판 - ${areaDataVo.a_name } 지역</title>
+	
 	<div class="container-fluid">
 	
 		<!-- 히든 데이터 값 시작 -->
@@ -94,6 +98,7 @@ $(document).ready(function() {
 			<input type="hidden" name="nowPage" value ="${pagingDto.nowPage }">
 			<input type="hidden" name="a_no" value ="${areaDataVo.a_no }">
 			<input type="hidden" name="countRow" value ="${pagingDto.countRow }">
+			<input type="hidden" name="searchType" value = "${pagingDto.searchType }">
 			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no" value = "${selectDiscussion_BoardVo.b_no}">
 			<input type="hidden" name="b_title" value = "${selectDiscussion_BoardVo.b_title}">

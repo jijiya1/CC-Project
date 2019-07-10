@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.domain.UserInfoVo;
+import com.kh.sbj.domain.AccountVo;
+import com.kh.sbj.domain.PersonAccountDeleteDto;
 import com.kh.sbj.domain.PersonPromiseDeleteDto;
 import com.kh.sbj.domain.PersonPromiseVo;
 import com.kh.sbj.service.IPersonMinipageService;
-import com.kh.sbj.service.IPersonService;
 import com.kh.sbj.util.FileUploadUtil;
 
 
@@ -37,28 +36,8 @@ public class PersonMinipageController {
 	@Inject
 	private IPersonMinipageService personMinipageService;
 	
-	@Inject
-	private IPersonService personService;
-	
-	
 	@Resource(name="uploadPath")
 	private String uploadPath;
-	
-//	@RequestMapping(value = "/promise_list", method=RequestMethod.GET)
-//	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@RequestParam("u_email") String u_email) throws Exception {
-//		ResponseEntity<List<PersonPromiseVo>> entity = null;
-//		System.out.println("1");
-//		u_email = u_email + ".com";
-//		try {
-//			List<PersonPromiseVo> list = personMinipageService.selectAllPromise(u_email);
-//			entity = new ResponseEntity<List<PersonPromiseVo>>(list, HttpStatus.OK);
-//		}catch(Exception e)	{
-//			e.printStackTrace();
-//			entity = new ResponseEntity<List<PersonPromiseVo>>(HttpStatus.BAD_REQUEST);
-//		}
-//		return entity;
-//	}
-	
 	@RequestMapping(value = "/promise_list", method=RequestMethod.GET)
 	public ResponseEntity<List<PersonPromiseVo>> personPromiseList(@RequestParam("u_email") String u_email) throws Exception {
 		ResponseEntity<List<PersonPromiseVo>> entity = null;
@@ -127,6 +106,7 @@ public class PersonMinipageController {
 	}
 	
 	//파일출력
+	@SuppressWarnings("static-access")
 	@RequestMapping(value="/downloadFile")
 	public ResponseEntity<byte[]> displayFile(@RequestParam("fileName") String fileName) throws Exception{
 		
@@ -163,6 +143,45 @@ public class PersonMinipageController {
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
-		
+	}
+	
+	@RequestMapping(value = "/account_list", method=RequestMethod.GET)
+	public ResponseEntity<List<AccountVo>> accountList(@RequestParam("u_email") String u_email) throws Exception {
+		ResponseEntity<List<AccountVo>> entity = null;
+		try {
+			List<AccountVo> list = personMinipageService.selectAllAccount(u_email);
+			entity = new ResponseEntity<List<AccountVo>>(list, HttpStatus.OK);
+		}catch(Exception e)	{
+			e.printStackTrace();
+			entity = new ResponseEntity<List<AccountVo>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	// 계좌등록
+	@RequestMapping(value="/account_insert", method=RequestMethod.POST)
+	public ResponseEntity<String> accInsert(@RequestBody AccountVo accountVo) throws Exception{
+		ResponseEntity<String> entity = null;
+		try {
+			personMinipageService.insertAccount(accountVo);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	//계좌삭제
+	@RequestMapping(value="/account_delete/{u_email}/{acc_num}", method=RequestMethod.DELETE)
+	public  ResponseEntity<String> delete(@PathVariable("u_email") String u_email, @PathVariable("acc_num") String acc_num){
+		ResponseEntity<String> entity = null;
+		try {
+			PersonAccountDeleteDto deleteDto = new PersonAccountDeleteDto(acc_num, u_email);
+			personMinipageService.deleteAccount(deleteDto);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
 	}
 }

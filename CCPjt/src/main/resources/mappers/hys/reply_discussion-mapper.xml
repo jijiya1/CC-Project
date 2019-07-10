@@ -8,18 +8,32 @@
 	<!-- 댓글 리스트 불러오기 -->
 	<select id="getDiscussionReplyList" resultType="ReplyVo_Discussion">
 		select * 
-	    from(select rownum rnum, a.*, (select count(*) from discussion_reply where b_serialno = #{b_serialno} and r_level = 0) totalReplyCount
+	    from(select rownum rnum, a.*, (select count(*) from discussion_reply where b_serialno = #{b_serialno} and r_level = 0 and r_checkeddel = 0) totalReplyCount
 	        from ( select * 
 	        	   from discussion_reply
-	        	   where b_serialno = #{b_serialno} and r_level= 0
+	        	   where b_serialno = #{b_serialno} and r_level= 0 and r_checkeddel = 0
 	               order by r_no desc) a)
 	    where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
 	</select>
 	
 	<select id="getReplyCount" resultType="int">
 		select count(*) from discussion_reply
-		where b_serialno = #{b_serialno}
+		where b_serialno = #{b_serialno} and r_level= 0 and r_checkeddel = 0
 	</select>
+	
+	<!-- 댓글 삭제하기 b_checkeddel = 0 -> 1 로 업데이트 -->
+	<update id="deleteReply">
+		update discussion_reply
+		set r_checkeddel = 1
+		where r_no = #{r_no}
+	</update>
+	
+	<!-- 댓글 수정하기 -->
+	<update id="modifyReply">
+		update discussion_reply
+		set r_content = #{r_content}
+		where r_no = #{r_no}
+	</update>
 	
 	<!-- 댓글 쓰기 -->
 	<insert id="writeReply">

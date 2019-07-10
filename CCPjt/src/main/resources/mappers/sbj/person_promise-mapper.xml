@@ -17,11 +17,26 @@
 	<update id="updatePromise">
 		update person_promise
 		set p_name = #{p_name}, p_progress = #{p_progress}, p_filepath = #{p_filepath}
-		where u_id = #{u_id} and p_no = #{p_no}
+		where u_email = #{u_email} and p_no = #{p_no}
 	</update>
 
 	<delete id="deletePromise">
 		delete person_promise
 		where u_email = #{u_email} and p_no = #{p_no}
+	</delete>
+	
+	<select id="selectAllAcc" resultType="accountVo">
+		select * from account_data
+		where u_email = #{u_email}
+	</select>
+	
+	<insert id="insertAcc">
+		insert into account_data(u_email, bank, acc_num, acc_name)
+		values(#{u_email}, #{bank}, #{acc_num}, #{acc_name})
+	</insert>
+	
+	<delete id="deleteAcc">
+		delete account_data
+		where u_email = #{u_email} and acc_num = #{acc_num}
 	</delete>
 </mapper>  	

@@ -83,16 +83,31 @@
 		where u_address = #{a_name} and u_position = 1
 	</select>
 	
-	<!-- 의원 검색하기 -->
-	<select id="searchAll" resultType="userInfoVo">
+	<!-- 의원목록 검색하기 -->
+	<select id="getSearchMemberList" resultType="userInfoVo">
 		select * from user_info
-		<if test="noSearchDto.searchType != null">
-			<if test="noSearchDto.searchType == 'u_name'">
-				and u_name like '%' || #{noSearchDto.keyword} || '%' 
+		<if test="searchType != null">
+			<if test="searchType == 'u_name'">
+				where u_name like '%' || #{keywordAll} || '%' 
 			</if>
 		</if>
-		where u_name = #{u_name} and u_position = 1
+		and u_position = 1
+	</select>
+	
+<!-- 	의원(1명) 검색 -->
+	<select id="searchMember" resultType="userInfoVo">
+		select * from user_info
+		where u_detail = (select d_name from detail_data where d_no=#{d_no} and a_no=#{a_no})
+	</select>
+	
+	<!-- 의원 검색 수 구하기 -->
+	<select id="getSearchMemberCount" resultType="int">
+		select count(*) from user_info
+		<if test="searchType != null">
+			<if test="searchType == 'u_name'">
+				where u_name like '%' || #{keywordAll} || '%' 
+			</if>
+		</if>
 	</select>
 
-	
 </mapper>
