@@ -196,11 +196,11 @@ $(document).ready(function() {
 		      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
 		      <span>신고 게시물</span></a>
 		</li>
-		<li class="nav-item active">
-		    <a class="nav-link" href="/admin/test_board">
-		      <i class="fas fa-fw fas fas fa-cog"></i>
-		      <span>테스트</span></a>
-		</li>
+<!-- 		<li class="nav-item active"> -->
+<!-- 		    <a class="nav-link" href="/admin/test_board"> -->
+<!-- 		      <i class="fas fa-fw fas fas fa-cog"></i> -->
+<!-- 		      <span>테스트</span></a> -->
+<!-- 		</li> -->
 	</c:if>
 	<!-- 관리자 메뉴바 끝 -->
 
