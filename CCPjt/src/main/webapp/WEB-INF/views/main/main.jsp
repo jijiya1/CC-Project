@@ -190,7 +190,7 @@ $(document).ready(function() {
 	      <a href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">+</a>
 	      </h6>
  	  	
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+	      <h6 class="m-0 font-weight-bold text-primary">사이트 공지사항</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">
@@ -228,7 +228,7 @@ $(document).ready(function() {
   <!-- 공지사항 테이블 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+	      <h6 class="m-0 font-weight-bold text-primary">지역별 공지사항</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">
