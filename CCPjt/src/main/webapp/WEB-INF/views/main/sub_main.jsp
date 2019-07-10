@@ -762,7 +762,7 @@ $(document).ready(function() {
 		              	<c:if test="${ boardList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
-	           		  <td>${ boardList.b_writer }</td>
+	           		  <td>${ boardList.u_name }</td>
 	           		  <td>${ boardList.b_readcount }</td>
 		              <td><fmt:formatDate value="${ boardList.b_createddate }" pattern="yyyy-MM-dd"/></td>
 		            </tr>

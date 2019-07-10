@@ -100,7 +100,7 @@ $(document).ready(function() {
 });
 </script>
 
-<title>CCPJT - 공지사항 작성 - ${ areaDataVo.a_name}</title>
+<title>CCPJT - [${ areaDataVo.a_name}] 공지사항 작성</title>
 
 <!-- 공지사항 작성 시작 -->
 	<div class="container-fluid">
