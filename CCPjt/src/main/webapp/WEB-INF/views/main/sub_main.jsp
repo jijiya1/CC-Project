@@ -666,7 +666,7 @@ $(document).ready(function() {
 		           		  	<c:choose>
 		           		  	<c:when test="${ fn:length(selectBoardVo.b_title) > 21 }">${ selectBoardVo.b_title.substring(0, 21) }...</c:when>
 		           		  	<c:otherwise>${ selectBoardVo.b_title }</c:otherwise>
-		           		  	</c:choose> 
+		           		  	</c:choose>
 		           		  	</a>
 		           		  </td>
 			              <td>${ selectBoardVo.b_writer }</td>
