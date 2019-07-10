@@ -32,7 +32,7 @@ public class Complaint_BoardDaoImplTest {
 		vo.setB_addinfo("지역2");
 		vo.setB_detailinfo("구2");
 		vo.setB_title("글제목2");
-		vo.setB_writer("작성자2");
+		vo.setU_name("작성자2");
 		vo.setB_content("글내용2");
 		boardDao.suggest_insert(vo);
 	}

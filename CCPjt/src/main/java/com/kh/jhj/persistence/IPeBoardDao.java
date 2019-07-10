@@ -19,4 +19,7 @@ public interface IPeBoardDao {
 	public int runOutCount(PagingDto pageDto, int a_no) throws Exception;
 	public List<String> readLink(String b_serialno) throws Exception;
 	public void readCount(String b_serialno) throws Exception;
+	public PetitionVo confirm() throws Exception;
+	
+	public List<PetitionVo> myList(String u_email) throws Exception;
 }

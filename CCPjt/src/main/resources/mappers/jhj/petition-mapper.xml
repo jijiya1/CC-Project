@@ -5,6 +5,8 @@
   	
 <mapper namespace ="petition_board">
 
+
+
 <!-- 메인페이지 보이기(랭킹3위까지만보이기) -->
 	<select id="listMain" resultType="PetitionVo">
 		select * from (
@@ -54,7 +56,17 @@
 		               ) allList
 	 order by b_no desc, b_enddate desc
 	</select>
-
+	
+<!-- 나의 청원보기	 -->
+	<select id="myPetition" resultType="PetitionVo">
+        select rownum rnum, allList.*
+            from (select ad.a_name,dd.d_name, pb.* 
+                        from petition_board pb,area_data ad, detail_data dd
+                        where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+                        	and b_addinfo=ad.a_no
+                        	and u_id=#{u_email}
+		                order by b_no desc, b_enddate desc) allList
+	</select>
 <!-- 글 전체 갯수 파악(만료 전)	 -->
 	<select id="listCount" resultType="int">
 		select count(*)
@@ -110,6 +122,18 @@
         values ('pe'||seq_petition.nextval, seq_petition.currval, #{b_addinfo}, #{b_detailinfo}
         		 , #{b_title}, #{b_writer}, #{u_id}, #{b_content})
 	</insert>
+	
+	<select id="confirm" resultType="PetitionVo">
+			select * from(
+						select rownum rnum, allList.* 
+						    from (select ad.a_name,dd.d_name, pb.* 
+						                from petition_board pb,area_data ad, detail_data dd
+						                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+						                	and b_addinfo=ad.a_no
+						               order by b_no desc, b_enddate desc) allList
+						        )
+				where rnum=1
+	</select>
 	
 <!-- 글 쓸때 link 추가	 -->
 	<insert id="writeLink">

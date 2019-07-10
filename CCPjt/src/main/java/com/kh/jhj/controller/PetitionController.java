@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.kh.domain.PagingDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.jhj.domain.PetitionVo;
 import com.kh.jhj.service.IPeBoardService;
+import com.kh.jhj.service.IPeProgressService;
 import com.kh.shj.service.INoticeBoardService;
 
 @Controller
@@ -28,6 +30,9 @@ public class PetitionController {
 	
 	@Inject
 	IPeBoardService peService;
+	
+	@Inject
+	IPeProgressService peProgressService;
 	
 	@Inject
 	INoticeBoardService noService;
@@ -68,7 +73,10 @@ public class PetitionController {
 							PagingDto pageDto) throws Exception{
 		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
 		Date time = new Date();
-		
+		peProgressService.prevAgree();
+		peProgressService.startAgree();
+		peProgressService.ingAgree();
+		peProgressService.rouOutAgree();
 		String formTime = form1.format(time);
 		
 		int listCount = peService.listCount(pageDto, a_no);
@@ -138,6 +146,19 @@ public class PetitionController {
 		model.addAttribute("formTime",formTime);
 	}
 	
+	@RequestMapping(value="myPetition", method=RequestMethod.GET)
+	public void myPetition(@RequestParam("u_id") String u_email,
+							@RequestParam("a_no") int a_no,
+							Model model, PagingDto pageDto) throws Exception{
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		
+		List<PetitionVo> myList = peService.myList(u_email);
+//		System.out.println(myList);
+		model.addAttribute("myList", myList);
+		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("a_no", a_no);
+	}
+	
 	@RequestMapping(value="petitionWrite", method=RequestMethod.GET)
 	public void petitionWrite(@RequestParam("a_no") int a_no,
 								Model model) throws Exception{
@@ -166,12 +187,27 @@ public class PetitionController {
 		peVo.setB_writer(b_writer);
 		
 		peService.writeUrl(peVo);
-		
+		PetitionVo petitinVo = peService.confirm();
+//		System.out.println("controller peVo : " + petitinVo);
 //		System.out.println("peVo :" + peVo);
 		
+		model.addAttribute("peVo", petitinVo);
 		model.addAttribute("areaDataVo", areaDataVo);
 		model.addAttribute("dArea", dArea);
+		model.addAttribute("a_no", a_no);
 
+		return "/petition_board/petitionConfirm";
+	}
+	
+
+	
+	@RequestMapping(value="petitionConfirm", method=RequestMethod.POST)
+	public String petitionConfirm(@RequestParam("a_no") int a_no,
+								Model model) throws Exception{
+		AreaDataVo areaDataVo = noService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		model.addAttribute("a_no", a_no);
+		
 		return "redirect:/petition_board/petitionList?a_no="+a_no;
 	}
 

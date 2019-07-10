@@ -35,8 +35,8 @@
 
 <!-- 글쓰기 -->
 <insert id="insert">
-	insert into complaint_board(b_serialno, b_no, u_id, b_addinfo, b_detailinfo, b_title, b_writer, b_content)
-	values ('co_'||seq_suggest_serialno.nextval, seq_suggest.nextval, #{u_id}, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{b_writer}, #{b_content})
+	insert into complaint_board(b_serialno, b_no, u_email, b_addinfo, b_detailinfo, b_title, u_name, b_content)
+	values ('co_'||seq_suggest_serialno.nextval, seq_suggest.nextval, #{u_email}, #{b_addinfo}, #{b_detailinfo}, #{b_title}, #{u_name}, #{b_content})
 	
 </insert>																						
 
@@ -95,8 +95,8 @@ select * from (select rownum rnum, a.* from
       		<if test="searchType == 'b_content'">
       			where b_content like '%' || #{keyword} || '%' 
       		</if>
-      		<if test="searchType == 'b_writer'">
-      			where b_writer like '%' || #{keyword} || '%' 
+      		<if test="searchType == 'u_name'">
+      			where u_name like '%' || #{keyword} || '%' 
       		</if>
       		<if test="searchType == 'b_addinfo'">
       			where b_addinfo like '%' || #{keyword} || '%' 

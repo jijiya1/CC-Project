@@ -61,7 +61,6 @@ $(document).ready(function() {
 				var strHtml = "";
 				
 				strHtml += "<a href='#' class='btn btn-primary btn-sm btnUp' style='text-align: center;";
-				
 				if( resCountByEmail >= 1 ) {
 					strHtml +=	"border: solid 5px; border-color: #27AE60;";
 				};
@@ -78,7 +77,7 @@ $(document).ready(function() {
 	// 토론 주제로 선정(관리자 권한 userVo.u_grade)
 	$("#btnSeletDiscussion").click(function (e) {
 		e.preventDefault();
-		if(confirm("해당 토론 글을 삭제 하시겠습니까?") == true){
+		if(confirm("해당 글을 토론 메인 게시판으로 옮기겠습니까?") == true){
 			var url = "/selectDiscussion/seletDiscussion";
 			
 			$("#hiddenData").attr("action", url);
@@ -89,7 +88,7 @@ $(document).ready(function() {
 });
 </script>
 
-	<title>토론 주제 추천 게시판 - ${areaDataVo.a_name } 지역</title>
+	<title>CCPJT - 토론 주제 추천 게시판 - ${areaDataVo.a_name }</title>
 	
 	<div class="container-fluid">
 	
@@ -101,8 +100,6 @@ $(document).ready(function() {
 			<input type="hidden" name="searchType" value = "${pagingDto.searchType }">
 			<input type="hidden" name="searchKeyword" value = "${pagingDto.searchKeyword }">
 			<input type="hidden" name="b_no" value = "${selectDiscussion_BoardVo.b_no}">
-			<input type="hidden" name="b_title" value = "${selectDiscussion_BoardVo.b_title}">
-			<input type="hidden" name="b_content" value = "${selectDiscussion_BoardVo.b_content}">
 			<input type="hidden" name="u_email" value = "${userVo.u_email}">
 			<input type="hidden" name="b_writer" value = "${userVo.u_name}">
 		</form>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
-<!-- <script src="/resources/js/jhjScript.js"></script> -->
+<script src="/resources/js/jhjScript.js"></script>
 
 
 <title>청원 게시판 읽기</title>
@@ -73,7 +73,9 @@
 <!-- 										style ="weight:100px; height: 300px;"/> -->
 
 							</td>
+							
 						</tr>
+						
 						</table>
 						
 						<div class="col-md-6">
@@ -83,7 +85,7 @@
 								
 							<div>
 								<label style="font-weight : bold">첨부 ${status.index+1} :</label>
-								<a href="#">${link}</a>
+								<a href="https://${link}">${link}</a>
 							</div>
 							</c:forEach>
 						</div>
@@ -94,7 +96,7 @@
 				<button  type="button" class="btn btn-primary" data-toggle="tooltip"
 					 data-placement="top" title="동의하기" id="btnAgree"><i style='font-size:20px' class='fas fa-child'></i> &nbsp;동의하기</button>
 				<button type="button" class="btn btn-success" data-toggle="tooltip"
-					 data-placement="top" title="댓글" id="btnReply"><span style='font-size:20px' class="fas fas fa-comment"></span></button>
+					 data-placement="top" title="댓글" id="btnReplyList"><span style='font-size:20px' class="fas fas fa-comment"></span></button>
 				 <button type="button" class="btn btn-warning" data-toggle="tooltip"
 					 data-placement="top" title="목록" id="btnList"><span style='font-size:20px' class="fas fa-list"></span></button>
 				<button type="button" class="btn btn-danger" data-toggle="tooltip"
@@ -104,16 +106,19 @@
 <!-- 댓글 입력	 -->
 	<div class="row">
 		<div class="col-md-12" id="writeReply">
-			<input type="text" name="replyVal" class="col-md-6"
-				 value=<c:if test='${userVo.u_email !=null}'>'${userVo.u_email}'</c:if>
-				 	<c:if test='${userVo.u_email == null}'>'로그인을 해야 합니다.'</c:if>
-				 >
-			<input type="button" value="댓글작성" class="btn btn-primary">
+			<input type="text" name="replyContent" class="col-md-6"
+				 <c:if test='${userVo.u_email !=null}'></c:if>
+				 <c:if test='${userVo.u_email == null}'> value='로그인을 해야 합니다.'
+				 readonly='readonly'</c:if>
+				 ><!-- input 댓글 입력란 readonly -->
+			<input type="button" value="댓글작성" class="btn btn-primary" id="btnReply">
 		</div>
 	</div>	
 <!-- 		댓글목록 -->
 <div class="row">
-	<div class="col-md-12" id="listReply">
+	<div class="col-md-12">
+		<div class="col-md-7" id="listReply" style="font-size:12px;"></div>
+		<div class="col-md-5"></div>
 	
 	<br>
 	</div>
@@ -137,13 +142,14 @@ $(document).ready(function(){
 			var str = "<br><div class='card shadow mb-4'>"
 					+ '<div class="card-body">'
 					+ '<div class="table-responsive">' 
-					+ '<table class="table table-bordered">'
+					+ '<table class="table table-bordered" width="600">'
 					+ "<thead>"
 					+ "<tr>"
-					+ "	<td>번호</td>"
-					+ "	<td>댓글 내용</td>"
-					+ "	<td>작성자</td>"
-					+ "	<td>작성날짜</td>"
+					+ "	<td width='20' style='text-align : center' >번호</td>"
+					+ "	<td width='15' style='text-align : center'>작성자</td>"
+					+ "	<td width='300'  style='border-right: hidden;'>댓글 내용</td>"
+					+" <td width='1'></td>"
+// 					+ "	<td width='20' style='text-align : center'>작성날짜</td>"
 					+ "</tr>"
 					+ "</thead>"
 					+ "<tbody>";
@@ -153,11 +159,30 @@ $(document).ready(function(){
 // 				var date = dateString(this.r_createddate);
 // 				console.log(date);
 				str += "<tr>"
-					+ " <td>" + this.rnum + "</td>"
-					+ " <td>" + this.r_content + "</td>"
-					+ " <td>" + this.r_writer + "</td>"
-// 					+ "<td>" + dateString(this.r_createddate) + "</td>";
-					+ "<td>" + this.r_createddate + "</td>";
+					+ " <td style='text-align : center' >" + this.rnum + "</td>"
+					+ " <td style='text-align : center' ><a href='#' class='a_writer"+this.r_no+"' "
+							+ " data-writer='"+this.r_writer+"' data-email='"+this.u_email+"'>"
+							+ this.r_writer + "</a></td>"
+					
+					+ " <td style='border-right: hidden;'>" + this.r_content 
+							+ "<span style='color:#FFA387'>&nbsp;&nbsp;&nbsp;&nbsp;"
+							+ dateString(this.r_createddate) + "</td><td>";
+									if(this.u_email == nowUser){
+										//수정버튼
+										str += "<button  type='button' value='수정' data-rno='"+this.r_no+"'"
+										+" data-b_serialno='"+this.b_serialno+"'"
+										+" class='btnMod btn-xs btn-warning'><span class='fas fa-pencil-alt'></span></button>"
+										//삭제버튼
+										+"&nbsp;&nbsp;"
+										+"<button type='button' value='삭제' data-rno='"+this.r_no+"'"
+										+" data-b_serialno='"+this.b_serialno+"'"
+										+" class='btnDel btn-xs btn-danger'><span class='fas fa-trash'></span></button>"
+									}
+// 				str += "</td><td style='text-align : center' >" + dateString(this.r_createddate) + "</td>";
+//   					+ "<td>" + this.r_createddate + "</td>";
+// 					console.log("댓글id :"+ this.u_email);
+// 					console.log("접속id :"+ nowUser);
+				
 					
 			});//receivedData
 				str += "</tbody>"
@@ -167,6 +192,16 @@ $(document).ready(function(){
 		});//getJSON(listReply)
 	}
 	
+	
+	$("#listReply").on("click",".a_writer", function(e){
+// 		console.log("a태그");
+		e.preventDefault();
+		var writer = $(this).attr("data-writer");
+		var email = $(this).attr("data-email");
+		var rno = $(this).
+		$(".a_writer")
+		var str="<input type='text' ><input type='button'>";
+	});
 	$("#btnAgree").click(function(){		
 // 			e.preventDefault();
 		var userInfo = '${userVo.u_email}';
@@ -199,9 +234,40 @@ $(document).ready(function(){
 				alert("로그인을 해야 동의하실 수 있습니다.");
 			}//userInfo null 판단
 	});		
-			
-	$("#btnReply").click(function(){		
 		
+	$("#btnReply").click(function(){
+		
+		var b_serialno="${peVo.b_serialno}";
+		var replyContent=$("input[name=replyContent]").val();
+		var replyerId="${userVo.u_email}";
+		var replyerName="${userVo.u_name}";
+// 		console.log("b_serialno :"+ b_serialno);
+// 		console.log("replyContent :"+ replyContent);
+// 		console.log("replyerId :"+ replyerId);
+// 		console.log("replyerName :"+ replyerName);
+		var data ={
+					"b_serialno" : b_serialno,	
+					"r_content" : replyContent,	
+					"u_email" : replyerId,	
+					"r_writer" : replyerName	
+					};
+		var url = "/pe_ajax/writeReply";
+		$.ajax({
+			url : url,
+			type : "post",
+			data : JSON.stringify(data),
+			dataType : "text",
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "post"
+						},
+			"success": function(receivedData){
+				getListReply()
+			}
+			
+		});
+	});
+	$("#btnReplyList").click(function(){		
 		getListReply()
 	});		
 			
