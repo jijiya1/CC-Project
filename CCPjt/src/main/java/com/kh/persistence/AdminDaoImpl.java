@@ -83,4 +83,15 @@ public class AdminDaoImpl implements IAdminDao {
 		return userContentCount;
 	}
 
+	@Override
+	public void updateUserGrade(int u_position, String u_email) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("u_position", u_position);
+		data.put("u_email", u_email);
+		
+		sqlSession.selectOne(NAMESPACE + "updateUserGrade", data);
+		
+	}
+
 }

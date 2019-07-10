@@ -33,6 +33,7 @@ public class MainController_Discussion {
 	// 토론 메인 게시판으로 가기
 	@RequestMapping(value = "/discussion_main_board", method=RequestMethod.GET)
 	public void discussion_main_board(@RequestParam("a_no") int a_no, Model model) throws Exception {
+		
 		List<BoardVo_Discussion> discussionList =  boardService_Discussion.getDiscussionList(a_no);
 		
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);

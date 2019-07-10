@@ -4,15 +4,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.domain.AreaDataVo;
+import com.kh.domain.DetailDataVo;
 import com.kh.domain.PagingDto;
+import com.kh.domain.SearchMemberDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.BoardVo_Discussion;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
@@ -93,7 +98,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/search_all", method=RequestMethod.GET)
-	public void searchAll(@RequestParam("a_no") int a_no, Model model) throws Exception {
+	public void searchAll(@RequestParam("a_no") int a_no, NoSearchDto noSearchDto, Model model) throws Exception {
 		
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
@@ -103,6 +108,31 @@ public class MainController {
 		List<UserInfoVo> getMemberList = mainService.getMemberList(a_name);
 		model.addAttribute("memberVo", getMemberList);
 		
+		List<UserInfoVo> getSearchMemberList = mainService.getSearchMemberList(noSearchDto);
+		model.addAttribute("SearchMemberList", getSearchMemberList);
+		
+		int getSearchMemberCount = mainService.getSearchMemberCount(noSearchDto);
+		model.addAttribute("getSearchMemberCount", getSearchMemberCount);
+		
 		model.addAttribute("a_no", a_no);
+	}
+	
+	@RequestMapping(value="/member_search_area", method=RequestMethod.GET)
+	public void searchArea(Model model) throws Exception {
+	}
+	
+	//선거구 의원찾기
+	@RequestMapping(value = "/searchMember/{a_no}/{d_no}", method = RequestMethod.GET)
+	public ResponseEntity<UserInfoVo> searchMember(@PathVariable("a_no") int a_no, @PathVariable("d_no") int d_no) throws Exception {
+		ResponseEntity<UserInfoVo> entity = null;
+		SearchMemberDto searchMemberDto = new SearchMemberDto(a_no, d_no);
+		try {
+			UserInfoVo memberVo = mainService.searchMember(searchMemberDto);
+			entity = new ResponseEntity<UserInfoVo>(memberVo, HttpStatus.OK);
+		}catch(Exception e)	{
+			e.printStackTrace();
+			entity = new ResponseEntity<UserInfoVo>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 }

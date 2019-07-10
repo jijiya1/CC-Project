@@ -4,24 +4,39 @@
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   	
 <mapper namespace ="person_promise">
-	<select id="selectAllPromise" resultType="PersonPromiseVo">
+	<select id="selectAllPromise" resultType="personPromiseVo">
 		select * from person_promise
-		where u_id = #{u_id}
+		where u_email = #{u_email}
 	</select>
 	
 	<insert id="insertPromise">
-		insert into person_promise(u_id, p_no, p_name, p_progress, p_filePath)
-		values(#{u_id}, seq_person_promise.nextval, #{p_name}, #{p_progress}, #{p_filePath})
+		insert into person_promise(u_email, p_no, p_name, p_progress, p_filepath, assem_no)
+		values(#{u_email}, seq_person_promise.nextval, #{p_name}, #{p_progress}, #{p_filepath}, 20)
 	</insert>
 	
 	<update id="updatePromise">
 		update person_promise
 		set p_name = #{p_name}, p_progress = #{p_progress}, p_filepath = #{p_filepath}
-		where u_id = #{u_id} and p_no = #{p_no}
+		where u_email = #{u_email} and p_no = #{p_no}
 	</update>
 
 	<delete id="deletePromise">
 		delete person_promise
-		where u_id = #{u_id} and p_no = #{p_no}
+		where u_email = #{u_email} and p_no = #{p_no}
+	</delete>
+	
+	<select id="selectAllAcc" resultType="accountVo">
+		select * from account_data
+		where u_email = #{u_email}
+	</select>
+	
+	<insert id="insertAcc">
+		insert into account_data(u_email, bank, acc_num, acc_name)
+		values(#{u_email}, #{bank}, #{acc_num}, #{acc_name})
+	</insert>
+	
+	<delete id="deleteAcc">
+		delete account_data
+		where u_email = #{u_email} and acc_num = #{acc_num}
 	</delete>
 </mapper>  	

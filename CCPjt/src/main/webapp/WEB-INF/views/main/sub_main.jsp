@@ -147,7 +147,7 @@
 /* Slides */
 .mySlides-dis {
   display: none;
-  padding: 67.5px;
+  padding: 64.8px;
   text-align: center;
 }
 
@@ -362,8 +362,11 @@ $(document).ready(function() {
 		var b_no = $(this).attr("data-b_no");
 		var a_no = "${a_no}";
 //  		console.log(b_no + "번 글 제목 클릭");
+		var u_email = "${userVo.u_email}";
+		
 		$("input[name=b_no]").val(b_no);
 		$("input[name=a_no]").val(a_no);
+		$("input[name=u_email]").val(u_email);
 		$("input[name=nowPage]").val(1);
 		
 		var url = "/selectDiscussion/discussion_select_read";
@@ -386,6 +389,7 @@ $(document).ready(function() {
 	<form id="hiddenData" action="/notice_board/notice_list">
 		<input type="hidden" name="b_no">
 		<input type="hidden" name="a_no">
+		<input type="hidden" name="u_email">
 		<input type="hidden" name="nowPage">
 		<input type="hidden" name="perPage">
 		<input type="hidden" name="searchType">
@@ -457,7 +461,7 @@ $(document).ready(function() {
 				  <img src="/person_board/displayFile?fileName=${ memberVo.u_photo }" class="image-test">
 				  	<div class="overlay overlay-test divPerson" >
 				  	<div class="text text-test">
-				  	<a href="/person_board/person_minipage?m_email=${ memberVo.u_email}&a_no=${ a_no }" id="link_member" style="text-decoration:none">
+				  	<a href="/person_board/person_minipage?u_email=${ memberVo.u_email}&a_no=${ a_no }" id="link_member" style="text-decoration:none">
 				  	<input type="hidden" name="m_eamil" value="${ memberVo.u_email}">
 						  	${ memberVo.u_name }<br><br>
 						  	${ memberVo.u_party }<br><br>
@@ -573,8 +577,8 @@ $(document).ready(function() {
 					
 						<c:forEach items="${ discussionList }" var="boardVo_discussion" >
 							<div class="mySlides mySlides-dis">
-								<q style="cursor:pointer;" class="discussionTitle">
-									${ boardVo_discussion.b_title } / ${ boardVo_discussion.b_serialno }
+								<q style="cursor:pointer; font-size: 20px; font: bold;" class="discussionTitle">
+									${ boardVo_discussion.b_title }
 								</q>
 							  <p class="author author-dis">- ${ boardVo_discussion.b_writer }(${ boardVo_discussion.u_email.substring(0, 3)}***)</p>
 							</div>
@@ -644,7 +648,7 @@ $(document).ready(function() {
  	  	<div class="card-header py-3">
  	  	
  	  	  <h6 class="m-0 font-weight-bold text-primary" style="float: right;" data-toggle="tooltip" data-placement="top" title="더보기">
-	      <a href="/selectDiscussion/discussion_select_board?a_no=${ areaDataVo.a_no }">+</a>
+	      <a href="/selectDiscussion/discussion_select_board?a_no=${ areaDataVo.a_no }&u_email=">+</a>
 	      </h6>
  	  	
 	      <h6 class="m-0 font-weight-bold text-primary">토론 주제 추천</h6>
@@ -692,7 +696,7 @@ $(document).ready(function() {
 					<c:forEach items="${pMain}" var="peVo">
 						<tr>
 							<td>
-								<a href="/petition_board/petitionRead?a_no=${ a_no }&b_no=${ peVo.b_no }" class="a_title" style="float: left;" data-bno="${peVo.b_no}">
+								<a href="/petition_board/petitionRead?a_no=${ a_no }&b_serialno=${ peVo.b_serialno }" class="a_title" style="float: left;" data-bno="${peVo.b_no}">
 								<c:if test="${ peVo.ranking == '1' || peVo.ranking == '2' || peVo.ranking == '3'}">
 									<img src="/resources/img/rank${ peVo.ranking }.png" style="width: 25px; height: auto;">
 								</c:if>

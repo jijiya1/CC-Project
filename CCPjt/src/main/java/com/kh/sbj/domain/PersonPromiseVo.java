@@ -1,31 +1,39 @@
 package com.kh.sbj.domain;
 
 public class PersonPromiseVo {
-	private String u_id;
+	private String u_email;
 	private int p_no;
 	private String p_name;
 	private int p_progress;
-	private String p_filePath;
+	private String p_filepath;
+	private int assem_no;
 	
 	public PersonPromiseVo() {
 		super();
 	}
 
-	public PersonPromiseVo(String u_id, int p_no, String p_name, int p_progress, String p_filePath) {
+	@Override
+	public String toString() {
+		return "PersonPromiseVo [u_email=" + u_email + ", p_no=" + p_no + ", p_name=" + p_name + ", p_progress="
+				+ p_progress + ", p_filepath=" + p_filepath + ", assem_no=" + assem_no + "]";
+	}
+
+	public PersonPromiseVo(String u_email, int p_no, String p_name, int p_progress, String p_filepath, int assem_no) {
 		super();
-		this.u_id = u_id;
+		this.u_email = u_email;
 		this.p_no = p_no;
 		this.p_name = p_name;
 		this.p_progress = p_progress;
-		this.p_filePath = p_filePath;
+		this.p_filepath = p_filepath;
+		this.assem_no = assem_no;
 	}
 
-	public String getU_id() {
-		return u_id;
+	public String getU_email() {
+		return u_email;
 	}
 
-	public void setU_id(String u_id) {
-		this.u_id = u_id;
+	public void setU_email(String u_email) {
+		this.u_email = u_email;
 	}
 
 	public int getP_no() {
@@ -52,14 +60,22 @@ public class PersonPromiseVo {
 		this.p_progress = p_progress;
 	}
 
-	public String getP_filePath() {
-		return p_filePath;
+	public String getP_filepath() {
+		return p_filepath;
 	}
 
-	public void setP_filePath(String p_filePath) {
-		this.p_filePath = p_filePath;
+	public void setP_filepath(String p_filepath) {
+		this.p_filepath = p_filepath;
 	}
-	 
+
+	public int getAssem_no() {
+		return assem_no;
+	}
+
+	public void setAssem_no(int assem_no) {
+		this.assem_no = assem_no;
+	}
+	
 	
 	 
 }

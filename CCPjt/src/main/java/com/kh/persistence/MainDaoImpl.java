@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.domain.PagingDto;
+import com.kh.domain.SearchMemberDto;
 import com.kh.domain.UserInfoVo;
 import com.kh.hys.domain.SelectDiscussion_BoardVo;
 import com.kh.jhj.domain.PetitionVo;
@@ -85,6 +86,24 @@ public class MainDaoImpl implements IMainDao {
 		int getMemberCount = sqlSession.selectOne(NAMESPACE + "getMemberCount", a_name);
 //		System.out.println("Dao / getMemberCount : " + getMemberCount);
 		return getMemberCount;
+	}
+	
+	@Override
+	public List<UserInfoVo> getSearchMemberList(NoSearchDto noSearchDto) throws Exception {
+		List<UserInfoVo> getSearchMemberList = sqlSession.selectList(NAMESPACE + "getSearchMemberList", noSearchDto);
+		return getSearchMemberList;
+	}
+
+	@Override
+	public UserInfoVo searchMember(SearchMemberDto searchMemberDto) throws Exception {
+		UserInfoVo userInfoVo = sqlSession.selectOne(NAMESPACE +"searchMember", searchMemberDto);
+		return userInfoVo;
+	}
+	
+	@Override
+	public int getSearchMemberCount(NoSearchDto noSearchDto) throws Exception {
+		int getSearchMemberCount = sqlSession.selectOne(NAMESPACE + "getSearchMemberCount", noSearchDto);
+		return getSearchMemberCount;
 	}
 
 }

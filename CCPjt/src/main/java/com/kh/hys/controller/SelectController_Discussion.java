@@ -38,6 +38,8 @@ public class SelectController_Discussion {
 	// 토론 주제 추천 게시판으로 가기
 	@RequestMapping(value = "/discussion_select_board", method=RequestMethod.GET)
 	public String discussion_res_board(Model model, @RequestParam("a_no") int a_no, PagingDto pagingDto) throws Exception {
+		
+//		System.out.println("pagingDto"+ pagingDto);
 	
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
@@ -59,6 +61,28 @@ public class SelectController_Discussion {
 		
 		model.addAttribute("todayTime", todayTime);
 		return "/discussion_board/discussion_select_board";
+	}
+	
+	// 토론 주제 추천 게시판 글 상세보기 페이지
+	@RequestMapping(value = "/discussion_select_read", method = RequestMethod.GET)
+	public String readSelectBoard(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no, @RequestParam("u_email") String u_email) throws Exception {
+//		System.out.println("readSelectBoard 실행");
+		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
+		model.addAttribute("areaDataVo", areaDataVo);
+		
+		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
+		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
+		
+		SelectResInfoDto_Discussion selectResInfoDto_Discussion = new SelectResInfoDto_Discussion();
+		selectResInfoDto_Discussion.setU_email(u_email);
+		selectResInfoDto_Discussion.setB_no(b_no);
+		
+		// 해당 게시글 추천 수 정보 가져오기
+//		System.out.println("selectResInfoDto_Discussion : " + selectResInfoDto_Discussion);
+		
+		int resCountByEmail = selectService.selectBoardResCountById(selectResInfoDto_Discussion);
+		model.addAttribute("resCountByEmail", resCountByEmail);
+		return "/discussion_board/discussion_select_read";
 	}
 	
 	// 토론 주제 추천 게시판 글작성 페이지로 가기
@@ -89,37 +113,11 @@ public class SelectController_Discussion {
 		
 		return "redirect:/selectDiscussion/discussion_select_board?a_no="+a_no;
 	}
-	
-	// 토론 주제 추천 게시판 글 상세보기 페이지
-	@RequestMapping(value = "/discussion_select_read", method = RequestMethod.GET)
-	public String readSelectBoard(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no, @RequestParam("u_email") String u_email) throws Exception {
-//		System.out.println("readSelectBoard 실행");
-		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
-		model.addAttribute("areaDataVo", areaDataVo);
-		
-		SelectDiscussion_BoardVo selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
-		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
-		
-		SelectResInfoDto_Discussion selectResInfoDto_Discussion = new SelectResInfoDto_Discussion();
-		selectResInfoDto_Discussion.setU_email(u_email);
-		selectResInfoDto_Discussion.setB_no(b_no);
-		
-		// 해당 게시글 추천한 사람 정보 리스트 불러오기
-//		List<SelectResInfoDto_Discussion> resInfoList=  selectService.selectBoardResList(selectResInfoDto_Discussion);
-//		model.addAttribute("resInfoList", resInfoList);
-		
-		// 해당 게시글 추천 수 정보 가져오기
-		System.out.println("selectResInfoDto_Discussion : " + selectResInfoDto_Discussion);
-		
-		int resCountByEmail = selectService.selectBoardResCountById(selectResInfoDto_Discussion);
-		model.addAttribute("resCountByEmail", resCountByEmail);
-		return "/discussion_board/discussion_select_read";
-	}
+
 	
 	// 토론 주제 추천 게시판 글 수정 폼 으로 이동
 	@RequestMapping(value = "/discussion_select_modify", method = RequestMethod.GET)
-	public String selectBoardModifyForm(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no
-			,SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+	public String selectBoardModifyForm(Model model, PagingDto pagingDto, @RequestParam("a_no") int a_no, SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
@@ -129,16 +127,18 @@ public class SelectController_Discussion {
 		List<DetailDataVo> getDetailAreaData = noticeBoardService.getDetailAreaData(a_no);
 		model.addAttribute("getDetailAreaData", getDetailAreaData);
 		
-		model.addAttribute("a_no", a_no);
 		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
+		
+		model.addAttribute("a_no", a_no);
 		
 		return "/discussion_board/discussion_select_modify";
 	}
 	
 	// 토론 주제 추천 게시판 글 수정 작업
 	@RequestMapping(value = "/discussion_select_modify", method = RequestMethod.POST)
-	public String selectBoardModify(Model model, PagingDto pagingDto, @RequestParam("b_no") int b_no, @RequestParam("a_no") int a_no
-			,SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+	public String selectBoardModify(Model model, @RequestParam("a_no") int a_no, @RequestParam("b_no") int b_no, @RequestParam("u_email") String u_email
+			, PagingDto pagingDto,SelectDiscussion_BoardVo selectDiscussion_BoardVo) throws Exception {
+		
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
 		model.addAttribute("areaDataVo", areaDataVo);
 		
@@ -151,6 +151,16 @@ public class SelectController_Discussion {
 		model.addAttribute("a_no", a_no);
 		
 		selectService.modifySelectBoard(selectDiscussion_BoardVo);
+		
+		selectDiscussion_BoardVo = selectService.readSelectBoard(b_no);
+		model.addAttribute("selectDiscussion_BoardVo", selectDiscussion_BoardVo);
+		
+		SelectResInfoDto_Discussion selectResInfoDto_Discussion = new SelectResInfoDto_Discussion();
+		selectResInfoDto_Discussion.setU_email(u_email);
+		selectResInfoDto_Discussion.setB_no(b_no);
+		
+		int resCountByEmail = selectService.selectBoardResCountById(selectResInfoDto_Discussion);
+		model.addAttribute("resCountByEmail", resCountByEmail);
 		
 		return "/discussion_board/discussion_select_read";
 	}
