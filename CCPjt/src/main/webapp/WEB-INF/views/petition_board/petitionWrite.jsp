@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/head.jsp" %>
-<title>청원 하기</title>
+
 <script>
 $(document).ready(function(){
 	var i="0";
@@ -80,6 +80,8 @@ $(document).ready(function(){
 });
 	
 </script>
+
+<title>CCPJT - [${ areaDataVo.a_name }] 청원하기</title>
 
 <div class="container-fluid">
 	<div class="row">

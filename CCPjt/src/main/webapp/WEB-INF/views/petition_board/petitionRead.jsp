@@ -6,7 +6,7 @@
 <script src="/resources/js/jhjScript.js"></script>
 
 
-<title>청원 게시판 읽기</title>
+<title>CCPJT - [${ areaDataVo.a_name }] 청원게시판 - ${peVo.b_title}</title>
 
 <div class="container-fluid">
 	<div class="row">

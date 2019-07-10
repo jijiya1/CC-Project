@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/head.jsp" %>
 
-<title>국민 청원</title>
 <script>
 $(document).ready(function(){
 	var a_no = "${areaDataVo.a_no}";
@@ -71,6 +70,9 @@ $(document).ready(function(){
 	});
 });
 </script>
+
+<title>CCPJT - [${ areaDataVo.a_name }] 청원게시판(Best3)</title>
+
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">
 	<input type="hidden" name="b_serialno"  value="${param.b_serialno}">
@@ -82,14 +84,13 @@ $(document).ready(function(){
 
 <div class="container-fluid">
 
-<p class="mb-4">
-	<span class="fas fa-home">&nbsp;</span>
-	<a href="/">홈</a> ＞<a href="/notice_board/notice_list?a_no=${areaDataVo.a_no}"> ${areaDataVo.a_name}</a>
+<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 
+<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"> ${areaDataVo.a_name}</a>
 	＞ 청원게시판</p>
 	
 		<!-- 페이지 헤더 -->	
 	
-		<h1 class="h3 mb-2 text-gray-800"> 청원게시판(관심 청원 Best3)</h1><p class="mb-4">
+		<h1 class="h3 mb-2 text-gray-800">청원게시판(관심 청원 Best3)</h1><p class="mb-4">
 		<input class="btn btn-primary" type="button" value="청원하기" id="btnPetition">
 		
 <%-- 		<span> 전체 ${count}건의 게시물이 있습니다.</span> --%>
