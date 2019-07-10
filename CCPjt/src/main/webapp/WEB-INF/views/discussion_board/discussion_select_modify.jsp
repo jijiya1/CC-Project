@@ -33,7 +33,7 @@ $(document).ready(function() {
 </script>
 
 <!-- 토론 주제 추천 수정 시작 -->
-	<title>토론 주제 추천 게시판 - ${areaDataVo.a_name } 지역</title>
+	<title>CCPJT - 토론 주제 추천 게시판 - ${areaDataVo.a_name }</title>
 	<div class="container-fluid">
 	   
 		<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞</p>

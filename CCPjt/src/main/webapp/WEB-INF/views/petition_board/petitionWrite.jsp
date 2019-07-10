@@ -148,7 +148,7 @@ $(document).ready(function(){
 				
 				<button type="button" class="btn btn-primary" id="btnSubmit">
 					청원하기
-				</button>
+				</button><br>
 			</form>
 		</div>
 	</div>
