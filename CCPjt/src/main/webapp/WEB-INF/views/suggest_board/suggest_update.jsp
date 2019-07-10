@@ -27,9 +27,9 @@ $(document).ready(function() {
 				</div>
 				
 				<div class="form-group">
-					<label for="b_writer">작성자</label>
-					<input type="text" class="form-control" id="b_writer"
-						name="b_writer" value="${vo.b_writer}" readonly="readonly"/>
+					<label for="u_name">작성자</label>
+					<input type="text" class="form-control" id="u_name"
+						name="u_name" value="${vo.u_name}" readonly="readonly"/>
 				</div>
 
 				<div class="form-group">
@@ -42,11 +42,11 @@ $(document).ready(function() {
 					<div class="col-md-12">
 					
 				<button type="button" class="btn btn-primary" id="btnUdt"
-						value="수정완료" style="float: right;">
+						value="수정완료" style="float: right;" data-toggle="tooltip" data-placement="top" title="작성">
 				<span class="fas fa-check"></span></button>
 				
 				<button type="button" class="btn btn-success" id="btnReadList" 
-						value="목록" style="float: right;">
+						value="목록" style="float: right;" data-toggle="tooltip" data-placement="top" title="목록">
 					<span class="fas fa-list"></span></button>	
 					</div>
 				</div>

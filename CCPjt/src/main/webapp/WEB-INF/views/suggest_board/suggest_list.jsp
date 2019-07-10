@@ -32,12 +32,22 @@ $(document).ready(function() {
 	}
 	
 	function setSearch() {
-		var searchType = $("#searchType").val();
-		var keyword = $("#keyword").val();
-		var a_no = $("#a_no").val();
-		$("input[name=searchType]").val(searchType);
-		$("input[name=keyword]").val(keyword);
-		$("input[name=a_no]").val(a_no);
+		$("#keyword").keyup(function(e) {
+// 			console.log("테스트 : " + e);
+			if (e.keyCode == 13) {
+// 				console.log("작동");
+				setPage();
+				var searchType = $("#searchType").val();
+				var keyword = $("#keyword").val();
+				var a_no = $("#a_no").val();
+				$("input[name=searchType]").val(searchType);
+				$("input[name=keyword]").val(keyword);
+				$("input[name=a_no]").val(a_no);
+				
+				$("input[name=page]").val(1);
+				$("#pageForm").submit();
+			}
+		});
 	}
 	
 	$(".a_pagination").click(function(e) {
@@ -48,12 +58,16 @@ $(document).ready(function() {
 	});	
 	
 	//검색
-	$("#btnSearch").click(function() {
-		setPage();
-		setSearch();
-		$("input[name=page]").val(1);
-		$("#pageForm").submit();
-	});
+	setSearch();
+// 	$("#keyword").keyup(function(e) {
+// 		if (e.keyCode == 13) {
+// 			setPage();
+// 			setSearch();
+// 			$("input[name=page]").val(1);
+// 			$("#pageForm").submit();
+// 		}
+// 	});
+	
 });
 </script>
 <form id="pageForm" action="/suggest_board/suggest_list">
@@ -72,24 +86,28 @@ $(document).ready(function() {
 </form>
 
 <div class="container-fluid">
-	<p class="mb-4"><span class="row">&nbsp;</span><a href="/">홈</a> ＞ 자유게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ 자유게시판</p>
 		<h1 class="h3 mb-2 text-gray-800">자유게시판</h1>
-	<div class="row">
-		<div class="col-md-12">			 			
-			<div class="row">
-		<div class="col-md-12" >
-			<select id="searchType">
-				<option value="b_title"<c:if test="${paginationDto.pagingDto.searchType == 'b_title'}">selected</c:if>>
-				제목</option>
-				<option value="b_writer"<c:if test="${paginationDto.pagingDto.searchType == 'b_writer'}">selected</c:if>>
-				작성자</option>
-				<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_detailinfo'}">selected</c:if>>
-				구</option>
-			</select>
-			<input type="text" id="keyword"placeholder="검색어를 입력하세요"
-				value="${pagingDto.keyword}"/>
-			<input type="button" value="검색" id="btnSearch" class="btn btn-primary"/>
-		</div>
+		
+		 <div class="card shadow mb-4">
+	    
+	    <div class="card-body">
+	      <div class="table-responsive">
+	      
+   	      	<div class="dataTables_filter" style="float:right;">
+		      	<select class="form-control-sm" id="searchType">
+					<option value="b_title"<c:if test="${paginationDto.pagingDto.searchType == 'b_title'}">selected</c:if>>
+					제목</option>
+					<option value="u_name"<c:if test="${paginationDto.pagingDto.searchType == 'u_name'}">selected</c:if>>
+					작성자</option>
+					<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_detailinfo'}">selected</c:if>>
+					구</option>
+		      		</select>
+		      	<!-- 검색바 시작 -->
+	      			<input type="search" placeholder="검색" aria-controls="dataTable" id="keyword" style="margin-bottom: 20px;">
+	      	</div>
+	      	<!-- 검색바 끝 -->
+
 	</div>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 				<thead>
@@ -112,7 +130,7 @@ $(document).ready(function() {
 						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}"
 								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.b_writer} (${complaint_boardVo.u_id})</td>
+						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email})</td>
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>
@@ -122,13 +140,11 @@ $(document).ready(function() {
 				</c:forEach>	
 				</tbody>
 			</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
- 		<button type="button" class="btn btn-success"id="btnWrite" style="float: right;">글쓰기</button> 
-
-			<nav>
+			
+		<c:if test="${ userVo ne null }">
+			<button type="button" class="btn btn-success" style="float: left;" id="btnWrite" data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-pencil-alt"></span></button>
+		</c:if>	
+		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 				<ul class="pagination">
 					<c:if test="${paginationDto.prev == true}">	
 					<li class="page-item">
@@ -156,8 +172,11 @@ $(document).ready(function() {
 					</li>
 				</c:if>
 				</ul>
-			</nav>			
-		</div>
-	</div>
-</div>
+			</div> 
+			
+			</div>
+			
+
+			</div>
+				</div>		
 <%@ include file="../include/footer.jsp" %>
