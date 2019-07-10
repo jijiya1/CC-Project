@@ -33,9 +33,9 @@ $(document).ready(function() {
 	
 	function setSearch() {
 		$("#keyword").keyup(function(e) {
-			console.log("테스트 : " + e);
+// 			console.log("테스트 : " + e);
 			if (e.keyCode == 13) {
-				console.log("작동");
+// 				console.log("작동");
 				setPage();
 				var searchType = $("#searchType").val();
 				var keyword = $("#keyword").val();
@@ -98,7 +98,7 @@ $(document).ready(function() {
 		      	<select class="form-control-sm" id="searchType">
 					<option value="b_title"<c:if test="${paginationDto.pagingDto.searchType == 'b_title'}">selected</c:if>>
 					제목</option>
-					<option value="b_writer"<c:if test="${paginationDto.pagingDto.searchType == 'b_writer'}">selected</c:if>>
+					<option value="u_name"<c:if test="${paginationDto.pagingDto.searchType == 'u_name'}">selected</c:if>>
 					작성자</option>
 					<option value="b_addinfo"<c:if test="${paginationDto.pagingDto.searchType == 'b_detailinfo'}">selected</c:if>>
 					구</option>
@@ -130,7 +130,7 @@ $(document).ready(function() {
 						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}"
 								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.b_writer} (${complaint_boardVo.u_id})</td>
+						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email})</td>
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>
@@ -141,9 +141,9 @@ $(document).ready(function() {
 				</tbody>
 			</table>
 			
-			
-		<button type="button" class="btn btn-success" style="float: left;" id="btnWrite" data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-pencil-alt"></span></button>
-			
+		<c:if test="${ userVo ne null }">
+			<button type="button" class="btn btn-success" style="float: left;" id="btnWrite" data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-pencil-alt"></span></button>
+		</c:if>	
 		<div class="dataTables_paginate paging_simple_numbers item" id="dataTable_paginate" style="float: right;">
 				<ul class="pagination">
 					<c:if test="${paginationDto.prev == true}">	

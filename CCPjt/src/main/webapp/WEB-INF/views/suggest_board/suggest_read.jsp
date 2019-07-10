@@ -229,9 +229,9 @@ $(document).ready(function() {
 						name="b_title" value="${vo.b_title}"readonly/>
 				</div>
 				<div class="form-group">
-					<label for="b_writer">작성자</label>
-					<input type="text" class="form-control" id="b_writer"
-						name="b_writer" value="${vo.b_writer}"readonly/>
+					<label for="u_name">작성자</label>
+					<input type="text" class="form-control" id="u_name"
+						name="u_name" value="${vo.u_name}"readonly/>
 				</div>
 				<div class="form-group">
 					<label for="b_content">글내용</label>
@@ -258,15 +258,17 @@ $(document).ready(function() {
 		<!-- 읽기 버튼 -->
 		<div class="row">
 		<div class="col-md-12">
+<%-- 		<c:if test="${ userVo.u_email eq noticeBoardVo.u_email }"> --%>
 				<!-- 수정 -->							
 				<button type="button" class="btn btn-warning" value="수정"
-					id="btnUpt"><span class="fas fa-pencil-alt" style="float: right;"></span></button>
+					id="btnUpt" data-toggle="tooltip" data-placement="top" title="수정"><span class="fas fa-pencil-alt" style="float: right;"></span></button>
 				<!-- 삭제 -->
 				<button type="button" class="btn btn-danger" value="삭제"
-					id="btnDel"><span class="fas fa-trash" style="float: right;"></span></button>								
+					id="btnDel"  data-toggle="tooltip" data-placement="top" title="삭제"><span class="fas fa-trash" style="float: right;"></span></button>								
+<%-- 				</c:if> --%>
 				<!-- 목록 -->
 				<button type="button" class="btn btn-success" value="목록"
-					id="btnList"><span class="fas fa-list" style="float: right;"></span></button>
+					id="btnList" data-toggle="tooltip" data-placement="top" title="목록"><span class="fas fa-list" style="float: right;"></span></button>
 	
 	<!-- 읽기목록버튼 끝 -->
 

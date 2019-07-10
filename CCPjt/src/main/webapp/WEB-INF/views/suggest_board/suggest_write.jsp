@@ -33,16 +33,6 @@ $(document).ready(function() {
 				<input type="text" class="form-control" name="b_title" required="required"/>
 			</div>
 			
-			<div class="form-group">
-				<label>작성자</label>
-				<input type="text" class="form-control" name="b_writer" required="required" />
-			</div>
-			
-			<div class="form-group">
-				<label>ID</label>
-				<input type="text" class="form-control" name="u_id" required="required" />
-			</div>
-			
 			<div class="form-group" <c:if test="${areaDataVo.a_no eq a_no}">style="display: none;"</c:if>>
 				<label>시/도</label>
 				<select class="form-control" name="b_addinfo" id="b_addinfo" required="required">
@@ -67,11 +57,9 @@ $(document).ready(function() {
 						class="form-control" name="b_content"></textarea>
 				</div>
 				
-		
-	
-			<button type="button" class="btn btn-primary" data-placement="top" title="작성"
-				id="btnWrite"><span class="fas fa-check"></span></button>
-			<button type="button" class="btn btn-danger" id="btnCancel"  data-placement="top" title="취소"><span class="fas fa-times"></span></button>
+			<button type="button" class="btn btn-primary" data-placement="top"
+				id="btnWrite"data-toggle="tooltip" data-placement="top" title="작성"><span class="fas fa-check"></span></button>
+			<button type="button" class="btn btn-danger" id="btnCancel"  data-placement="top" data-toggle="tooltip" data-placement="top" title="취소"><span class="fas fa-times"></span></button>
 		</form>
 	</div>
 <%@include file="../include/footer.jsp" %>
