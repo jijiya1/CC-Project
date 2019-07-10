@@ -422,8 +422,15 @@ $(document).ready(function() {
 		              <td>
 		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
 		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
-		              	${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+		              	<c:choose>
+			              	<c:when test="${ fn:length(noticeList.b_title) > 35 }">
+			              		${ noticeList.b_title.substring(0, 35) }...&nbsp;
+			              	</c:when>
+			              	<c:otherwise>
+			              		${ noticeList.b_title }&nbsp;
+			              	</c:otherwise>
+		              	</c:choose>
+		              	<c:if test="${ noticeList.b_readcount >= 30 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
 	           		  <td>${ noticeList.u_name }</td>
@@ -580,7 +587,14 @@ $(document).ready(function() {
 						<c:forEach items="${ discussionList }" var="boardVo_discussion" >
 							<div class="mySlides mySlides-dis">
 								<q style="cursor:pointer; font-size: 20px; font: bold;" class="discussionTitle">
+								<c:choose>
+								<c:when test="${ fn:length(boardVo_discussion.b_title) > 30 }">
+									${ boardVo_discussion.b_title.substring(0, 30) }...
+								</c:when>
+								<c:otherwise>
 									${ boardVo_discussion.b_title }
+								</c:otherwise>
+								</c:choose>
 								</q>
 							  <p class="author author-dis">- ${ boardVo_discussion.b_writer }(${ boardVo_discussion.u_email.substring(0, 3)}***)</p>
 							</div>
@@ -664,12 +678,13 @@ $(document).ready(function() {
 		           		  <td>
 		           		  	<a href="#" style="float: left;" class="select_title" data-b_no="${ selectBoardVo.b_no }">[${ selectBoardVo.d_name }]
 		           		  	<c:choose>
-		           		  	<c:when test="${ fn:length(selectBoardVo.b_title) > 21 }">${ selectBoardVo.b_title.substring(0, 21) }...</c:when>
+		           		  	<c:when test="${ fn:length(selectBoardVo.b_title) > 15 }">${ selectBoardVo.b_title.substring(0, 15) }...</c:when>
 		           		  	<c:otherwise>${ selectBoardVo.b_title }</c:otherwise>
 		           		  	</c:choose>
+		           		  	<c:if test="${ selectBoardVo.b_readCount >= 30 }"><img src="/resources/img/hot.gif"></c:if>
 		           		  	</a>
 		           		  </td>
-			              <td>${ selectBoardVo.b_writer }</td>
+			              <td>${ selectBoardVo.b_writer }(${ selectBoardVo.u_email.substring(0, 3) }***)</td>
 			              <td>${ selectBoardVo.b_readCount }</td>
 			              <td>${ selectBoardVo.b_upCount }</td>
 			              <td><fmt:formatDate value="${ selectBoardVo.b_createdDate }" pattern="yyyy-MM-dd"/></td>
@@ -767,20 +782,17 @@ $(document).ready(function() {
 		              	<a href="/suggest_board/suggest_read?b_no=${ boardList.b_no }&a_no=${ a_no }" class="title" style="float: left;" 
 		              	data-b_no="${ boardList.b_no }" data-a_no="${ boardList.a_no }">
 		              	<c:choose>
-		              	<c:when test="${ fn:length(boardList.b_title) > 24 }">
-		              	${ boardList.b_title.substring(0, 24) }...
+		              	<c:when test="${ fn:length(boardList.b_title) > 20 }">
+		              	${ boardList.b_title.substring(0, 20) }...
 		              	</c:when>
 		              	<c:otherwise>
 		              	${ boardList.b_title }
 		              	</c:otherwise>
 		              	</c:choose>
-		              	
-		              	
-		              	
-		              	<c:if test="${ boardList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+		              	<c:if test="${ boardList.b_readcount >= 30 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
-	           		  <td>${ boardList.u_name }</td>
+	           		  <td>${ boardList.u_name }(${ boardList.u_email.substring(0, 3) }***)</td>
 	           		  <td>${ boardList.b_readcount }</td>
 		              <td><fmt:formatDate value="${ boardList.b_createddate }" pattern="yyyy-MM-dd"/></td>
 		            </tr>

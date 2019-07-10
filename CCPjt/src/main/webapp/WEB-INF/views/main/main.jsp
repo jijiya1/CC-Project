@@ -205,7 +205,7 @@ $(document).ready(function() {
 		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
 		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
 		              	${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+		              	<c:if test="${ noticeList.b_readcount >= 30 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
 	           		  <td>${ noticeList.b_readcount }</td>
