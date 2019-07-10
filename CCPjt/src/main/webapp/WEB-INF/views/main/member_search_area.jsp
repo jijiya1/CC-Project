@@ -176,6 +176,8 @@ $(document).ready(function() {
 	}
 </style>
 
+<title>CCPJT - 의원 지역별 검색</title>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">

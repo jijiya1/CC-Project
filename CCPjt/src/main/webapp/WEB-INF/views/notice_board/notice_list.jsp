@@ -127,6 +127,8 @@ $(document).ready(function() {
 	
 </style>
 
+<title>CCPJT - 공지사항 - ${ areaDataVo.a_name }</title>
+
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
 	

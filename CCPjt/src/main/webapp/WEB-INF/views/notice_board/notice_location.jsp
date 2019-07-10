@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/head.jsp" %>
 
+<title>CCPJT - 지역 선택</title>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 지역별</p>
 </div>

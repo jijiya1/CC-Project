@@ -155,6 +155,8 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - 홈</title>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a></p>
 </div>

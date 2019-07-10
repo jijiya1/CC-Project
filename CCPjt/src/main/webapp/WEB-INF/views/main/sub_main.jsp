@@ -378,6 +378,8 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - ${ areaDataVo.a_name }</title>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ ${ areaDataVo.a_name }</p>
 </div>

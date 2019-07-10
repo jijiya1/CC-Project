@@ -68,7 +68,7 @@ $(document).ready(function(){
 </script>
 <head>
 
-  <title>비밀번호 찾기</title>
+<title>CCPJT - 비밀번호 찾기</title>
 
 </head>
 <body class="bg-gradient-primary">

@@ -41,6 +41,8 @@ $(document).ready(function(){
 
 </script>
 
+<title>CCPJT - [${areaDataVo.a_name }] 의원 정보</title>
+
 <form id="personForm" action="/person_board/person_minipage">
 	<input type="hidden" name="u_email" >
 	<input type="hidden" name="a_no" value="${areaDataVo.a_no }"/>

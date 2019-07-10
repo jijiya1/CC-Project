@@ -93,6 +93,8 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - [${ areaDataVo.a_name}] ${ noticeBoardVo.b_title } - 수정</title>
+
 <!-- 공지사항 수정 시작 -->
 	<div class="container-fluid">
 	        

@@ -21,6 +21,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/resources/img/mainIcon.png">
 
 <script>
 $(document).ready(function() {
@@ -128,7 +130,7 @@ $(document).ready(function() {
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_location">
 	          <i class="fas fa-fw fas fa-globe-americas"></i>
-	          <span>지역선택</span></a>
+	          <span>지역 선택</span></a>
 	      </li>
 		</c:when>
 		

@@ -204,7 +204,8 @@
     });
 </script>
 <head>
-  <title>회원가입</title>
+
+<title>CCPJT - 회원가입</title>
 	
 </head>
 

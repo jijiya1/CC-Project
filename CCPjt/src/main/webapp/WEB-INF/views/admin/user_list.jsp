@@ -120,13 +120,15 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - 회원 관리</title>
+
 	<!-- 회원 목록 시작 -->
 	<div class="container-fluid">
 	
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 회원 목록</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 회원 관리</p>
 	
 	<!-- 페이지 헤더 -->	
-	<h1 class="h3 mb-2 text-gray-800">회원 목록</h1>
+	<h1 class="h3 mb-2 text-gray-800">회원 관리</h1>
 	
 	<!-- 해당 페이지 갯수 체크 -->
 	<p class="mb-4">
@@ -204,7 +206,7 @@ $(document).ready(function() {
 		              		<option value="1" <c:if test="${ userinfoVo.u_position == 1 }">selected</c:if>>의원</option>
 	              		</select>
               		  </td>
-		              <td><Button type="button" class="btn btn-sm btn-success user_update" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="정보 수정"><span class="fas fa fas fa-address-card"></span></Button></td>
+		              <td><Button type="button" class="btn btn-sm btn-success user_update" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="정보 조회"><span class="fas fa fas fa-address-card"></span></Button></td>
 		              <td><Button type="button" class="btn btn-sm btn-danger user_delete" data-u_email="${ userinfoVo.u_email }" data-toggle="tooltip" data-placement="top" title="강제 탈퇴"><span class="fas fa fa-user-times"></span></Button></td>
 		            </tr>
            	  </c:forEach>

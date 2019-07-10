@@ -335,6 +335,7 @@ $(document).ready(function(){
 
 </script>
 
+<title>CCPJT - [${areaDataVo.a_name }] 의원 정보 - ${ memberSelectedVo.u_name }</title>
 
 <!--  입력 다이얼로그 -->
 <div class="container-fluid">

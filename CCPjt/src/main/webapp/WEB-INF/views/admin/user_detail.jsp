@@ -46,7 +46,7 @@
     });
 </script>
 <head>
-  <title>회원 정보 조회</title>
+<title>CCPJT - 회원 정보 조회</title>
 </head>
 
 <body class="bg-gradient-primary">
