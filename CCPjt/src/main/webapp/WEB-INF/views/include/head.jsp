@@ -73,7 +73,7 @@ $(document).ready(function() {
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CC-Project<sup>5</sup></div>
+        <div class="sidebar-brand-text mx-3">Community Center<sup>5</sup></div>
       </a>
 	
       <!-- Divider -->
@@ -279,6 +279,8 @@ $(document).ready(function() {
 	                <!-- Counter - Alerts -->
 	                <span class="badge badge-danger badge-counter">3+</span>
 	              </a>
+	              
+	              
 	              <!-- Dropdown - Alerts -->
 	              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 	                <h6 class="dropdown-header">
@@ -291,7 +293,7 @@ $(document).ready(function() {
 	                    </div>
 	                  </div>
 	                  <div>
-	                    <div class="small text-gray-500">December 12, 2019</div>
+	                    <div class="small text-gray-500">2019. 7. 10</div>
 	                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
 	                  </div>
 	                </a>
@@ -313,13 +315,14 @@ $(document).ready(function() {
 	                    </div>
 	                  </div>
 	                  <div>
-	                    <div class="small text-gray-500">December 2, 2019</div>
-	                    Spending Alert: We've noticed unusually high spending for your account.
+	                    <div class="small text-gray-500">2019. 07. 15</div>
+	                    [울산] 자유게시판 10번 글 신고가 접수되었습니다.
 	                  </div>
 	                </a>
 	                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
 	              </div>
 	            </li>
+	            
 	
 	            <!-- 메세지 -->
 	            <li class="nav-item dropdown no-arrow mx-1">

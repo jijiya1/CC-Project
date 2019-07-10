@@ -709,7 +709,15 @@ $(document).ready(function() {
 								<c:if test="${ peVo.ranking == '1' || peVo.ranking == '2' || peVo.ranking == '3'}">
 									<img src="/resources/img/rank${ peVo.ranking }.png" style="width: 25px; height: auto;">
 								</c:if>
-									<span style="font-size: 14px"> [${peVo.d_name}] </span>${peVo.b_title}
+									<span style="font-size: 14px"> [${peVo.d_name}] </span>
+									<c:choose>
+									<c:when test="${ fn:length(peVo.b_title) > 17 }">
+									${peVo.b_title.substring(0, 17)}...
+									</c:when>
+									<c:otherwise>
+									${peVo.b_title}
+									</c:otherwise>
+									</c:choose>
 								</a>
 							</td>
 							<td>
@@ -758,7 +766,17 @@ $(document).ready(function() {
 		              <td>
 		              	<a href="/suggest_board/suggest_read?b_no=${ boardList.b_no }&a_no=${ a_no }" class="title" style="float: left;" 
 		              	data-b_no="${ boardList.b_no }" data-a_no="${ boardList.a_no }">
+		              	<c:choose>
+		              	<c:when test="${ fn:length(boardList.b_title) > 24 }">
+		              	${ boardList.b_title.substring(0, 24) }...
+		              	</c:when>
+		              	<c:otherwise>
 		              	${ boardList.b_title }
+		              	</c:otherwise>
+		              	</c:choose>
+		              	
+		              	
+		              	
 		              	<c:if test="${ boardList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
