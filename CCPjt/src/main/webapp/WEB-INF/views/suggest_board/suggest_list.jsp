@@ -6,10 +6,8 @@ $(document).ready(function() {
 	
 	$(".a_title").click(function(e) {
 		e.preventDefault();
-// 		var a_no = "${a_no}";
 		var b_no = $(this).attr("data-b_no");
 		$("input[name=b_no]").val(b_no);	
-// 		$("input[name=a_no]").val(a_no);
 		var href = $(this).attr("href");
 		$("#pageForm").attr("action", href).submit();
 	});
@@ -33,9 +31,7 @@ $(document).ready(function() {
 	
 	function setSearch() {
 		$("#keyword").keyup(function(e) {
-// 			console.log("테스트 : " + e);
 			if (e.keyCode == 13) {
-// 				console.log("작동");
 				setPage();
 				var searchType = $("#searchType").val();
 				var keyword = $("#keyword").val();
@@ -59,15 +55,6 @@ $(document).ready(function() {
 	
 	//검색
 	setSearch();
-// 	$("#keyword").keyup(function(e) {
-// 		if (e.keyCode == 13) {
-// 			setPage();
-// 			setSearch();
-// 			$("input[name=page]").val(1);
-// 			$("#pageForm").submit();
-// 		}
-// 	});
-	
 });
 </script>
 
@@ -117,9 +104,7 @@ $(document).ready(function() {
 					<tr>
 						<th>글번호</th>
 						<th>글제목</th>
-						<th>작성자</th>
-						<th>좋아요</th>
-						<th>싫어요</th>					
+						<th>작성자</th>				
 						<th>조회수</th>
 						<th>작성일</th>
 					</tr>
@@ -130,10 +115,8 @@ $(document).ready(function() {
 						<td>${complaint_boardVo.b_no}</td>
 						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}"
-								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email})</td>
-						<th>${complaint_boardVo.b_upcount}</th>
-						<th>${complaint_boardVo.b_downcount}</th>																								
+							data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>																							
+						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email.substring(0, 3)}***)</td>																								
 						<td>${complaint_boardVo.b_readcount}</td>
 						<td><fmt:formatDate value="${complaint_boardVo.b_createddate}"
 								pattern="yyyy/MM/dd HH:mm:ss"/></td>
