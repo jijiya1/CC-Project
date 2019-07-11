@@ -200,7 +200,7 @@ public class SelectController_Discussion {
 		return entity;
 	}
 	
-	// 토론 주제 추천 게시글 추천 버튼 작업
+	// 토론 주제로 선정
 	@RequestMapping(value="/seletDiscussion", method = RequestMethod.GET)
 	public String seletDiscussion (Model model, @RequestParam("a_no") int a_no, @RequestParam("b_no") int b_no, PagingDto pagingDto)  throws Exception{
 		AreaDataVo areaDataVo = noticeBoardService.getAreaData(a_no);
@@ -220,6 +220,6 @@ public class SelectController_Discussion {
 		model.addAttribute("best3List", best3List);
 		model.addAttribute("pagingDto", pagingDto);
 		
-		return "/discussion_board/discussion_select_board";
+		return "redirect:/discussion_board/discussion_main_board?a_no="+a_no;
 	}
 }
