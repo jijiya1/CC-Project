@@ -127,17 +127,17 @@ $(document).ready(function(){
 			
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="nav-link active show" href="/petition_board/petitionMain?a_no=${areaDataVo.a_no}">청원메인</a>
+						<a class="nav-link active show" href="/petition_board/petitionMain?a_no=${areaDataVo.a_no}">청원 메인</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판전체보기</a>
+						<a class="nav-link" href="/petition_board/petitionList?a_no=${areaDataVo.a_no}">게시판 전체보기</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/petition_board/petitionRunOut?a_no=${areaDataVo.a_no}">만료된 청원</a>
 					</li>
 					<c:if test="${userVo != null }">
 					<li class="nav-item">
-						<a class="nav-link" href="/petition_board/myPetition?a_no=${areaDataVo.a_no}&u_id=${userVo.u_email}">나의 청원글보기</a>
+						<a class="nav-link" href="/petition_board/myPetition?a_no=${areaDataVo.a_no}&u_id=${userVo.u_email}">나의 청원글 보기</a>
 					</li>
 					</c:if>
 				</ul>
