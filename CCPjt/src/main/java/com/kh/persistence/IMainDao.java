@@ -16,6 +16,9 @@ public interface IMainDao {
 	// 메인페이지 공지사항 목록 불러오기 - SHJ
 	public List<NoticeBoardVo> getNoticeBoardList(PagingDto pagingDto) throws Exception;
 	
+	// 메인페이지 지역별 공지사항 목록 불러오기 - SHJ
+	public List<NoticeBoardVo> getLocalNoticeList(PagingDto pagingDto) throws Exception;
+	
 	// 의원 검색시 의원 목록 불러오기 - SHJ
 	public List<UserInfoVo> getSearchMemberList(NoSearchDto noSearchDto) throws Exception;
 	

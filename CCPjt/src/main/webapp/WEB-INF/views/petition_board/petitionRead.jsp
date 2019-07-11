@@ -285,8 +285,8 @@ $(document).ready(function(){
 	});		
 			
 	$("#btnList").click(function(){		
-// 		location.href="/petition_board/petitionList?a_no=${areaDataVo.a_no}";	
-		$("#pageForm").submit();	
+		location.href="/petition_board/petitionList?a_no=${areaDataVo.a_no}";	
+// 		$("#pageForm").submit();	
 	});		
 	$("#btnDel").click(function(){		
 		var conDel = confirm("정말 삭제하시겠습니까?");	

@@ -49,6 +49,7 @@ $(document).ready(function() {
 // 			console.log(rData);
 			if (rData.trim() == "success") {
 // 				console.log("실행함");
+				alert("회원이 강제 탈퇴되었습니다.")
 				tr.fadeOut();
 			}
 		})

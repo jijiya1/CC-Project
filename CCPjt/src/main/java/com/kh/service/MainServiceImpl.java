@@ -86,4 +86,10 @@ public class MainServiceImpl implements IMainService {
 		return getSearchMemberCount;
 	}
 
+	@Override
+	public List<NoticeBoardVo> getLocalNoticeList(PagingDto pagingDto) throws Exception {
+		List<NoticeBoardVo> getLocalNoticeList = mainDao.getLocalNoticeList(pagingDto);
+		return getLocalNoticeList;
+	}
+
 }

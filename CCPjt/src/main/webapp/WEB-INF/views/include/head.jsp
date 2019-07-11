@@ -55,6 +55,11 @@ $(document).ready(function() {
 		$("#searchAllData").submit();
 	});
 	
+	// 신고 게시물 클릭시
+	$("#btnReport").click(function() {
+		alert("현재 서비스 점검 중입니다.");
+	});
+	
 });
 </script>
 
@@ -77,7 +82,7 @@ $(document).ready(function() {
       </a>
 	
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider">
 
 
 <!--       Nav Item - Dashboard -->
@@ -197,7 +202,7 @@ $(document).ready(function() {
 		<li class="nav-item active">
 		    <a class="nav-link" href="#">
 		      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
-		      <span>신고 게시물</span></a>
+		      <span id="btnReport">신고 게시물</span></a>
 		</li>
 <!-- 		<li class="nav-item active"> -->
 <!-- 		    <a class="nav-link" href="/admin/test_board"> -->

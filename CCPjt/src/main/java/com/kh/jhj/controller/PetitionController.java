@@ -181,7 +181,7 @@ public class PetitionController {
 		
 		UserInfoVo userVo = (UserInfoVo)session.getAttribute("userVo");
 		String u_id = userVo.getU_email();
-		String b_writer = userVo.getU_name()+"("+ u_id.substring(0,3)+"**)";
+		String b_writer = userVo.getU_name()+"("+ u_id.substring(0,3)+"***)";
 		
 		peVo.setU_id(u_id);
 		peVo.setB_writer(b_writer);
