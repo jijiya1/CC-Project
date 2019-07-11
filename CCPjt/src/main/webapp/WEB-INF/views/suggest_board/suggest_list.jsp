@@ -131,7 +131,7 @@ $(document).ready(function() {
 						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}"
 								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email})</td>
+						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email.substring(0, 3)}***)</td>
 						<th>${complaint_boardVo.b_upcount}</th>
 						<th>${complaint_boardVo.b_downcount}</th>																								
 						<td>${complaint_boardVo.b_readcount}</td>
