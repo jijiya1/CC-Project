@@ -201,7 +201,7 @@ $(document).ready(function() {
 							</div>
 							<div class="form-group">
 								<label for="title">작성자</label>
-								<input type="text" class="form-control" id="modal_r_writer"/>
+								<input type="text" class="form-control" id="modal_r_writer" readonly/>
 							</div>
 						</div>
 						<div class="modal-footer">
