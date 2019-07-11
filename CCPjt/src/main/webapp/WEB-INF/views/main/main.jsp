@@ -155,6 +155,8 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - 홈</title>
+
 <div class="container-fluid">
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a></p>
 </div>
@@ -188,7 +190,7 @@ $(document).ready(function() {
 	      <a href="/notice_board/notice_list?b_no=&a_no=10&nowPage=1&perPage=10&searchType=b_addinfo&keyword=10">+</a>
 	      </h6>
  	  	
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+	      <h6 class="m-0 font-weight-bold text-primary">사이트 공지사항</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">
@@ -197,13 +199,13 @@ $(document).ready(function() {
 		          <c:forEach items="${ noticeList }" var="noticeList">
 		          
 		          <c:if test="${ noticeList.b_checkeddel == 0 }">
-		          <c:if test="${ noticeList.a_no == 10}">
+		          <c:if test="${ noticeList.b_addinfo == 10}">
 		            <tr>
 		              <td>
 		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
 		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
 		              	${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+		              	<c:if test="${ noticeList.b_readcount >= 30 }"><img src="/resources/img/hot.gif"></c:if>
 		              	</a>
 	           		  </td>
 	           		  <td>${ noticeList.b_readcount }</td>
@@ -226,25 +228,29 @@ $(document).ready(function() {
   <!-- 공지사항 테이블 영역 시작 -->
    	<div class="card shadow mb-4">
  	  	<div class="card-header py-3">
-	      <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
+	      <h6 class="m-0 font-weight-bold text-primary">지역별 공지사항</h6>
 	      </div>
 	      <div class="card-body">
 	      	<div class="table-responsive">
 		      	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
 			      <tbody>
-		          <c:forEach items="${ noticeList }" var="noticeList">
-		          
-		          <c:if test="${ noticeList.b_checkeddel == 0 }">
-		            <tr>
-		              <td>
-		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
-		              	data-b_no="${ noticeList.b_no }" data-a_no="${ noticeList.a_no }">
-		              	[${ noticeList.a_name }] ${ noticeList.b_title }&nbsp;
-		              	<c:if test="${ noticeList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
-		              	</a>
-	           		  </td>
-		              <td><fmt:formatDate value="${ noticeList.b_createddate }" pattern="yyyy-MM-dd"/></td>
-		            </tr>
+		          <c:forEach items="${ localList }" var="localList">
+		          <c:if test="${ localList.b_addinfo ne 10 }">
+			          <c:if test="${ localList.b_checkeddel == 0 }">
+			            <tr>
+			              <td>
+			              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
+			              	data-b_no="${ localList.b_no }" data-a_no="${ localList.a_no }">
+			              	[${ localList.a_name }] ${ localList.b_title }&nbsp;
+			              	<c:if test="${ localList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+			              	</a>
+		           		  </td>
+		           		  <td>
+		           		  	${ localList.b_readcount }
+		           		  </td>
+			              <td><fmt:formatDate value="${ localList.b_createddate }" pattern="yyyy-MM-dd"/></td>
+			            </tr>
+					  </c:if>
 				  </c:if>
 	           	  </c:forEach>
 		          </tbody>

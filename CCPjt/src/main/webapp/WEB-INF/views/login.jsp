@@ -44,7 +44,7 @@ $(document).ready(function(){
 </script>
 <head>
 
-  <title>로그인</title>
+<title>CCPJT - 로그인</title>
 
 </head>
 <body class="bg-gradient-primary">

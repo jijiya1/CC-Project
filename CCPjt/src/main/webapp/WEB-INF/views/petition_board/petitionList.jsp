@@ -5,7 +5,6 @@
 
 <%@include file="../include/head.jsp" %>
 
-<title>국민 청원</title>
 <script>
 $(document).ready(function(){
 	var date = new Date();
@@ -88,11 +87,12 @@ $(document).ready(function(){
 	<input type="hidden" name="searchKeyword" value="${pageDto.searchKeyword}"> 	
 </form>
 
+<title>CCPJT - [${ areaDataVo.a_name }] 청원게시판</title>
+
 <div class="container-fluid">
 
-<p class="mb-4">
-	<span class="fas fa-home">&nbsp;</span>
-	<a href="/">홈</a> ＞<a href="/notice_board/notice_list?a_no=${areaDataVo.a_no}"> ${areaDataVo.a_name}</a>
+<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 
+<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }"> ${areaDataVo.a_name}</a>
 	＞ 청원게시판</p>
 	
 		<!-- 페이지 헤더 -->	

@@ -172,8 +172,12 @@ $(document).ready(function() {
 	});
 });
 </script>
+
+<title>CCPJT - [${ areaDataVo.a_name}] ${ vo.b_title }</title>
+
 <!-- 댓글 수정모달 -->
 <div class="container-fluid">
+
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${ areaDataVo.a_name }</a> ＞ <a href="/suggest_board/suggest_list?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=10&searchType=b_addinfo&keyword=${ vo.a_no}">자유게시판</a> ＞ ${ vo.b_title }</p>
 	<div class="row">
 		<div class="col-md-12">
@@ -197,7 +201,7 @@ $(document).ready(function() {
 							</div>
 							<div class="form-group">
 								<label for="title">작성자</label>
-								<input type="text" class="form-control" id="modal_r_writer"/>
+								<input type="text" class="form-control" id="modal_r_writer" readonly/>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -213,11 +217,11 @@ $(document).ready(function() {
 			</div>		
 		</div>
 	</div>
-</div>
+
 <!-- 댓글 수정모달 끝 -->
 
 
-<h1>글조회</h1>
+	<h1 class="h3 mb-2 text-gray-800">${ vo.b_title }</h1><br>
 <!-- 읽기 -->
 <div class="card shadow mb-4">
 	<div class="card-body">
@@ -251,6 +255,8 @@ $(document).ready(function() {
 				</div>
 			</form>
 			</div>	
+		</div>
+		
 		</div>
 		
 	<!-- 읽기 끝 -->

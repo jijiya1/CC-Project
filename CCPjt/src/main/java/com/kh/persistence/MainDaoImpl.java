@@ -106,4 +106,10 @@ public class MainDaoImpl implements IMainDao {
 		return getSearchMemberCount;
 	}
 
+	@Override
+	public List<NoticeBoardVo> getLocalNoticeList(PagingDto pagingDto) throws Exception {
+		List<NoticeBoardVo> getLocalNoticeList = sqlSession.selectList(NAMESPACE + "getLocalNoticeList", pagingDto);
+		return getLocalNoticeList;
+	}
+
 }

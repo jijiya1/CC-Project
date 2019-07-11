@@ -42,6 +42,8 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - [${ areaDataVo.a_name}] ${ noticeBoardVo.b_title }</title>
+
 <!-- 공지사항 읽기 시작 -->
 	<div class="container-fluid">
         

@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	
-
 <%@include file="../include/head.jsp" %>
 
-<title>나의 청원글</title>
 <script>
 $(document).ready(function(){
 	var date = new Date();
@@ -78,6 +76,9 @@ $(document).ready(function(){
 	});
 });
 </script>
+
+<title>CCPJT - 나의 청원 글</title>
+
 <%-- ${pageDto } --%>
 <form id="pageForm" action="/petition_board/petitionList">
 	<input type="hidden" name="a_no" value="${param.a_no}">

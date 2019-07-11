@@ -25,6 +25,8 @@ $(document).ready(function() {
 });
 </script>
 
+<title>CCPJT - [${ areaDataVo.a_name}] ${ noticeBoardVo.b_title } - 삭제</title>
+
 	<!-- 글 삭제 폼 시작 -->
 	<div class="container-fluid">
 		
