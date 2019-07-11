@@ -77,7 +77,7 @@ $(document).ready(function() {
       </a>
 	
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider">
 
 
 <!--       Nav Item - Dashboard -->
