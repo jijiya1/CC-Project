@@ -154,14 +154,14 @@ public class UserJoinController {
 				String key = new EmailCertifiedKey().getKey(5, false);
 				checkCertified = key;
 		        MailHandler sendMail = new MailHandler(mailSender);
-		        sendMail.setSubject("[이메일 인증]");
+		        sendMail.setSubject("[지역구를 부탁해_이메일 인증]");
 		        sendMail.setText(new StringBuffer().append("<h1>메일인증</h1>")
 		        		.append("<a>이메일 인증 번호입니다.</a><br>")
 		        		.append("<span style='font-size:2em;  color: green;'>")
 		        		.append(key)
 		        		.append("</span><br>")
 		                .toString());
-		        sendMail.setFrom("bernardSon91@gmail.com","son");
+		        sendMail.setFrom("bernardSon91@gmail.com","지역구를 부탁해");
 		        sendMail.setTo(joinEmail);
 		        sendMail.send();
 				entity = new ResponseEntity<String>("true", HttpStatus.OK);

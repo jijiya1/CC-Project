@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,6 +22,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/resources/img/mainIcon.png">
 
 <script>
 $(document).ready(function() {
@@ -52,6 +55,11 @@ $(document).ready(function() {
 		$("#searchAllData").submit();
 	});
 	
+	// 신고 게시물 클릭시
+	$("#btnReport").click(function() {
+		alert("현재 서비스 점검 중입니다.");
+	});
+	
 });
 </script>
 
@@ -70,11 +78,11 @@ $(document).ready(function() {
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CC-Project<sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Community Center<sup>5</sup></div>
       </a>
 	
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider">
 
 
 <!--       Nav Item - Dashboard -->
@@ -128,7 +136,7 @@ $(document).ready(function() {
 	      <li class="nav-item active">
 	        <a class="nav-link" href="/notice_board/notice_location">
 	          <i class="fas fa-fw fas fa-globe-americas"></i>
-	          <span>지역선택</span></a>
+	          <span>지역 선택</span></a>
 	      </li>
 		</c:when>
 		
@@ -194,13 +202,13 @@ $(document).ready(function() {
 		<li class="nav-item active">
 		    <a class="nav-link" href="#">
 		      <i class="fas fa-fw fas fa-exclamation-triangle"></i>
-		      <span>신고 게시물</span></a>
+		      <span id="btnReport">신고 게시물</span></a>
 		</li>
-		<li class="nav-item active">
-		    <a class="nav-link" href="/admin/test_board">
-		      <i class="fas fa-fw fas fas fa-cog"></i>
-		      <span>테스트</span></a>
-		</li>
+<!-- 		<li class="nav-item active"> -->
+<!-- 		    <a class="nav-link" href="/admin/test_board"> -->
+<!-- 		      <i class="fas fa-fw fas fas fa-cog"></i> -->
+<!-- 		      <span>테스트</span></a> -->
+<!-- 		</li> -->
 	</c:if>
 	<!-- 관리자 메뉴바 끝 -->
 
@@ -276,6 +284,8 @@ $(document).ready(function() {
 	                <!-- Counter - Alerts -->
 	                <span class="badge badge-danger badge-counter">3+</span>
 	              </a>
+	              
+	              
 	              <!-- Dropdown - Alerts -->
 	              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 	                <h6 class="dropdown-header">
@@ -288,7 +298,7 @@ $(document).ready(function() {
 	                    </div>
 	                  </div>
 	                  <div>
-	                    <div class="small text-gray-500">December 12, 2019</div>
+	                    <div class="small text-gray-500">2019. 7. 10</div>
 	                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
 	                  </div>
 	                </a>
@@ -310,13 +320,14 @@ $(document).ready(function() {
 	                    </div>
 	                  </div>
 	                  <div>
-	                    <div class="small text-gray-500">December 2, 2019</div>
-	                    Spending Alert: We've noticed unusually high spending for your account.
+	                    <div class="small text-gray-500">2019. 07. 15</div>
+	                    [울산] 자유게시판 10번 글 신고가 접수되었습니다.
 	                  </div>
 	                </a>
 	                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
 	              </div>
 	            </li>
+	            
 	
 	            <!-- 메세지 -->
 	            <li class="nav-item dropdown no-arrow mx-1">

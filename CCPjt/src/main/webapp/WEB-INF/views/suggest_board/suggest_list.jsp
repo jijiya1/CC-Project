@@ -70,6 +70,9 @@ $(document).ready(function() {
 	
 });
 </script>
+
+<title>CCPJT - [${ areaDataVo.a_name}] 자유게시판</title>
+
 <form id="pageForm" action="/suggest_board/suggest_list">
 	<input type="hidden" name="b_no" 
 		value="${param.b_no}">
@@ -113,7 +116,6 @@ $(document).ready(function() {
 				<thead>
 					<tr>
 						<th>글번호</th>
-						<th>구</th>
 						<th>글제목</th>
 						<th>작성자</th>
 						<th>좋아요</th>
@@ -126,7 +128,6 @@ $(document).ready(function() {
 				<c:forEach items="${list}" var="complaint_boardVo">
 					<tr>
 						<td>${complaint_boardVo.b_no}</td>
-						<td>${complaint_boardVo.b_detailinfo}</td>
 						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}"
 								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>

@@ -11,6 +11,9 @@ $(document).ready(function() {
 	});
 });
 </script>
+
+<title>CCPJT - [${ areaDataVo.a_name}] ${vo.b_title} - 수정</title>
+
 <p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="suggest_list">자유게시판</a> ＞ ${vo.b_title}</p>
 <h1>글수정</h1>
 <div class="container-fluid">

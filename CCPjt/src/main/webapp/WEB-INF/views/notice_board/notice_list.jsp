@@ -127,6 +127,8 @@ $(document).ready(function() {
 	
 </style>
 
+<title>CCPJT - [${ areaDataVo.a_name }] 공지사항</title>
+
 	<!-- 공지사항 시작 -->
 	<div class="container-fluid">
 	
@@ -214,7 +216,7 @@ $(document).ready(function() {
 			              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
 			              	data-b_no="${ noticeBoardVo.b_no }" data-a_no="${ noticeBoardVo.a_no }">
 			              	[${ noticeBoardVo.a_name }] ${ noticeBoardVo.b_title }&nbsp;
-			              	<c:if test="${ noticeBoardVo.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
+			              	<c:if test="${ noticeBoardVo.b_readcount >= 30 }"><img src="/resources/img/hot.gif"></c:if>
 			              	</a>
 		           		  </td>
 		           		  <td>N</td>

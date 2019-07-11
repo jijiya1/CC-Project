@@ -23,6 +23,8 @@ div {
 }
 </style>
 
+<title>CCPJT - 의원 검색</title>
+
 <div class="container-fluid">
 	
 	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ 의원 검색</p>

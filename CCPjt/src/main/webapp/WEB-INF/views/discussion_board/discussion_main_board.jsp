@@ -89,10 +89,10 @@
 	
 </style>
 
-<title>토론 게시판 - ${areaDataVo.a_name } 지역</title>
+<title>CCPJT - 토론 게시판 - ${areaDataVo.a_name }</title>
 
 <div class="container-fluid">
-	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞<a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ 토론 게시판</p>
+	<p class="mb-4"><span class="fas fa-home">&nbsp;</span><a href="/">홈</a> ＞ <a href="/main/sub_main?b_no=&a_no=${ areaDataVo.a_no }&nowPage=1&perPage=5&searchType=b_addinfo&keyword=${ areaDataVo.a_no }">${areaDataVo.a_name }</a> ＞ 토론 게시판</p>
 </div>
 
 <c:choose>
@@ -103,7 +103,7 @@
 					<div class="alert alert-success alert-dismissable">
 						<h4>
 							정해진 토론 주제가 없습니다.!
-						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }" class="alert-link">토론 주제 게시판</a>
+						</h4> <strong>이 지역의</strong> 토론 주제를 추천하고 싶은시분들은 다음 링크를 클릭해주시기 바랍니다. <a href="/selectDiscussion/discussion_select_board?a_no=${areaDataVo.a_no }" class="alert-link">토론 주제 추천 게시판</a>
 					</div>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
 		
 			<c:forEach items="${discussionList }" var="boardVo_discussion" >
 				<div class="mySlides" data-b_serialno ="${boardVo_discussion.b_serialno}" data-YorNSelect ="">
-					<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_content = "${boardVo_discussion.b_content }">
+					<q style="font-size: 50px; cursor:pointer;" class="discussionTitle" data-b_serialno ="${boardVo_discussion.b_serialno}"  data-b_no = "${boardVo_discussion.b_no }">
 						${boardVo_discussion.b_title }
 					</q>
 					<p></p>
@@ -163,11 +163,12 @@
 		<br>
 		
 		<!-- 토론 상세 보기 -->
-		<div class="container-fluid" style="margin-bottom: 5px; display: none;" id = "b_contentArea">
-			<label style="font-weight: bold;">토론 상세 내용</label>
-			<textarea class='form-control b_content' rows="5" readonly="readonly"></textarea>
-		</div>
-		
+		<c:forEach items="${discussionList }" var="boardVo_discussion" >
+			<div class="container-fluid b_contentDivArea" style="margin-bottom: 5px; display: none;" id = "b_contentArea${boardVo_discussion.b_no }">
+				<label style="font-weight: bold;">토론 상세 내용</label>
+				<div style="border: 1px solid black; background: #E5E8E8;">${boardVo_discussion.b_content }</div>
+			</div>
+		</c:forEach>
 		
 		<!-- 댓글(의견) 달기 부분 -->
 		<div class="container-fluid">
@@ -254,8 +255,8 @@
 	  } else {
 		  addReplyListButton();
 	  }
-	  
-	  b_contentArea.style.display = "none";
+
+	  $(".b_contentDivArea").css('display','none');
 	}
 	
 	function currentSlide(n) {
@@ -277,7 +278,7 @@
 		  
 	  }// if
 	  
-	  b_contentArea.style.display = "none";
+	  $(".b_contentDivArea").css("display","none");
 	  
 	}
 	
@@ -309,12 +310,11 @@
 	});//("#btn_Discussion_rec").click
 	
 	
-	// 토론 타이틀 클릭시 (토론 내용 상세보기 div 보이게)
+	// 토론 타이틀 클릭시 (토론 내용 상세 보기 div 보이게)
 	$(".discussionTitle").click( function () {
-		var b_content = $(this).attr("data-b_content");
-		var b_contentArea = document.getElementById("b_contentArea");
-		
-		$(".b_content").val(b_content);
+		var b_no = $(this).attr("data-b_no");
+		var b_contentArea = document.getElementById("b_contentArea"+b_no);
+
 		
 		if(b_contentArea.style.display == "none") {
 			b_contentArea.style.display = "block";
