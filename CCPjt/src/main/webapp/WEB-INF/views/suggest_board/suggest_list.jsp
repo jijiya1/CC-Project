@@ -115,8 +115,8 @@ $(document).ready(function() {
 						<td>${complaint_boardVo.b_no}</td>
 						<td><a href="/suggest_board/suggest_read?a_no=${a_no}" class="a_title"
 								data-b_no="${complaint_boardVo.b_no}"
-								data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>
-						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email})</td>																								
+							data-a_no="${complaint_boardVo.a_no}">${complaint_boardVo.b_title}</a></td>																							
+						<td>${complaint_boardVo.u_name} (${complaint_boardVo.u_email.substring(0, 3)}***)</td>																								
 						<td>${complaint_boardVo.b_readcount}</td>
 						<td><fmt:formatDate value="${complaint_boardVo.b_createddate}"
 								pattern="yyyy/MM/dd HH:mm:ss"/></td>
