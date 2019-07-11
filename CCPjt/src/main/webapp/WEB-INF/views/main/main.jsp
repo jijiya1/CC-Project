@@ -199,7 +199,7 @@ $(document).ready(function() {
 		          <c:forEach items="${ noticeList }" var="noticeList">
 		          
 		          <c:if test="${ noticeList.b_checkeddel == 0 }">
-		          <c:if test="${ noticeList.a_no == 10}">
+		          <c:if test="${ noticeList.b_addinfo == 10}">
 		            <tr>
 		              <td>
 		              	<a href="/notice_board/notice_read" class="title" style="float: left;" 
@@ -244,6 +244,9 @@ $(document).ready(function() {
 			              	[${ localList.a_name }] ${ localList.b_title }&nbsp;
 			              	<c:if test="${ localList.b_readcount >= 10 }"><img src="/resources/img/hot.gif"></c:if>
 			              	</a>
+		           		  </td>
+		           		  <td>
+		           		  	${ localList.b_readcount }
 		           		  </td>
 			              <td><fmt:formatDate value="${ localList.b_createddate }" pattern="yyyy-MM-dd"/></td>
 			            </tr>
