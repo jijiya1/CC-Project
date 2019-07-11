@@ -84,7 +84,7 @@
     });
 </script>
 <head>
-  <title>회원정보 변경</title>
+  <title>의원 정보 등록</title>
 	
 </head>
 
@@ -101,7 +101,7 @@
           <div class="col-lg-8">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">정보 수정</h1>
+                <h1 class="h4 text-gray-900 mb-4">정보 등록</h1>
               </div>
               <form class="user" action="/user_join/update_member_run" method="post" id="updateForm">
                 <div class="form-group row">
@@ -128,7 +128,7 @@
 	                    <input type="text" class="form-control form-control-user" id="joinName" name="u_name" placeholder="이름" value="${memberVo.u_name}" required="required" readonly="readonly">
                 	  </div>
 	               	  <div class="col-sm-5 mb-3 mb-sm-0">
-	               	  	<input type="text" class="form-control form-control-user" id="txtInput" value="정당">
+	               	  	<input type="text" class="form-control form-control-user" id="txtInput" value="정당" readonly="readonly">
                 	  
 	               	  </div>
 	               	  <div class="col-sm-1 mb-3 mb-sm-0">

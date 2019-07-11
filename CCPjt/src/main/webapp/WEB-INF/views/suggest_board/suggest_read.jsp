@@ -201,7 +201,7 @@ $(document).ready(function() {
 							</div>
 							<div class="form-group">
 								<label for="title">작성자</label>
-								<input type="text" class="form-control" id="modal_r_writer"/>
+								<input type="text" class="form-control" id="modal_r_writer" readonly/>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -235,7 +235,7 @@ $(document).ready(function() {
 				<div class="form-group">
 					<label for="u_name">작성자</label>
 					<input type="text" class="form-control" id="u_name"
-						name="u_name" value="${vo.u_name}"readonly/>
+						name="u_name" value="${vo.u_name}(${vo.u_email.substring(0, 3)}***)"readonly/>
 				</div>
 				<div class="form-group">
 					<label for="b_content">글내용</label>
@@ -300,7 +300,7 @@ $(document).ready(function() {
 						
 				<div class="form-group">
 				<label for="title">작성자</label>
-				<input type="text" class="form-control" id="r_writer"/> 
+				<input type="text" class="form-control" id="r_writer" value="${userVo.u_name}" readonly="readonly"/> 
 			</div>
 						
 			<div class="modal-footer">							 
