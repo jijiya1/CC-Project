@@ -152,7 +152,7 @@ public class ReplyController_Discussion {
 		return entity;
 	}
 	
-	// 토론 게신판 댓글에 달린 답글 리스트 가져오기
+	// 토론 게시판 댓글에 달린 답글 리스트 가져오기
 	@RequestMapping(value="/replyComentList/{r_no}", method = RequestMethod.GET)
 	public ResponseEntity<List<ReplyVo_Discussion>> replyComentList(@PathVariable("r_no") int r_no) {
 		ResponseEntity<List<ReplyVo_Discussion>> entity = null;
