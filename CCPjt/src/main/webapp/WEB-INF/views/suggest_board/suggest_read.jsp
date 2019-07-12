@@ -22,6 +22,7 @@ $(document).ready(function() {
 	//삭제
 	$("#btnDel").click(function() {
 		location.href = "/suggest_board/suggest_delete?b_no=${vo.b_no}&a_no=${a_no}";
+		
 	});
 	
 	//목록

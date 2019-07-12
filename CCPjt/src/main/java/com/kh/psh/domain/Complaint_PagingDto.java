@@ -18,8 +18,8 @@ public class Complaint_PagingDto {
 	private void setRow() {
 		startRow = page * perPage - perPage + 1;
 		endRow = startRow + perPage - 1;
-//		System.out.println("startRow : " + startRow);
-//		System.out.println("endRow : " + endRow);
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
 	}
 	public int getPerPage() {
 		return perPage;
