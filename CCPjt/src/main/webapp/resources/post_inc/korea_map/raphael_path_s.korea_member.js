@@ -93,52 +93,52 @@ window.onload = function () {
 						$("#btnSeoul").trigger("click");
 						break;
 					case "gygg":
-						$("#btnSeoul").trigger("click");
+						$("#btnGygg").trigger("click");
 						break;
 					case "incheon":
-						$("#btnSeoul").trigger("click");
+						$("#btnIncheon").trigger("click");
 						break;
 					case "gangwon":
-						$("#btnSeoul").trigger("click");
+						$("#btnGangwon").trigger("click");
 						break;
 					case "chungbuk":
-						$("#btnSeoul").trigger("click");
+						$("#btnChungbuk").trigger("click");
 						break;
 					case "chungnam":
-						$("#btnSeoul").trigger("click");
+						$("#btnChungnam").trigger("click");
 						break;
 					case "daejeon":
-						$("#btnSeoul").trigger("click");
+						$("#btnDaejeon").trigger("click");
 						break;
 					case "sejong":
-						$("#btnSeoul").trigger("click");
+						$("#btnSejong").trigger("click");
 						break;
 					case "jeonbuk":
-						$("#btnSeoul").trigger("click");
+						$("#btnJeonbuk").trigger("click");
 						break;
 					case "gwangju":
-						$("#btnSeoul").trigger("click");
+						$("#btnGwangju").trigger("click");
 						break;
 					case "jeonnam":
-						$("#btnSeoul").trigger("click");
+						$("#btnJeonnam").trigger("click");
 						break;
 					case "gyeongbuk":
-						$("#btnSeoul").trigger("click");
+						$("#btnGyeongbuk").trigger("click");
 						break;
 					case "daegu":
-						$("#btnSeoul").trigger("click");
+						$("#btnDaegu").trigger("click");
 						break;
 					case "gyeongnam":
-						$("#btnSeoul").trigger("click");
+						$("#btnGyeongnam").trigger("click");
 						break;
 					case "ulsan":
-						$("#btnSeoul").trigger("click");
+						$("#btnUlsan").trigger("click");
 						break;
 					case "busan":
-						$("#btnSeoul").trigger("click");
+						$("#btnBusan").trigger("click");
 						break;
 					case "jeju":
-						$("#btnSeoul").trigger("click");
+						$("#btnJeju").trigger("click");
 						break;
 
 					default:

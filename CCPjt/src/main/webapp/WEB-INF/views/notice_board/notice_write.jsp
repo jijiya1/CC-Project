@@ -165,7 +165,7 @@ $(document).ready(function() {
 <!-- 			<button type="button" class="btn btn-primary" id="test">테스트</button> -->
 		</form>
 		<!-- 공지사항 작성 부분 끝 - form -->
-
+<br>
 	</div>
 	<!-- 공지사항 작성 끝 -->
 

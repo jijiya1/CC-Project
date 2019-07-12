@@ -45,6 +45,9 @@ public class HomeController {
 		List<NoticeBoardVo> noticeList = mainService.getNoticeBoardList(pagingDto);
 		model.addAttribute("noticeList", noticeList);
 		
+		List<NoticeBoardVo> getLocalNoticeList = mainService.getLocalNoticeList(pagingDto);
+		model.addAttribute("localList", getLocalNoticeList);
+		
 		return "/main/main";
 		
 	}
