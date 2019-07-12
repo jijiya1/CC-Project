@@ -43,7 +43,6 @@ public class MainController_Discussion {
 		if(discussionList.size() != 0) {
 			int discussionListSize = discussionList.size();
 			String firstDiscussion_b_serialno =  discussionList.get(0).getB_serialno();
-			
 
 			model.addAttribute("discussionListSize", discussionListSize);
 			model.addAttribute("firstDiscussion_b_serialno", firstDiscussion_b_serialno);
