@@ -18,7 +18,7 @@
 	}
 	var checkPw=0;
 	var checkChangePw=0;
-	var checkAdd=0;
+	var checkAdd=1;
 
     function searchAddress() {
         new daum.Postcode({

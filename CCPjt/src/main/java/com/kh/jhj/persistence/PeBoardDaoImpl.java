@@ -67,8 +67,14 @@ public class PeBoardDaoImpl implements IPeBoardDao {
 	}
 
 	@Override
-	public List<PetitionVo> listRunOut(int a_no) throws Exception {
-		List<PetitionVo> peVo = sqlSession.selectList(NAMESPACE + "listRunOut", a_no);
+	public List<PetitionVo> listRunOut(PagingDto pageDto, int a_no) throws Exception {
+			AreaDataVo areaDataVo = new AreaDataVo();
+			areaDataVo.setA_no(a_no);
+	
+		HashMap<String, Object> listMap = new HashMap<>();
+			listMap.put("areaDataVo", areaDataVo);
+			listMap.put("pagingDto", pageDto);
+		List<PetitionVo> peVo = sqlSession.selectList(NAMESPACE + "listRunOut", listMap);
 //		System.out.println("peVo" + peVo);
 		return peVo;
 	}

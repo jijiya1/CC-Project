@@ -117,7 +117,7 @@ $(document).ready(function() {
 						<!-- 작성자 -->
 						<tr style="text-align: center;">
 							<th scope="row" >작성자</th>
-							<td>${selectDiscussion_BoardVo.b_writer}(${selectDiscussion_BoardVo.u_email})</td>
+							<td>${selectDiscussion_BoardVo.b_writer}(${selectDiscussion_BoardVo.u_email.substring(0,3)}***)</td>
 							<th scope="row">작성일</th>
 							<td><fmt:formatDate value="${selectDiscussion_BoardVo.b_createdDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
