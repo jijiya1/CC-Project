@@ -60,9 +60,13 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2">
 							<label style="font-weight : bold">참여인원 | </label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${peVo.b_agree} 명
+							</td>
+							<td colspan="1">
+								<label style="font-weight : bold">작성자 | </label>
+								${peVo.b_writer}
 							</td>
 						</tr>
 						<tr>

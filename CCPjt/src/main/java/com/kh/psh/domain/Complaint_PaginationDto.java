@@ -39,7 +39,6 @@ public class Complaint_PaginationDto {
 		if (endPage != pageCount) {
 			next = true;
 		}
-		
 	}
 	public int getStartPage() {
 		return startPage;

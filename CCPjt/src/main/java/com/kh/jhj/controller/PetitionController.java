@@ -134,11 +134,11 @@ public class PetitionController {
 		int runOutCount = peService.runOutCount(pageDto, a_no);
 		pageDto.setTotalData(runOutCount);
 		
-		List<PetitionVo> pRunOut = peService.listRunOut(a_no);
+		List<PetitionVo> pRunOut = peService.listRunOut(pageDto, a_no);
 		AreaDataVo areaDataVo = noService.getAreaData(a_no);
 		
 			
-		
+		System.out.println(pageDto);
 		model.addAttribute("pRunOut",pRunOut);
 		model.addAttribute("pageDto", pageDto);
 		model.addAttribute("areaDataVo",areaDataVo);

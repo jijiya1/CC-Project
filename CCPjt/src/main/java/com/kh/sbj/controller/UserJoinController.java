@@ -107,13 +107,22 @@ public class UserJoinController {
 		userVo.setU_local(" ");
 		userVo.setU_localextra(" ");
 		userVo.setU_postcode(0);
-		
+		String temp = userVo.getU_photo();
+		int index = temp.indexOf('3');
+		String result = temp.substring(index+2);
+		userVo.setU_photo(result);
+		String u_email = userVo.getU_email();
+		String u_pw = userVo.getU_pw();
+		LoginDto loginDto = new LoginDto(u_email, u_pw);
+				
 		if(checkDuplicate) { //중복(원래가입된회원)
 			userJoinService.updateUser(userVo);
 		}else {//신규
+			userJoinService.updatePw(loginDto);
 			userJoinService.insertUser(userVo);
 		}
-		return "redirect:/login";
+		session.setAttribute("userVo", userVo);
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/update_pw", method = RequestMethod.GET)
