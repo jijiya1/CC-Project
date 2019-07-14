@@ -60,9 +60,13 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2">
 							<label style="font-weight : bold">참여인원 | </label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${peVo.b_agree} 명
+							</td>
+							<td colspan="1">
+								<label style="font-weight : bold">작성자 | </label>
+								${peVo.b_writer}
 							</td>
 						</tr>
 						<tr>
@@ -84,8 +88,21 @@
 							<c:forEach items="${links}" var="link" varStatus="status">
 								
 							<div>
-								<label style="font-weight : bold">첨부 ${status.index+1} :</label>
-								<a href="https://${link}">${link}</a>
+								<label style="font-weight : bold">첨부링크 ${status.index+1} :</label>
+								<c:if test="${fn:length(link)>= 8}">
+								<a href=
+								
+									<c:if test="${link.substring(0, 8) != 'https://'}"> 'https://${link}'</c:if>
+									<c:if test="${link.substring(0, 8) == 'https://'}"> '${link}'</c:if>>
+									
+									<c:if test="${link.substring(0, 8) != 'https://'}"> https://${link}</c:if>
+									<c:if test="${link.substring(0, 8) == 'https://'}"> ${link}</c:if>
+									</a>
+								</c:if>
+								<c:if test="${fn:length(link)< 8}">
+									<input type="text" value="${link}">
+								</c:if>
+								
 							</div>
 							</c:forEach>
 						</div>
@@ -272,8 +289,8 @@ $(document).ready(function(){
 	});		
 			
 	$("#btnList").click(function(){		
-// 		location.href="/petition_board/petitionList?a_no=${areaDataVo.a_no}";	
-		$("#pageForm").submit();	
+		location.href="/petition_board/petitionList?a_no=${areaDataVo.a_no}";	
+// 		$("#pageForm").submit();	
 	});		
 	$("#btnDel").click(function(){		
 		var conDel = confirm("정말 삭제하시겠습니까?");	

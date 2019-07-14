@@ -49,8 +49,8 @@ public class PeBoardServiceImpl implements IPeBoardService {
 	}
 
 	@Override
-	public List<PetitionVo> listRunOut(int a_no) throws Exception {
-		List<PetitionVo> peVo = peBoardDao.listRunOut(a_no);
+	public List<PetitionVo> listRunOut(PagingDto pageDto, int a_no) throws Exception {
+		List<PetitionVo> peVo = peBoardDao.listRunOut(pageDto,a_no);
 		return peVo;
 	}
 

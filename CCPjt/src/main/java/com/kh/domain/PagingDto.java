@@ -13,7 +13,7 @@ public class PagingDto {
 	private int nowPage = 1;
 	private int startPage = 1;
 	private int endPage;
-	private int countPage = 10; // 페이지네이션 버튼 갯수 -> 10일 경우 1~10까지
+	private int countPage = 5; // 페이지네이션 버튼 갯수 -> 10일 경우 1~10까지
 	private boolean prev;
 	private boolean next;
 	

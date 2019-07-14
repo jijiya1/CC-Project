@@ -75,7 +75,7 @@ $(document).ready(function(){
 
 <title>CCPJT - [${ areaDataVo.a_name }] 청원게시판(만료)</title>
 
-<form id="pageForm" action="/petition_board/petitionList">
+<form id="pageForm" action="/petition_board/petitionRunOut">
 	<input type="hidden" name="a_no" value="${param.a_no}">
 	<input type="hidden" name="b_serialno"  value="${param.b_serialno}">
 	<input type="hidden" name="nowPage" value="${pageDto.nowPage}">

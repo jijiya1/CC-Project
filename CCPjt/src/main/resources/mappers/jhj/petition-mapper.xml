@@ -45,16 +45,19 @@
 	
 <!-- 만료된청원보기	 -->
 	<select id="listRunOut" resultType="PetitionVo">
-		select rownum rnum, allList.* 
-		    from (select ad.a_name,dd.d_name, pb.* 
-		                from petition_board pb,area_data ad, detail_data dd
-		                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
-		                	and b_addinfo=ad.a_no
-		                    and b_agree &gt;= 5 and b_addinfo=#{a_no} 
-		                    and b_enddate &lt; sysdate
-		                    and b_delno='N'
-		               ) allList
-	 order by b_no desc, b_enddate desc
+		select * from(
+				select rownum rnum, allList.* 
+				    from (select ad.a_name,dd.d_name, pb.* 
+				                from petition_board pb,area_data ad, detail_data dd
+				                where b_addinfo=dd.a_no and b_detailinfo = dd.d_no 
+				                	and b_addinfo=ad.a_no
+				                    and b_agree &gt;= 5 and b_addinfo=#{areaDataVo.a_no}
+				                    and b_enddate &lt;=sysdate
+				                    and b_delno='N'
+				                     <include refid="search"></include>
+				               order by b_no desc, b_enddate desc) allList
+				        )
+		where rnum &gt;= #{pagingDto.startRow}	and rnum &lt;= #{pagingDto.endRow}
 	</select>
 	
 <!-- 나의 청원보기	 -->
